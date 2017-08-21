@@ -6,7 +6,7 @@
       http://www.springframework.org/schema/context/spring-context.xsd">
 
    <!-- Scans for services -->
-   <context:component-scan base-package="com.wandrell.example.spring_mvc_security_example.service" />
+   <context:component-scan base-package="com.wandrell.example.spring.mvc.security.service" />
 
    <!-- Other services -->
 

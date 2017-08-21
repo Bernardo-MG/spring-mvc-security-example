@@ -14,7 +14,7 @@
    <!-- ============================= CONFIGURATION ============================= -->
 
    <!-- Repositories -->
-   <jpa:repositories base-package="com.wandrell.example.spring_mvc_security_example.repository" />
+   <jpa:repositories base-package="com.wandrell.example.spring.mvc.security.repository" />
 
    <!-- ================================== JPA ================================== -->
 
