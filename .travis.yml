@@ -8,9 +8,7 @@ jdk:
   - oraclejdk8
 env:
   - SERVER=jetty DATABASE=h2 DEPLOY_DOCS=true
-  - SERVER=jetty DATABASE=mysql
   - SERVER=tomcat7 DATABASE=h2
-  - SERVER=tomcat7 DATABASE=mysql
 dist: precise
 
 before_install:
