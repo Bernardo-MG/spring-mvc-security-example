@@ -1,0 +1,44 @@
+<header th:fragment="menu">
+	<nav id="navbar-main" class="navbar navbar-main navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar-main-body"
+					aria-expanded="false" aria-controls="navbar-main">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" th:href="@{/}"
+					th:text="#{application.title}">Webapp title</a>
+
+			</div>
+
+			<div id="navbar-main-body"
+				class="navbar-body navbar-collapse collapse">
+				<small class="navbar-text">v@project.version@</small>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<ul class="list-unstyled icons-list">
+							<li><a href="@project.scm.url@" title="GitHub"
+								aria-label="GitHub"><span class="fa fa-github"
+									aria-hidden="true"></span></a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false"><span th:remove="tag"
+							th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a th:href="@{/entity/list}" th:text="#{label.list}">List</a></li>
+							<li><a th:href="@{/entity/edit}" th:text="#{label.edit}">Edition</a></li>
+							<li><a th:href="@{/entity/pdf}" th:text="#{label.pdf}">PDF</a></li>
+							<li><a th:href="@{/exception/runtime}"
+								th:text="#{label.exception}">Exception</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

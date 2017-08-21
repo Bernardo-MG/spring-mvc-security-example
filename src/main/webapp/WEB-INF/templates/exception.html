@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+
+   <section id="main-section" class="container-fluid">
+      <header class="page-header">
+         <h1>Error <span th:remove="tag"
+                  th:text="${code}">code</span></h1>
+      </header>
+      <p><span th:remove="tag"
+                  th:text="${message}">Exception message</span></p>
+   </section>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xml>
+<Configuration status="WARN">
+
+   <Properties>
+      <Property name="filename">spring-mvc-security-example.log</Property>
+   </Properties>
+
+   <Appenders>
+      <Console name="console" target="SYSTEM_OUT">
+         <PatternLayout pattern="[%p] %d %c %M - %m%n" />
+      </Console>
+
+      <File name="file" fileName="${filename}">
+         <PatternLayout pattern="[%p] %d %c %M - %m%n" />
+      </File>
+   </Appenders>
+
+   <Loggers>
+      <Logger name="com.wandrell.example" level="debug" additivity="false">
+         <AppenderRef ref="file" />
+      </Logger>
+
+      <Root level="error">
+         <AppenderRef ref="file" />
+      </Root>
+   </Loggers>
+
+</Configuration>

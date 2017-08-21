@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head th:fragment="header">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset='utf-8'>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- IE Compatibility tag -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title th:text="#{application.title}">Webapp title</title>
+
+<!-- Metadata -->
+<meta name="description" th:content="${pageDescription}">
+<meta name="keywords" th:content="${pageKeywords}">
+<meta name="author" th:content="${pageAuthor}">
+
+<!-- CSS -->
+<link rel="stylesheet"
+   th:href="@{/static/bootswatch-readable/css/bootstrap.min.css}">
+<link rel="stylesheet"
+   th:href="@{/static/datatables/css/dataTables.bootstrap.min.css}">
+<link rel="stylesheet"
+   th:href="@{/static/font-awesome/css/font-awesome.min.css}">
+<!-- Custom style -->
+<link rel="stylesheet" th:href="@{/static/css/style.min.css}">
+
+<!-- HTML5 Shiv. For IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script th:src="@{/webjars/html5shiv/html5shiv.min.js}"></script>
+    <![endif]-->
+</head>

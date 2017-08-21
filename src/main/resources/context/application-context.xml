@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+   <!-- Properties -->
+   <context:property-placeholder
+      location="classpath:config/persistence-@spring.profile.database@.properties, 
+                   classpath:config/persistence-access.properties" />
+
+   <!-- Imports -->
+   <import resource="classpath:context/persistence.xml" />
+
+   <!-- Database initializer -->
+   <jdbc:initialize-database data-source="dataSource">
+      <jdbc:script location="${jdbc.script.drop}" />
+      <jdbc:script location="${jdbc.script.init}" />
+      <jdbc:script location="${jdbc.script.load}" />
+   </jdbc:initialize-database>
+
+</beans>

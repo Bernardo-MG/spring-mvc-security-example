@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+   <header class="header" th:include="fragments/menu :: menu" />
+
+   <section id="main-section" class="container-fluid">
+      <header class="page-header">
+         <h1 th:text="#{application.title}">Webapp Title</h1>
+      </header>
+      <p>This is the welcome page.</p>
+   </section>
+
+   <footer>
+      <div th:include="fragments/scripts :: general" />
+   </footer>
+</body>
+
+</html>

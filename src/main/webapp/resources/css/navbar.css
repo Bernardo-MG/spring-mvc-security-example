@@ -1,0 +1,12 @@
+/*!
+ * Spring MVC Project navigation bar styles
+ * Copyright 2017 Bernardo Mart�nez Garrido
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * This file contains styles for the navigation bar.
+ */
+
+.navbar {
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+}

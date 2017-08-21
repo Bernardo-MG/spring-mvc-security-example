@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+   <header class="header" th:include="fragments/menu :: menu" />
+
+   <section id="main-section" class="container-fluid">
+      <table class="table table-striped display dataTable">
+         <thead>
+            <tr>
+               <th th:text="#{label.name}">Name</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr th:each="entity : ${entities}">
+               <td><span th:remove="tag"
+                  th:text="${entity?.name}">Name</span></td>
+            </tr>
+         </tbody>
+      </table>
+   </section>
+
+   <footer>
+      <div th:include="fragments/scripts :: general" />
+   </footer>
+</body>
+
+</html>
