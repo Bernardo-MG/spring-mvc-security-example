@@ -7,8 +7,8 @@ jdk:
   # JDK 8 is set to deploy the docs and artifacts
   - oraclejdk8
 env:
-  - SERVER=jetty DATABASE=h2 DEPLOY_DOCS=true
-  - SERVER=tomcat7 DATABASE=h2
+  - SERVER=jetty DEPLOY_DOCS=true
+  - SERVER=tomcat7
 dist: precise
 
 before_install:
@@ -23,7 +23,7 @@ before_script:
   - ~/.scripts/java/maven/create-maven-settings.sh $VERSION_TYPE
 script:
   # Unit and integration tests are run
-  - mvn clean verify -P $DATABASE,$SERVER
+  - mvn clean verify -P $SERVER
 after_success:
   # Documentation deployment script
   - ~/.scripts/java/maven/deploy-site.sh $DO_DEPLOY_DOCS deployment,$SERVER
