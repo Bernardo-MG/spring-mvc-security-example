@@ -323,7 +323,7 @@
       <!-- Maven Site -->
       <site.skin.version>1.0.0</site.skin.version>
       <!-- Testing server -->
-      <server.test.path>/spring-mvc-security-example</server.test.path>
+      <server.test.path>/spring-security</server.test.path>
    </properties>
 
    <!-- ********************************************** -->
