@@ -1,5 +1,6 @@
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
    xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/jdbc
@@ -9,17 +10,17 @@
 
    <!-- Properties -->
    <context:property-placeholder
-      location="classpath:config/persistence-h2.properties, 
+      location="classpath:config/persistence.properties, classpath:config/persistence-h2.properties, 
                    classpath:config/persistence-access.properties" />
 
    <!-- Imports -->
    <import resource="classpath:context/persistence.xml" />
 
-   <!-- Database initializer -->
-   <jdbc:initialize-database data-source="dataSource">
-      <jdbc:script location="${jdbc.script.drop}" />
-      <jdbc:script location="${jdbc.script.init}" />
-      <jdbc:script location="${jdbc.script.load}" />
-   </jdbc:initialize-database>
+   <!-- ======================= LIQUIBASE DB VERSIONING ========================= -->
+
+   <bean id="liquibase" class="${liquibase.integration.class}">
+      <property name="dataSource" ref="dataSource" />
+      <property name="changeLog" value="${liquibase.changelog.path}" />
+   </bean>
 
 </beans>
