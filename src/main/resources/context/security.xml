@@ -19,6 +19,7 @@
          authentication-failure-url="/login?error=true"
          always-use-default-target="true" />
 
+      <logout logout-url="/logout" delete-cookies="JSESSIONID" success-handler-ref="logoutSuccessHandler"/>
    </http>
 
    <authentication-manager>

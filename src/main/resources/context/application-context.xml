@@ -16,6 +16,7 @@
    <!-- Imports -->
    <import resource="classpath:context/persistence.xml" />
    <import resource="classpath:context/security.xml" />
+   <import resource="classpath:context/security-beans.xml" />
 
    <!-- ======================= LIQUIBASE DB VERSIONING ========================= -->
 
