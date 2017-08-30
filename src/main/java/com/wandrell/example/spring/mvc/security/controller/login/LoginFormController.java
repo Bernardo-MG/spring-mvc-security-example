@@ -24,22 +24,13 @@
 
 package com.wandrell.example.spring.mvc.security.controller.login;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wandrell.example.spring.mvc.security.controller.dto.LoginForm;
-import com.wandrell.example.spring.mvc.security.model.persistence.DefaultExampleEntity;
 
 /**
  * Controller for the example entities form view.
@@ -51,12 +42,6 @@ import com.wandrell.example.spring.mvc.security.model.persistence.DefaultExample
 @Controller
 @RequestMapping("/login")
 public class LoginFormController {
-
-    /**
-     * Logger for the service.
-     */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(LoginFormController.class);
 
     /**
      * Constructs a controller with the specified dependencies.
