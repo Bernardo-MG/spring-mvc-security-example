@@ -15,12 +15,12 @@ public class LoginForm {
         return email;
     }
 
-    public void setEmail(final String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public void setEmail(final String email) {
+        this.email = email;
     }
 
     public void setPassword(final String password) {

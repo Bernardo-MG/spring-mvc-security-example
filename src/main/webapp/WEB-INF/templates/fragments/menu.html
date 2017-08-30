@@ -25,18 +25,16 @@
 									aria-hidden="true"></span></a></li>
 						</ul>
 					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span th:remove="tag"
-							th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
-					</a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"><span th:remove="tag"
+								th:text="#{title.examples}">Examples</span> <span aria-hidden="true"></span>
+						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{/entity/list}" th:text="#{label.list}">List</a></li>
-							<li><a th:href="@{/entity/edit}" th:text="#{label.edit}">Edition</a></li>
-							<li><a th:href="@{/entity/pdf}" th:text="#{label.pdf}">PDF</a></li>
-							<li><a th:href="@{/exception/runtime}"
-								th:text="#{label.exception}">Exception</a></li>
-						</ul></li>
+							<li><a th:href="@{/login}" th:text="#{label.loginForm}">Login</a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>

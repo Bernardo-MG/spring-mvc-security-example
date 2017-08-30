@@ -103,7 +103,17 @@ public class LoginFormController {
 
         LOGGER.warn("{} - {}", form.getEmail(), form.getPassword());
 
-        return "welcome";
+        return LoginConstants.VIEW_LOGIN;
+    }
+
+    /**
+     * Persists an entity.
+     * 
+     * @return the next view to show
+     */
+    @GetMapping
+    public final String showForm() {
+        return LoginConstants.VIEW_LOGIN;
     }
 
 }

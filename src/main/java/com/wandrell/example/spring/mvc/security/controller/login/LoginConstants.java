@@ -34,7 +34,12 @@ public final class LoginConstants {
     /**
      * Form bean parameter name.
      */
-    public static final String BEAN_FORM = "form";
+    public static final String BEAN_FORM  = "form";
+
+    /**
+     * Form bean parameter name.
+     */
+    public static final String VIEW_LOGIN = "login";
 
     /**
      * Private constructor to avoid initialization.
