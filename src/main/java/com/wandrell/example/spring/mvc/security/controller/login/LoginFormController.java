@@ -24,8 +24,6 @@
 
 package com.wandrell.example.spring.mvc.security.controller.login;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -41,9 +39,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wandrell.example.spring.mvc.security.controller.dto.LoginForm;
-import com.wandrell.example.spring.mvc.security.controller.entity.bean.ExampleEntityForm;
 import com.wandrell.example.spring.mvc.security.model.persistence.DefaultExampleEntity;
-import com.wandrell.example.spring.mvc.security.service.ExampleEntityService;
 
 /**
  * Controller for the example entities form view.
@@ -79,31 +75,6 @@ public class LoginFormController {
     @ModelAttribute(LoginConstants.BEAN_FORM)
     public final LoginForm getEntityForm() {
         return new LoginForm();
-    }
-
-    /**
-     * Persists an entity.
-     * 
-     * @param model
-     *            model map
-     * @param form
-     *            form data
-     * @param bindingResult
-     *            binding result
-     * @param session
-     *            HTTP session
-     * @return the next view to show
-     */
-    @PostMapping
-    public final String saveEntity(final ModelMap model,
-            @ModelAttribute(LoginConstants.BEAN_FORM) @Valid final LoginForm form,
-            final BindingResult bindingResult, final HttpSession session) {
-        final String path;
-        final DefaultExampleEntity entity;
-
-        LOGGER.warn("{} - {}", form.getEmail(), form.getPassword());
-
-        return LoginConstants.VIEW_LOGIN;
     }
 
     /**

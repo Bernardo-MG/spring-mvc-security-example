@@ -6,5 +6,7 @@
       http://www.springframework.org/schema/context/spring-context.xsd">
 
    <bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler" />
+   
+   <bean id="authenticationProvider" class="com.wandrell.example.spring.mvc.security.auth.SimpleAuthenticationProvider" />
 
 </beans>

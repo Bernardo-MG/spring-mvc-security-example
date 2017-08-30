@@ -15,7 +15,7 @@
       <csrf disabled="true" />
 
       <form-login login-page='/login'
-         login-processing-url="login" default-target-url="/"
+         login-processing-url="/login" default-target-url="/"
          authentication-failure-url="/login?error=true"
          always-use-default-target="true" />
 
@@ -23,13 +23,7 @@
    </http>
 
    <authentication-manager>
-      <authentication-provider>
-         <user-service>
-            <user name="user1" password="user1Pass" authorities="ROLE_USER" />
-            <user name="user2" password="user2Pass" authorities="ROLE_USER" />
-            <user name="admin" password="adminPass" authorities="ROLE_ADMIN" />
-         </user-service>
-      </authentication-provider>
+      <authentication-provider ref="authenticationProvider" />
    </authentication-manager>
 
 </beans:beans>
