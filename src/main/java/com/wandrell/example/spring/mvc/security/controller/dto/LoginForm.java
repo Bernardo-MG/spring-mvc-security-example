@@ -1,10 +1,14 @@
 
 package com.wandrell.example.spring.mvc.security.controller.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class LoginForm {
 
+    @NotNull
     private String email;
 
+    @NotNull
     private String password;
 
     public LoginForm() {
