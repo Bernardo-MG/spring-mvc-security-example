@@ -303,6 +303,7 @@
       <servlet.version>3.1.0</servlet.version>
       <slf4j.version>1.7.25</slf4j.version>
       <spring.data.version>1.11.6.RELEASE</spring.data.version>
+      <spring.security.version>4.2.3.RELEASE</spring.security.version>
       <spring.version>4.3.10.RELEASE</spring.version>
       <testng.version>6.11</testng.version>
       <thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
@@ -336,6 +337,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-framework-bom</artifactId>
             <version>${spring.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-bom</artifactId>
+            <version>${spring.security.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -396,6 +404,17 @@
          <!-- Spring ORM -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-orm</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ============== SPRING SECURITY =============== -->
+      <!-- ============================================== -->
+      <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-web</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-config</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
