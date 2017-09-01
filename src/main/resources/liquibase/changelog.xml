@@ -15,6 +15,15 @@
          <column name="password" type="VARCHAR(50)">
             <constraints nullable="false" />
          </column>
+         <column name="enabled" type="boolean" defaultValue="true">
+            <constraints nullable="false" />
+         </column>
+         <column name="locked" type="boolean" defaultValue="false">
+            <constraints nullable="false" />
+         </column>
+         <column name="expired" type="boolean" defaultValue="false">
+            <constraints nullable="false" />
+         </column>
       </createTable>
    </changeSet>
 
