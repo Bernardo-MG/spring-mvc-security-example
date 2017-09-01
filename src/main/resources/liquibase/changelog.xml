@@ -5,28 +5,23 @@
    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
    <changeSet author="Bernardo" id="initial_tables">
-      <createTable tableName="example_entities">
+      <createTable tableName="users">
          <column autoIncrement="true" name="id" type="BIGINT">
             <constraints primaryKey="true" />
          </column>
-         <column name="name" type="VARCHAR(30)">
+         <column name="name" type="VARCHAR(50)">
             <constraints nullable="false" unique="true" />
+         </column>
+         <column name="password" type="VARCHAR(50)">
+            <constraints nullable="false" />
          </column>
       </createTable>
    </changeSet>
 
    <changeSet author="Bernardo" id="initial_data">
-      <insert tableName="example_entities">
-         <column name="name">entity_1</column>
-         <column name="name">entity_2</column>
-         <column name="name">entity_3</column>
-         <column name="name">entity_4</column>
-         <column name="name">entity_5</column>
-         <column name="name">entity_6</column>
-         <column name="name">entity_7</column>
-         <column name="name">entity_8</column>
-         <column name="name">entity_9</column>
-         <column name="name">entity_10</column>
+      <insert tableName="users">
+         <column name="name">username</column>
+         <column name="password">12345</column>
       </insert>
    </changeSet>
 

@@ -9,7 +9,9 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.stereotype.Component;
 
+@Component("authenticationProvider")
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
     /**
@@ -17,6 +19,10 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(SimpleAuthenticationProvider.class);
+
+    public SimpleAuthenticationProvider() {
+        super();
+    }
 
     @Override
     public Authentication authenticate(final Authentication authentication)

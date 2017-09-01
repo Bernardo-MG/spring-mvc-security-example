@@ -12,18 +12,20 @@
       <intercept-url pattern="/login*" access="permitAll" />
       <intercept-url pattern="/**" access="isAuthenticated()" />
 
-      <csrf disabled="true" />
+      <csrf />
 
-      <form-login login-page='/login'
-         login-processing-url="/login" default-target-url="/"
-         authentication-failure-url="/login?error=true"
+      <form-login login-page='/login' login-processing-url="/login"
+         default-target-url="/" authentication-failure-url="/login?error=true"
          always-use-default-target="true" />
 
-      <logout logout-url="/logout" delete-cookies="JSESSIONID" success-handler-ref="logoutSuccessHandler"/>
+      <logout logout-url="/logout" delete-cookies="JSESSIONID"
+         success-handler-ref="logoutSuccessHandler" />
    </http>
 
    <authentication-manager>
-      <authentication-provider ref="authenticationProvider" />
+      <authentication-provider user-service-ref="userDetailsService">
+         <!-- <password-encoder ref="passwordEncoder" /> -->
+      </authentication-provider>
    </authentication-manager>
 
 </beans:beans>
