@@ -33,11 +33,6 @@ public class PersistentUserDetailsService implements UserDetailsService {
                 "Received a null pointer as repository");
     }
 
-    private final PersistentUserDetailsRepository
-            getPersistentUserDetailsRepository() {
-        return userRepo;
-    }
-
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
@@ -55,6 +50,11 @@ public class PersistentUserDetailsService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    private final PersistentUserDetailsRepository
+            getPersistentUserDetailsRepository() {
+        return userRepo;
     }
 
 }

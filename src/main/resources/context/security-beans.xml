@@ -5,9 +5,6 @@
       http://www.springframework.org/schema/context 
       http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <bean id="logoutSuccessHandler"
-      class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler" />
-
    <bean id="passwordEncoder"
       class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
