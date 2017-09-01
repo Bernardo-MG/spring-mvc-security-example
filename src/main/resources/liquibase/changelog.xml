@@ -4,7 +4,7 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-   <changeSet author="Bernardo" id="initial_tables">
+   <changeSet author="Bernardo" id="security_tables">
       <createTable tableName="users">
          <column autoIncrement="true" name="id" type="BIGINT">
             <constraints primaryKey="true" />
