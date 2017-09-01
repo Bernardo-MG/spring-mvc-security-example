@@ -13,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 public class SimpleAuthenticationProvider implements AuthenticationProvider {
 
     /**
-     * Logger for the service.
+     * Logger.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(SimpleAuthenticationProvider.class);
@@ -24,7 +24,7 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
         final String name = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
-        LOGGER.warn("{} - {}", name, password);
+        LOGGER.debug("Received name {} and password {}", name, password);
 
         return new UsernamePasswordAuthenticationToken(name, password,
                 new ArrayList<>());
@@ -34,4 +34,5 @@ public class SimpleAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(final Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
+
 }
