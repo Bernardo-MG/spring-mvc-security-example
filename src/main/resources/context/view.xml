@@ -22,6 +22,11 @@
          </set>
       </property>
       <property name="enableSpringELCompiler" value="true" />
+      <property name="additionalDialects">
+        <set>
+          <bean class="${template.dialect.security.class}"/>
+        </set>
+      </property>
    </bean>
 
    <bean id="thymeleafViewResolver" class="${template.viewResolver.class}">

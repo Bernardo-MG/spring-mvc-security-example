@@ -25,7 +25,7 @@
 									aria-hidden="true"></span></a></li>
 						</ul>
 					</li>
-					<li>
+					<li sec:authorize="isAuthenticated()">
 						<ul class="list-unstyled icons-list">
 							<li>
 								<form th:action="@{/logout}" method="POST">

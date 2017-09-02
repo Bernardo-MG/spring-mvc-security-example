@@ -307,6 +307,7 @@
       <spring.version>4.3.10.RELEASE</spring.version>
       <testng.version>6.11</testng.version>
       <thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
+      <thymeleaf.spring.security.version>3.0.2.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
       <webjars.bootswatch.version>3.3.5+4</webjars.bootswatch.version>
       <webjars.datatables.version>1.10.12-1</webjars.datatables.version>
@@ -473,6 +474,11 @@
          <groupId>org.thymeleaf</groupId>
          <artifactId>thymeleaf-spring4</artifactId>
          <version>${thymeleaf.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.thymeleaf.extras</groupId>
+         <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+         <version>${thymeleaf.spring.security.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JASPERREPORTS ================= -->
