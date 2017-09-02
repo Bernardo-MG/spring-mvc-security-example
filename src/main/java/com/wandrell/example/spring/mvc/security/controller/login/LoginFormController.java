@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.wandrell.example.spring.mvc.security.controller.dto.LoginForm;
-
 /**
  * Controller for the example entities form view.
  * <p>
@@ -52,16 +50,6 @@ public class LoginFormController {
     public LoginFormController() {
         super();
 
-    }
-
-    /**
-     * Returns the initial Sponsor form data.
-     * 
-     * @return the initial Sponsor form data
-     */
-    @ModelAttribute(LoginConstants.BEAN_FORM)
-    public final LoginForm getEntityForm() {
-        return new LoginForm();
     }
 
     /**
