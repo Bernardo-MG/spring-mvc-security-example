@@ -29,8 +29,8 @@
 
    <changeSet author="Bernardo" id="initial_data">
       <insert tableName="users">
-         <column name="name">username</column>
-         <column name="password">12345</column>
+         <column name="name">admin</column>
+         <column name="password">1234</column>
       </insert>
    </changeSet>
 
