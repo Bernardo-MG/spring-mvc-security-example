@@ -7,7 +7,7 @@
       http://www.springframework.org/schema/beans 
       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-   <http use-expressions="true">
+   <http>
       <intercept-url pattern="/static/**" access="permitAll" />
       <intercept-url pattern="/login*" access="permitAll" />
       <intercept-url pattern="/**" access="isAuthenticated()" />

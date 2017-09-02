@@ -24,12 +24,17 @@
 
 package com.wandrell.example.spring.mvc.security.controller.login;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wandrell.example.spring.mvc.security.auth.PersistentUserDetailsService;
 import com.wandrell.example.spring.mvc.security.controller.dto.LoginForm;
 
 /**
@@ -65,10 +70,18 @@ public class LoginFormController {
     /**
      * Persists an entity.
      * 
+     * @param model
+     *            data model
+     * @param error
+     *            indicates an error on login
      * @return the next view to show
      */
     @GetMapping
-    public final String showForm() {
+    public final String showForm(final Model model,
+            @RequestParam(name = "error", required = false,
+                    defaultValue = "false") final Boolean error) {
+        model.addAttribute("error", error);
+
         return LoginConstants.VIEW_LOGIN;
     }
 
