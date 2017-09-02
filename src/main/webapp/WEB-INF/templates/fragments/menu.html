@@ -25,17 +25,25 @@
 									aria-hidden="true"></span></a></li>
 						</ul>
 					</li>
-					<li><a th:href="@{/logout}">Logout</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><span th:remove="tag"
-								th:text="#{title.examples}">Examples</span> <span aria-hidden="true"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{/login}">Login</a></li>
+					<li>
+						<ul class="list-unstyled icons-list">
+							<li>
+								<form th:action="@{/logout}" method="POST">
+									<button type="submit" class="linkButton">
+										<span class="fa fa-sign-out"></span>
+									</button>
+								</form>
+							</li>
 						</ul>
 					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false"><span th:remove="tag"
+							th:text="#{title.examples}">Examples</span> <span
+							aria-hidden="true"></span> </a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a th:href="@{/login}">Login</a></li>
+						</ul></li>
 				</ul>
 			</div>
 		</div>
