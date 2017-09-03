@@ -8,7 +8,7 @@
 
 	<section id="main-section" class="container-fluid">
 		<header class="page-header">
-			<h1 th:text="#{title.login}">Login Title</h1>
+			<h1>Login</h1>
 		</header>
 		<form th:action="@{/login}" method="post" class="form-horizontal">
          <div class="alert alert-danger" role="alert" th:if="${error}">Wrong user or password</div>
