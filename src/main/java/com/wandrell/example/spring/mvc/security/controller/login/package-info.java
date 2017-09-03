@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 /**
- * Controller classes.
+ * Login controller.
  * <p>
- * These adapt the communication with the views.
+ * Takes care of setting up the login view.
  */
 
-package com.wandrell.example.spring.mvc.security.controller;
+package com.wandrell.example.spring.mvc.security.controller.login;

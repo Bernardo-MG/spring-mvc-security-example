@@ -22,9 +22,7 @@
  * SOFTWARE.
  */
 /**
- * Controller classes.
- * <p>
- * These adapt the communication with the views.
+ * Security entities.
  */
 
-package com.wandrell.example.spring.mvc.security.controller;
+package com.wandrell.example.spring.mvc.security.persistence.model;

@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 /**
- * Controller classes.
+ * Authentication classes.
  * <p>
- * These adapt the communication with the views.
+ * Components used as part of the authentication procedure.
  */
 
-package com.wandrell.example.spring.mvc.security.controller;
+package com.wandrell.example.spring.mvc.security.auth;
