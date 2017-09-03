@@ -25,14 +25,14 @@
 package com.wandrell.example.spring.mvc.security.controller.login;
 
 /**
- * Constants for the example entity view controllers.
+ * Constants for the login controllers.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public final class LoginConstants {
 
     /**
-     * Form bean parameter name.
+     * Login view.
      */
     public static final String VIEW_LOGIN = "login";
 

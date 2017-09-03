@@ -28,38 +28,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Controller for the example entities form view.
+ * Controller for the login view.
  * <p>
- * This serves as an adapter between the UI and the services layer.
+ * It takes care of setting upt the view for the login form. But it doesn't
+ * handle the login procedure, that is taken care by Spring security.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
 @RequestMapping("/login")
-public class LoginFormController {
+public final class LoginFormController {
 
     /**
-     * Constructs a controller with the specified dependencies.
+     * Constructs a login controller.
      */
     @Autowired
     public LoginFormController() {
         super();
-
     }
 
     /**
-     * Persists an entity.
+     * Shows the login form.
+     * <p>
+     * It also handles the boolean parameter which indicates if there was an
+     * error during login. This parameter is sent to the view, which will show a
+     * warning.
      * 
      * @param model
      *            data model
      * @param error
-     *            indicates an error on login
-     * @return the next view to show
+     *            indicates an error during login
+     * @return the login form view
      */
     @GetMapping
     public final String showForm(final Model model,
