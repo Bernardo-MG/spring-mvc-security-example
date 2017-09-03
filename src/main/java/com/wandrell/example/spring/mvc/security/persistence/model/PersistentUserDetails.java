@@ -173,51 +173,51 @@ public class PersistentUserDetails implements UserDetails {
     /**
      * Sets the user enabled flag.
      * 
-     * @param enabled
+     * @param flag
      *            the user enabled flag
      */
-    public void setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
+    public void setEnabled(final Boolean flag) {
+        enabled = flag;
     }
 
     /**
      * Sets the user expired flag.
      * 
-     * @param expired
+     * @param flag
      *            the user expired flag
      */
-    public void setExpired(final Boolean expired) {
-        this.expired = expired;
+    public void setExpired(final Boolean flag) {
+        expired = flag;
     }
 
     /**
      * Sets the user locked flag.
      * 
-     * @param locked
+     * @param flag
      *            the user locked flag
      */
-    public void setLocked(final Boolean locked) {
-        this.locked = locked;
+    public void setLocked(final Boolean flag) {
+        locked = flag;
     }
 
     /**
      * Sets the user password.
      * 
-     * @param password
+     * @param pass
      *            the user password
      */
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setPassword(final String pass) {
+        password = pass;
     }
 
     /**
      * Sets the user name.
      * 
-     * @param username
+     * @param name
      *            the user name
      */
-    public void setUsername(final String username) {
-        this.username = username;
+    public void setUsername(final String name) {
+        username = name;
     }
 
 }

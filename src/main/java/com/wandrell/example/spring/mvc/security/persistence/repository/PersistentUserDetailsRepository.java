@@ -38,7 +38,7 @@ public interface PersistentUserDetailsRepository
         extends JpaRepository<PersistentUserDetails, Long> {
 
     /**
-     * Returns the user details for the received username
+     * Returns the user details for the received username.
      * 
      * @param username
      *            username to search for

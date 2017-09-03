@@ -66,6 +66,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      * Constructs a user details service.
      * 
      * @param userRepository
+     *            repository for user details
      */
     @Autowired
     public PersistentUserDetailsService(
