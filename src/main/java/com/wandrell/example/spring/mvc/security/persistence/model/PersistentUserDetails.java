@@ -183,7 +183,7 @@ public class PersistentUserDetails implements UserDetails {
     /**
      * Sets the user expired flag.
      * 
-     * @param enabled
+     * @param expired
      *            the user expired flag
      */
     public void setExpired(final Boolean expired) {
@@ -193,7 +193,7 @@ public class PersistentUserDetails implements UserDetails {
     /**
      * Sets the user locked flag.
      * 
-     * @param enabled
+     * @param locked
      *            the user locked flag
      */
     public void setLocked(final Boolean locked) {
@@ -213,7 +213,7 @@ public class PersistentUserDetails implements UserDetails {
     /**
      * Sets the user name.
      * 
-     * @param password
+     * @param username
      *            the user name
      */
     public void setUsername(final String username) {
