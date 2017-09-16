@@ -1,21 +1,19 @@
 # Usage
 
-The project requires a database and a server.
-
-By default it uses an H2 in-memory database and it can be run locally, using an embedded server, by using Maven profiles.
+The project requires a database and a server. But the included Maven profiles allow running it locally for development.
 
 ## Run the project
 
-To run the project locally deploying to Jetty:
+To run the project locally in Jetty:
 
 ```
 $ mvn jetty:run-war -P jetty
 ```
 
-To run the project with an embedded Tomcat:
+An embedded Tomcat can be used through this other profile:
 
 ```
 $ mvn tomcat7:run-war -P tomcat7
 ```
 
-With this the project will be accessible at [http://localhost:8080/${server.test.path}/].
+This makes the project be accessible at [http://localhost:8080/${server.test.path}/].
