@@ -72,7 +72,7 @@ public class PersistentUserDetails implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private final Long        id               = null;
+    private Long              id;
 
     /**
      * User locked flag.
@@ -188,6 +188,16 @@ public class PersistentUserDetails implements UserDetails {
      */
     public void setExpired(final Boolean flag) {
         expired = flag;
+    }
+
+    /**
+     * Sets the user id.
+     * 
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier) {
+        id = identifier;
     }
 
     /**
