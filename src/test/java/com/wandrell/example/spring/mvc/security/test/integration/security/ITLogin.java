@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.wandrell.example.spring.mvc.security.test.integration;
+package com.wandrell.example.spring.mvc.security.test.integration.security;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
