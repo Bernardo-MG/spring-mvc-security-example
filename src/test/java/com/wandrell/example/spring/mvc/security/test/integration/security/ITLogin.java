@@ -40,40 +40,66 @@ import org.springframework.web.context.WebApplicationContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Integration tests for the login procedure.
+ * <p>
+ * Verifies that the login URL handles login attempts.
+ * 
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITLogin extends AbstractTestNGSpringContextTests {
+public final class ITLogin extends AbstractTestNGSpringContextTests {
 
+    /**
+     * Mock MVC for the requests.
+     */
     private MockMvc               mockMvc;
 
+    /**
+     * Web application context.
+     */
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    /**
+     * Default constructor.
+     */
     public ITLogin() {
         super();
     }
 
+    /**
+     * Verifies that using an invalid user name fails the login.
+     */
     @Test
-    public void login_InvalidUser_Unauthenticated() throws Exception {
-        final FormLoginRequestBuilder login;
+    public final void login_InvalidUser_Unauthenticated() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("abc").password("1234");
 
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
+    /**
+     * Verifies that using a valid user name allows to login.
+     */
     @Test
-    public void login_ValidUser_Authenticated() throws Exception {
-        final FormLoginRequestBuilder login;
+    public final void login_ValidUser_Authenticated() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("admin").password("1234");
 
         mockMvc.perform(login).andExpect(authenticated().withUsername("admin"));
     }
 
+    /**
+     * Sets up the mock MVC.
+     */
     @BeforeMethod
-    public void setup() {
+    public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
     }
