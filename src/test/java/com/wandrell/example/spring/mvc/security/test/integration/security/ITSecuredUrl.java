@@ -96,7 +96,18 @@ public class ITSecuredUrl extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void testHome_requiresAuthentication() throws Exception {
+        // Home redirects to the login view
         mockMvc.perform(get("/")).andExpect(status().isFound())
+                .andExpect(unauthenticated());
+    }
+
+    /**
+     * Verifies that the static resources URL allows anonymous access.
+     */
+    @Test
+    public void testStatic_requiresAuthentication() throws Exception {
+        // Allowed to access, but no resource found
+        mockMvc.perform(get("/static/")).andExpect(status().isNotFound())
                 .andExpect(unauthenticated());
     }
 
