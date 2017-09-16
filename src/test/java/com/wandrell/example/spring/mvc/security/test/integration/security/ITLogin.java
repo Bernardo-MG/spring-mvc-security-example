@@ -28,6 +28,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.FormLoginRequestBuilder;
@@ -78,6 +79,31 @@ public final class ITLogin extends AbstractTestNGSpringContextTests {
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
+    }
+
+    /**
+     * Verifies that using an invalid user name fails the login.
+     */
+    @Test
+    public final void testLogin_InvalidPassword_Unauthenticated()
+            throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("admin").password("abc");
+
+        mockMvc.perform(login).andExpect(unauthenticated());
+    }
+
+    /**
+     * Verifies that using an invalid user redirects to the login error URL.
+     */
+    @Test
+    public final void testLogin_InvalidUser_ErrorRedirect() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("abc").password("1234");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
     /**
