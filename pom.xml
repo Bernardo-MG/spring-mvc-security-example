@@ -639,6 +639,12 @@
          <scope>test</scope>
       </dependency>
       <dependency>
+         <!-- Spring Security Test -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
          <!-- TestNG -->
          <groupId>org.testng</groupId>
          <artifactId>testng</artifactId>
