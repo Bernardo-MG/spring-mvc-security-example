@@ -292,6 +292,7 @@
       <glassfish.el>2.2</glassfish.el>
       <guava.version>22.0</guava.version>
       <h2.version>1.4.192</h2.version>
+      <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.10.Final</hibernate.version>
       <hikari.version>2.6.3</hikari.version>
@@ -310,7 +311,6 @@
       <thymeleaf.spring.security.version>3.0.2.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
       <webjars.bootswatch.version>3.3.5+4</webjars.bootswatch.version>
-      <webjars.datatables.version>1.10.12-1</webjars.datatables.version>
       <webjars.fontAwesome.version>4.6.3</webjars.fontAwesome.version>
       <webjars.html5shiv.version>3.7.3</webjars.html5shiv.version>
       <webjars.jquery.version>2.2.4</webjars.jquery.version>
@@ -335,6 +335,7 @@
    <dependencyManagement>
       <dependencies>
          <dependency>
+            <!-- Spring Framework BOM -->
             <groupId>org.springframework</groupId>
             <artifactId>spring-framework-bom</artifactId>
             <version>${spring.version}</version>
@@ -342,6 +343,7 @@
             <scope>import</scope>
          </dependency>
          <dependency>
+            <!-- Spring Security BOM -->
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-bom</artifactId>
             <version>${spring.security.version}</version>
@@ -397,6 +399,11 @@
          <artifactId>spring-tx</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Web -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-web</artifactId>
+      </dependency>
+      <dependency>
          <!-- Spring Web MVC -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-webmvc</artifactId>
@@ -410,12 +417,19 @@
       <!-- ============== SPRING SECURITY =============== -->
       <!-- ============================================== -->
       <dependency>
+         <!-- Spring Web Security -->
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-web</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Security Config -->
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-config</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring Security Core -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-core</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
@@ -437,6 +451,12 @@
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
          <version>${hibernate.validator.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Hibernate validator -->
+         <groupId>org.hibernate.javax.persistence</groupId>
+         <artifactId>hibernate-jpa-2.1-api</artifactId>
+         <version>${hibernate.jpa.version}</version>
       </dependency>
       <dependency>
          <!-- Hikari CP -->
@@ -535,12 +555,6 @@
          <version>${webjars.bootswatch.version}</version>
       </dependency>
       <dependency>
-         <!-- Datatables -->
-         <groupId>org.webjars</groupId>
-         <artifactId>datatables</artifactId>
-         <version>${webjars.datatables.version}</version>
-      </dependency>
-      <dependency>
          <!-- Font Awesome -->
          <groupId>org.webjars</groupId>
          <artifactId>font-awesome</artifactId>
@@ -636,6 +650,12 @@
          <!-- Spring Test -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <!-- Spring Security Test -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-test</artifactId>
          <scope>test</scope>
       </dependency>
       <dependency>

@@ -11,6 +11,23 @@
 			<h1>Spring MVC Security Example</h1>
 		</header>
 		<p>Test application for Spring MVC with security</p>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Logged user data</h3>
+			</div>
+			<div class="panel-body">
+				<dl>
+					<dt>Username</dt>
+					<dd>
+						<span sec:authentication="name">Bob</span>
+					</dd>
+					<dt>Roles</dt>
+					<dd>
+						<span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
 	</section>
 
 	<footer>
