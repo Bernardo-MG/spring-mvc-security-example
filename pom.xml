@@ -292,6 +292,7 @@
       <glassfish.el>2.2</glassfish.el>
       <guava.version>22.0</guava.version>
       <h2.version>1.4.192</h2.version>
+      <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.10.Final</hibernate.version>
       <hikari.version>2.6.3</hikari.version>
@@ -335,6 +336,7 @@
    <dependencyManagement>
       <dependencies>
          <dependency>
+            <!-- Spring Framework BOM -->
             <groupId>org.springframework</groupId>
             <artifactId>spring-framework-bom</artifactId>
             <version>${spring.version}</version>
@@ -342,6 +344,7 @@
             <scope>import</scope>
          </dependency>
          <dependency>
+            <!-- Spring Security BOM -->
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-bom</artifactId>
             <version>${spring.security.version}</version>
@@ -397,6 +400,11 @@
          <artifactId>spring-tx</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Web -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-web</artifactId>
+      </dependency>
+      <dependency>
          <!-- Spring Web MVC -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-webmvc</artifactId>
@@ -410,12 +418,19 @@
       <!-- ============== SPRING SECURITY =============== -->
       <!-- ============================================== -->
       <dependency>
+         <!-- Spring Web Security -->
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-web</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Security Config -->
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-config</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring Security Core -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-core</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
@@ -437,6 +452,12 @@
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
          <version>${hibernate.validator.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Hibernate validator -->
+         <groupId>org.hibernate.javax.persistence</groupId>
+         <artifactId>hibernate-jpa-2.1-api</artifactId>
+         <version>${hibernate.jpa.version}</version>
       </dependency>
       <dependency>
          <!-- Hikari CP -->
