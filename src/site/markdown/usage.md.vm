@@ -1,8 +1,9 @@
-# Usage
+#set( $symbol_pound = '#' )
+${symbol_pound} Usage
 
-The project requires a database and a server. But the included Maven profiles allow running it locally for development.
+The project requires a database and a server. But the included Maven profiles allow running it locally.
 
-## Run the project
+${symbol_pound}${symbol_pound} Running the project locally
 
 To run the project locally in Jetty:
 
@@ -16,4 +17,4 @@ An embedded Tomcat can be used through this other profile:
 $ mvn tomcat7:run-war -P tomcat7
 ```
 
-This makes the project be accessible at [http://localhost:8080/${server.test.path}/].
+This makes the project be accessible at [http://localhost:8080${serverTestPath}/](http://localhost:8080${serverTestPath}/).
