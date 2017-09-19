@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
    xsi:schemaLocation="http://www.springframework.org/schema/beans 
       http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -14,7 +15,8 @@
    <!-- ============================= CONFIGURATION ============================= -->
 
    <!-- Repositories -->
-   <jpa:repositories base-package="com.wandrell.example.spring.mvc.security.persistence.repository" />
+   <jpa:repositories
+      base-package="com.wandrell.example.spring.mvc.security.persistence.repository" />
 
    <!-- ================================== JPA ================================== -->
 

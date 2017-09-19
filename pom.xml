@@ -379,6 +379,11 @@
       <!-- ================== SPRING ==================== -->
       <!-- ============================================== -->
       <dependency>
+         <!-- Spring AOP -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-aop</artifactId>
+      </dependency>
+      <dependency>
          <!-- Spring beans -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-beans</artifactId>
