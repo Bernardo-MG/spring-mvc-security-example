@@ -31,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.wandrell.example.spring.mvc.security.service.RoleSecuredService;
 
 /**
@@ -58,15 +59,15 @@ public final class RoleSecuredController {
                 "Received a null pointer as secured service");
     }
 
-    private final RoleSecuredService getRoleSecuredService() {
-        return roleSecuredService;
-    }
-
     @GetMapping("/admin")
     public final String showAdminPage(final Model model) {
         getRoleSecuredService().adminMethod();
 
         return "role/admin";
+    }
+
+    private final RoleSecuredService getRoleSecuredService() {
+        return roleSecuredService;
     }
 
 }
