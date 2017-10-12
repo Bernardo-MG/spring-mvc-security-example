@@ -50,6 +50,9 @@ public final class RoleSecuredController {
 
     /**
      * Constructs a login controller.
+     * 
+     * @param securedService
+     *            secured service
      */
     @Autowired
     public RoleSecuredController(final RoleSecuredService securedService) {
