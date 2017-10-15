@@ -23,6 +23,9 @@
  */
 /**
  * Security entities.
+ * <p>
+ * These include persistent implementations of {@code UserDetails} and
+ * {@code GrantedAuthority}.
  */
 
 package com.wandrell.example.spring.mvc.security.persistence.model;
