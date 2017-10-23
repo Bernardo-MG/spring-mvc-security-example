@@ -304,19 +304,18 @@
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el>2.2</glassfish.el>
       <guava.version>22.0</guava.version>
-      <h2.version>1.4.192</h2.version>
+      <h2.version>1.4.196</h2.version>
       <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.10.Final</hibernate.version>
-      <hikari.version>2.6.3</hikari.version>
+      <hikari.version>2.7.2</hikari.version>
       <jackson.version>2.9.2</jackson.version>
-      <jasperreports.version>6.4.1</jasperreports.version>
       <junit.jupiter.version>5.0.1</junit.jupiter.version>
       <junit.platform.version>1.0.1</junit.platform.version>
       <liquibase.version>3.5.3</liquibase.version>
       <log4j.version>2.8.2</log4j.version>
       <mockito.version>1.10.19</mockito.version>
-      <servlet.version>3.1.0</servlet.version>
+      <servlet.version>4.0.0</servlet.version>
       <slf4j.version>1.7.25</slf4j.version>
       <spring.data.version>2.0.0.RELEASE</spring.data.version>
       <spring.security.version>4.2.3.RELEASE</spring.security.version>
@@ -527,14 +526,6 @@
          <groupId>org.thymeleaf.extras</groupId>
          <artifactId>thymeleaf-extras-springsecurity4</artifactId>
          <version>${thymeleaf.spring.security.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ============== JASPERREPORTS ================= -->
-      <!-- ============================================== -->
-      <dependency>
-         <groupId>net.sf.jasperreports</groupId>
-         <artifactId>jasperreports</artifactId>
-         <version>${jasperreports.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ SERVLET ===================== -->
