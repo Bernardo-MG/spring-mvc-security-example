@@ -30,16 +30,21 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.FormLoginRequestBuilder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
  * Integration tests for the login procedure.
@@ -49,10 +54,13 @@ import org.testng.annotations.Test;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@RunWith(JUnitPlatform.class)
+@ExtendWith(SpringExtension.class)
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public final class ITLogin extends AbstractTestNGSpringContextTests {
+public final class ITLogin {
 
     /**
      * Mock MVC for the requests.
@@ -75,7 +83,7 @@ public final class ITLogin extends AbstractTestNGSpringContextTests {
     /**
      * Sets up the mock MVC.
      */
-    @BeforeMethod
+    @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
