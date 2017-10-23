@@ -305,11 +305,11 @@
       <glassfish.el>2.2</glassfish.el>
       <guava.version>22.0</guava.version>
       <h2.version>1.4.196</h2.version>
-      <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.10.Final</hibernate.version>
       <hikari.version>2.7.2</hikari.version>
       <jackson.version>2.9.2</jackson.version>
+      <javaee.api.version>2.2</javaee.api.version>
       <junit.jupiter.version>5.0.1</junit.jupiter.version>
       <junit.platform.version>1.0.1</junit.platform.version>
       <liquibase.version>3.5.3</liquibase.version>
@@ -459,6 +459,15 @@
          <artifactId>spring-security-core</artifactId>
       </dependency>
       <!-- ============================================== -->
+      <!-- ============== JPA DEPENDENCIES ============== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- JPA API -->
+         <groupId>javax.persistence</groupId>
+         <artifactId>javax.persistence-api</artifactId>
+         <version>${javaee.api.version}</version>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
       <!-- ============================================== -->
       <dependency>
@@ -478,12 +487,6 @@
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
          <version>${hibernate.validator.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Hibernate validator -->
-         <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.1-api</artifactId>
-         <version>${hibernate.jpa.version}</version>
       </dependency>
       <dependency>
          <!-- Hikari CP -->
