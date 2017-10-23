@@ -328,7 +328,9 @@
       <webjars.html5shiv.version>3.7.3</webjars.html5shiv.version>
       <webjars.jquery.version>2.2.4</webjars.jquery.version>
       <webjars.locator.version>0.32</webjars.locator.version>
-      <!-- Plugins versions -->
+      <!-- ============================================== -->
+      <!-- ============== PLUGINS VERSIONS ============== -->
+      <!-- ============================================== -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
       <plugin.jetty.version>9.4.7.v20170914</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
@@ -638,7 +640,7 @@
          <version>${classmate.version}</version>
       </dependency>
       <dependency>
-         <!-- FasterXML ClassMate -->
+         <!-- Commons Logging -->
          <groupId>commons-logging</groupId>
          <artifactId>commons-logging</artifactId>
          <version>${commons.logging.version}</version>
