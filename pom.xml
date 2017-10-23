@@ -313,7 +313,7 @@
       <junit.jupiter.version>5.0.1</junit.jupiter.version>
       <junit.platform.version>1.0.1</junit.platform.version>
       <liquibase.version>3.5.3</liquibase.version>
-      <log4j.version>2.8.2</log4j.version>
+      <log4j.version>2.9.1</log4j.version>
       <mockito.version>1.10.19</mockito.version>
       <servlet.version>4.0.0</servlet.version>
       <slf4j.version>1.7.25</slf4j.version>
@@ -330,11 +330,11 @@
       <webjars.locator.version>0.32</webjars.locator.version>
       <!-- Plugins versions -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
-      <plugin.jetty.version>9.4.6.v20170531</plugin.jetty.version>
+      <plugin.jetty.version>9.4.7.v20170914</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
       <plugin.tomcat7.version>2.2</plugin.tomcat7.version>
-      <plugin.war.version>3.0.0</plugin.war.version>
+      <plugin.war.version>3.2.0</plugin.war.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
