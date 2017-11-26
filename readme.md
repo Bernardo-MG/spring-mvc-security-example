@@ -88,11 +88,11 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 The project has been released under the [MIT License][license].
 
 [issues]: https://github.com/bernardo-mg/spring-mvc-security-example/issues
-[javadoc-develop]: http://docs.wandrell.com/development/maven/spring-mvc-security-example/apidocs
-[javadoc-release]: http://docs.wandrell.com/maven/spring-mvc-security-example/apidocs
+[javadoc-develop]: http://docs.bernardomg.com/development/maven/spring-mvc-security-example/apidocs
+[javadoc-release]: http://docs.bernardomg.com/maven/spring-mvc-security-example/apidocs
 [license]: http://www.opensource.org/licenses/mit-license.php
 [scm]: https://github.com/bernardo-mg/spring-mvc-security-example
-[site-develop]: http://docs.wandrell.com/development/maven/spring-mvc-security-example
-[site-release]: http://docs.wandrell.com/maven/spring-mvc-security-example
+[site-develop]: http://docs.bernardomg.com/development/maven/spring-mvc-security-example
+[site-release]: http://docs.bernardomg.com/maven/spring-mvc-security-example
 
 [spring-mvc]: https://spring.io

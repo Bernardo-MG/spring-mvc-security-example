@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
-   xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
+   xmlns:util="http://www.springframework.org/schema/util"
    xsi:schemaLocation="http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans
@@ -14,6 +15,7 @@
    <!-- Imports -->
    <import resource="classpath:context/view.xml" />
    <import resource="classpath:context/service.xml" />
+   <import resource="classpath:context/security-servlet.xml" />
 
    <!-- Properties -->
    <context:property-placeholder
@@ -22,7 +24,7 @@
                    classpath:config/servlet.properties" />
 
    <!-- Scans for beans -->
-   <context:component-scan base-package="com.wandrell.example.spring.mvc.security" />
+   <context:component-scan base-package="com.bernardomg.example.spring.mvc.security" />
 
    <!-- MVC configuration -->
    <mvc:annotation-driven conversion-service="conversionService"
@@ -43,7 +45,7 @@
 
    <mvc:default-servlet-handler />
 
-   <bean id="conversionService" class="${conversion.service.class}"/>
+   <bean id="conversionService" class="${conversion.service.class}" />
 
    <bean id="validator" class="${validator.factory.class}">
       <property name="validationMessageSource" ref="messageSource" />

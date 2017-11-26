@@ -9,18 +9,18 @@
    <!-- ********************************************** -->
 
    <parent>
-      <groupId>com.wandrell.maven</groupId>
+      <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.1.6</version>
+      <version>1.2.0</version>
    </parent>
 
    <!-- ********************************************** -->
    <!-- **************** PROJECT INFO **************** -->
    <!-- ********************************************** -->
 
-   <groupId>com.wandrell.example</groupId>
+   <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-mvc-security-example</artifactId>
-   <version>0.1.0</version>
+   <version>0.2.0</version>
    <packaging>war</packaging>
 
    <name>Spring MVC Security Example</name>
@@ -132,7 +132,8 @@
             <site>
                <id>site</id>
                <name>Project Documentation Site</name>
-               <url>scp://docs.wandrell.com:2222/home1/duenco/www/maven/spring-mvc-security-example</url>
+               <!-- The URL should be set externally -->
+               <url>${site.release.url}</url>
             </site>
          </distributionManagement>
       </profile>
@@ -144,7 +145,8 @@
             <site>
                <id>site-development</id>
                <name>Project Development Documentation Site</name>
-               <url>scp://docs.wandrell.com:2222/home1/duenco/www/development/maven/spring-mvc-security-example</url>
+               <!-- The URL should be set externally -->
+               <url>${site.develop.url}</url>
             </site>
          </distributionManagement>
       </profile>
@@ -262,7 +264,7 @@
       <developer>
          <id>bmg</id>
          <name>Bernardo Martínez Garrido</name>
-         <email>programming@wandrell.com</email>
+         <email>programming@bernardomg.com</email>
          <url>https://github.com/Bernardo-MG</url>
          <organization>Bernardo Martínez Garrido</organization>
          <organizationUrl>https://github.com/Bernardo-MG</organizationUrl>
@@ -279,35 +281,48 @@
    <!-- ********************************************** -->
 
    <properties>
-      <!-- Java version -->
-      <maven.compiler.source>1.8</maven.compiler.source>
-      <!-- Manifest data -->
-      <manifest.name>com/wandrell/example/spring/mvc/security</manifest.name>
-      <!-- Access data -->
+      <!-- ============================================== -->
+      <!-- ================ JAVA VERSION ================ -->
+      <!-- ============================================== -->
+      <java.version>1.8</java.version>
+      <!-- ============================================== -->
+      <!-- =============== MANIFEST DATA ================ -->
+      <!-- ============================================== -->
+      <manifest.name>com/bernardomg/example/spring/mvc/security</manifest.name>
+      <!-- ============================================== -->
+      <!-- ================ ACCESS DATA ================= -->
+      <!-- ============================================== -->
       <database.url>jdbc:h2:mem:spring-mvc-security-example</database.url>
       <database.username>sa</database.username>
       <database.password></database.password>
-      <!-- Dependencies versions -->
+      <!-- ============================================== -->
+      <!-- =============== TESTING SERVER =============== -->
+      <!-- ============================================== -->
+      <server.test.path>/spring-security</server.test.path>
+      <!-- ============================================== -->
+      <!-- =========== DEPENDENCIES VERSIONS ============ -->
+      <!-- ============================================== -->
       <classmate.version>1.3.3</classmate.version>
+      <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el>2.2</glassfish.el>
       <guava.version>22.0</guava.version>
-      <h2.version>1.4.192</h2.version>
-      <hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
+      <h2.version>1.4.196</h2.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.10.Final</hibernate.version>
-      <hikari.version>2.6.3</hikari.version>
-      <jackson.version>2.9.0</jackson.version>
-      <jasperreports.version>6.4.1</jasperreports.version>
+      <hikari.version>2.7.2</hikari.version>
+      <jackson.version>2.9.2</jackson.version>
+      <javaee.api.version>2.2</javaee.api.version>
+      <junit.jupiter.version>5.0.1</junit.jupiter.version>
+      <junit.platform.version>1.0.1</junit.platform.version>
       <liquibase.version>3.5.3</liquibase.version>
-      <log4j.version>2.8.2</log4j.version>
+      <log4j.version>2.9.1</log4j.version>
       <mockito.version>1.10.19</mockito.version>
-      <servlet.version>3.1.0</servlet.version>
+      <servlet.version>4.0.0</servlet.version>
       <slf4j.version>1.7.25</slf4j.version>
-      <spring.data.version>1.11.6.RELEASE</spring.data.version>
+      <spring.data.version>2.0.0.RELEASE</spring.data.version>
       <spring.security.version>4.2.3.RELEASE</spring.security.version>
-      <spring.version>4.3.10.RELEASE</spring.version>
-      <testng.version>6.11</testng.version>
-      <thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
+      <spring.version>5.0.0.RELEASE</spring.version>
+      <thymeleaf.version>3.0.8.RELEASE</thymeleaf.version>
       <thymeleaf.spring.security.version>3.0.2.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
       <webjars.bootswatch.version>3.3.5+4</webjars.bootswatch.version>
@@ -315,17 +330,20 @@
       <webjars.html5shiv.version>3.7.3</webjars.html5shiv.version>
       <webjars.jquery.version>2.2.4</webjars.jquery.version>
       <webjars.locator.version>0.32</webjars.locator.version>
-      <!-- Plugins versions -->
+      <!-- ============================================== -->
+      <!-- ============== PLUGINS VERSIONS ============== -->
+      <!-- ============================================== -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
-      <plugin.jetty.version>9.4.6.v20170531</plugin.jetty.version>
+      <plugin.jetty.version>9.4.7.v20170914</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
       <plugin.tomcat7.version>2.2</plugin.tomcat7.version>
-      <plugin.war.version>3.0.0</plugin.war.version>
-      <!-- Maven Site -->
-      <site.skin.version>1.0.0</site.skin.version>
-      <!-- Testing server -->
-      <server.test.path>/spring-security</server.test.path>
+      <plugin.war.version>3.2.0</plugin.war.version>
+      <!-- ============================================== -->
+      <!-- ================= MAVEN SITE ================= -->
+      <!-- ============================================== -->
+      <site.skin.version>1.2.0</site.skin.version>
+      <serverTestPath>${server.test.path}</serverTestPath>
    </properties>
 
    <!-- ********************************************** -->
@@ -350,6 +368,14 @@
             <type>pom</type>
             <scope>import</scope>
          </dependency>
+         <dependency>
+            <!-- Jackson BOM -->
+            <groupId>com.fasterxml.jackson</groupId>
+            <artifactId>jackson-bom</artifactId>
+            <version>${jackson.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
       </dependencies>
    </dependencyManagement>
 
@@ -357,6 +383,11 @@
       <!-- ============================================== -->
       <!-- ================== SPRING ==================== -->
       <!-- ============================================== -->
+      <dependency>
+         <!-- Spring AOP -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-aop</artifactId>
+      </dependency>
       <dependency>
          <!-- Spring beans -->
          <groupId>org.springframework</groupId>
@@ -432,6 +463,15 @@
          <artifactId>spring-security-core</artifactId>
       </dependency>
       <!-- ============================================== -->
+      <!-- ============== JPA DEPENDENCIES ============== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- JPA API -->
+         <groupId>javax.persistence</groupId>
+         <artifactId>javax.persistence-api</artifactId>
+         <version>${javaee.api.version}</version>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
       <!-- ============================================== -->
       <dependency>
@@ -451,12 +491,6 @@
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
          <version>${hibernate.validator.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Hibernate validator -->
-         <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.1-api</artifactId>
-         <version>${hibernate.jpa.version}</version>
       </dependency>
       <dependency>
          <!-- Hikari CP -->
@@ -499,35 +533,6 @@
          <groupId>org.thymeleaf.extras</groupId>
          <artifactId>thymeleaf-extras-springsecurity4</artifactId>
          <version>${thymeleaf.spring.security.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ============== JASPERREPORTS ================= -->
-      <!-- ============================================== -->
-      <dependency>
-         <groupId>net.sf.jasperreports</groupId>
-         <artifactId>jasperreports</artifactId>
-         <version>${jasperreports.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================= JACKSON ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Jackson -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-core</artifactId>
-         <version>${jackson.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Jackson databinding -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-databind</artifactId>
-         <version>${jackson.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Jackson annotations -->
-         <groupId>com.fasterxml.jackson.core</groupId>
-         <artifactId>jackson-annotations</artifactId>
-         <version>${jackson.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ SERVLET ===================== -->
@@ -636,9 +641,29 @@
          <artifactId>classmate</artifactId>
          <version>${classmate.version}</version>
       </dependency>
+      <dependency>
+         <!-- Commons Logging -->
+         <groupId>commons-logging</groupId>
+         <artifactId>commons-logging</artifactId>
+         <version>${commons.logging.version}</version>
+      </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
       <!-- ============================================== -->
+      <dependency>
+         <!-- JUnit Jupiter Engine -->
+         <groupId>org.junit.jupiter</groupId>
+         <artifactId>junit-jupiter-engine</artifactId>
+         <version>${junit.jupiter.version}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <!-- JUnit Jupiter Platform -->
+         <groupId>org.junit.platform</groupId>
+         <artifactId>junit-platform-runner</artifactId>
+         <version>${junit.platform.version}</version>
+         <scope>test</scope>
+      </dependency>
       <dependency>
          <!-- Mockito -->
          <groupId>org.mockito</groupId>
@@ -656,13 +681,6 @@
          <!-- Spring Security Test -->
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-test</artifactId>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <!-- TestNG -->
-         <groupId>org.testng</groupId>
-         <artifactId>testng</artifactId>
-         <version>${testng.version}</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
@@ -749,7 +767,7 @@
             <dependencies>
                <dependency>
                   <!-- Docs Maven Skin -->
-                  <groupId>com.wandrell.maven.skins</groupId>
+                  <groupId>com.bernardomg.maven.skins</groupId>
                   <artifactId>docs-maven-skin</artifactId>
                   <version>${site.skin.version}</version>
                </dependency>

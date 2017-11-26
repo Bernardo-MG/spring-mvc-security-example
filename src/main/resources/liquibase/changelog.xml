@@ -25,12 +25,41 @@
             <constraints nullable="false" />
          </column>
       </createTable>
+      <createTable tableName="authorities">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" />
+         </column>
+         <column name="authority" type="VARCHAR(50)">
+            <constraints nullable="false" unique="true" />
+         </column>
+      </createTable>
+      <createTable tableName="user_authorities">
+         <column name="user_id" type="BIGINT">
+            <constraints nullable="false" foreignKeyName="fk_user_authorities_user_id"
+               references="users(id)" />
+         </column>
+         <column name="authority_id" type="BIGINT">
+            <constraints nullable="false" foreignKeyName="fk_user_authorities_authority_id"
+               references="authorities(id)" />
+         </column>
+      </createTable>
    </changeSet>
 
    <changeSet author="Bernardo" id="initial_data">
       <insert tableName="users">
          <column name="name">admin</column>
          <column name="password">1234</column>
+      </insert>
+      <insert tableName="users">
+         <column name="name">noroles</column>
+         <column name="password">1111</column>
+      </insert>
+      <insert tableName="authorities">
+         <column name="authority">ADMIN_ROLE</column>
+      </insert>
+      <insert tableName="user_authorities">
+         <column name="user_id">1</column>
+         <column name="authority_id">1</column>
       </insert>
    </changeSet>
 
