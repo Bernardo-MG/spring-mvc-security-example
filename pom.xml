@@ -9,16 +9,16 @@
    <!-- ********************************************** -->
 
    <parent>
-      <groupId>com.wandrell.maven</groupId>
+      <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.1.6</version>
+      <version>1.2.0</version>
    </parent>
 
    <!-- ********************************************** -->
    <!-- **************** PROJECT INFO **************** -->
    <!-- ********************************************** -->
 
-   <groupId>com.wandrell.example</groupId>
+   <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-mvc-security-example</artifactId>
    <version>0.1.0-SNAPSHOT</version>
    <packaging>war</packaging>
@@ -132,7 +132,7 @@
             <site>
                <id>site</id>
                <name>Project Documentation Site</name>
-               <url>scp://docs.wandrell.com:2222/home1/duenco/www/maven/spring-mvc-security-example</url>
+               <url>scp://docs.bernardomg.com:2222/home1/duenco/www/maven/spring-mvc-security-example</url>
             </site>
          </distributionManagement>
       </profile>
@@ -144,7 +144,7 @@
             <site>
                <id>site-development</id>
                <name>Project Development Documentation Site</name>
-               <url>scp://docs.wandrell.com:2222/home1/duenco/www/development/maven/spring-mvc-security-example</url>
+               <url>scp://docs.bernardomg.com:2222/home1/duenco/www/development/maven/spring-mvc-security-example</url>
             </site>
          </distributionManagement>
       </profile>
@@ -262,7 +262,7 @@
       <developer>
          <id>bmg</id>
          <name>Bernardo Martínez Garrido</name>
-         <email>programming@wandrell.com</email>
+         <email>programming@bernardomg.com</email>
          <url>https://github.com/Bernardo-MG</url>
          <organization>Bernardo Martínez Garrido</organization>
          <organizationUrl>https://github.com/Bernardo-MG</organizationUrl>
@@ -286,7 +286,7 @@
       <!-- ============================================== -->
       <!-- =============== MANIFEST DATA ================ -->
       <!-- ============================================== -->
-      <manifest.name>com/wandrell/example/spring/mvc/security</manifest.name>
+      <manifest.name>com/bernardomg/example/spring/mvc/security</manifest.name>
       <!-- ============================================== -->
       <!-- ================ ACCESS DATA ================= -->
       <!-- ============================================== -->
