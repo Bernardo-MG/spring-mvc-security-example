@@ -5,7 +5,18 @@
         <author email="programming@bernardomg.com">Bernardo Martínez Garrido</author>
     </properties>
     <body>
-        <release version="0.1.0" date="2017-01-01" description="First release">
+        <release version="0.2.0" date="2017-11-26" description="First release">
+            <action dev="bmg" type="update">
+                Relocation.
+            </action>
+            <action dev="bmg" type="update">
+                Updated dependencies.
+            </action>
+            <action dev="bmg" type="fix">
+                Corrected configuration.
+            </action>
+        </release>
+        <release version="0.1.0" date="2017-09-16" description="First release">
             <action dev="bmg" type="update">
                 First release of the library.
             </action>
