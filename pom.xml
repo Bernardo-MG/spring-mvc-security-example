@@ -338,7 +338,6 @@
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
       <plugin.tomcat7.version>2.2</plugin.tomcat7.version>
-      <plugin.war.version>3.2.0</plugin.war.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
@@ -721,13 +720,6 @@
                <groupId>com.samaxes.maven</groupId>
                <artifactId>minify-maven-plugin</artifactId>
                <version>${plugin.minify.version}</version>
-            </plugin>
-            <plugin>
-               <!-- WAR -->
-               <!-- Generates the WAR package. -->
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-war-plugin</artifactId>
-               <version>${plugin.war.version}</version>
             </plugin>
          </plugins>
       </pluginManagement>
