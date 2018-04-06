@@ -290,7 +290,7 @@
       <!-- ============================================== -->
       <manifest.name>com/bernardomg/example/spring/mvc/security</manifest.name>
       <!-- ============================================== -->
-      <!-- ================ ACCESS DATA ================= -->
+      <!-- ============== DB ACCESS DATA ================ -->
       <!-- ============================================== -->
       <database.url>jdbc:h2:mem:spring-mvc-security-example</database.url>
       <database.username>sa</database.username>
