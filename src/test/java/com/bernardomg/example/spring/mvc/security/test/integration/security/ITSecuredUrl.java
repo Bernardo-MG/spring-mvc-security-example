@@ -64,7 +64,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITSecuredUrl {
+public final class ITSecuredUrl {
 
     /**
      * Mock MVC for the requests.
@@ -97,7 +97,7 @@ public class ITSecuredUrl {
      * Verifies that the home URL allows access to authenticated users.
      */
     @Test
-    public void testHome__requiresAuthentication() throws Exception {
+    public final void testHome__requiresAuthentication() throws Exception {
         // TODO: Make this test work
         // mockMvc.perform(get("/").with(httpBasic("admin",
         // "1234")).with(csrf()))
@@ -109,7 +109,7 @@ public class ITSecuredUrl {
      * Verifies that the home URL is secured against anonymous access.
      */
     @Test
-    public void testHome_requiresAuthentication() throws Exception {
+    public final void testHome_requiresAuthentication() throws Exception {
         // Home redirects to the login view
         mockMvc.perform(get("/")).andExpect(status().isFound())
                 .andExpect(unauthenticated());
@@ -119,7 +119,7 @@ public class ITSecuredUrl {
      * Verifies that the static resources URL allows anonymous access.
      */
     @Test
-    public void testStatic_requiresAuthentication() throws Exception {
+    public final void testStatic_requiresAuthentication() throws Exception {
         // Allowed to access, but no resource found
         mockMvc.perform(get("/static/")).andExpect(status().isNotFound())
                 .andExpect(unauthenticated());

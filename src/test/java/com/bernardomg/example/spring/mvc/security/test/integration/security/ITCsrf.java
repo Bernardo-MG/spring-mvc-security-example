@@ -59,7 +59,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITCsrf {
+public final class ITCsrf {
 
     /**
      * Mock MVC for the requests.
@@ -83,7 +83,7 @@ public class ITCsrf {
      * Verifies that POST requests with CSRF are supported.
      */
     @Test
-    public void post_Csrf_Accepted() throws Exception {
+    public final void post_Csrf_Accepted() throws Exception {
         mockMvc.perform(post("/").with(csrf())).andExpect(status().isFound());
     }
 
@@ -91,7 +91,7 @@ public class ITCsrf {
      * Verifies that POST requests without CSRF are rejected.
      */
     @Test
-    public void post_NoCsrf_Rejected() throws Exception {
+    public final void post_NoCsrf_Rejected() throws Exception {
         mockMvc.perform(post("/")).andExpect(status().isForbidden());
     }
 
@@ -99,7 +99,7 @@ public class ITCsrf {
      * Verifies that PUT requests with CSRF are supported.
      */
     @Test
-    public void put_Csrf_Accepted() throws Exception {
+    public final void put_Csrf_Accepted() throws Exception {
         mockMvc.perform(put("/").with(csrf())).andExpect(status().isFound());
     }
 
@@ -107,7 +107,7 @@ public class ITCsrf {
      * Verifies that PUT requests without CSRF are rejected.
      */
     @Test
-    public void put_NoCsrf_Rejected() throws Exception {
+    public final void put_NoCsrf_Rejected() throws Exception {
         mockMvc.perform(put("/")).andExpect(status().isForbidden());
     }
 
