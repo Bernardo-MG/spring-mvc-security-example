@@ -13,20 +13,15 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
 
-   <!-- Imports -->
-   <import resource="classpath:context/mvc.xml" />
-   <import resource="classpath:context/messages.xml" />
-   <import resource="classpath:context/view.xml" />
-   <import resource="classpath:context/service.xml" />
-   <import resource="classpath:context/security-servlet.xml" />
+   <!-- Messages -->
 
-   <!-- Properties -->
-   <context:property-placeholder
-      location="classpath:config/view.properties,
-                   classpath:config/service.properties,
-                   classpath:config/servlet.properties" />
+   <bean id="messageSource" class="${messageSource.class}">
+      <property name="basenames" ref="baseNames" />
+   </bean>
 
-   <!-- Scans for beans -->
-   <context:component-scan base-package="com.bernardomg.example.spring.mvc.security" />
+   <util:list id="baseNames">
+      <value>classpath:/messages/application</value>
+      <value>classpath:/messages/validation</value>
+   </util:list>
 
 </beans>
