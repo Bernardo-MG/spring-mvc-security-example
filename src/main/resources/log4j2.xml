@@ -21,7 +21,36 @@
          <AppenderRef ref="console" />
       </Logger>
 
+      <!-- Spring Framework -->
+      <Logger name="org.springframework" level="warn" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </Logger>
+
+      <!-- Hibernate -->
+      <Logger name="org.hibernate" level="warn" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </Logger>
+      <Logger name="org.hibernate.SQL" level="warn" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </Logger>
+
+      <!-- Jackson -->
+      <logger name="com.fasterxml.jackson" level="warn" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </logger>
+
+      <!-- Jetty -->
+      <logger name="org.eclipse.jetty" level="warn" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </logger>
+
       <Root level="error">
+         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Root>
    </Loggers>
