@@ -14,6 +14,7 @@ The project by default comes with a useful series of features:
 
 * Login form handling
 * CSRF token
+* Security annotations
 
 ## Documentation
 
