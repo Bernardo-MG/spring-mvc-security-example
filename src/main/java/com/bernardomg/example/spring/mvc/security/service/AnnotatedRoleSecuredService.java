@@ -54,7 +54,7 @@ public class AnnotatedRoleSecuredService implements RoleSecuredService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
     public void adminMethod() {
         final Authentication authentication;
 

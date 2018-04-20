@@ -76,7 +76,7 @@ public final class AnnotatedRoleSecuredServiceTest {
      * Verifies that authorized users are accepted.
      */
     @Test
-    @WithMockUser(username = "admin", roles = { "ADMIN_ROLE" })
+    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
     public final void testAdminMethod_Authorized_NoException() {
         service.adminMethod();
     }
