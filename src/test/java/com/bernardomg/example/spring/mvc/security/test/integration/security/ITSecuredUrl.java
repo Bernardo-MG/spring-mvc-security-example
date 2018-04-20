@@ -97,7 +97,7 @@ public final class ITSecuredUrl {
      * Verifies that the home URL allows access to authenticated users.
      */
     @Test
-    public final void testHome__requiresAuthentication() throws Exception {
+    public final void testHome_admin() throws Exception {
         // TODO: Make this test work
         // mockMvc.perform(get("/").with(httpBasic("admin",
         // "1234")).with(csrf()))
@@ -120,7 +120,7 @@ public final class ITSecuredUrl {
      */
     @Test
     public final void testStatic_requiresAuthentication() throws Exception {
-        // Allowed to access, but no resource found
+        // Allowed access, but no resource found
         mockMvc.perform(get("/static/")).andExpect(status().isNotFound())
                 .andExpect(unauthenticated());
     }

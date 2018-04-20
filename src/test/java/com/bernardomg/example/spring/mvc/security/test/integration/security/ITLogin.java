@@ -90,6 +90,19 @@ public final class ITLogin {
     }
 
     /**
+     * Verifies that using an invalid password redirects to the login error URL.
+     */
+    @Test
+    public final void testLogin_InvalidPassword_ErrorRedirect()
+            throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("admin").password("abc");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+    }
+
+    /**
      * Verifies that using an invalid user name fails the login.
      */
     @Test

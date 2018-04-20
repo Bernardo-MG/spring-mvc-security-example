@@ -83,7 +83,7 @@ public final class ITCsrf {
      * Verifies that POST requests with CSRF are supported.
      */
     @Test
-    public final void post_Csrf_Accepted() throws Exception {
+    public final void post_Csrf_Found() throws Exception {
         mockMvc.perform(post("/").with(csrf())).andExpect(status().isFound());
     }
 
@@ -91,7 +91,7 @@ public final class ITCsrf {
      * Verifies that POST requests without CSRF are rejected.
      */
     @Test
-    public final void post_NoCsrf_Rejected() throws Exception {
+    public final void post_NoCsrf_Forbidden() throws Exception {
         mockMvc.perform(post("/")).andExpect(status().isForbidden());
     }
 
@@ -99,7 +99,7 @@ public final class ITCsrf {
      * Verifies that PUT requests with CSRF are supported.
      */
     @Test
-    public final void put_Csrf_Accepted() throws Exception {
+    public final void put_Csrf_Found() throws Exception {
         mockMvc.perform(put("/").with(csrf())).andExpect(status().isFound());
     }
 
@@ -107,7 +107,7 @@ public final class ITCsrf {
      * Verifies that PUT requests without CSRF are rejected.
      */
     @Test
-    public final void put_NoCsrf_Rejected() throws Exception {
+    public final void put_NoCsrf_Forbidden() throws Exception {
         mockMvc.perform(put("/")).andExpect(status().isForbidden());
     }
 
