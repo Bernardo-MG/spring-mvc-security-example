@@ -153,8 +153,8 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
      * @param users
      *            the users with the authority
      */
-    public void setUsers(final Collection<PersistentUserDetails> users) {
-        this.users = users;
+    public void setUsers(final Collection<PersistentUserDetails> usrs) {
+        users = usrs;
     }
 
     @Override
