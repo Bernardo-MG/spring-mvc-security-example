@@ -56,7 +56,7 @@ import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public final class AnnotatedRoleSecuredServiceTest {
+public final class ITAnnotatedRoleSecuredService {
 
     /**
      * Secured service being tested.
@@ -68,7 +68,7 @@ public final class AnnotatedRoleSecuredServiceTest {
     /**
      * Default constructor.
      */
-    public AnnotatedRoleSecuredServiceTest() {
+    public ITAnnotatedRoleSecuredService() {
         super();
     }
 
