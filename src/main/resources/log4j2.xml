@@ -23,10 +23,10 @@
 
       <!-- Spring Framework -->
       <Logger name="org.springframework" level="warn" additivity="false">
-         <AppenderRef ref="file" />
+         <AppenderRef ref="file" />debug
          <AppenderRef ref="console" />
       </Logger>
-      <Logger name="org.springframework.security" level="debug" additivity="false">
+      <Logger name="org.springframework.security" level="warn" additivity="false">
          <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>

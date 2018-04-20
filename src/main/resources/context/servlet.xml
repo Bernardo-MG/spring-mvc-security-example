@@ -17,16 +17,14 @@
    <import resource="classpath:context/mvc.xml" />
    <import resource="classpath:context/messages.xml" />
    <import resource="classpath:context/view.xml" />
-   <import resource="classpath:context/service.xml" />
    <import resource="classpath:context/security-servlet.xml" />
 
    <!-- Properties -->
    <context:property-placeholder
       location="classpath:config/view.properties,
-                   classpath:config/service.properties,
                    classpath:config/servlet.properties" />
 
-   <!-- Scans for beans -->
-   <context:component-scan base-package="com.bernardomg.example.spring.mvc.security" />
+   <!-- Scans for controllers -->
+   <context:component-scan base-package="com.bernardomg.example.spring.mvc.security.**.controller" />
 
 </beans>

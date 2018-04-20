@@ -20,7 +20,7 @@
 
    <!-- Repositories -->
    <jpa:repositories
-      base-package="com.bernardomg.example.spring.mvc.security.persistence.repository" />
+      base-package="com.bernardomg.example.spring.mvc.security.**.repository" />
 
    <!-- ================================== JPA ================================== -->
 

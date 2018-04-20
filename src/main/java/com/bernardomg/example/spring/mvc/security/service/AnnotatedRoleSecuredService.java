@@ -61,6 +61,7 @@ public class AnnotatedRoleSecuredService implements RoleSecuredService {
         authentication = SecurityContextHolder.getContext().getAuthentication();
 
         LOGGER.info("Called method secured for admin");
+        LOGGER.info("User: {}", authentication.getName());
         LOGGER.info("User authorities: {}", authentication.getAuthorities());
     }
 
