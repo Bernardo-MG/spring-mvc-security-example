@@ -150,7 +150,7 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
     /**
      * Sets the users with the authority.
      * 
-     * @param users
+     * @param usrs
      *            the users with the authority
      */
     public void setUsers(final Collection<PersistentUserDetails> usrs) {
