@@ -26,6 +26,10 @@
          <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>
+      <Logger name="org.springframework.security" level="debug" additivity="false">
+         <AppenderRef ref="file" />
+         <AppenderRef ref="console" />
+      </Logger>
 
       <!-- Hibernate -->
       <Logger name="org.hibernate" level="warn" additivity="false">
