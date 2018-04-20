@@ -59,7 +59,7 @@ import org.springframework.web.context.WebApplicationContext;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/application-test-context.xml" })
 public final class ITLogin {
 
     /**
