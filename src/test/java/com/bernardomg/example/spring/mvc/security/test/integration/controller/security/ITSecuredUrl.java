@@ -25,7 +25,6 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.controller.security;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -33,12 +32,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -58,10 +58,11 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/application-test-context.xml" })
 public final class ITSecuredUrl {
 
     /**
@@ -92,14 +93,25 @@ public final class ITSecuredUrl {
     }
 
     /**
+     * Verifies that the admin secured URL allows access to authenticated users.
+     */
+    @Test
+    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
+    public final void testAdminSecured_admin() throws Exception {
+        // TODO: Make this work
+        mockMvc.perform(get("/secured/admin").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(authenticated().withUsername("admin"));
+    }
+
+    /**
      * Verifies that the home URL allows access to authenticated users.
      */
     @Test
-    @Disabled
+    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
     public final void testHome_admin() throws Exception {
         // TODO: Make this work
-        mockMvc.perform(get("/").with(httpBasic("admin", "1234")).with(csrf()))
-                .andExpect(status().isFound())
+        mockMvc.perform(get("/").with(csrf())).andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("admin"));
     }
 
@@ -107,7 +119,8 @@ public final class ITSecuredUrl {
      * Verifies that the home URL is secured against anonymous access.
      */
     @Test
-    public final void testHome_requiresAuthentication() throws Exception {
+    public final void testHome_Unauthorized_requiresAuthentication()
+            throws Exception {
         // Home redirects to the login view
         mockMvc.perform(get("/")).andExpect(status().isFound())
                 .andExpect(unauthenticated());
@@ -117,7 +130,8 @@ public final class ITSecuredUrl {
      * Verifies that the static resources URL allows anonymous access.
      */
     @Test
-    public final void testStatic_requiresAuthentication() throws Exception {
+    public final void testStatic_Unauthorized_requiresAuthentication()
+            throws Exception {
         // Allowed access, but no resource found
         mockMvc.perform(get("/static/")).andExpect(status().isNotFound())
                 .andExpect(unauthenticated());
