@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsService;
 
-@Service
+@Service("annotatedRoleSecuredService")
 public class AnnotatedRoleSecuredService implements RoleSecuredService {
 
     /**
