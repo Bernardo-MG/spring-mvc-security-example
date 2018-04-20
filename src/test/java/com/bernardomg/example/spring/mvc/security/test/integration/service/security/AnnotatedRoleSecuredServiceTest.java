@@ -31,7 +31,10 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -48,7 +51,8 @@ import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
  */
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
@@ -69,6 +73,15 @@ public final class AnnotatedRoleSecuredServiceTest {
     }
 
     /**
+     * Verifies that authorized users are accepted.
+     */
+    @Test
+    @WithMockUser(username = "admin", roles = { "ADMIN_ROLE" })
+    public final void testAdminMethod_Authorized_NoException() {
+        service.adminMethod();
+    }
+
+    /**
      * Verifies that trying to invoke the method without authorization data
      * causes an exception.
      */
@@ -78,6 +91,16 @@ public final class AnnotatedRoleSecuredServiceTest {
                 AuthenticationCredentialsNotFoundException.class,
                 service::adminMethod,
                 "An Authentication object was not found in the SecurityContext");
+    }
+
+    /**
+     * Verifies that unauthorized users are rejected.
+     */
+    @Test
+    @WithMockUser
+    public final void testAdminMethod_Unauthorized_Exception() {
+        Assertions.assertThrows(AccessDeniedException.class,
+                service::adminMethod, "Access is denied");
     }
 
 }
