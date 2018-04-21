@@ -75,7 +75,7 @@ public final class RoleSecuredController {
     public final String showAdminPage(final Model model) {
         getService().adminMethod();
 
-        return "role/admin";
+        return SecuredViews.ADMIN;
     }
 
     /**

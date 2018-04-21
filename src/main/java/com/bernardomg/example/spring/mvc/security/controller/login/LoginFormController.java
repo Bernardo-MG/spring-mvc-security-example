@@ -70,7 +70,7 @@ public final class LoginFormController {
                     defaultValue = "false") final Boolean error) {
         model.addAttribute("error", error);
 
-        return LoginConstants.VIEW_LOGIN;
+        return LoginViews.LOGIN;
     }
 
 }

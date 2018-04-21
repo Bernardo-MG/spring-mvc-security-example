@@ -25,21 +25,21 @@
 package com.bernardomg.example.spring.mvc.security.controller.login;
 
 /**
- * Constants for the login controllers.
+ * Views for the login controllers.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public final class LoginConstants {
+public final class LoginViews {
 
     /**
      * Login view.
      */
-    public static final String VIEW_LOGIN = "login";
+    public static final String LOGIN = "login";
 
     /**
      * Private constructor to avoid initialization.
      */
-    private LoginConstants() {
+    private LoginViews() {
         super();
     }
 
