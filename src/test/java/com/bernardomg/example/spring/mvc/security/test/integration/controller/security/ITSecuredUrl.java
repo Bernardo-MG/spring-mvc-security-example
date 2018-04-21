@@ -134,25 +134,4 @@ public final class ITSecuredUrl {
                 .andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that the admin secured URL allows access to authenticated users.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    public final void testStatic_Admin() throws Exception {
-        mockMvc.perform(get("/static/jquery/jquery.min.js").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
-    }
-
-    /**
-     * Verifies that the static resources URL allows anonymous access.
-     */
-    @Test
-    public final void testStatic_Unauthorized() throws Exception {
-        // Allowed access, but no resource found
-        mockMvc.perform(get("/static/jquery/jquery.min.js"))
-                .andExpect(status().isOk()).andExpect(unauthenticated());
-    }
-
 }
