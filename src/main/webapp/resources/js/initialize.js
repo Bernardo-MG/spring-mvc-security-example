@@ -11,17 +11,4 @@
  */
 $(document).ready(function() {
 
-   // Initializes data tables
-	$(".dataTable").DataTable({
-		"renderer" : "bootstrap",
-		"order" : [],
-		"columnDefs" : [ {
-			"targets" : "no-sort",
-			"orderable" : false,
-		}, {
-			"targets" : "hidden",
-			"visible" : false,
-		} ]
-	});
-
 });

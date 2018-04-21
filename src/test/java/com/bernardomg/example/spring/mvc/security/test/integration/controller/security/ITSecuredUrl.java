@@ -98,7 +98,6 @@ public final class ITSecuredUrl {
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
     public final void testAdminSecured_admin() throws Exception {
-        // TODO: Make this work
         mockMvc.perform(get("/secured/admin").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("admin"));
@@ -109,8 +108,7 @@ public final class ITSecuredUrl {
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    public final void testHome_admin() throws Exception {
-        // TODO: Make this work
+    public final void testHome_Admin() throws Exception {
         mockMvc.perform(get("/").with(csrf())).andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("admin"));
     }
@@ -127,14 +125,34 @@ public final class ITSecuredUrl {
     }
 
     /**
+     * Verifies that the login URL allows anonymous access.
+     */
+    @Test
+    public final void testLogin_Unauthorized() throws Exception {
+        // Home redirects to the login view
+        mockMvc.perform(get("/login")).andExpect(status().isOk())
+                .andExpect(unauthenticated());
+    }
+
+    /**
+     * Verifies that the admin secured URL allows access to authenticated users.
+     */
+    @Test
+    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
+    public final void testStatic_Admin() throws Exception {
+        mockMvc.perform(get("/static/jquery/jquery.min.js").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(authenticated().withUsername("admin"));
+    }
+
+    /**
      * Verifies that the static resources URL allows anonymous access.
      */
     @Test
-    public final void testStatic_Unauthorized_requiresAuthentication()
-            throws Exception {
+    public final void testStatic_Unauthorized() throws Exception {
         // Allowed access, but no resource found
-        mockMvc.perform(get("/static/")).andExpect(status().isNotFound())
-                .andExpect(unauthenticated());
+        mockMvc.perform(get("/static/jquery/jquery.min.js"))
+                .andExpect(status().isOk()).andExpect(unauthenticated());
     }
 
 }
