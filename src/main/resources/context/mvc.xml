@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns="http://www.springframework.org/schema/beans"
+   xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+   <!-- MVC configuration -->
+   <mvc:annotation-driven conversion-service="conversionService"
+      validator="validator">
+   </mvc:annotation-driven>
+
+   <!-- Static resources -->
+   <mvc:resources mapping="/static/**" location="/webjars/, /resources/">
+      <mvc:cache-control cache-public="true" max-age="2592000" />
+      <mvc:resource-chain resource-cache="true">
+         <mvc:resolvers>
+            <ref bean="webjarsResolver" />
+         </mvc:resolvers>
+      </mvc:resource-chain>
+   </mvc:resources>
+
+   <bean id="webjarsResolver" class="${resolver.webjars.class}" />
+
+   <mvc:default-servlet-handler />
+
+   <bean id="conversionService" class="${conversion.service.class}" />
+
+   <bean id="validator" class="${validator.factory.class}">
+      <property name="validationMessageSource" ref="messageSource" />
+   </bean>
+
+</beans>

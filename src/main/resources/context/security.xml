@@ -18,8 +18,11 @@
          default-target-url="/" authentication-failure-url="/login?error=true"
          always-use-default-target="true" />
 
-      <logout logout-url="/logout" delete-cookies="JSESSIONID" logout-success-url="/" />
+      <logout logout-url="/logout" delete-cookies="JSESSIONID"
+         logout-success-url="/" />
    </http>
+
+   <global-method-security pre-post-annotations="enabled" />
 
    <authentication-manager>
       <authentication-provider user-service-ref="userDetailsService">

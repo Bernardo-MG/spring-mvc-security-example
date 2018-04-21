@@ -6,5 +6,6 @@ Sample [Spring MVC][spring-mvc] project which sets up web security.
 
 * Login form handling
 * CSRF token
+* Security annotations
 
 [spring-mvc]: https://spring.io

@@ -48,11 +48,11 @@
    <changeSet author="Bernardo" id="initial_data">
       <insert tableName="users">
          <column name="name">admin</column>
-         <column name="password">1234</column>
+         <column name="password">{noop}1234</column>
       </insert>
       <insert tableName="users">
          <column name="name">noroles</column>
-         <column name="password">1111</column>
+         <column name="password">{noop}1111</column>
       </insert>
       <insert tableName="authorities">
          <column name="authority">ADMIN_ROLE</column>

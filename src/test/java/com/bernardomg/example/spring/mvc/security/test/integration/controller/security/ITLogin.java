@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017 the original author or authors.
+ * Copyright (c) 2017-2018 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.security;
+package com.bernardomg.example.spring.mvc.security.test.integration.controller.security;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
@@ -59,7 +59,7 @@ import org.springframework.web.context.WebApplicationContext;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/application-test-context.xml" })
 public final class ITLogin {
 
     /**
@@ -87,6 +87,19 @@ public final class ITLogin {
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
+    }
+
+    /**
+     * Verifies that using an invalid password redirects to the login error URL.
+     */
+    @Test
+    public final void testLogin_InvalidPassword_ErrorRedirect()
+            throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("admin").password("abc");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
     /**

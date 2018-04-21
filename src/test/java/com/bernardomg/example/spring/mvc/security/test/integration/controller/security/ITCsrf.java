@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017 the original author or authors.
+ * Copyright (c) 2017-2018 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,12 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.security;
+package com.bernardomg.example.spring.mvc.security.test.integration.controller.security;
 
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,32 +40,26 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Integration tests for the secured URLs.
+ * Integration tests for requests with CSRF.
  * <p>
- * Verifies that URLs are secured against anonymous access.
+ * Verifies that the CSRF token is required for modification requests.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ ServletTestExecutionListener.class,
-        DirtiesContextBeforeModesTestExecutionListener.class,
-        DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
-public class ITSecuredUrl {
+        locations = { "classpath:context/application-test-context.xml" })
+public final class ITCsrf {
 
     /**
      * Mock MVC for the requests.
@@ -80,8 +75,40 @@ public class ITSecuredUrl {
     /**
      * Default constructor.
      */
-    public ITSecuredUrl() {
+    public ITCsrf() {
         super();
+    }
+
+    /**
+     * Verifies that POST requests with CSRF are supported.
+     */
+    @Test
+    public final void post_Csrf_Found() throws Exception {
+        mockMvc.perform(post("/").with(csrf())).andExpect(status().isFound());
+    }
+
+    /**
+     * Verifies that POST requests without CSRF are rejected.
+     */
+    @Test
+    public final void post_NoCsrf_Forbidden() throws Exception {
+        mockMvc.perform(post("/")).andExpect(status().isForbidden());
+    }
+
+    /**
+     * Verifies that PUT requests with CSRF are supported.
+     */
+    @Test
+    public final void put_Csrf_Found() throws Exception {
+        mockMvc.perform(put("/").with(csrf())).andExpect(status().isFound());
+    }
+
+    /**
+     * Verifies that PUT requests without CSRF are rejected.
+     */
+    @Test
+    public final void put_NoCsrf_Forbidden() throws Exception {
+        mockMvc.perform(put("/")).andExpect(status().isForbidden());
     }
 
     /**
@@ -91,38 +118,6 @@ public class ITSecuredUrl {
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
-    }
-
-    /**
-     * Verifies that the home URL allows access to authenticated users.
-     */
-    @Test
-    public void testHome__requiresAuthentication() throws Exception {
-        // TODO: Make this test work
-        // mockMvc.perform(get("/").with(httpBasic("admin",
-        // "1234")).with(csrf()))
-        // .andExpect(status().isOk())
-        // .andExpect(authenticated().withUsername("admin"));
-    }
-
-    /**
-     * Verifies that the home URL is secured against anonymous access.
-     */
-    @Test
-    public void testHome_requiresAuthentication() throws Exception {
-        // Home redirects to the login view
-        mockMvc.perform(get("/")).andExpect(status().isFound())
-                .andExpect(unauthenticated());
-    }
-
-    /**
-     * Verifies that the static resources URL allows anonymous access.
-     */
-    @Test
-    public void testStatic_requiresAuthentication() throws Exception {
-        // Allowed to access, but no resource found
-        mockMvc.perform(get("/static/")).andExpect(status().isNotFound())
-                .andExpect(unauthenticated());
     }
 
 }

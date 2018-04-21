@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017 the original author or authors.
+ * Copyright (c) 2017-2018 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -150,11 +150,11 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
     /**
      * Sets the users with the authority.
      * 
-     * @param users
+     * @param usrs
      *            the users with the authority
      */
-    public void setUsers(final Collection<PersistentUserDetails> users) {
-        this.users = users;
+    public void setUsers(final Collection<PersistentUserDetails> usrs) {
+        users = usrs;
     }
 
     @Override

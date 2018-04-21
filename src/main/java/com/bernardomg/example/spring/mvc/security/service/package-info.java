@@ -22,9 +22,7 @@
  * SOFTWARE.
  */
 /**
- * Login controller.
- * <p>
- * Takes care of setting up the login view.
+ * Service classes.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.login;
+package com.bernardomg.example.spring.mvc.security.service;
