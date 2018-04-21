@@ -22,39 +22,30 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+package com.bernardomg.example.spring.mvc.security.controller.error;
 
 /**
- * Controller for home view.
+ * Views for the error controllers.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-@Controller
-public class ErrorController {
+public final class ErrorViews {
 
     /**
      * Name for the 404 error view.
      */
-    private static final String VIEW_404 = "404";
+    public static final String ERROR_404 = "404";
 
     /**
-     * Default constructor.
+     * Name for the exception view.
      */
-    public ErrorController() {
+    public static final String EXCEPTION = "exception";
+
+    /**
+     * Private constructor to avoid initialization.
+     */
+    private ErrorViews() {
         super();
-    }
-
-    /**
-     * Shows the 404 error view.
-     * 
-     * @return the 404 error view
-     */
-    @RequestMapping("/404")
-    public final String show404() {
-        return VIEW_404;
     }
 
 }
