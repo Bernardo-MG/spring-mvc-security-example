@@ -35,10 +35,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
 
 /**
- * Controller for the login view.
+ * Secured controller.
  * <p>
- * It takes care of setting upt the view for the login form. But it doesn't
- * handle the login procedure, that is taken care by Spring security.
+ * It makes use of role-based security.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
@@ -46,7 +45,10 @@ import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
 @RequestMapping("/secured")
 public final class RoleSecuredController {
 
-    private final RoleSecuredService roleSecuredService;
+    /**
+     * Secured service.
+     */
+    private final RoleSecuredService service;
 
     /**
      * Constructs a login controller.
@@ -58,19 +60,31 @@ public final class RoleSecuredController {
     public RoleSecuredController(final RoleSecuredService securedService) {
         super();
 
-        roleSecuredService = checkNotNull(securedService,
+        service = checkNotNull(securedService,
                 "Received a null pointer as secured service");
     }
 
+    /**
+     * Shows a page only accessible to the admin.
+     * 
+     * @param model
+     *            data model
+     * @return the admin view
+     */
     @GetMapping("/admin")
     public final String showAdminPage(final Model model) {
-        getRoleSecuredService().adminMethod();
+        getService().adminMethod();
 
         return "role/admin";
     }
 
-    private final RoleSecuredService getRoleSecuredService() {
-        return roleSecuredService;
+    /**
+     * Returns the secured service.
+     * 
+     * @return the secured service
+     */
+    private final RoleSecuredService getService() {
+        return service;
     }
 
 }
