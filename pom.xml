@@ -316,7 +316,7 @@
       <junit.platform.version>1.1.1</junit.platform.version>
       <liquibase.version>3.6.1</liquibase.version>
       <log4j.version>2.11.0</log4j.version>
-      <mockito.version>1.10.19</mockito.version>
+      <mockito.version>2.18.3</mockito.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.8.0-alpha2</slf4j.version>
       <spring.data.version>2.0.6.RELEASE</spring.data.version>
@@ -666,7 +666,7 @@
       <dependency>
          <!-- Mockito -->
          <groupId>org.mockito</groupId>
-         <artifactId>mockito-all</artifactId>
+         <artifactId>mockito-core</artifactId>
          <version>${mockito.version}</version>
          <scope>test</scope>
       </dependency>
