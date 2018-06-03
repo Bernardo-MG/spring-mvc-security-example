@@ -65,7 +65,7 @@ Or this one for Tomcat:
 $ mvn tomcat7:run-war -P tomcat7
 ```
 
-After this the project will be accessible at [http://localhost:8080/spring-security/](http://localhost:8080/spring-security/).
+After this the project will be accessible at [http://localhost:8080/](http://localhost:8080/).
 
 This path is defined in the server.test.path property inside the pom, and can be changed by modifying its value.
 
