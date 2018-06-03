@@ -22,16 +22,17 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.secured;
+package com.bernardomg.example.spring.mvc.security.controller.users;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
+import com.bernardomg.example.spring.mvc.security.service.UserService;
 
 /**
  * Secured controller.
@@ -41,46 +42,58 @@ import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
-@RequestMapping("/secured")
-public final class RoleSecuredController {
+@RequestMapping("/users")
+public final class UserController {
 
     /**
-     * Secured service.
+     * Users list param.
      */
-    private final RoleSecuredService service;
+    public static final String PARAM_USERS    = "users";
+
+    /**
+     * Users list view.
+     */
+    public static final String USER_LIST_VIEW = "user/list";
+
+    /**
+     * Users service.
+     */
+    private final UserService  service;
 
     /**
      * Constructs a login controller.
      * 
-     * @param securedService
-     *            secured service
+     * @param userService
+     *            users service
      */
     @Autowired
-    public RoleSecuredController(final RoleSecuredService securedService) {
+    public UserController(final UserService userService) {
         super();
 
-        service = checkNotNull(securedService,
-                "Received a null pointer as secured service");
+        service = checkNotNull(userService,
+                "Received a null pointer as users service");
     }
 
     /**
-     * Shows a page only accessible to the admin.
+     * Shows a page with all the users.
      * 
+     * @param model
+     *            data model
      * @return the admin view
      */
-    @GetMapping("/admin")
-    public final String showAdminPage() {
-        getService().adminMethod();
+    @GetMapping
+    public final String showAdminPage(final ModelMap model) {
+        model.put(PARAM_USERS, getService().getAllUsers());
 
-        return SecuredViews.ADMIN;
+        return USER_LIST_VIEW;
     }
 
     /**
-     * Returns the secured service.
+     * Returns the users service.
      * 
-     * @return the secured service
+     * @return the users service
      */
-    private final RoleSecuredService getService() {
+    private final UserService getService() {
         return service;
     }
 

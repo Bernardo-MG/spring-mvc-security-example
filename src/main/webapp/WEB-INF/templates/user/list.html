@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+
+	<section id="main-section" class="container-fluid">
+		<header class="page-header">
+			<h1>Users List</h1>
+		</header>
+      <table class="table table-striped display">
+         <thead>
+            <tr>
+               <th>Username</th>
+               <th>Roles</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr th:each="user : ${users}">
+               <td><span th:remove="tag"
+                  th:text="${user?.username}">username</span></td>
+               <td><span th:remove="tag"
+                  th:text="${user?.authorities}">authorities</span></td>
+            </tr>
+         </tbody>
+      </table>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

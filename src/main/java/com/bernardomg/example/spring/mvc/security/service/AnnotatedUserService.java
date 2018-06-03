@@ -24,46 +24,56 @@
 
 package com.bernardomg.example.spring.mvc.security.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
- * Annotation-based service applying security for diverse roles.
- *
+ * Annotation-based users service.
+ * 
  * @author Bernardo Mart&iacute;nez Garrido
+ *
  */
-@Service("annotatedRoleSecuredService")
-public class AnnotatedRoleSecuredService implements RoleSecuredService {
+@Service("UserService")
+public class AnnotatedUserService implements UserService {
 
     /**
-     * Logger.
+     * Users repository.
      */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(PersistentUserDetailsService.class);
+    private final PersistentUserDetailsRepository repository;
 
     /**
      * Default constructor.
+     * 
+     * @param userRepo
+     *            users repository
      */
-    public AnnotatedRoleSecuredService() {
+    @Autowired
+    public AnnotatedUserService(
+            final PersistentUserDetailsRepository userRepo) {
         super();
+
+        repository = checkNotNull(userRepo,
+                "Received a null pointer as users repository");
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
-    public void adminMethod() {
-        final Authentication authentication;
+    public Iterable<? extends UserDetails> getAllUsers() {
+        return getPersistentUserDetailsRepository().findAll();
+    }
 
-        authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        LOGGER.info("Called method secured for admin");
-        LOGGER.info("User: {}", authentication.getName());
-        LOGGER.info("User authorities: {}", authentication.getAuthorities());
+    /**
+     * Returns the users service.
+     * 
+     * @return the users service
+     */
+    private final PersistentUserDetailsRepository
+            getPersistentUserDetailsRepository() {
+        return repository;
     }
 
 }
