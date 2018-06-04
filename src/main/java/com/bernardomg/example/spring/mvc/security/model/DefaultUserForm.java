@@ -22,34 +22,61 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
-
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
+package com.bernardomg.example.spring.mvc.security.model;
 
 /**
- * Service for handling user data.
+ * Default implementation of the user form.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface UserService {
+public final class DefaultUserForm implements UserForm {
 
     /**
-     * Returns all the users in the application.
-     * 
-     * @return all the users
+     * The password.
      */
-    public Iterable<? extends UserDetails> getAllUsers();
+    private String password;
 
     /**
-     * Persists the received user. If it already exists then the user is
-     * updated.
-     * 
-     * @param user
-     *            user to persist
+     * The username.
      */
-    public void save(final PersistentUserDetails user);
+    private String username;
+
+    /**
+     * Default constructor.
+     */
+    public DefaultUserForm() {
+        super();
+    }
+
+    @Override
+    public final String getPassword() {
+        return password;
+    }
+
+    @Override
+    public final String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets the password used to authenticate the user.
+     * 
+     * @param password
+     *            the new password
+     */
+    public final void setPassword(final String password) {
+        this.password = password;
+    }
+
+    /**
+     * Sets the username used to authenticate the user.
+     * 
+     * @param username
+     *            the new username
+     */
+    public final void setUsername(final String username) {
+        this.username = username;
+    }
 
 }

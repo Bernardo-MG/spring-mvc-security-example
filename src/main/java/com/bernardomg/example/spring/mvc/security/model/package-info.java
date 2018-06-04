@@ -21,35 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.example.spring.mvc.security.service;
-
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
-
 /**
- * Service for handling user data.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * Model classes.
  */
-public interface UserService {
 
-    /**
-     * Returns all the users in the application.
-     * 
-     * @return all the users
-     */
-    public Iterable<? extends UserDetails> getAllUsers();
-
-    /**
-     * Persists the received user. If it already exists then the user is
-     * updated.
-     * 
-     * @param user
-     *            user to persist
-     */
-    public void save(final PersistentUserDetails user);
-
-}
+package com.bernardomg.example.spring.mvc.security.model;

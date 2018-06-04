@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
@@ -64,6 +65,11 @@ public class AnnotatedUserService implements UserService {
     @Override
     public Iterable<? extends UserDetails> getAllUsers() {
         return getPersistentUserDetailsRepository().findAll();
+    }
+
+    @Override
+    public final void save(final PersistentUserDetails user) {
+        getPersistentUserDetailsRepository().save(user);
     }
 
     /**
