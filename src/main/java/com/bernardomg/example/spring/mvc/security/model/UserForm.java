@@ -46,4 +46,25 @@ public interface UserForm {
      */
     public String getUsername();
 
+    /**
+     * Returns the user locked flag.
+     * 
+     * @return the user locked flag
+     */
+    public Boolean getLocked();
+
+    /**
+     * Returns the user enabled flag.
+     * 
+     * @return the user enabled flag
+     */
+    public Boolean getEnabled();
+
+    /**
+     * Returns the user expired flag.
+     * 
+     * @return the user expired flag
+     */
+    public Boolean getExpired();
+
 }

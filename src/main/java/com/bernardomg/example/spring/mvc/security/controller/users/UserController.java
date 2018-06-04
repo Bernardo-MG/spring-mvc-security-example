@@ -139,9 +139,9 @@ public final class UserController {
             entity = new PersistentUserDetails();
             entity.setUsername(form.getUsername());
             entity.setPassword(form.getPassword());
-            entity.setEnabled(true);
-            entity.setExpired(false);
-            entity.setLocked(false);
+            entity.setEnabled(form.getEnabled());
+            entity.setExpired(form.getExpired());
+            entity.setLocked(form.getLocked());
 
             getService().save(entity);
 

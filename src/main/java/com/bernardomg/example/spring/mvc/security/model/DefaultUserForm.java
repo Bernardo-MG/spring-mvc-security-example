@@ -33,20 +33,50 @@ package com.bernardomg.example.spring.mvc.security.model;
 public final class DefaultUserForm implements UserForm {
 
     /**
+     * Enabled flag.
+     */
+    private Boolean enabled;
+
+    /**
+     * Expired flag.
+     */
+    private Boolean expired;
+
+    /**
+     * Locked flag.
+     */
+    private Boolean locked;
+
+    /**
      * The password.
      */
-    private String password;
+    private String  password;
 
     /**
      * The username.
      */
-    private String username;
+    private String  username;
 
     /**
      * Default constructor.
      */
     public DefaultUserForm() {
         super();
+    }
+
+    @Override
+    public final Boolean getEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public final Boolean getExpired() {
+        return expired;
+    }
+
+    @Override
+    public final Boolean getLocked() {
+        return locked;
     }
 
     @Override
@@ -57,6 +87,36 @@ public final class DefaultUserForm implements UserForm {
     @Override
     public final String getUsername() {
         return username;
+    }
+
+    /**
+     * Sets the enabled flag.
+     * 
+     * @param enabled
+     *            the enabled flag
+     */
+    public final void setEnabled(final Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * Sets the expired flag.
+     * 
+     * @param expired
+     *            the expired flag
+     */
+    public final void setExpired(final Boolean expired) {
+        this.expired = expired;
+    }
+
+    /**
+     * Sets the locked flag.
+     * 
+     * @param locked
+     *            the locked flag
+     */
+    public final void setLocked(final Boolean locked) {
+        this.locked = locked;
     }
 
     /**

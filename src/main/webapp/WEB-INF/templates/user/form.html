@@ -34,12 +34,49 @@
 								th:classappend="${#fields.hasErrors('password')} ? 'error'">
 								<label class="control-label" for="password">Password</label>
 								<div class="controls">
-									<input type="password" th:field="*{password}" class="form-control">
+									<input type="password" th:field="*{password}"
+										class="form-control">
 									<!-- Validation errors -->
 									<p th:if="${#fields.hasErrors('password')}"
 										class="label label-danger" th:errors="*{password}">Error</p>
 								</div>
 							</div>
+							<!-- Enabled input -->
+							<div class="form-group">
+								<div class="controls">
+									<div class="checkbox">
+										<label> <input type="checkbox" th:field="*{enabled}">Enabled
+										</label>
+									</div>
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('enabled')}"
+										class="label label-danger" th:errors="*{enabled}">Error</p>
+								</div>
+							</div>
+                     <!-- Locked input -->
+                     <div class="form-group">
+                        <div class="controls">
+                           <div class="checkbox">
+                              <label> <input type="checkbox" th:field="*{locked}">Locked
+                              </label>
+                           </div>
+                           <!-- Validation errors -->
+                           <p th:if="${#fields.hasErrors('locked')}"
+                              class="label label-danger" th:errors="*{locked}">Error</p>
+                        </div>
+                     </div>
+                     <!-- Expired input -->
+                     <div class="form-group">
+                        <div class="controls">
+                           <div class="checkbox">
+                              <label> <input type="checkbox" th:field="*{expired}">Expired
+                              </label>
+                           </div>
+                           <!-- Validation errors -->
+                           <p th:if="${#fields.hasErrors('expired')}"
+                              class="label label-danger" th:errors="*{expired}">Error</p>
+                        </div>
+                     </div>
 						</div>
 					</div>
 				</div>
