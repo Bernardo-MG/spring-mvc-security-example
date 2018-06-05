@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
+import com.bernardomg.example.spring.mvc.security.model.UserForm;
 
 /**
  * Service for handling user data.
@@ -50,6 +50,6 @@ public interface UserService {
      * @param user
      *            user to persist
      */
-    public void save(final PersistentUserDetails user);
+    public void save(final UserForm user);
 
 }

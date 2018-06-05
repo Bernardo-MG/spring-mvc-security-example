@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 
 /**
@@ -126,7 +125,6 @@ public final class UserController {
             @ModelAttribute(PARAM_USER_FORM) @Valid final UserForm form,
             final BindingResult bindingResult, final HttpSession session) {
         final String path;
-        final PersistentUserDetails entity;
 
         if (bindingResult.hasErrors()) {
             // Invalid form data
@@ -136,14 +134,7 @@ public final class UserController {
             // TODO: Maybe it should return a bad request status?
         } else {
 
-            entity = new PersistentUserDetails();
-            entity.setUsername(form.getUsername());
-            entity.setPassword(form.getPassword());
-            entity.setEnabled(form.getEnabled());
-            entity.setExpired(form.getExpired());
-            entity.setLocked(form.getLocked());
-
-            getService().save(entity);
+            getService().save(form);
 
             path = showUsersList(model);
         }

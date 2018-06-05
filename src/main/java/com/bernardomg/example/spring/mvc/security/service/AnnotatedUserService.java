@@ -28,8 +28,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.model.UserForm;
 import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
@@ -48,18 +50,29 @@ public class AnnotatedUserService implements UserService {
     private final PersistentUserDetailsRepository repository;
 
     /**
+     * Password encoder.
+     */
+    private final PasswordEncoder                 passwordEncoder;
+
+    /**
      * Default constructor.
      * 
      * @param userRepo
      *            users repository
      */
     @Autowired
-    public AnnotatedUserService(
-            final PersistentUserDetailsRepository userRepo) {
+    public AnnotatedUserService(final PersistentUserDetailsRepository userRepo,
+            final PasswordEncoder passEncoder) {
         super();
 
         repository = checkNotNull(userRepo,
                 "Received a null pointer as users repository");
+        passwordEncoder = checkNotNull(passEncoder,
+                "Received a null pointer as password encoder");
+    }
+
+    private final PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
     @Override
@@ -68,8 +81,21 @@ public class AnnotatedUserService implements UserService {
     }
 
     @Override
-    public final void save(final PersistentUserDetails user) {
-        getPersistentUserDetailsRepository().save(user);
+    public final void save(final UserForm user) {
+        final PersistentUserDetails entity;
+        final String encodedPassword;
+
+        entity = new PersistentUserDetails();
+        entity.setUsername(user.getUsername());
+        entity.setEnabled(user.getEnabled());
+        entity.setExpired(user.getExpired());
+        entity.setLocked(user.getLocked());
+
+        // Password is encoded
+        encodedPassword = getPasswordEncoder().encode(user.getPassword());
+        entity.setPassword(encodedPassword);
+
+        getPersistentUserDetailsRepository().save(entity);
     }
 
     /**
