@@ -24,6 +24,8 @@
 
 package com.bernardomg.example.spring.mvc.security.persistence.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
@@ -44,6 +46,7 @@ public interface PersistentUserDetailsRepository
      *            username to search for
      * @return the user details for the received username
      */
-    public PersistentUserDetails findOneByUsername(final String username);
+    public Optional<PersistentUserDetails>
+            findOneByUsername(final String username);
 
 }

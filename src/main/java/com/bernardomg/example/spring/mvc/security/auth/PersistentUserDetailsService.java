@@ -26,6 +26,8 @@ package com.bernardomg.example.spring.mvc.security.auth;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
@@ -80,21 +83,21 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     @Override
     public final UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-        final UserDetails user;
+        final Optional<PersistentUserDetails> user;
 
         LOGGER.debug("Asked for username {}", username);
 
         user = getPersistentUserDetailsRepository()
                 .findOneByUsername(username.toLowerCase());
 
-        if (user == null) {
+        if (user.isPresent()) {
+            LOGGER.debug("Username {} found in DB", username);
+        } else {
             LOGGER.debug("Username {} not found in DB", username);
             throw new UsernameNotFoundException(username);
-        } else {
-            LOGGER.debug("Username {} found in DB", username);
         }
 
-        return user;
+        return user.get();
     }
 
     /**

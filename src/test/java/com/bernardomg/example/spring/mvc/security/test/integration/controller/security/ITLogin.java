@@ -90,6 +90,30 @@ public final class ITLogin {
     }
 
     /**
+     * Verifies that using an expired user redirects to the login error URL.
+     */
+    @Test
+    public final void testLogin_ExpiredUser_ErrorRedirect() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("expired").password("1111");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+    }
+
+    /**
+     * Verifies that using an expired user name fails the login.
+     */
+    @Test
+    public final void testLogin_ExpiredUser_Unauthenticated() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("expired").password("1111");
+
+        mockMvc.perform(login).andExpect(unauthenticated());
+    }
+
+    /**
      * Verifies that using an invalid password redirects to the login error URL.
      */
     @Test
@@ -135,6 +159,30 @@ public final class ITLogin {
         final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("abc").password("1234");
+
+        mockMvc.perform(login).andExpect(unauthenticated());
+    }
+
+    /**
+     * Verifies that using a locked user redirects to the login error URL.
+     */
+    @Test
+    public final void testLogin_LockedUser_ErrorRedirect() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("locked").password("1111");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+    }
+
+    /**
+     * Verifies that using a locked user name fails the login.
+     */
+    @Test
+    public final void testLogin_LockedUser_Unauthenticated() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("locked").password("1111");
 
         mockMvc.perform(login).andExpect(unauthenticated());
     }

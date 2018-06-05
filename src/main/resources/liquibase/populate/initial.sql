@@ -27,9 +27,11 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 
-INSERT INTO users (name, password) VALUES
-   ('admin', '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW'),
-   ('noroles', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a');
+INSERT INTO users (name, password, enabled, locked, expired) VALUES
+   ('admin', '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW', true, false, false),
+   ('noroles', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true, false, false),
+   ('locked', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true, true, false),
+   ('expired', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true, false, true);
 
 INSERT INTO authorities (authority) VALUES
    ('ADMIN_ROLE');
