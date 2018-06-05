@@ -28,8 +28,8 @@
 -- ****************************************
 
 INSERT INTO users (name, password) VALUES
-   ('admin', '{noop}1234'),
-   ('noroles', '{noop}1111');
+   ('admin', '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW'),
+   ('noroles', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a');
 
 INSERT INTO authorities (authority) VALUES
    ('ADMIN_ROLE');
