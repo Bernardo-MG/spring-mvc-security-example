@@ -22,48 +22,25 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-
-import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsService;
+package com.bernardomg.example.spring.mvc.security.controller.secured;
 
 /**
- * Annotation-based service applying security for diverse roles.
- *
+ * Views for the secured controllers.
+ * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-@Service("annotatedRoleSecuredService")
-public class AnnotatedRoleSecuredService implements RoleSecuredService {
+public final class SecuredViews {
 
     /**
-     * Logger.
+     * Admin view.
      */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(PersistentUserDetailsService.class);
+    public static final String ADMIN = "role/admin";
 
     /**
-     * Default constructor.
+     * Private constructor to avoid initialization.
      */
-    public AnnotatedRoleSecuredService() {
+    private SecuredViews() {
         super();
-    }
-
-    @Override
-    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
-    public void adminMethod() {
-        final Authentication authentication;
-
-        authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        LOGGER.info("Called method secured for admin");
-        LOGGER.info("User: {}", authentication.getName());
-        LOGGER.info("User authorities: {}", authentication.getAuthorities());
     }
 
 }

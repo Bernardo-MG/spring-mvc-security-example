@@ -17,4 +17,4 @@ An embedded Tomcat can be used through this other profile:
 $ mvn tomcat7:run-war -P tomcat7
 ```
 
-This makes the project be accessible at [http://localhost:8080${serverTestPath}/](http://localhost:8080${serverTestPath}/).
+This makes the project be accessible at [http://localhost:8080/](http://localhost:8080/).

@@ -21,26 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.example.spring.mvc.security.controller.login;
-
 /**
- * Constants for the login controllers.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
+ * Users controllers.
  */
-public final class LoginConstants {
 
-    /**
-     * Login view.
-     */
-    public static final String VIEW_LOGIN = "login";
-
-    /**
-     * Private constructor to avoid initialization.
-     */
-    private LoginConstants() {
-        super();
-    }
-
-}
+package com.bernardomg.example.spring.mvc.security.controller.users;

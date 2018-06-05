@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller;
+package com.bernardomg.example.spring.mvc.security.controller.error;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,13 +46,8 @@ public final class GlobalExceptionHandler
     /**
      * Logger for the exception handler.
      */
-    private static final Logger LOGGER         = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(GlobalExceptionHandler.class);
-
-    /**
-     * Name for the exception view.
-     */
-    private static final String VIEW_EXCEPTION = "exception";
 
     /**
      * Default constructor.
@@ -69,7 +64,7 @@ public final class GlobalExceptionHandler
 
         LOGGER.error(ex.getMessage(), ex);
 
-        modelView = new ModelAndView(VIEW_EXCEPTION);
+        modelView = new ModelAndView(ErrorViews.EXCEPTION);
         modelView.getModel().put("code",
                 HttpStatus.INTERNAL_SERVER_ERROR.value());
         modelView.getModel().put("message", ex.getMessage());

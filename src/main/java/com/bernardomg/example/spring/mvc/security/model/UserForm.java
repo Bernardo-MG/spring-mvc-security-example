@@ -22,48 +22,49 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-
-import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsService;
+package com.bernardomg.example.spring.mvc.security.model;
 
 /**
- * Annotation-based service applying security for diverse roles.
- *
+ * Represents the form used for the creating and editing users.
+ * 
  * @author Bernardo Mart&iacute;nez Garrido
+ *
  */
-@Service("annotatedRoleSecuredService")
-public class AnnotatedRoleSecuredService implements RoleSecuredService {
+public interface UserForm {
 
     /**
-     * Logger.
+     * Returns the password used to authenticate the user.
+     *
+     * @return the password
      */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(PersistentUserDetailsService.class);
+    public String getPassword();
 
     /**
-     * Default constructor.
+     * Returns the username used to authenticate the user.
+     *
+     * @return the username
      */
-    public AnnotatedRoleSecuredService() {
-        super();
-    }
+    public String getUsername();
 
-    @Override
-    @PreAuthorize("hasAuthority('ADMIN_ROLE')")
-    public void adminMethod() {
-        final Authentication authentication;
+    /**
+     * Returns the user locked flag.
+     * 
+     * @return the user locked flag
+     */
+    public Boolean getLocked();
 
-        authentication = SecurityContextHolder.getContext().getAuthentication();
+    /**
+     * Returns the user enabled flag.
+     * 
+     * @return the user enabled flag
+     */
+    public Boolean getEnabled();
 
-        LOGGER.info("Called method secured for admin");
-        LOGGER.info("User: {}", authentication.getName());
-        LOGGER.info("User authorities: {}", authentication.getAuthorities());
-    }
+    /**
+     * Returns the user expired flag.
+     * 
+     * @return the user expired flag
+     */
+    public Boolean getExpired();
 
 }

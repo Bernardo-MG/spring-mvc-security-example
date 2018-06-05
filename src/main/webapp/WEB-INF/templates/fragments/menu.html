@@ -31,10 +31,11 @@
 					</li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span th:remove="tag">Examples</span> <span
+						aria-expanded="false"><span th:remove="tag">Pages</span> <span
 							aria-hidden="true"></span> </a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{/login}">Login</a></li>
+                     <li><a th:href="@{/users}">Users List</a></li>
+                     <li><a th:href="@{/users/edit}">Add User</a></li>
                      <li><a th:href="@{/secured/admin}">Page restricted to admin role</a></li>
 						</ul></li>
 				</ul>
