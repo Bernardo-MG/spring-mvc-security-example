@@ -36,13 +36,13 @@ import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUs
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
- * Users service based on {@link PersistentUserDetails}.
+ * Users service based on {@link PersistentUserDetails} and Spring classes.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Service("userService")
-public final class PersistentUserDetailsService implements UserService {
+public final class SpringUserService implements UserService {
 
     /**
      * Password encoder.
@@ -59,10 +59,11 @@ public final class PersistentUserDetailsService implements UserService {
      * 
      * @param userRepo
      *            users repository
+     * @param passEncoder
+     *            password encoder
      */
     @Autowired
-    public PersistentUserDetailsService(
-            final PersistentUserDetailsRepository userRepo,
+    public SpringUserService(final PersistentUserDetailsRepository userRepo,
             final PasswordEncoder passEncoder) {
         super();
 
@@ -100,6 +101,11 @@ public final class PersistentUserDetailsService implements UserService {
         return getPersistentUserDetailsRepository().findAll();
     }
 
+    /**
+     * Returns the password encoder.
+     * 
+     * @return the password encoder
+     */
     private final PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
     }

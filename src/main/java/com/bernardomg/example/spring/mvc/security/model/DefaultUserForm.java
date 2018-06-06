@@ -102,51 +102,51 @@ public final class DefaultUserForm implements UserForm {
     /**
      * Sets the enabled flag.
      * 
-     * @param enabled
+     * @param flag
      *            the enabled flag
      */
-    public final void setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
+    public final void setEnabled(final Boolean flag) {
+        enabled = flag;
     }
 
     /**
      * Sets the expired flag.
      * 
-     * @param expired
+     * @param flag
      *            the expired flag
      */
-    public final void setExpired(final Boolean expired) {
-        this.expired = expired;
+    public final void setExpired(final Boolean flag) {
+        expired = flag;
     }
 
     /**
      * Sets the locked flag.
      * 
-     * @param locked
+     * @param flag
      *            the locked flag
      */
-    public final void setLocked(final Boolean locked) {
-        this.locked = locked;
+    public final void setLocked(final Boolean flag) {
+        locked = flag;
     }
 
     /**
      * Sets the password used to authenticate the user.
      * 
-     * @param password
+     * @param value
      *            the new password
      */
-    public final void setPassword(final String password) {
-        this.password = password;
+    public final void setPassword(final String value) {
+        password = value;
     }
 
     /**
      * Sets the username used to authenticate the user.
      * 
-     * @param username
+     * @param value
      *            the new username
      */
-    public final void setUsername(final String username) {
-        this.username = username;
+    public final void setUsername(final String value) {
+        username = value;
     }
 
 }
