@@ -27,8 +27,6 @@ package com.bernardomg.example.spring.mvc.security.model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 /**
  * Default implementation of the user form.
  * 

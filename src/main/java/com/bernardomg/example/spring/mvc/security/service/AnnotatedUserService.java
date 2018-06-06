@@ -45,14 +45,14 @@ import com.bernardomg.example.spring.mvc.security.persistence.repository.Persist
 public class AnnotatedUserService implements UserService {
 
     /**
-     * Users repository.
-     */
-    private final PersistentUserDetailsRepository repository;
-
-    /**
      * Password encoder.
      */
     private final PasswordEncoder                 passwordEncoder;
+
+    /**
+     * Users repository.
+     */
+    private final PersistentUserDetailsRepository repository;
 
     /**
      * Default constructor.
@@ -69,10 +69,6 @@ public class AnnotatedUserService implements UserService {
                 "Received a null pointer as users repository");
         passwordEncoder = checkNotNull(passEncoder,
                 "Received a null pointer as password encoder");
-    }
-
-    private final PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
     }
 
     @Override
@@ -96,6 +92,10 @@ public class AnnotatedUserService implements UserService {
         entity.setPassword(encodedPassword);
 
         getPersistentUserDetailsRepository().save(entity);
+    }
+
+    private final PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
     /**

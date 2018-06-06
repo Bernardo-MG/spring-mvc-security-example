@@ -33,27 +33,6 @@ package com.bernardomg.example.spring.mvc.security.model;
 public interface UserForm {
 
     /**
-     * Returns the password used to authenticate the user.
-     *
-     * @return the password
-     */
-    public String getPassword();
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return the username
-     */
-    public String getUsername();
-
-    /**
-     * Returns the user locked flag.
-     * 
-     * @return the user locked flag
-     */
-    public Boolean getLocked();
-
-    /**
      * Returns the user enabled flag.
      * 
      * @return the user enabled flag
@@ -66,5 +45,26 @@ public interface UserForm {
      * @return the user expired flag
      */
     public Boolean getExpired();
+
+    /**
+     * Returns the user locked flag.
+     * 
+     * @return the user locked flag
+     */
+    public Boolean getLocked();
+
+    /**
+     * Returns the password used to authenticate the user.
+     *
+     * @return the password
+     */
+    public String getPassword();
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return the username
+     */
+    public String getUsername();
 
 }
