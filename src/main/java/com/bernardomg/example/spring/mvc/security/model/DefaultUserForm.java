@@ -40,16 +40,19 @@ public final class DefaultUserForm implements UserForm {
     /**
      * Enabled flag.
      */
+    @NotNull
     private Boolean enabled  = true;
 
     /**
      * Expired flag.
      */
+    @NotNull
     private Boolean expired  = false;
 
     /**
      * Locked flag.
      */
+    @NotNull
     private Boolean locked   = false;
 
     /**
