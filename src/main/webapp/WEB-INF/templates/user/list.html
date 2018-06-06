@@ -23,7 +23,7 @@
 			<tbody>
 				<tr th:each="user : ${users}">
 					<td><span th:remove="tag" th:text="${user?.username}">username</span></td>
-					<td><span th:remove="tag" th:text="${user?.roles}">roles</span></td>
+					<td><span th:remove="tag" th:each="role, iterStat : ${user?.roles}" th:text="!${iterStat.last} ? ${role?.name} + ',': ${role?.name}">roles</span></td>
 					<td><span th:remove="tag" th:text="${user?.enabled}">enabled</span></td>
                <td><span th:remove="tag" th:text="${user?.locked}">locked</span></td>
                <td><span th:remove="tag" th:text="${user?.expired}">expired</span></td>
