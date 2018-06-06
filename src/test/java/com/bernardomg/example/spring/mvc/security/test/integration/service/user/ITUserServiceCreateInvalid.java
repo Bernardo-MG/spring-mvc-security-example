@@ -31,6 +31,7 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -81,7 +82,8 @@ public class ITUserServiceCreateInvalid {
         user.setUsername("admin");
         user.setPassword("password");
 
-        Assertions.assertThrows(Exception.class, () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.create(user));
     }
 
     /**
@@ -95,7 +97,8 @@ public class ITUserServiceCreateInvalid {
         user.setUsername(null);
         user.setPassword("password");
 
-        Assertions.assertThrows(Exception.class, () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.create(user));
     }
 
     /**
@@ -109,7 +112,8 @@ public class ITUserServiceCreateInvalid {
         user.setUsername("username");
         user.setPassword(null);
 
-        Assertions.assertThrows(Exception.class, () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.create(user));
     }
 
 }

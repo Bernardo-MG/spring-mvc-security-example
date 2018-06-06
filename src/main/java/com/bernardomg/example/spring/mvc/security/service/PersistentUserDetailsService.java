@@ -83,8 +83,13 @@ public final class PersistentUserDetailsService implements UserService {
         entity.setExpired(user.getExpired());
         entity.setLocked(user.getLocked());
 
-        // Password is encoded
-        encodedPassword = getPasswordEncoder().encode(user.getPassword());
+        if (user.getPassword() == null) {
+            // Let the persistence layer handle this
+            encodedPassword = null;
+        } else {
+            // Password is encoded
+            encodedPassword = getPasswordEncoder().encode(user.getPassword());
+        }
         entity.setPassword(encodedPassword);
 
         getPersistentUserDetailsRepository().save(entity);
