@@ -56,7 +56,6 @@ public final class DefaultUserForm implements UserForm {
      * The password.
      */
     @NotNull
-    @NotEmpty
     @Size(min = 3, max = 20)
     private String  password = "";
 
@@ -64,7 +63,6 @@ public final class DefaultUserForm implements UserForm {
      * The username.
      */
     @NotNull
-    @NotEmpty
     @Size(min = 3, max = 20)
     private String  username = "";
 
