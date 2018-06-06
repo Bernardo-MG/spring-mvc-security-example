@@ -24,6 +24,11 @@
 
 package com.bernardomg.example.spring.mvc.security.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Default implementation of the user form.
  * 
@@ -35,27 +40,33 @@ public final class DefaultUserForm implements UserForm {
     /**
      * Enabled flag.
      */
-    private Boolean enabled;
+    private Boolean enabled  = true;
 
     /**
      * Expired flag.
      */
-    private Boolean expired;
+    private Boolean expired  = false;
 
     /**
      * Locked flag.
      */
-    private Boolean locked;
+    private Boolean locked   = false;
 
     /**
      * The password.
      */
-    private String  password;
+    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 20)
+    private String  password = "";
 
     /**
      * The username.
      */
-    private String  username;
+    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 20)
+    private String  username = "";
 
     /**
      * Default constructor.
