@@ -39,7 +39,7 @@ import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsServ
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Service("annotatedRoleSecuredService")
-public class AnnotatedRoleSecuredService implements RoleSecuredService {
+public final class AnnotatedRoleSecuredService implements RoleSecuredService {
 
     /**
      * Logger.
@@ -56,7 +56,7 @@ public class AnnotatedRoleSecuredService implements RoleSecuredService {
 
     @Override
     @PreAuthorize("hasAuthority('ADMIN_ROLE')")
-    public void adminMethod() {
+    public final void adminMethod() {
         final Authentication authentication;
 
         authentication = SecurityContextHolder.getContext().getAuthentication();

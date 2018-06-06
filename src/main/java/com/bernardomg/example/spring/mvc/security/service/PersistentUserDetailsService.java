@@ -36,13 +36,13 @@ import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUs
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
- * Annotation-based users service.
+ * Users service based on {@link PersistentUserDetails}.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Service("UserService")
-public class AnnotatedUserService implements UserService {
+@Service("userService")
+public final class PersistentUserDetailsService implements UserService {
 
     /**
      * Password encoder.
@@ -61,7 +61,8 @@ public class AnnotatedUserService implements UserService {
      *            users repository
      */
     @Autowired
-    public AnnotatedUserService(final PersistentUserDetailsRepository userRepo,
+    public PersistentUserDetailsService(
+            final PersistentUserDetailsRepository userRepo,
             final PasswordEncoder passEncoder) {
         super();
 
@@ -72,12 +73,7 @@ public class AnnotatedUserService implements UserService {
     }
 
     @Override
-    public Iterable<? extends UserDetails> getAllUsers() {
-        return getPersistentUserDetailsRepository().findAll();
-    }
-
-    @Override
-    public final void save(final UserForm user) {
+    public final void create(final UserForm user) {
         final PersistentUserDetails entity;
         final String encodedPassword;
 
@@ -92,6 +88,11 @@ public class AnnotatedUserService implements UserService {
         entity.setPassword(encodedPassword);
 
         getPersistentUserDetailsRepository().save(entity);
+    }
+
+    @Override
+    public final Iterable<? extends UserDetails> getAllUsers() {
+        return getPersistentUserDetailsRepository().findAll();
     }
 
     private final PasswordEncoder getPasswordEncoder() {

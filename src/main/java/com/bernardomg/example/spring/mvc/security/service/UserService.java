@@ -37,19 +37,19 @@ import com.bernardomg.example.spring.mvc.security.model.UserForm;
 public interface UserService {
 
     /**
+     * Persists the received user. If it already exists then the user is
+     * invalid.
+     * 
+     * @param user
+     *            user to create
+     */
+    public void create(final UserForm user);
+
+    /**
      * Returns all the users in the application.
      * 
      * @return all the users
      */
     public Iterable<? extends UserDetails> getAllUsers();
-
-    /**
-     * Persists the received user. If it already exists then the user is
-     * updated.
-     * 
-     * @param user
-     *            user to persist
-     */
-    public void save(final UserForm user);
 
 }

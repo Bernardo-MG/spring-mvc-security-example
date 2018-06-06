@@ -134,7 +134,7 @@ public final class UserController {
             // TODO: Maybe it should return a bad request status?
         } else {
 
-            getService().save(form);
+            getService().create(form);
 
             path = showUsersList(model);
         }
