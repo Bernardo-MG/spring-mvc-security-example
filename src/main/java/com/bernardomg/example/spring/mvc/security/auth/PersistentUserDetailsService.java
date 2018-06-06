@@ -26,17 +26,22 @@ package com.bernardomg.example.spring.mvc.security.auth;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
+import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
@@ -83,7 +88,8 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     @Override
     public final UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-        final Optional<PersistentUserDetails> user;
+        final Optional<PersistentUser> user;
+        final UserDetails details;
 
         LOGGER.debug("Asked for username {}", username);
 
@@ -92,12 +98,13 @@ public final class PersistentUserDetailsService implements UserDetailsService {
 
         if (user.isPresent()) {
             LOGGER.debug("Username {} found in DB", username);
+            details = toUserDetails(user.get());
         } else {
             LOGGER.debug("Username {} not found in DB", username);
             throw new UsernameNotFoundException(username);
         }
 
-        return user.get();
+        return details;
     }
 
     /**
@@ -108,6 +115,37 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     private final PersistentUserDetailsRepository
             getPersistentUserDetailsRepository() {
         return userRepo;
+    }
+
+    /**
+     * Transforms a user entity into a user details object.
+     * 
+     * @param user
+     *            entity to transform
+     * @return equivalent user details
+     */
+    private final UserDetails toUserDetails(final PersistentUser user) {
+        final UserDetails details;
+        final Boolean enabled;
+        final Boolean accountNonExpired;
+        final Boolean credentialsNonExpired;
+        final Boolean accountNonLocked;
+        final Collection<? extends GrantedAuthority> authorities;
+
+        enabled = user.getEnabled();
+        accountNonExpired = !user.getExpired();
+        credentialsNonExpired = !user.getExpired();
+        accountNonLocked = !user.getLocked();
+
+        authorities = user.getRoles().stream()
+                .map((r) -> new SimpleGrantedAuthority(r.getName()))
+                .collect(Collectors.toList());
+
+        details = new User(user.getUsername(), user.getPassword(), enabled,
+                accountNonExpired, credentialsNonExpired, accountNonLocked,
+                authorities);
+
+        return details;
     }
 
 }

@@ -27,16 +27,16 @@ package com.bernardomg.example.spring.mvc.security.service;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUserDetails;
+import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
 /**
- * Users service based on {@link PersistentUserDetails} and Spring classes.
+ * Users service based on {@link PersistentUser} and Spring classes.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -75,10 +75,10 @@ public final class SpringUserService implements UserService {
 
     @Override
     public final void create(final UserForm user) {
-        final PersistentUserDetails entity;
+        final PersistentUser entity;
         final String encodedPassword;
 
-        entity = new PersistentUserDetails();
+        entity = new PersistentUser();
         entity.setUsername(user.getUsername());
         entity.setEnabled(user.getEnabled());
         entity.setExpired(user.getExpired());
@@ -97,7 +97,7 @@ public final class SpringUserService implements UserService {
     }
 
     @Override
-    public final Iterable<? extends UserDetails> getAllUsers() {
+    public final Iterable<? extends User> getAllUsers() {
         return getPersistentUserDetailsRepository().findAll();
     }
 

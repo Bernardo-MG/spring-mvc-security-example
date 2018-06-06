@@ -31,7 +31,6 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -40,6 +39,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 import com.google.common.collect.Iterables;
 
@@ -78,7 +78,7 @@ public class ITUserServiceCreate {
      */
     @Test
     public final void testCreate() {
-        final Iterable<? extends UserDetails> users; // Read users
+        final Iterable<? extends User> users; // Read users
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();

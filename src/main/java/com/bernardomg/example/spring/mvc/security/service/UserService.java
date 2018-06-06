@@ -24,8 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
+import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
 
 /**
@@ -50,6 +49,6 @@ public interface UserService {
      * 
      * @return all the users
      */
-    public Iterable<? extends UserDetails> getAllUsers();
+    public Iterable<? extends User> getAllUsers();
 
 }

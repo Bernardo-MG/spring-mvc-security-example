@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.persistence.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -35,8 +36,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-
+import com.bernardomg.example.spring.mvc.security.model.Role;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -45,20 +45,14 @@ import com.google.common.base.MoreObjects;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "GrantedAuthority")
-@Table(name = "authorities")
-public class PersistentGrantedAuthority implements GrantedAuthority {
+@Entity(name = "Role")
+@Table(name = "ROLES")
+public class PersistentRole implements Role, Serializable {
 
     /**
      * Serialization id.
      */
-    private static final long                 serialVersionUID = 8513041662486312372L;
-
-    /**
-     * Authority name.
-     */
-    @Column(name = "authority", nullable = false, unique = true)
-    private String                            authority;
+    private static final long          serialVersionUID = 8513041662486312372L;
 
     /**
      * Entity id.
@@ -66,18 +60,24 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                              id;
+    private Long                       id;
 
     /**
-     * Users with the authority.
+     * Authority name.
      */
-    @ManyToMany(mappedBy = "authorities")
-    private Collection<PersistentUserDetails> users;
+    @Column(name = "name", nullable = false, unique = true)
+    private String                     name;
+
+    /**
+     * Users with the role.
+     */
+    @ManyToMany(mappedBy = "roles")
+    private Collection<PersistentUser> users;
 
     /**
      * Default constructor.
      */
-    public PersistentGrantedAuthority() {
+    public PersistentRole() {
         super();
     }
 
@@ -95,13 +95,8 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
             return false;
         }
 
-        final PersistentGrantedAuthority other = (PersistentGrantedAuthority) obj;
-        return Objects.equals(authority, other.authority);
-    }
-
-    @Override
-    public String getAuthority() {
-        return authority;
+        final PersistentRole other = (PersistentRole) obj;
+        return Objects.equals(name, other.name);
     }
 
     /**
@@ -113,28 +108,23 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
         return id;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
     /**
-     * Returns the users with the authority.
+     * Returns the users with the role.
      * 
-     * @return the users with the authority
+     * @return the users with the role
      */
-    public Collection<PersistentUserDetails> getUsers() {
+    public Collection<PersistentUser> getUsers() {
         return users;
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(authority);
-    }
-
-    /**
-     * Sets the authority name.
-     * 
-     * @param auth
-     *            new authority
-     */
-    public void setAuthority(final String auth) {
-        authority = auth;
+        return Objects.hash(name);
     }
 
     /**
@@ -148,19 +138,28 @@ public class PersistentGrantedAuthority implements GrantedAuthority {
     }
 
     /**
-     * Sets the users with the authority.
+     * Sets the role name.
+     * 
+     * @param role
+     *            new name
+     */
+    public void setName(final String role) {
+        name = role;
+    }
+
+    /**
+     * Sets the users with the role.
      * 
      * @param usrs
-     *            the users with the authority
+     *            the users with the role
      */
-    public void setUsers(final Collection<PersistentUserDetails> usrs) {
+    public void setUsers(final Collection<PersistentUser> usrs) {
         users = usrs;
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("authority", authority)
-                .toString();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

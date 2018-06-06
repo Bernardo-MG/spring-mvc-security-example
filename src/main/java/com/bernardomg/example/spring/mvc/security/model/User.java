@@ -22,30 +22,58 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.persistence.repository;
+package com.bernardomg.example.spring.mvc.security.model;
 
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUser;
+import java.util.Collection;
 
 /**
- * Repository for user details.
+ * User, and all its authentication data.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface PersistentUserDetailsRepository
-        extends JpaRepository<PersistentUser, Long> {
+public interface User {
 
     /**
-     * Returns the user details for the received username.
+     * Returns the user enabled flag.
      * 
-     * @param username
-     *            username to search for
-     * @return the user details for the received username
+     * @return the user enabled flag
      */
-    public Optional<PersistentUser> findOneByUsername(final String username);
+    public Boolean getEnabled();
+
+    /**
+     * Returns the user expired flag.
+     * 
+     * @return the user expired flag
+     */
+    public Boolean getExpired();
+
+    /**
+     * Returns the user locked flag.
+     * 
+     * @return the user locked flag
+     */
+    public Boolean getLocked();
+
+    /**
+     * Returns the user password.
+     * 
+     * @return the user password
+     */
+    public String getPassword();
+
+    /**
+     * Returns the user roles.
+     * 
+     * @return the user roles
+     */
+    public Collection<? extends Role> getRoles();
+
+    /**
+     * Returns the user username.
+     * 
+     * @return the user username
+     */
+    public String getUsername();
 
 }
