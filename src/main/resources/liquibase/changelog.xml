@@ -33,14 +33,32 @@
             <constraints nullable="false" unique="true" />
          </column>
       </createTable>
+      <createTable tableName="PRIVILEGES">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" />
+         </column>
+         <column name="name" type="VARCHAR(50)">
+            <constraints nullable="false" unique="true" />
+         </column>
+      </createTable>
+      <createTable tableName="ROLE_PRIVILEGES">
+         <column name="role_id" type="BIGINT">
+            <constraints nullable="false" foreignKeyName="fk_role_privileges_role_id"
+               references="ROLES(id)" />
+         </column>
+         <column name="privilege_id" type="BIGINT">
+            <constraints nullable="false" foreignKeyName="fk_role_privileges_privilege_id"
+               references="PRIVILEGES(id)" />
+         </column>
+      </createTable>
       <createTable tableName="USER_ROLES">
          <column name="user_id" type="BIGINT">
             <constraints nullable="false" foreignKeyName="fk_user_roles_user_id"
-               references="users(id)" />
+               references="USERS(id)" />
          </column>
          <column name="role_id" type="BIGINT">
             <constraints nullable="false" foreignKeyName="fk_user_roles_role_id"
-               references="roles(id)" />
+               references="ROLES(id)" />
          </column>
       </createTable>
    </changeSet>

@@ -36,6 +36,16 @@ INSERT INTO USERS (name, password, enabled, locked, expired) VALUES
 INSERT INTO ROLES (name) VALUES
    ('ADMIN');
 
+INSERT INTO PRIVILEGES (name) VALUES
+   ('ADD_USER');
+
+INSERT INTO PRIVILEGES (name) VALUES
+   ('LIST_USER');
+
+INSERT INTO ROLE_PRIVILEGES (role_id, privilege_id) VALUES
+   (1, 1),
+   (1, 2);
+
 INSERT INTO USER_ROLES (user_id, role_id) VALUES
    (1, 1),
    (3, 1),

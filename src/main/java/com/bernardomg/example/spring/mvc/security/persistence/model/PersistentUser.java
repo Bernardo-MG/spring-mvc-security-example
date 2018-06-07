@@ -45,7 +45,7 @@ import com.bernardomg.example.spring.mvc.security.model.User;
 import com.google.common.base.MoreObjects;
 
 /**
- * Persistent implementation of {@code UserDetails}.
+ * Persistent implementation of {@code User}.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -93,7 +93,7 @@ public class PersistentUser implements User {
     private String                     password;
 
     /**
-     * Granthed roles.
+     * Granted roles.
      */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLES",
@@ -244,7 +244,7 @@ public class PersistentUser implements User {
     }
 
     /**
-     * Sets the granted roles.
+     * Sets the user roles.
      * 
      * @param rls
      *            new roles

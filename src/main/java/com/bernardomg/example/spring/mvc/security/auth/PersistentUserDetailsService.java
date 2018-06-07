@@ -41,6 +41,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.model.Privilege;
+import com.bernardomg.example.spring.mvc.security.model.Role;
 import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 
@@ -131,13 +133,17 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         final Boolean credentialsNonExpired;
         final Boolean accountNonLocked;
         final Collection<? extends GrantedAuthority> authorities;
+        final Collection<? extends Privilege> privileges;
 
         enabled = user.getEnabled();
         accountNonExpired = !user.getExpired();
         credentialsNonExpired = !user.getExpired();
         accountNonLocked = !user.getLocked();
 
-        authorities = user.getRoles().stream()
+        privileges = user.getRoles().stream().map(Role::getPrivileges)
+                .flatMap(Collection::stream).collect(Collectors.toList());
+
+        authorities = privileges.stream()
                 .map((r) -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());
 

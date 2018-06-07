@@ -25,38 +25,34 @@
 package com.bernardomg.example.spring.mvc.security.persistence.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.bernardomg.example.spring.mvc.security.model.Role;
+import com.bernardomg.example.spring.mvc.security.model.Privilege;
 import com.google.common.base.MoreObjects;
 
 /**
- * Persistent implementation of {@code Role}.
+ * Persistent implementation of {@code Privilege}.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Role")
-@Table(name = "ROLES")
-public class PersistentRole implements Role, Serializable {
+@Entity(name = "Privilege")
+@Table(name = "PRIVILEGES")
+public class PersistentPrivilege implements Privilege, Serializable {
 
     /**
      * Serialization id.
      */
-    private static final long               serialVersionUID = 8513041662486312372L;
+    private static final long          serialVersionUID = 8513041662486312372L;
 
     /**
      * Entity id.
@@ -64,35 +60,24 @@ public class PersistentRole implements Role, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                            id;
+    private Long                       id;
 
     /**
      * Authority name.
      */
     @Column(name = "name", nullable = false, unique = true)
-    private String                          name;
-
-    /**
-     * Granted privileges.
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ROLE_PRIVILEGES",
-            joinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id",
-                    referencedColumnName = "id"))
-    private Collection<PersistentPrivilege> privileges       = new ArrayList<>();
+    private String                     name;
 
     /**
      * Users with the role.
      */
     @ManyToMany(mappedBy = "roles")
-    private Collection<PersistentUser>      users;
+    private Collection<PersistentUser> users;
 
     /**
      * Default constructor.
      */
-    public PersistentRole() {
+    public PersistentPrivilege() {
         super();
     }
 
@@ -110,7 +95,7 @@ public class PersistentRole implements Role, Serializable {
             return false;
         }
 
-        final PersistentRole other = (PersistentRole) obj;
+        final PersistentPrivilege other = (PersistentPrivilege) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -126,11 +111,6 @@ public class PersistentRole implements Role, Serializable {
     @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public Collection<PersistentPrivilege> getPrivileges() {
-        return privileges;
     }
 
     /**
@@ -165,17 +145,6 @@ public class PersistentRole implements Role, Serializable {
      */
     public void setName(final String role) {
         name = role;
-    }
-
-    /**
-     * Sets the role privileges.
-     * 
-     * @param privileges
-     *            the role privileges
-     */
-    public void
-            setPrivileges(final Collection<PersistentPrivilege> privileges) {
-        this.privileges = privileges;
     }
 
     /**
