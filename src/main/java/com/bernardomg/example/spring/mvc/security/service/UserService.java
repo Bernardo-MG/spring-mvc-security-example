@@ -24,6 +24,8 @@
 
 package com.bernardomg.example.spring.mvc.security.service;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
 
@@ -42,6 +44,7 @@ public interface UserService {
      * @param user
      *            user to create
      */
+    @PreAuthorize("hasAuthority('ADD_USER')")
     public void create(final UserForm user);
 
     /**
@@ -49,6 +52,7 @@ public interface UserService {
      * 
      * @return all the users
      */
+    @PreAuthorize("hasAuthority('READ_USER')")
     public Iterable<? extends User> getAllUsers();
 
 }

@@ -32,6 +32,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -75,6 +76,7 @@ public class ITUserServiceCreateInvalid {
      * Verifies that it rejects an existing name.
      */
     @Test
+    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
     public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -90,6 +92,7 @@ public class ITUserServiceCreateInvalid {
      * Verifies that it rejects a null name.
      */
     @Test
+    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
     public final void testCreate_NoName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -105,6 +108,7 @@ public class ITUserServiceCreateInvalid {
      * Verifies that it rejects a null password.
      */
     @Test
+    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
     public final void testCreate_NoPassword_Exception() {
         final DefaultUserForm user; // User to save
 

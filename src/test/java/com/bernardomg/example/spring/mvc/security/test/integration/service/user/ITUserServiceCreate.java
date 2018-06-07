@@ -31,6 +31,9 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -40,6 +43,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.model.User;
+import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 import com.google.common.collect.Iterables;
 
@@ -60,11 +64,17 @@ import com.google.common.collect.Iterables;
 public class ITUserServiceCreate {
 
     /**
+     * User repository.
+     */
+    @Autowired
+    private PersistentUserDetailsRepository repository;
+
+    /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService service;
+    private UserService                     service;
 
     /**
      * Default constructor.
@@ -77,6 +87,7 @@ public class ITUserServiceCreate {
      * Verifies that it adds a user.
      */
     @Test
+    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
     public final void testCreate() {
         final Iterable<? extends User> users; // Read users
         final DefaultUserForm user; // User to save
@@ -87,9 +98,43 @@ public class ITUserServiceCreate {
 
         service.create(user);
 
-        users = service.getAllUsers();
+        users = repository.findAll();
 
         Assertions.assertEquals(5, Iterables.size(users));
+    }
+
+    /**
+     * Verifies that trying to add a user without being authenticated causes an
+     * exception.
+     */
+    @Test
+    public final void testCreate_NoAuth_Exception() {
+        final DefaultUserForm user; // User to save
+
+        user = new DefaultUserForm();
+        user.setUsername("username");
+        user.setPassword("password");
+
+        Assertions.assertThrows(
+                AuthenticationCredentialsNotFoundException.class,
+                () -> service.create(user));
+    }
+
+    /**
+     * Verifies that trying to add a user without privileges causes an
+     * exception.
+     */
+    @Test
+    @WithMockUser
+    public final void testCreate_NoPrivileges_Exception() {
+        final DefaultUserForm user; // User to save
+
+        user = new DefaultUserForm();
+        user.setUsername("username");
+        user.setPassword("password");
+
+        Assertions.assertThrows(AccessDeniedException.class,
+                () -> service.create(user));
     }
 
 }
