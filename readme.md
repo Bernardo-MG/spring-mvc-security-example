@@ -14,6 +14,7 @@ The project by default comes with a useful series of features:
 
 * Login form handling
 * Encrypted passwords
+* Roles and privileges model
 * CSRF token
 * Security annotations
 
