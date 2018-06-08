@@ -170,12 +170,11 @@ public class PersistentRole implements Role, Serializable {
     /**
      * Sets the role privileges.
      * 
-     * @param privileges
+     * @param privs
      *            the role privileges
      */
-    public void
-            setPrivileges(final Collection<PersistentPrivilege> privileges) {
-        this.privileges = privileges;
+    public void setPrivileges(final Collection<PersistentPrivilege> privs) {
+        privileges = privs;
     }
 
     /**
