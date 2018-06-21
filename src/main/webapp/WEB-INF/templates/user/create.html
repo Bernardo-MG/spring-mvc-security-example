@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+
+	<section id="main-section" class="container-fluid">
+		<header class="page-header">
+			<h1>Create user</h1>
+		</header>
+		<section id="form" class="form-well">
+			<form action="#" th:action="@{/users/save}" th:object="${form}"
+				method="post" role="form" class="form">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">User Data</div>
+						<div class="panel-body">
+							<!-- Username input -->
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('username')} ? 'error'">
+								<label class="control-label" for="username">Username</label>
+								<div class="controls">
+									<input type="text" th:field="*{username}" class="form-control"
+										placeholder="Username">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('username')}"
+										class="label label-danger" th:errors="*{username}">Error</p>
+								</div>
+							</div>
+							<!-- Password input -->
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('password')} ? 'error'">
+								<label class="control-label" for="password">Password</label>
+								<div class="controls">
+									<input type="password" th:field="*{password}"
+										class="form-control">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('password')}"
+										class="label label-danger" th:errors="*{password}">Error</p>
+								</div>
+							</div>
+							<!-- Enabled input -->
+							<div class="form-group">
+								<div class="controls">
+									<div class="checkbox">
+										<label> <input type="checkbox" th:field="*{enabled}">Enabled
+										</label>
+									</div>
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('enabled')}"
+										class="label label-danger" th:errors="*{enabled}">Error</p>
+								</div>
+							</div>
+                     <!-- Locked input -->
+                     <div class="form-group">
+                        <div class="controls">
+                           <div class="checkbox">
+                              <label> <input type="checkbox" th:field="*{locked}">Locked
+                              </label>
+                           </div>
+                           <!-- Validation errors -->
+                           <p th:if="${#fields.hasErrors('locked')}"
+                              class="label label-danger" th:errors="*{locked}">Error</p>
+                        </div>
+                     </div>
+                     <!-- Expired input -->
+                     <div class="form-group">
+                        <div class="controls">
+                           <div class="checkbox">
+                              <label> <input type="checkbox" th:field="*{expired}">Expired
+                              </label>
+                           </div>
+                           <!-- Validation errors -->
+                           <p th:if="${#fields.hasErrors('expired')}"
+                              class="label label-danger" th:errors="*{expired}">Error</p>
+                        </div>
+                     </div>
+						</div>
+					</div>
+				</div>
+				<div id="submit" class="row">
+					<div class="col-md-12">
+						<button type="submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</section>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

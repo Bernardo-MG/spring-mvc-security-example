@@ -44,7 +44,7 @@ public interface UserService {
      * @param user
      *            user to create
      */
-    @PreAuthorize("hasAuthority('ADD_USER')")
+    @PreAuthorize("hasAuthority('CREATE_USER')")
     public void create(final UserForm user);
 
     /**
@@ -54,5 +54,25 @@ public interface UserService {
      */
     @PreAuthorize("hasAuthority('READ_USER')")
     public Iterable<? extends User> getAllUsers();
+
+    /**
+     * Returns the user with the received username.
+     * 
+     * @param username
+     *            username of the user to search
+     * @return user for the received username
+     */
+    @PreAuthorize("hasAuthority('READ_USER')")
+    public User getUser(final String username);
+
+    /**
+     * Updates the received user. The user is only valid if it doesn't exist
+     * already.
+     * 
+     * @param user
+     *            user to update
+     */
+    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    public void update(final UserForm user);
 
 }

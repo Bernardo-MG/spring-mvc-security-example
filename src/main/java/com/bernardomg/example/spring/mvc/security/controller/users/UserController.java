@@ -29,16 +29,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 
@@ -54,29 +57,29 @@ import com.bernardomg.example.spring.mvc.security.service.UserService;
 public final class UserController {
 
     /**
-     * Form bean parameter name.
-     */
-    public static final String BEAN_FORM       = "form";
-
-    /**
      * Users form param.
      */
-    public static final String PARAM_USER_FORM = "form";
+    public static final String PARAM_USER_FORM    = "form";
 
     /**
      * Users list param.
      */
-    public static final String PARAM_USERS     = "users";
+    public static final String PARAM_USERS        = "users";
 
     /**
-     * Users form view.
+     * Users creation form view.
      */
-    public static final String VIEW_USER_FORM  = "user/form";
+    public static final String VIEW_USER_CREATION = "user/create";
+
+    /**
+     * Users edition form view.
+     */
+    public static final String VIEW_USER_EDITION  = "user/edit";
 
     /**
      * Users list view.
      */
-    public static final String VIEW_USER_LIST  = "user/list";
+    public static final String VIEW_USER_LIST     = "user/list";
 
     /**
      * Users service.
@@ -102,7 +105,7 @@ public final class UserController {
      * 
      * @return the initial user form data
      */
-    @ModelAttribute(BEAN_FORM)
+    @ModelAttribute(PARAM_USER_FORM)
     public final UserForm getEntityForm() {
         return new DefaultUserForm();
     }
@@ -120,7 +123,7 @@ public final class UserController {
      *            HTTP session
      * @return the next view to show
      */
-    @PostMapping
+    @PostMapping("/save")
     public final String saveUser(final ModelMap model,
             @ModelAttribute(PARAM_USER_FORM) @Valid final UserForm form,
             final BindingResult bindingResult, final HttpSession session) {
@@ -130,7 +133,7 @@ public final class UserController {
             // Invalid form data
 
             // Returns to the form view
-            path = VIEW_USER_FORM;
+            path = VIEW_USER_CREATION;
             // TODO: Maybe it should return a bad request status?
         } else {
 
@@ -143,14 +146,39 @@ public final class UserController {
     }
 
     /**
-     * Shows the user edition view. This is done by returning the name of the
+     * Shows the user creation view. This is done by returning the name of the
      * view.
      * 
      * @return the name for the entity edition view
      */
-    @GetMapping(path = "/edit")
-    public final String showUserForm() {
-        return VIEW_USER_FORM;
+    @GetMapping(path = "/create")
+    public final String showUserCreation() {
+        return VIEW_USER_CREATION;
+    }
+
+    /**
+     * Shows the user editon view. This is done by returning the name of the
+     * view.
+     * 
+     * @param username
+     *            username of the user to edit
+     * @param model
+     *            data model
+     * @return the name for the entity edition view
+     */
+    @GetMapping(path = "/edit/{username}")
+    public final String showUserEdition(
+            @PathVariable("username") final String username,
+            final ModelMap model) {
+        final User user;
+        final UserForm form;
+
+        user = getService().getUser(username);
+        form = new DefaultUserForm();
+        BeanUtils.copyProperties(user, form);
+        model.put(PARAM_USER_FORM, form);
+
+        return VIEW_USER_EDITION;
     }
 
     /**
@@ -166,6 +194,40 @@ public final class UserController {
         model.put(PARAM_USERS, getService().getAllUsers());
 
         return VIEW_USER_LIST;
+    }
+
+    /**
+     * Updates a user.
+     * 
+     * @param model
+     *            model map
+     * @param form
+     *            form data
+     * @param bindingResult
+     *            binding result
+     * @param session
+     *            HTTP session
+     * @return the next view to show
+     */
+    @PostMapping("/update")
+    public final String updateUser(final ModelMap model,
+            @ModelAttribute(PARAM_USER_FORM) @Valid final UserForm form,
+            final BindingResult bindingResult, final HttpSession session) {
+        final String path;
+
+        if (bindingResult.hasErrors()) {
+            // Invalid form data
+
+            // Returns to the form view
+            path = VIEW_USER_EDITION;
+            // TODO: Maybe it should return a bad request status?
+        } else {
+            getService().update(form);
+
+            path = showUsersList(model);
+        }
+
+        return path;
     }
 
     /**

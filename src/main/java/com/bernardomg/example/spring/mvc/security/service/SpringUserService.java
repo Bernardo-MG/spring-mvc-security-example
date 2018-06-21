@@ -26,6 +26,9 @@ package com.bernardomg.example.spring.mvc.security.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -79,10 +82,7 @@ public final class SpringUserService implements UserService {
         final String encodedPassword;
 
         entity = new PersistentUser();
-        entity.setUsername(user.getUsername());
-        entity.setEnabled(user.getEnabled());
-        entity.setExpired(user.getExpired());
-        entity.setLocked(user.getLocked());
+        BeanUtils.copyProperties(user, entity);
 
         if (user.getPassword() == null) {
             // Let the persistence layer handle this
@@ -99,6 +99,45 @@ public final class SpringUserService implements UserService {
     @Override
     public final Iterable<? extends User> getAllUsers() {
         return getPersistentUserDetailsRepository().findAll();
+    }
+
+    @Override
+    public final User getUser(final String username) {
+        final Optional<PersistentUser> read;
+        final User user;
+
+        read = getPersistentUserDetailsRepository().findOneByUsername(username);
+
+        if (read.isPresent()) {
+            user = read.get();
+        } else {
+            // TODO: Throw exception maybe?
+            user = null;
+        }
+
+        return user;
+    }
+
+    @Override
+    public final void update(final UserForm user) {
+        final PersistentUser entity;
+        final String encodedPassword;
+
+        entity = getPersistentUserDetailsRepository()
+                .findOneByUsername(user.getUsername()).get();
+
+        BeanUtils.copyProperties(user, entity);
+
+        if (user.getPassword() == null) {
+            // Let the persistence layer handle this
+            encodedPassword = null;
+        } else {
+            // Password is encoded
+            encodedPassword = getPasswordEncoder().encode(user.getPassword());
+        }
+        entity.setPassword(encodedPassword);
+
+        getPersistentUserDetailsRepository().save(entity);
     }
 
     /**

@@ -76,7 +76,7 @@ public class ITUserServiceCreateInvalid {
      * Verifies that it rejects an existing name.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -92,7 +92,7 @@ public class ITUserServiceCreateInvalid {
      * Verifies that it rejects a null name.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     public final void testCreate_NoName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -108,7 +108,7 @@ public class ITUserServiceCreateInvalid {
      * Verifies that it rejects a null password.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     public final void testCreate_NoPassword_Exception() {
         final DefaultUserForm user; // User to save
 

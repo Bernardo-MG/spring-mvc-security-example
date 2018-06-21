@@ -87,7 +87,7 @@ public class ITUserServiceCreate {
      * Verifies that it adds a user.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADD_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     public final void testCreate() {
         final Iterable<? extends User> users; // Read users
         final DefaultUserForm user; // User to save
