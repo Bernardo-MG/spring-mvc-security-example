@@ -89,7 +89,7 @@ public class PersistentUser implements User {
     /**
      * User password.
      */
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 60)
     private String                     password;
 
     /**
@@ -106,7 +106,7 @@ public class PersistentUser implements User {
     /**
      * User name.
      */
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, length = 60)
     private String                     username;
 
     /**

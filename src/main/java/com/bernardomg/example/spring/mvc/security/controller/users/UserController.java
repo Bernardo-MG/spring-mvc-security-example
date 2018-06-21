@@ -27,13 +27,12 @@ package com.bernardomg.example.spring.mvc.security.controller.users;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +43,8 @@ import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
+import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
+import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 
 /**
  * Secured controller.
@@ -125,7 +126,7 @@ public final class UserController {
      */
     @PostMapping("/save")
     public final String saveUser(final ModelMap model,
-            @ModelAttribute(PARAM_USER_FORM) @Valid final UserForm form,
+            @ModelAttribute(PARAM_USER_FORM) @Validated(Creation.class) final UserForm form,
             final BindingResult bindingResult, final HttpSession session) {
         final String path;
 
@@ -211,7 +212,7 @@ public final class UserController {
      */
     @PostMapping("/update")
     public final String updateUser(final ModelMap model,
-            @ModelAttribute(PARAM_USER_FORM) @Valid final UserForm form,
+            @ModelAttribute(PARAM_USER_FORM) @Validated(Update.class) final UserForm form,
             final BindingResult bindingResult, final HttpSession session) {
         final String path;
 
