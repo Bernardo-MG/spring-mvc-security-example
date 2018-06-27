@@ -90,6 +90,31 @@ public final class ITLogin {
     }
 
     /**
+     * Verifies that using a disabled user redirects to the login error URL.
+     */
+    @Test
+    public final void testLogin_DisabledUser_ErrorRedirect() throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("disabled").password("1111");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+    }
+
+    /**
+     * Verifies that using a disabled user name fails the login.
+     */
+    @Test
+    public final void testLogin_DisabledUser_Unauthenticated()
+            throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("disabled").password("1111");
+
+        mockMvc.perform(login).andExpect(unauthenticated());
+    }
+
+    /**
      * Verifies that using an expired user redirects to the login error URL.
      */
     @Test

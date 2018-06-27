@@ -85,7 +85,7 @@ public class ITUserServiceRead {
 
         users = service.getAllUsers();
 
-        Assertions.assertEquals(4, Iterables.size(users));
+        Assertions.assertEquals(5, Iterables.size(users));
     }
 
     /**

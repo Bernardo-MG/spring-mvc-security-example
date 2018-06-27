@@ -104,7 +104,7 @@ public class ITUserServiceCreate {
 
         users = repository.findAll();
 
-        Assertions.assertEquals(5, Iterables.size(users));
+        Assertions.assertEquals(6, Iterables.size(users));
     }
 
 }
