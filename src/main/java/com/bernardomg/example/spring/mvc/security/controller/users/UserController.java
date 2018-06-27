@@ -26,7 +26,8 @@ package com.bernardomg.example.spring.mvc.security.controller.users;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -120,14 +121,15 @@ public final class UserController {
      *            form data
      * @param bindingResult
      *            binding result
-     * @param session
-     *            HTTP session
+     * @param response
+     *            HTTP response
      * @return the next view to show
      */
     @PostMapping("/save")
     public final String saveUser(final ModelMap model,
             @ModelAttribute(PARAM_USER_FORM) @Validated(Creation.class) final UserForm form,
-            final BindingResult bindingResult, final HttpSession session) {
+            final BindingResult bindingResult,
+            final HttpServletResponse response) {
         final String path;
 
         if (bindingResult.hasErrors()) {
@@ -135,7 +137,9 @@ public final class UserController {
 
             // Returns to the form view
             path = VIEW_USER_CREATION;
-            // TODO: Maybe it should return a bad request status?
+
+            // Marks the response as a bad request
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
 
             getService().create(form);
@@ -206,14 +210,15 @@ public final class UserController {
      *            form data
      * @param bindingResult
      *            binding result
-     * @param session
-     *            HTTP session
+     * @param response
+     *            HTTP response
      * @return the next view to show
      */
     @PostMapping("/update")
     public final String updateUser(final ModelMap model,
             @ModelAttribute(PARAM_USER_FORM) @Validated(Update.class) final UserForm form,
-            final BindingResult bindingResult, final HttpSession session) {
+            final BindingResult bindingResult,
+            final HttpServletResponse response) {
         final String path;
 
         if (bindingResult.hasErrors()) {
@@ -221,7 +226,9 @@ public final class UserController {
 
             // Returns to the form view
             path = VIEW_USER_EDITION;
-            // TODO: Maybe it should return a bad request status?
+
+            // Marks the response as a bad request
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             getService().update(form);
 

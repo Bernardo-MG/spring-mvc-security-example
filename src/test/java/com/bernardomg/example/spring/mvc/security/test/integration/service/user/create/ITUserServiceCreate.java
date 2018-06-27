@@ -93,8 +93,8 @@ public class ITUserServiceCreate {
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     public final void testCreate() {
-        final Iterable<? extends User> users; // Read users
         final DefaultUserForm user; // User to save
+        final Iterable<? extends User> users; // Read users
 
         user = new DefaultUserForm();
         user.setUsername("username");

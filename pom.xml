@@ -608,6 +608,24 @@
          <version>${slf4j.version}</version>
       </dependency>
       <!-- ============================================== -->
+      <!-- ================= JACKSON ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Jackson -->
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-core</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Jackson databinding -->
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-databind</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Jackson annotations -->
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-annotations</artifactId>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ============ OTHER DEPENDENCIES ============== -->
       <!-- ============================================== -->
       <dependency>
