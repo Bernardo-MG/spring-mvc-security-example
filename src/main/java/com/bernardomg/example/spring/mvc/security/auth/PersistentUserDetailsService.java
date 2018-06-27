@@ -127,7 +127,6 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      * @return equivalent user details
      */
     private final UserDetails toUserDetails(final PersistentUser user) {
-        final UserDetails details;
         final Boolean enabled;
         final Boolean accountNonExpired;
         final Boolean credentialsNonExpired;
@@ -135,23 +134,23 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         final Collection<? extends GrantedAuthority> authorities;
         final Collection<? extends Privilege> privileges;
 
+        // Loads status
         enabled = user.getEnabled();
         accountNonExpired = !user.getExpired();
         credentialsNonExpired = !user.getExpired();
         accountNonLocked = !user.getLocked();
 
+        // Loads privileges
         privileges = user.getRoles().stream().map(Role::getPrivileges)
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
-        authorities = privileges.stream()
-                .map((r) -> new SimpleGrantedAuthority(r.getName()))
-                .collect(Collectors.toList());
+        // Loads authorities
+        authorities = privileges.stream().map(Privilege::getName)
+                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
-        details = new User(user.getUsername(), user.getPassword(), enabled,
+        return new User(user.getUsername(), user.getPassword(), enabled,
                 accountNonExpired, credentialsNonExpired, accountNonLocked,
                 authorities);
-
-        return details;
     }
 
 }
