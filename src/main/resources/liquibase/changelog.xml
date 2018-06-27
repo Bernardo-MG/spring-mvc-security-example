@@ -15,13 +15,16 @@
          <column name="password" type="VARCHAR(60)">
             <constraints nullable="false" />
          </column>
+         <column name="credentialsExpired" type="boolean" defaultValue="false">
+            <constraints nullable="false" />
+         </column>
          <column name="enabled" type="boolean" defaultValue="true">
             <constraints nullable="false" />
          </column>
-         <column name="locked" type="boolean" defaultValue="false">
+         <column name="expired" type="boolean" defaultValue="false">
             <constraints nullable="false" />
          </column>
-         <column name="expired" type="boolean" defaultValue="false">
+         <column name="locked" type="boolean" defaultValue="false">
             <constraints nullable="false" />
          </column>
       </createTable>

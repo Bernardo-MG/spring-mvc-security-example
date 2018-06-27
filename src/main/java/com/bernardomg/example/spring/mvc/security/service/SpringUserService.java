@@ -82,7 +82,14 @@ public final class SpringUserService implements UserService {
         final String encodedPassword;
 
         entity = new PersistentUser();
-        BeanUtils.copyProperties(user, entity);
+
+        entity.setUsername(user.getUsername());
+
+        // TODO: This flag should come from the frontend
+        entity.setCredentialsExpired(false);
+        entity.setEnabled(user.getEnabled());
+        entity.setExpired(user.getExpired());
+        entity.setLocked(user.getLocked());
 
         if (user.getPassword() == null) {
             // Let the persistence layer handle this
@@ -111,7 +118,7 @@ public final class SpringUserService implements UserService {
         if (read.isPresent()) {
             user = read.get();
         } else {
-            // TODO: Throw exception maybe?
+            // TODO: Throw an exception maybe?
             user = null;
         }
 

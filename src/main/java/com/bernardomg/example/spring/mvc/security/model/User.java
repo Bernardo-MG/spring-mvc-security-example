@@ -35,6 +35,15 @@ import java.util.Collection;
 public interface User {
 
     /**
+     * Returns the credentials expired flag.
+     * <p>
+     * This usually means that the password is no longer valid.
+     * 
+     * @return the credentials expired flag
+     */
+    public Boolean getCredentialsExpired();
+
+    /**
      * Returns the user enabled flag.
      * 
      * @return the user enabled flag
@@ -43,6 +52,8 @@ public interface User {
 
     /**
      * Returns the user expired flag.
+     * <p>
+     * This means the user is no longer valid.
      * 
      * @return the user expired flag
      */

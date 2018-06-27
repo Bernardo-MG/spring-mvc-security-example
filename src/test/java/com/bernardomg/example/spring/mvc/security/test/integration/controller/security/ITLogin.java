@@ -118,6 +118,32 @@ public final class ITLogin {
      * Verifies that using an expired user redirects to the login error URL.
      */
     @Test
+    public final void testLogin_ExpiredCredentials_ErrorRedirect()
+            throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("expCreds").password("1111");
+
+        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+    }
+
+    /**
+     * Verifies that using an expired user name fails the login.
+     */
+    @Test
+    public final void testLogin_ExpiredCredentials_Unauthenticated()
+            throws Exception {
+        final FormLoginRequestBuilder login; // Login request
+
+        login = formLogin().user("expiredCredentials").password("1111");
+
+        mockMvc.perform(login).andExpect(unauthenticated());
+    }
+
+    /**
+     * Verifies that using an expired user redirects to the login error URL.
+     */
+    @Test
     public final void testLogin_ExpiredUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -133,7 +159,7 @@ public final class ITLogin {
     public final void testLogin_ExpiredUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expired").password("1111");
+        login = formLogin().user("expCreds").password("1111");
 
         mockMvc.perform(login).andExpect(unauthenticated());
     }

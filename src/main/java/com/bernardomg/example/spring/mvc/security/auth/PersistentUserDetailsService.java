@@ -137,7 +137,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         // Loads status
         enabled = user.getEnabled();
         accountNonExpired = !user.getExpired();
-        credentialsNonExpired = !user.getExpired();
+        credentialsNonExpired = !user.getCredentialsExpired();
         accountNonLocked = !user.getLocked();
 
         // Loads privileges

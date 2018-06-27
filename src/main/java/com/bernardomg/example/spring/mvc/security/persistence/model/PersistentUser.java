@@ -58,19 +58,25 @@ public class PersistentUser implements User {
      * Serialization id.
      */
     @Transient
-    private static final long          serialVersionUID = 4807136960800402795L;
+    private static final long serialVersionUID = 4807136960800402795L;
+
+    /**
+     * User expired flag.
+     */
+    @Column(name = "credentialsExpired", nullable = false)
+    private Boolean           credentialsExpired;
 
     /**
      * User enabled flag.
      */
     @Column(name = "enabled", nullable = false)
-    private Boolean                    enabled;
+    private Boolean           enabled;
 
     /**
      * User expired flag.
      */
     @Column(name = "expired", nullable = false)
-    private Boolean                    expired;
+    private Boolean           expired;
 
     /**
      * Entity id.
@@ -101,7 +107,7 @@ public class PersistentUser implements User {
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id",
                     referencedColumnName = "id"))
-    private Collection<PersistentRole> roles            = new ArrayList<>();
+    private Collection<PersistentRole> roles = new ArrayList<>();
 
     /**
      * User name.
@@ -132,6 +138,11 @@ public class PersistentUser implements User {
 
         final PersistentUser other = (PersistentUser) obj;
         return Objects.equals(username, other.username);
+    }
+
+    @Override
+    public Boolean getCredentialsExpired() {
+        return credentialsExpired;
     }
 
     /**
@@ -191,6 +202,16 @@ public class PersistentUser implements User {
     @Override
     public final int hashCode() {
         return Objects.hash(username);
+    }
+
+    /**
+     * Sets the credentials expired flag.
+     * 
+     * @param flag
+     *            the credentials expired flag
+     */
+    public void setCredentialsExpired(final Boolean flag) {
+        this.credentialsExpired = flag;
     }
 
     /**
