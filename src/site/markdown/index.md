@@ -7,6 +7,7 @@ Sample [Spring MVC][spring-mvc] project which sets up web security.
 * Login form handling
 * Encrypted passwords
 * Roles and privileges model
+* User status (enabled/expired/locked)
 * CSRF token
 * Security annotations
 
