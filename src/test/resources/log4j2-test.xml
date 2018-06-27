@@ -38,7 +38,7 @@
          <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>
-      <Logger name="org.springframework.security" level="debug"
+      <Logger name="org.springframework.security" level="warn"
          additivity="false">
          <AppenderRef ref="file" />
          <AppenderRef ref="console" />
