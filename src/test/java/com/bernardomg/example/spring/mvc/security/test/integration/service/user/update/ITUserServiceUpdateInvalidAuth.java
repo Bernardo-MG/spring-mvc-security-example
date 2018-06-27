@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.update;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,6 +31,8 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
@@ -40,14 +42,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.model.User;
-import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be created.
+ * Integration tests for the persistent user service, verifying that users can't
+ * be updated with an invalid authentication.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -59,46 +58,56 @@ import com.google.common.collect.Iterables;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreate {
-
-    /**
-     * User repository.
-     */
-    @Autowired
-    private PersistentUserDetailsRepository repository;
+public class ITUserServiceUpdateInvalidAuth {
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService                     service;
+    private UserService service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceCreate() {
+    public ITUserServiceUpdateInvalidAuth() {
         super();
     }
 
     /**
-     * Verifies that users can be created.
+     * Verifies that trying to update a user without being authenticated causes
+     * an exception.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate() {
-        final Iterable<? extends User> users; // Read users
+    public final void testUpdate_NoAuth_Exception() {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
-        user.setUsername("username");
+        user.setUsername("noroles");
         user.setPassword("password");
+        user.setEnabled(false);
 
-        service.create(user);
+        Assertions.assertThrows(
+                AuthenticationCredentialsNotFoundException.class,
+                () -> service.update(user));
+    }
 
-        users = repository.findAll();
+    /**
+     * Verifies that trying to update a user without privileges causes an
+     * exception.
+     */
+    @Test
+    @WithMockUser
+    public final void testUpdate_NoPrivileges_Exception() {
+        final DefaultUserForm user; // User to save
 
-        Assertions.assertEquals(5, Iterables.size(users));
+        user = new DefaultUserForm();
+        user.setUsername("noroles");
+        user.setPassword("password");
+        user.setEnabled(false);
+
+        Assertions.assertThrows(AccessDeniedException.class,
+                () -> service.update(user));
     }
 
 }

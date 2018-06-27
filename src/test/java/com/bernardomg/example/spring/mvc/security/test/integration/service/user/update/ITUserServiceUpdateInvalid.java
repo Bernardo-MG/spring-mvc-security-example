@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.update;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -43,11 +43,10 @@ import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be created.
+ * Integration tests for the persistent user service, verifying that invalid
+ * users are rejected.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -59,7 +58,7 @@ import com.google.common.collect.Iterables;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreate {
+public class ITUserServiceUpdateInvalid {
 
     /**
      * User repository.
@@ -77,28 +76,29 @@ public class ITUserServiceCreate {
     /**
      * Default constructor.
      */
-    public ITUserServiceCreate() {
+    public ITUserServiceUpdateInvalid() {
         super();
     }
 
     /**
-     * Verifies that users can be created.
+     * Verifies that users can be updated.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate() {
-        final Iterable<? extends User> users; // Read users
+    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    public final void testUpdate() {
         final DefaultUserForm user; // User to save
+        final User updated; // Updated user
 
         user = new DefaultUserForm();
-        user.setUsername("username");
+        user.setUsername("noroles");
         user.setPassword("password");
+        user.setEnabled(false);
 
-        service.create(user);
+        service.update(user);
 
-        users = repository.findAll();
+        updated = repository.findOneByUsername("noroles").get();
 
-        Assertions.assertEquals(5, Iterables.size(users));
+        Assertions.assertEquals(false, updated.getEnabled());
     }
 
 }

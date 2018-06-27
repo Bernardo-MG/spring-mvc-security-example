@@ -22,7 +22,9 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.update;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,14 +42,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.model.User;
-import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the persistent user service, verifying that users can
- * be created.
+ * be updated.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -59,46 +58,35 @@ import com.google.common.collect.Iterables;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreate {
-
-    /**
-     * User repository.
-     */
-    @Autowired
-    private PersistentUserDetailsRepository repository;
+public class ITUserServiceUpdate {
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService                     service;
+    private UserService service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceCreate() {
+    public ITUserServiceUpdate() {
         super();
     }
 
     /**
-     * Verifies that users can be created.
+     * Verifies that users can be updated.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate() {
-        final Iterable<? extends User> users; // Read users
+    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    public final void testUpdate() {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword("password");
+        user.setUsername("");
 
-        service.create(user);
-
-        users = repository.findAll();
-
-        Assertions.assertEquals(5, Iterables.size(users));
+        Assertions.assertThrows(NoSuchElementException.class,
+                () -> service.update(user));
     }
 
 }

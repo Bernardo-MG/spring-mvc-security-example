@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.read;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,15 +39,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.model.User;
-import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the persistent user service, verifying that users can
- * be created.
+ * be read.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -59,46 +57,46 @@ import com.google.common.collect.Iterables;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreate {
-
-    /**
-     * User repository.
-     */
-    @Autowired
-    private PersistentUserDetailsRepository repository;
+public class ITUserServiceRead {
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService                     service;
+    private UserService service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceCreate() {
+    public ITUserServiceRead() {
         super();
     }
 
     /**
-     * Verifies that users can be created.
+     * Verifies that users can be read.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate() {
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    public final void testGetAllUsers() {
         final Iterable<? extends User> users; // Read users
-        final DefaultUserForm user; // User to save
 
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword("password");
+        users = service.getAllUsers();
 
-        service.create(user);
+        Assertions.assertEquals(4, Iterables.size(users));
+    }
 
-        users = repository.findAll();
+    /**
+     * Verifies that a single user can be read.
+     */
+    @Test
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    public final void testGetUser() {
+        final User user; // Read user
 
-        Assertions.assertEquals(5, Iterables.size(users));
+        user = service.getUser("noroles");
+
+        Assertions.assertEquals("noroles", user.getUsername());
     }
 
 }

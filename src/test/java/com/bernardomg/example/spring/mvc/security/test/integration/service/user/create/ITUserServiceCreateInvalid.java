@@ -44,7 +44,8 @@ import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 
 /**
- * Integration tests for the persistent user service.
+ * Integration tests for the persistent user service, verifying that invalid
+ * users are rejected.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *

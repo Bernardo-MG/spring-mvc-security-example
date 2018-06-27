@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.read;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,6 +31,8 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
@@ -39,15 +41,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.model.User;
-import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be created.
+ * Integration tests for the persistent user service, verifying that users can't
+ * be read with an invalid authentication.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -59,46 +57,64 @@ import com.google.common.collect.Iterables;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreate {
-
-    /**
-     * User repository.
-     */
-    @Autowired
-    private PersistentUserDetailsRepository repository;
+public class ITUserServiceReadInvalidAuth {
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService                     service;
+    private UserService service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceCreate() {
+    public ITUserServiceReadInvalidAuth() {
         super();
     }
 
     /**
-     * Verifies that users can be created.
+     * Verifies that trying to read all the users without being authenticated
+     * causes an exception.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate() {
-        final Iterable<? extends User> users; // Read users
-        final DefaultUserForm user; // User to save
+    public final void testGetAllUsers_NoAuth_Exception() {
+        Assertions.assertThrows(
+                AuthenticationCredentialsNotFoundException.class,
+                () -> service.getAllUsers());
+    }
 
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword("password");
+    /**
+     * Verifies that trying to read all the users without privileges causes an
+     * exception.
+     */
+    @Test
+    @WithMockUser
+    public final void testGetAllUsers_NoPrivileges_Exception() {
+        Assertions.assertThrows(AccessDeniedException.class,
+                () -> service.getAllUsers());
+    }
 
-        service.create(user);
+    /**
+     * Verifies that trying to read a user without being authenticated causes an
+     * exception.
+     */
+    @Test
+    public final void testGetUser_NoAuth_Exception() {
+        Assertions.assertThrows(
+                AuthenticationCredentialsNotFoundException.class,
+                () -> service.getUser("noroles"));
+    }
 
-        users = repository.findAll();
-
-        Assertions.assertEquals(5, Iterables.size(users));
+    /**
+     * Verifies that trying to read a user without privileges causes an
+     * exception.
+     */
+    @Test
+    @WithMockUser
+    public final void testGetUser_NoPrivileges_Exception() {
+        Assertions.assertThrows(AccessDeniedException.class,
+                () -> service.getUser("noroles"));
     }
 
 }
