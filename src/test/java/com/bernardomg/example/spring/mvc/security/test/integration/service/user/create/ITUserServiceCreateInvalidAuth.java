@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,8 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
@@ -44,7 +45,8 @@ import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
 
 /**
- * Integration tests for the persistent user service.
+ * Integration tests for the persistent user service, verifying that users can
+ * be created.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -56,7 +58,7 @@ import com.bernardomg.example.spring.mvc.security.service.UserService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreateInvalid {
+public class ITUserServiceCreateInvalidAuth {
 
     /**
      * User service being tested.
@@ -68,55 +70,41 @@ public class ITUserServiceCreateInvalid {
     /**
      * Default constructor.
      */
-    public ITUserServiceCreateInvalid() {
+    public ITUserServiceCreateInvalidAuth() {
         super();
     }
 
     /**
-     * Verifies that it rejects an existing name.
+     * Verifies that trying to add a user without being authenticated causes an
+     * exception.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_ExistingName_Exception() {
-        final DefaultUserForm user; // User to save
-
-        user = new DefaultUserForm();
-        user.setUsername("admin");
-        user.setPassword("password");
-
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
-    }
-
-    /**
-     * Verifies that it rejects a null name.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_NoName_Exception() {
-        final DefaultUserForm user; // User to save
-
-        user = new DefaultUserForm();
-        user.setUsername(null);
-        user.setPassword("password");
-
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
-    }
-
-    /**
-     * Verifies that it rejects a null password.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_NoPassword_Exception() {
+    public final void testCreate_NoAuth_Exception() {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
         user.setUsername("username");
-        user.setPassword(null);
+        user.setPassword("password");
 
-        Assertions.assertThrows(DataIntegrityViolationException.class,
+        Assertions.assertThrows(
+                AuthenticationCredentialsNotFoundException.class,
+                () -> service.create(user));
+    }
+
+    /**
+     * Verifies that trying to add a user without privileges causes an
+     * exception.
+     */
+    @Test
+    @WithMockUser
+    public final void testCreate_NoPrivileges_Exception() {
+        final DefaultUserForm user; // User to save
+
+        user = new DefaultUserForm();
+        user.setUsername("username");
+        user.setPassword("password");
+
+        Assertions.assertThrows(AccessDeniedException.class,
                 () -> service.create(user));
     }
 
