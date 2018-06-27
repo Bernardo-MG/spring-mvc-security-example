@@ -45,6 +45,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -98,8 +99,11 @@ public final class ITSecuredUrl {
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
     public final void testAdminSecured_admin() throws Exception {
-        mockMvc.perform(get("/secured/admin").with(csrf()))
-                .andExpect(status().isOk())
+        final RequestBuilder request; // Test request
+
+        request = get("/secured/admin").with(csrf());
+
+        mockMvc.perform(request).andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("admin"));
     }
 
@@ -109,7 +113,11 @@ public final class ITSecuredUrl {
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
     public final void testHome_Admin() throws Exception {
-        mockMvc.perform(get("/").with(csrf())).andExpect(status().isOk())
+        final RequestBuilder request; // Test request
+
+        request = get("/").with(csrf());
+
+        mockMvc.perform(request).andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("admin"));
     }
 
@@ -119,8 +127,11 @@ public final class ITSecuredUrl {
     @Test
     public final void testHome_Unauthorized_requiresAuthentication()
             throws Exception {
-        // Home redirects to the login view
-        mockMvc.perform(get("/")).andExpect(status().isFound())
+        final RequestBuilder request; // Test request
+
+        request = get("/");
+
+        mockMvc.perform(request).andExpect(status().isFound())
                 .andExpect(unauthenticated());
     }
 
@@ -129,8 +140,11 @@ public final class ITSecuredUrl {
      */
     @Test
     public final void testLogin_Unauthorized() throws Exception {
-        // Home redirects to the login view
-        mockMvc.perform(get("/login")).andExpect(status().isOk())
+        final RequestBuilder request; // Test request
+
+        request = get("/login");
+
+        mockMvc.perform(request).andExpect(status().isOk())
                 .andExpect(unauthenticated());
     }
 
