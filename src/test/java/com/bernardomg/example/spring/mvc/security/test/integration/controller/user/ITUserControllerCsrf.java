@@ -22,43 +22,66 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.unit.controller.user;
+package com.bernardomg.example.spring.mvc.security.test.integration.controller.user;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import com.bernardomg.example.spring.mvc.security.controller.users.UserController;
-import com.bernardomg.example.spring.mvc.security.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Integration tests for the secured URLs.
- * <p>
- * Verifies that URLs are secured against anonymous access.
+ * Integration tests for the users controller, verifying that it handles CSRF.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @RunWith(JUnitPlatform.class)
-public class TestUserControllerCreate {
+@ExtendWith(SpringExtension.class)
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
+@WebAppConfiguration
+@ContextConfiguration(
+        locations = { "classpath:context/application-test-context.xml" })
+@Transactional
+@Rollback
+public class ITUserControllerCsrf {
 
     /**
      * Mock MVC for the requests.
      */
-    private MockMvc mockMvc;
+    private MockMvc               mockMvc;
+
+    /**
+     * Web application context.
+     */
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     /**
      * Default constructor.
      */
-    public TestUserControllerCreate() {
+    public ITUserControllerCsrf() {
         super();
     }
 
@@ -67,34 +90,22 @@ public class TestUserControllerCreate {
      */
     @BeforeEach
     public final void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(getController())
-                .alwaysExpect(status().isOk()).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity()).build();
     }
 
     /**
-     * Verifies that invalid users are rejected by the controller.
+     * Verifies that users can be created through the controller.
      */
     @Test
-    public final void testCreate_EmptyPassword() throws Exception {
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate_NoCsrf() throws Exception {
         final RequestBuilder request; // Test request
 
         request = MockMvcRequestBuilders.post("/users/save")
                 .param("username", "username").param("password", "password");
 
-        mockMvc.perform(request);
-    }
-
-    /**
-     * Returns a controller with mocked dependencies.
-     * 
-     * @return a mocked controller
-     */
-    private final UserController getController() {
-        final UserService service; // Mocked service
-
-        service = Mockito.mock(UserService.class);
-
-        return new UserController(service);
+        mockMvc.perform(request).andExpect(status().isForbidden());
     }
 
 }
