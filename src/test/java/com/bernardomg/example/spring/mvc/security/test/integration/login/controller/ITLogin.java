@@ -135,7 +135,7 @@ public final class ITLogin {
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expiredCredentials").password("1111");
+        login = formLogin().user("expCreds").password("1111");
 
         mockMvc.perform(login).andExpect(unauthenticated());
     }
@@ -159,7 +159,7 @@ public final class ITLogin {
     public final void testLogin_ExpiredUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expCreds").password("1111");
+        login = formLogin().user("expired").password("1111");
 
         mockMvc.perform(login).andExpect(unauthenticated());
     }
