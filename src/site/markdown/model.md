@@ -10,4 +10,10 @@ A persistent implementation is included for all the objects, and used to store t
 
 These objects are mapped into a Spring's UserDetails by the PersistentUserDetailsService.
 
+The boolean values are mapped into the UserDetails flags, and the privileges names are used to generate the granted authorities.
+
+## User Status
+
+The status flags are stored into the UserDetails, this way Spring will handle them automatically.
+
 [user_interface_class_diagram]: ./images/user_interface_class_diagram.png

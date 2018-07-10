@@ -38,6 +38,9 @@
       <menu name="Documentation" inherit="bottom">
          <item name="Usage" href="./usage.html" />
          <item name="Model" href="./model.html" />
+         <item name="Login" href="./login.html" />
+         <item name="Passwords" href="./passwords.html" />
+         <item name="CSRF" href="./csrf.html" />
       </menu>
       <menu name="Info and reports" inherit="bottom">
          <item name="Info" href="./info.html" />
