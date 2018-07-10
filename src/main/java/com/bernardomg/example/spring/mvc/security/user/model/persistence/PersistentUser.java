@@ -24,8 +24,8 @@
 
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -43,6 +43,7 @@ import javax.persistence.Transient;
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.Iterables;
 
 /**
  * Persistent implementation of {@code User}.
@@ -58,25 +59,25 @@ public class PersistentUser implements User {
      * Serialization id.
      */
     @Transient
-    private static final long serialVersionUID = 4807136960800402795L;
+    private static final long                serialVersionUID = 4807136960800402795L;
 
     /**
      * User expired flag.
      */
     @Column(name = "credentialsExpired", nullable = false)
-    private Boolean           credentialsExpired;
+    private Boolean                          credentialsExpired;
 
     /**
      * User enabled flag.
      */
     @Column(name = "enabled", nullable = false)
-    private Boolean           enabled;
+    private Boolean                          enabled;
 
     /**
      * User expired flag.
      */
     @Column(name = "expired", nullable = false)
-    private Boolean           expired;
+    private Boolean                          expired;
 
     /**
      * Entity id.
@@ -84,19 +85,19 @@ public class PersistentUser implements User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                       id;
+    private Long                             id;
 
     /**
      * User locked flag.
      */
     @Column(name = "locked", nullable = false)
-    private Boolean                    locked;
+    private Boolean                          locked;
 
     /**
      * User password.
      */
     @Column(name = "password", nullable = false, length = 60)
-    private String                     password;
+    private String                           password;
 
     /**
      * Granted roles.
@@ -107,13 +108,14 @@ public class PersistentUser implements User {
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id",
                     referencedColumnName = "id"))
-    private Collection<PersistentRole> roles = new ArrayList<>();
+    private final Collection<PersistentRole> roles            = Collections
+            .emptyList();
 
     /**
      * User name.
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String                     username;
+    private String                           username;
 
     /**
      * Default constructor.
@@ -191,7 +193,7 @@ public class PersistentUser implements User {
 
     @Override
     public Collection<? extends Role> getRoles() {
-        return roles;
+        return Collections.unmodifiableCollection(roles);
     }
 
     @Override
@@ -211,7 +213,7 @@ public class PersistentUser implements User {
      *            the credentials expired flag
      */
     public void setCredentialsExpired(final Boolean flag) {
-        this.credentialsExpired = flag;
+        credentialsExpired = flag;
     }
 
     /**
@@ -270,8 +272,10 @@ public class PersistentUser implements User {
      * @param rls
      *            new roles
      */
-    public void setRoles(final Collection<PersistentRole> rls) {
-        roles = rls;
+    public void setRoles(final Iterable<PersistentRole> rls) {
+        roles.clear();
+
+        Iterables.addAll(roles, rls);
     }
 
     /**

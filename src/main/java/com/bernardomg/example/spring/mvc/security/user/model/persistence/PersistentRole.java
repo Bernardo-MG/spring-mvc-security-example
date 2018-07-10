@@ -25,8 +25,8 @@
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -42,6 +42,7 @@ import javax.persistence.Table;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.Iterables;
 
 /**
  * Persistent implementation of {@code Role}.
@@ -56,7 +57,7 @@ public class PersistentRole implements Role, Serializable {
     /**
      * Serialization id.
      */
-    private static final long               serialVersionUID = 8513041662486312372L;
+    private static final long                     serialVersionUID = 8513041662486312372L;
 
     /**
      * Entity id.
@@ -64,13 +65,13 @@ public class PersistentRole implements Role, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                            id;
+    private Long                                  id;
 
     /**
      * Authority name.
      */
     @Column(name = "name", nullable = false, unique = true, length = 50)
-    private String                          name;
+    private String                                name;
 
     /**
      * Granted privileges.
@@ -81,13 +82,15 @@ public class PersistentRole implements Role, Serializable {
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id",
                     referencedColumnName = "id"))
-    private Collection<PersistentPrivilege> privileges       = new ArrayList<>();
+    private final Collection<PersistentPrivilege> privileges       = Collections
+            .emptyList();
 
     /**
      * Users with the role.
      */
     @ManyToMany(mappedBy = "roles")
-    private Collection<PersistentUser>      users;
+    private final Collection<PersistentUser>      users            = Collections
+            .emptyList();
 
     /**
      * Default constructor.
@@ -130,7 +133,7 @@ public class PersistentRole implements Role, Serializable {
 
     @Override
     public Collection<PersistentPrivilege> getPrivileges() {
-        return privileges;
+        return Collections.unmodifiableCollection(privileges);
     }
 
     /**
@@ -139,7 +142,7 @@ public class PersistentRole implements Role, Serializable {
      * @return the users with the role
      */
     public Collection<PersistentUser> getUsers() {
-        return users;
+        return Collections.unmodifiableCollection(users);
     }
 
     @Override
@@ -173,8 +176,10 @@ public class PersistentRole implements Role, Serializable {
      * @param privs
      *            the role privileges
      */
-    public void setPrivileges(final Collection<PersistentPrivilege> privs) {
-        privileges = privs;
+    public void setPrivileges(final Iterable<PersistentPrivilege> privs) {
+        privileges.clear();
+
+        Iterables.addAll(privileges, privs);
     }
 
     /**
@@ -184,7 +189,9 @@ public class PersistentRole implements Role, Serializable {
      *            the users with the role
      */
     public void setUsers(final Collection<PersistentUser> usrs) {
-        users = usrs;
+        users.clear();
+
+        Iterables.addAll(users, usrs);
     }
 
     @Override
