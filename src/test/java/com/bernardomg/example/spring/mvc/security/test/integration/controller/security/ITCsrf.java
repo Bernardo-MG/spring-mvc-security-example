@@ -42,6 +42,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -80,44 +81,60 @@ public final class ITCsrf {
     }
 
     /**
-     * Verifies that POST requests with CSRF are supported.
-     */
-    @Test
-    public final void post_Csrf_Found() throws Exception {
-        mockMvc.perform(post("/").with(csrf())).andExpect(status().isFound());
-    }
-
-    /**
-     * Verifies that POST requests without CSRF are rejected.
-     */
-    @Test
-    public final void post_NoCsrf_Forbidden() throws Exception {
-        mockMvc.perform(post("/")).andExpect(status().isForbidden());
-    }
-
-    /**
-     * Verifies that PUT requests with CSRF are supported.
-     */
-    @Test
-    public final void put_Csrf_Found() throws Exception {
-        mockMvc.perform(put("/").with(csrf())).andExpect(status().isFound());
-    }
-
-    /**
-     * Verifies that PUT requests without CSRF are rejected.
-     */
-    @Test
-    public final void put_NoCsrf_Forbidden() throws Exception {
-        mockMvc.perform(put("/")).andExpect(status().isForbidden());
-    }
-
-    /**
      * Sets up the mock MVC.
      */
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
+    }
+
+    /**
+     * Verifies that POST requests with CSRF are supported.
+     */
+    @Test
+    public final void testPost_Csrf_Found() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = post("/").with(csrf());
+
+        mockMvc.perform(request).andExpect(status().isFound());
+    }
+
+    /**
+     * Verifies that POST requests without CSRF are rejected.
+     */
+    @Test
+    public final void testPost_NoCsrf_Forbidden() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = post("/");
+
+        mockMvc.perform(request).andExpect(status().isForbidden());
+    }
+
+    /**
+     * Verifies that PUT requests with CSRF are supported.
+     */
+    @Test
+    public final void testPut_Csrf_Found() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = put("/").with(csrf());
+
+        mockMvc.perform(request).andExpect(status().isFound());
+    }
+
+    /**
+     * Verifies that PUT requests without CSRF are rejected.
+     */
+    @Test
+    public final void testPut_NoCsrf_Forbidden() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = put("/");
+
+        mockMvc.perform(request).andExpect(status().isForbidden());
     }
 
 }

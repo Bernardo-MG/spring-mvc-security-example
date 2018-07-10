@@ -22,21 +22,30 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
+package com.bernardomg.example.spring.mvc.security.model;
+
+import java.util.Collection;
 
 /**
- * Service applying security for diverse roles.
- * <p>
- * It is meant to allow implementing a variety of security controls.
+ * User role. Groups a set of permissions.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface RoleSecuredService {
+public interface Role {
 
     /**
-     * Method for the admin role.
+     * Returns the role name.
+     * 
+     * @return the role name
      */
-    public void adminMethod();
+    public String getName();
+
+    /**
+     * Returns the user privileges.
+     * 
+     * @return the user privileges
+     */
+    public Collection<? extends Privilege> getPrivileges();
 
 }

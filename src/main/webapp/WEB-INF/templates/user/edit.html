@@ -8,11 +8,11 @@
 
 	<section id="main-section" class="container-fluid">
 		<header class="page-header">
-			<h1>Create user</h1>
+			<h1>Edit user</h1>
 		</header>
 		<section id="form" class="form-well">
-			<form action="#" th:action="@{/users}" th:object="${form}"
-				method="post" role="form" class="form">
+			<form action="#" th:action="@{/users/update}" th:object="${form}"
+				th:method="put" role="form" class="form">
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">User Data</div>
@@ -22,23 +22,10 @@
 								th:classappend="${#fields.hasErrors('username')} ? 'error'">
 								<label class="control-label" for="username">Username</label>
 								<div class="controls">
-									<input type="text" th:field="*{username}" class="form-control"
-										placeholder="Username">
+									<input type="text" th:field="*{username}" class="form-control" >
 									<!-- Validation errors -->
 									<p th:if="${#fields.hasErrors('username')}"
 										class="label label-danger" th:errors="*{username}">Error</p>
-								</div>
-							</div>
-							<!-- Password input -->
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('password')} ? 'error'">
-								<label class="control-label" for="password">Password</label>
-								<div class="controls">
-									<input type="password" th:field="*{password}"
-										class="form-control">
-									<!-- Validation errors -->
-									<p th:if="${#fields.hasErrors('password')}"
-										class="label label-danger" th:errors="*{password}">Error</p>
 								</div>
 							</div>
 							<!-- Enabled input -->

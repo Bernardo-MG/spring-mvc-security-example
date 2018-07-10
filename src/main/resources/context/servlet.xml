@@ -17,7 +17,6 @@
    <import resource="classpath:context/mvc.xml" />
    <import resource="classpath:context/messages.xml" />
    <import resource="classpath:context/view.xml" />
-   <import resource="classpath:context/security-servlet.xml" />
 
    <!-- Properties -->
    <context:property-placeholder

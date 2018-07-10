@@ -24,6 +24,12 @@
 
 package com.bernardomg.example.spring.mvc.security.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
+import com.bernardomg.example.spring.mvc.security.validation.group.Update;
+
 /**
  * Default implementation of the user form.
  * 
@@ -35,27 +41,34 @@ public final class DefaultUserForm implements UserForm {
     /**
      * Enabled flag.
      */
-    private Boolean enabled;
+    @NotNull(groups = { Creation.class, Update.class })
+    private Boolean enabled  = true;
 
     /**
      * Expired flag.
      */
-    private Boolean expired;
+    @NotNull(groups = { Creation.class, Update.class })
+    private Boolean expired  = false;
 
     /**
      * Locked flag.
      */
-    private Boolean locked;
+    @NotNull(groups = { Creation.class, Update.class })
+    private Boolean locked   = false;
 
     /**
      * The password.
      */
-    private String  password;
+    @NotNull(groups = { Creation.class })
+    @Size(min = 3, max = 20, groups = { Creation.class })
+    private String  password = "";
 
     /**
      * The username.
      */
-    private String  username;
+    @NotNull(groups = { Creation.class, Update.class })
+    @Size(min = 3, max = 20, groups = { Creation.class, Update.class })
+    private String  username = "";
 
     /**
      * Default constructor.
@@ -92,51 +105,51 @@ public final class DefaultUserForm implements UserForm {
     /**
      * Sets the enabled flag.
      * 
-     * @param enabled
+     * @param flag
      *            the enabled flag
      */
-    public final void setEnabled(final Boolean enabled) {
-        this.enabled = enabled;
+    public final void setEnabled(final Boolean flag) {
+        enabled = flag;
     }
 
     /**
      * Sets the expired flag.
      * 
-     * @param expired
+     * @param flag
      *            the expired flag
      */
-    public final void setExpired(final Boolean expired) {
-        this.expired = expired;
+    public final void setExpired(final Boolean flag) {
+        expired = flag;
     }
 
     /**
      * Sets the locked flag.
      * 
-     * @param locked
+     * @param flag
      *            the locked flag
      */
-    public final void setLocked(final Boolean locked) {
-        this.locked = locked;
+    public final void setLocked(final Boolean flag) {
+        locked = flag;
     }
 
     /**
      * Sets the password used to authenticate the user.
      * 
-     * @param password
+     * @param value
      *            the new password
      */
-    public final void setPassword(final String password) {
-        this.password = password;
+    public final void setPassword(final String value) {
+        password = value;
     }
 
     /**
      * Sets the username used to authenticate the user.
      * 
-     * @param username
+     * @param value
      *            the new username
      */
-    public final void setUsername(final String username) {
-        this.username = username;
+    public final void setUsername(final String value) {
+        username = value;
     }
 
 }

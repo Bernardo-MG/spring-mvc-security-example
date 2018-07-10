@@ -40,49 +40,43 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
+import com.bernardomg.example.spring.mvc.security.model.Role;
+import com.bernardomg.example.spring.mvc.security.model.User;
 import com.google.common.base.MoreObjects;
 
 /**
- * Persistent implementation of {@code UserDetails}.
+ * Persistent implementation of {@code User}.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Entity(name = "UserDetails")
-@Table(name = "users")
-public class PersistentUserDetails implements UserDetails {
+@Table(name = "USERS")
+public class PersistentUser implements User {
 
     /**
      * Serialization id.
      */
     @Transient
-    private static final long                      serialVersionUID = 4807136960800402795L;
+    private static final long serialVersionUID = 4807136960800402795L;
 
     /**
-     * Granthed authorities.
+     * User expired flag.
      */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_authorities",
-            joinColumns = @JoinColumn(name = "user_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id",
-                    referencedColumnName = "id"))
-    private Collection<PersistentGrantedAuthority> authorities      = new ArrayList<>();
+    @Column(name = "credentialsExpired", nullable = false)
+    private Boolean           credentialsExpired;
 
     /**
      * User enabled flag.
      */
     @Column(name = "enabled", nullable = false)
-    private Boolean                                enabled;
+    private Boolean           enabled;
 
     /**
      * User expired flag.
      */
     @Column(name = "expired", nullable = false)
-    private Boolean                                expired;
+    private Boolean           expired;
 
     /**
      * Entity id.
@@ -90,30 +84,41 @@ public class PersistentUserDetails implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                                   id;
+    private Long                       id;
 
     /**
      * User locked flag.
      */
     @Column(name = "locked", nullable = false)
-    private Boolean                                locked;
+    private Boolean                    locked;
 
     /**
      * User password.
      */
-    @Column(name = "password", nullable = false)
-    private String                                 password;
+    @Column(name = "password", nullable = false, length = 60)
+    private String                     password;
+
+    /**
+     * Granted roles.
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = @JoinColumn(name = "user_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",
+                    referencedColumnName = "id"))
+    private Collection<PersistentRole> roles = new ArrayList<>();
 
     /**
      * User name.
      */
-    @Column(name = "name", nullable = false, unique = true)
-    private String                                 username;
+    @Column(name = "name", nullable = false, unique = true, length = 60)
+    private String                     username;
 
     /**
      * Default constructor.
      */
-    public PersistentUserDetails() {
+    public PersistentUser() {
         super();
     }
 
@@ -131,13 +136,13 @@ public class PersistentUserDetails implements UserDetails {
             return false;
         }
 
-        final PersistentUserDetails other = (PersistentUserDetails) obj;
+        final PersistentUser other = (PersistentUser) obj;
         return Objects.equals(username, other.username);
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+    public Boolean getCredentialsExpired() {
+        return credentialsExpired;
     }
 
     /**
@@ -145,6 +150,7 @@ public class PersistentUserDetails implements UserDetails {
      * 
      * @return the user enabled flag
      */
+    @Override
     public Boolean getEnabled() {
         return enabled;
     }
@@ -154,6 +160,7 @@ public class PersistentUserDetails implements UserDetails {
      * 
      * @return the user expired flag
      */
+    @Override
     public Boolean getExpired() {
         return expired;
     }
@@ -172,6 +179,7 @@ public class PersistentUserDetails implements UserDetails {
      * 
      * @return the user locked flag
      */
+    @Override
     public Boolean getLocked() {
         return locked;
     }
@@ -179,6 +187,11 @@ public class PersistentUserDetails implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public Collection<? extends Role> getRoles() {
+        return roles;
     }
 
     @Override
@@ -191,35 +204,14 @@ public class PersistentUserDetails implements UserDetails {
         return Objects.hash(username);
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return !expired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !locked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return !expired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
     /**
-     * Sets the granted authorities.
+     * Sets the credentials expired flag.
      * 
-     * @param auths
-     *            new authorities
+     * @param flag
+     *            the credentials expired flag
      */
-    public void
-            setAuthorities(final Collection<PersistentGrantedAuthority> auths) {
-        authorities = auths;
+    public void setCredentialsExpired(final Boolean flag) {
+        this.credentialsExpired = flag;
     }
 
     /**
@@ -270,6 +262,16 @@ public class PersistentUserDetails implements UserDetails {
      */
     public void setPassword(final String pass) {
         password = pass;
+    }
+
+    /**
+     * Sets the user roles.
+     * 
+     * @param rls
+     *            new roles
+     */
+    public void setRoles(final Collection<PersistentRole> rls) {
+        roles = rls;
     }
 
     /**

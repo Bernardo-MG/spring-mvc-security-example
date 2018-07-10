@@ -22,13 +22,9 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.controller.security;
+package com.bernardomg.example.spring.mvc.security.test.integration.controller.user;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,20 +35,22 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Integration tests for the secured URLs.
- * <p>
- * Verifies that URLs are secured against anonymous access.
+ * Integration tests for the users controller, verifying that it handles CSRF.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -60,11 +58,14 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
-public final class ITSecuredUrl {
+@Transactional
+@Rollback
+public class ITUserControllerCsrf {
 
     /**
      * Mock MVC for the requests.
@@ -80,7 +81,7 @@ public final class ITSecuredUrl {
     /**
      * Default constructor.
      */
-    public ITSecuredUrl() {
+    public ITUserControllerCsrf() {
         super();
     }
 
@@ -94,58 +95,17 @@ public final class ITSecuredUrl {
     }
 
     /**
-     * Verifies that the admin secured URL allows access to authenticated users.
+     * Verifies that users can be created through the controller.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    public final void testAdminSecured_admin() throws Exception {
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate_NoCsrf() throws Exception {
         final RequestBuilder request; // Test request
 
-        request = get("/secured/admin").with(csrf());
+        request = MockMvcRequestBuilders.post("/users/save")
+                .param("username", "username").param("password", "password");
 
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
-    }
-
-    /**
-     * Verifies that the home URL allows access to authenticated users.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    public final void testHome_Admin() throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = get("/").with(csrf());
-
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
-    }
-
-    /**
-     * Verifies that the home URL is secured against anonymous access.
-     */
-    @Test
-    public final void testHome_Unauthorized_requiresAuthentication()
-            throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = get("/");
-
-        mockMvc.perform(request).andExpect(status().isFound())
-                .andExpect(unauthenticated());
-    }
-
-    /**
-     * Verifies that the login URL allows anonymous access.
-     */
-    @Test
-    public final void testLogin_Unauthorized() throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = get("/login");
-
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(unauthenticated());
+        mockMvc.perform(request).andExpect(status().isForbidden());
     }
 
 }

@@ -24,8 +24,9 @@
 
 package com.bernardomg.example.spring.mvc.security.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.access.prepost.PreAuthorize;
 
+import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
 
 /**
@@ -37,19 +38,41 @@ import com.bernardomg.example.spring.mvc.security.model.UserForm;
 public interface UserService {
 
     /**
+     * Persists the received user. If it already exists then the user is
+     * invalid.
+     * 
+     * @param user
+     *            user to create
+     */
+    @PreAuthorize("hasAuthority('CREATE_USER')")
+    public void create(final UserForm user);
+
+    /**
      * Returns all the users in the application.
      * 
      * @return all the users
      */
-    public Iterable<? extends UserDetails> getAllUsers();
+    @PreAuthorize("hasAuthority('READ_USER')")
+    public Iterable<? extends User> getAllUsers();
 
     /**
-     * Persists the received user. If it already exists then the user is
-     * updated.
+     * Returns the user with the received username.
+     * 
+     * @param username
+     *            username of the user to search
+     * @return user for the received username
+     */
+    @PreAuthorize("hasAuthority('READ_USER')")
+    public User getUser(final String username);
+
+    /**
+     * Updates the received user. The user is only valid if it doesn't exist
+     * already.
      * 
      * @param user
-     *            user to persist
+     *            user to update
      */
-    public void save(final UserForm user);
+    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    public void update(final UserForm user);
 
 }

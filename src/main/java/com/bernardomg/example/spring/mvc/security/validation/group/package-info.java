@@ -21,26 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.example.spring.mvc.security.controller.secured;
-
 /**
- * Views for the secured controllers.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
+ * Validation group classes.
  */
-public final class SecuredViews {
 
-    /**
-     * Admin view.
-     */
-    public static final String ADMIN = "role/admin";
-
-    /**
-     * Private constructor to avoid initialization.
-     */
-    private SecuredViews() {
-        super();
-    }
-
-}
+package com.bernardomg.example.spring.mvc.security.validation.group;

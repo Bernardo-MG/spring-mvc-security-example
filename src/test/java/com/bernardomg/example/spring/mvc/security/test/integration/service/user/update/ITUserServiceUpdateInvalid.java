@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.security;
+package com.bernardomg.example.spring.mvc.security.test.integration.service.user.update;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,6 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,10 +39,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
+import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.model.User;
+import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.service.UserService;
 
 /**
- * Integration tests for the annotation-based {@code RoleSecuredService}.
+ * Integration tests for the persistent user service, verifying that invalid
+ * users are rejected.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -56,51 +58,47 @@ import com.bernardomg.example.spring.mvc.security.service.RoleSecuredService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public final class ITAnnotatedRoleSecuredService {
+public class ITUserServiceUpdateInvalid {
 
     /**
-     * Secured service being tested.
+     * User repository.
      */
     @Autowired
-    @Qualifier("annotatedRoleSecuredService")
-    private RoleSecuredService service;
+    private PersistentUserDetailsRepository repository;
+
+    /**
+     * User service being tested.
+     */
+    @Autowired
+    @Qualifier("userService")
+    private UserService                     service;
 
     /**
      * Default constructor.
      */
-    public ITAnnotatedRoleSecuredService() {
+    public ITUserServiceUpdateInvalid() {
         super();
     }
 
     /**
-     * Verifies that authorized users are accepted.
+     * Verifies that users can be updated.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    public final void testAdminMethod_Authorized_NoException() {
-        service.adminMethod();
-    }
+    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    public final void testUpdate() {
+        final DefaultUserForm user; // User to save
+        final User updated; // Updated user
 
-    /**
-     * Verifies that trying to invoke the method without authorization data
-     * causes an exception.
-     */
-    @Test
-    public final void testAdminMethod_NotAuthData_Exception() {
-        Assertions.assertThrows(
-                AuthenticationCredentialsNotFoundException.class,
-                service::adminMethod,
-                "An Authentication object was not found in the SecurityContext");
-    }
+        user = new DefaultUserForm();
+        user.setUsername("noroles");
+        user.setPassword("password");
+        user.setEnabled(false);
 
-    /**
-     * Verifies that unauthorized users are rejected.
-     */
-    @Test
-    @WithMockUser
-    public final void testAdminMethod_Unauthorized_Exception() {
-        Assertions.assertThrows(AccessDeniedException.class,
-                service::adminMethod, "Access is denied");
+        service.update(user);
+
+        updated = repository.findOneByUsername("noroles").get();
+
+        Assertions.assertEquals(false, updated.getEnabled());
     }
 
 }

@@ -59,6 +59,7 @@
    <!-- Transaction manager -->
    <bean id="transactionManager" class="${jpa.transactionManager.class}">
       <property name="entityManagerFactory" ref="entityManagerFactory" />
+      <property name="dataSource" ref="dataSource" />
    </bean>
 
    <!-- Activates transactionality -->

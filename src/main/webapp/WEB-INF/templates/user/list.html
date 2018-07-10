@@ -18,15 +18,17 @@
                <th>Enabled</th>
                <th>Locked</th>
                <th>Expired</th>
+               <th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="user : ${users}">
 					<td><span th:remove="tag" th:text="${user?.username}">username</span></td>
-					<td><span th:remove="tag" th:text="${user?.authorities}">authorities</span></td>
+					<td><span th:remove="tag" th:each="role, iterStat : ${user?.roles}" th:text="!${iterStat.last} ? ${role?.name} + ',': ${role?.name}">roles</span></td>
 					<td><span th:remove="tag" th:text="${user?.enabled}">enabled</span></td>
                <td><span th:remove="tag" th:text="${user?.locked}">locked</span></td>
                <td><span th:remove="tag" th:text="${user?.expired}">expired</span></td>
+               <td><a class="btn btn-default" th:href="@{/users/edit/} + ${user?.username}" role="button">Edit</a></td>
 				</tr>
 			</tbody>
 		</table>

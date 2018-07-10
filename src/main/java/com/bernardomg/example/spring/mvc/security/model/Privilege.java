@@ -21,8 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * Secured controllers.
- */
 
-package com.bernardomg.example.spring.mvc.security.controller.secured;
+package com.bernardomg.example.spring.mvc.security.model;
+
+/**
+ * Role privilege. Represents a specific permission.
+ * 
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+public interface Privilege {
+
+    /**
+     * Returns the privilege name.
+     * 
+     * @return the privilege name
+     */
+    public String getName();
+
+}
