@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,26 +31,21 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be created.
+ * Integration tests for the persistent user service, verifying that invalid
+ * users are rejected.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -58,53 +53,72 @@ import com.google.common.collect.Iterables;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-@Transactional
-@Rollback
-public class ITUserServiceCreate {
-
-    /**
-     * User repository.
-     */
-    @Autowired
-    private PersistentUserDetailsRepository repository;
+public class ITUserServiceCreateInvalid {
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService                     service;
+    private UserService service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceCreate() {
+    public ITUserServiceCreateInvalid() {
         super();
     }
 
     /**
-     * Verifies that users can be created.
+     * Verifies that it rejects an existing name.
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate() {
+    public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
-        final Iterable<? extends User> users; // Read users
+
+        user = new DefaultUserForm();
+        user.setUsername("admin");
+        user.setPassword("password");
+
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.create(user));
+    }
+
+    /**
+     * Verifies that it rejects a null name.
+     */
+    @Test
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate_NoName_Exception() {
+        final DefaultUserForm user; // User to save
+
+        user = new DefaultUserForm();
+        user.setUsername(null);
+        user.setPassword("password");
+
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.create(user));
+    }
+
+    /**
+     * Verifies that it rejects a null password.
+     */
+    @Test
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate_NoPassword_Exception() {
+        final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
         user.setUsername("username");
-        user.setPassword("password");
+        user.setPassword(null);
 
-        service.create(user);
-
-        users = repository.findAll();
-
-        Assertions.assertEquals(7, Iterables.size(users));
+        Assertions.assertThrows(DataIntegrityViolationException.class,
+                () -> service.create(user));
     }
 
 }

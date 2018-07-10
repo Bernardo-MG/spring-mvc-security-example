@@ -22,9 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.update;
-
-import java.util.NoSuchElementException;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,21 +33,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be updated.
+ * Integration tests for the persistent user service, verifying that invalid
+ * users can't be read.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -57,14 +52,11 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-@Transactional
-@Rollback
-public class ITUserServiceUpdate {
+public class ITUserServiceReadInvalid {
 
     /**
      * User service being tested.
@@ -76,23 +68,21 @@ public class ITUserServiceUpdate {
     /**
      * Default constructor.
      */
-    public ITUserServiceUpdate() {
+    public ITUserServiceReadInvalid() {
         super();
     }
 
     /**
-     * Verifies that users can be updated.
+     * Verifies that a single user can be read.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
-    public final void testUpdate() {
-        final DefaultUserForm user; // User to save
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    public final void testGetUser() {
+        final User user; // Read user
 
-        user = new DefaultUserForm();
-        user.setUsername("");
+        user = service.getUser("abc");
 
-        Assertions.assertThrows(NoSuchElementException.class,
-                () -> service.update(user));
+        Assertions.assertNull(user);
     }
 
 }

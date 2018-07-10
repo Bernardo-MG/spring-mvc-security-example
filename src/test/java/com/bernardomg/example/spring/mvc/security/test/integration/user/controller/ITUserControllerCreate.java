@@ -22,31 +22,42 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.update;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.controller;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.bernardomg.example.spring.mvc.security.user.model.User;
-import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
-import com.bernardomg.example.spring.mvc.security.user.service.UserService;
+import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that invalid
- * users are rejected.
+ * Integration tests for the users controller, verifying that it can create
+ * users.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -54,11 +65,19 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceUpdateInvalid {
+        locations = { "classpath:context/application-test-context.xml" })
+@Transactional
+@Rollback
+public class ITUserControllerCreate {
+
+    /**
+     * Mock MVC for the requests.
+     */
+    private MockMvc                         mockMvc;
 
     /**
      * User repository.
@@ -67,38 +86,45 @@ public class ITUserServiceUpdateInvalid {
     private PersistentUserDetailsRepository repository;
 
     /**
-     * User service being tested.
+     * Web application context.
      */
     @Autowired
-    @Qualifier("userService")
-    private UserService                     service;
+    private WebApplicationContext           webApplicationContext;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceUpdateInvalid() {
+    public ITUserControllerCreate() {
         super();
     }
 
     /**
-     * Verifies that users can be updated.
+     * Sets up the mock MVC.
+     */
+    @BeforeEach
+    public final void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity()).alwaysExpect(status().isOk()).build();
+    }
+
+    /**
+     * Verifies that users can be created through the controller.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
-    public final void testUpdate() {
-        final DefaultUserForm user; // User to save
-        final User updated; // Updated user
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate() throws Exception {
+        final RequestBuilder request; // Test request
+        final Iterable<? extends User> users; // Read users
 
-        user = new DefaultUserForm();
-        user.setUsername("noroles");
-        user.setPassword("password");
-        user.setEnabled(false);
+        request = MockMvcRequestBuilders.post("/users/save")
+                .param("username", "username").param("password", "password")
+                .with(csrf());
 
-        service.update(user);
+        mockMvc.perform(request);
 
-        updated = repository.findOneByUsername("noroles").get();
+        users = repository.findAll();
 
-        Assertions.assertEquals(false, updated.getEnabled());
+        Assertions.assertEquals(7, Iterables.size(users));
     }
 
 }

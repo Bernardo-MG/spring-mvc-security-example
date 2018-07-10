@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.read;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

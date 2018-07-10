@@ -22,7 +22,9 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.read;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.update;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,20 +35,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.user.model.User;
+import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the persistent user service, verifying that users can
- * be read.
+ * be updated.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -54,12 +57,14 @@ import com.google.common.collect.Iterables;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 @Transactional
-public class ITUserServiceRead {
+@Rollback
+public class ITUserServiceUpdate {
 
     /**
      * User service being tested.
@@ -71,34 +76,23 @@ public class ITUserServiceRead {
     /**
      * Default constructor.
      */
-    public ITUserServiceRead() {
+    public ITUserServiceUpdate() {
         super();
     }
 
     /**
-     * Verifies that users can be read.
+     * Verifies that users can be updated.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetAllUsers() {
-        final Iterable<? extends User> users; // Read users
+    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    public final void testUpdate() {
+        final DefaultUserForm user; // User to save
 
-        users = service.getAllUsers();
+        user = new DefaultUserForm();
+        user.setUsername("");
 
-        Assertions.assertEquals(6, Iterables.size(users));
-    }
-
-    /**
-     * Verifies that a single user can be read.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser() {
-        final User user; // Read user
-
-        user = service.getUser("noroles");
-
-        Assertions.assertEquals("noroles", user.getUsername());
+        Assertions.assertThrows(NoSuchElementException.class,
+                () -> service.update(user));
     }
 
 }

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.read;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,18 +33,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.User;
+import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
+import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that invalid
- * users can't be read.
+ * Integration tests for the persistent user service, verifying that users can
+ * be created.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -52,37 +58,53 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceReadInvalid {
+@Transactional
+@Rollback
+public class ITUserServiceCreate {
+
+    /**
+     * User repository.
+     */
+    @Autowired
+    private PersistentUserDetailsRepository repository;
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService service;
+    private UserService                     service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceReadInvalid() {
+    public ITUserServiceCreate() {
         super();
     }
 
     /**
-     * Verifies that a single user can be read.
+     * Verifies that users can be created.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser() {
-        final User user; // Read user
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate() {
+        final DefaultUserForm user; // User to save
+        final Iterable<? extends User> users; // Read users
 
-        user = service.getUser("abc");
+        user = new DefaultUserForm();
+        user.setUsername("username");
+        user.setPassword("password");
 
-        Assertions.assertNull(user);
+        service.create(user);
+
+        users = repository.findAll();
+
+        Assertions.assertEquals(7, Iterables.size(users));
     }
 
 }

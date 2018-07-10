@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,6 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
@@ -40,13 +38,15 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
+import com.google.common.collect.Iterables;
 
 /**
- * Integration tests for the persistent user service, verifying that users can't
- * be created with an invalid authentication.
+ * Integration tests for the persistent user service, verifying that users can
+ * be read.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -58,7 +58,8 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreateInvalidAuth {
+@Transactional
+public class ITUserServiceRead {
 
     /**
      * User service being tested.
@@ -70,42 +71,34 @@ public class ITUserServiceCreateInvalidAuth {
     /**
      * Default constructor.
      */
-    public ITUserServiceCreateInvalidAuth() {
+    public ITUserServiceRead() {
         super();
     }
 
     /**
-     * Verifies that trying to add a user without being authenticated causes an
-     * exception.
+     * Verifies that users can be read.
      */
     @Test
-    public final void testCreate_NoAuth_Exception() {
-        final DefaultUserForm user; // User to save
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    public final void testGetAllUsers() {
+        final Iterable<? extends User> users; // Read users
 
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword("password");
+        users = service.getAllUsers();
 
-        Assertions.assertThrows(
-                AuthenticationCredentialsNotFoundException.class,
-                () -> service.create(user));
+        Assertions.assertEquals(6, Iterables.size(users));
     }
 
     /**
-     * Verifies that trying to add a user without privileges causes an
-     * exception.
+     * Verifies that a single user can be read.
      */
     @Test
-    @WithMockUser
-    public final void testCreate_NoPrivileges_Exception() {
-        final DefaultUserForm user; // User to save
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    public final void testGetUser() {
+        final User user; // Read user
 
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword("password");
+        user = service.getUser("noroles");
 
-        Assertions.assertThrows(AccessDeniedException.class,
-                () -> service.create(user));
+        Assertions.assertEquals("noroles", user.getUsername());
     }
 
 }

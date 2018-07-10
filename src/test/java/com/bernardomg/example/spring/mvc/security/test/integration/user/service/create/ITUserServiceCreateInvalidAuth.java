@@ -22,35 +22,31 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.controller.user;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
+
+import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the users controller, verifying that it handles CSRF.
+ * Integration tests for the persistent user service, verifying that users can't
+ * be created with an invalid authentication.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -58,54 +54,58 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
-@Transactional
-@Rollback
-public class ITUserControllerCsrf {
+        locations = { "classpath:context/application-context.xml" })
+public class ITUserServiceCreateInvalidAuth {
 
     /**
-     * Mock MVC for the requests.
-     */
-    private MockMvc               mockMvc;
-
-    /**
-     * Web application context.
+     * User service being tested.
      */
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    @Qualifier("userService")
+    private UserService service;
 
     /**
      * Default constructor.
      */
-    public ITUserControllerCsrf() {
+    public ITUserServiceCreateInvalidAuth() {
         super();
     }
 
     /**
-     * Sets up the mock MVC.
+     * Verifies that trying to add a user without being authenticated causes an
+     * exception.
      */
-    @BeforeEach
-    public final void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).build();
+    @Test
+    public final void testCreate_NoAuth_Exception() {
+        final DefaultUserForm user; // User to save
+
+        user = new DefaultUserForm();
+        user.setUsername("username");
+        user.setPassword("password");
+
+        Assertions.assertThrows(
+                AuthenticationCredentialsNotFoundException.class,
+                () -> service.create(user));
     }
 
     /**
-     * Verifies that users can be created through the controller.
+     * Verifies that trying to add a user without privileges causes an
+     * exception.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_NoCsrf() throws Exception {
-        final RequestBuilder request; // Test request
+    @WithMockUser
+    public final void testCreate_NoPrivileges_Exception() {
+        final DefaultUserForm user; // User to save
 
-        request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "password");
+        user = new DefaultUserForm();
+        user.setUsername("username");
+        user.setPassword("password");
 
-        mockMvc.perform(request).andExpect(status().isForbidden());
+        Assertions.assertThrows(AccessDeniedException.class,
+                () -> service.create(user));
     }
 
 }

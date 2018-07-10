@@ -22,30 +22,35 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.service.user.create;
+package com.bernardomg.example.spring.mvc.security.test.integration.user.controller;
 
-import org.junit.jupiter.api.Assertions;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.user.service.UserService;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Integration tests for the persistent user service, verifying that invalid
- * users are rejected.
+ * Integration tests for the users controller, verifying that it handles CSRF.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -53,72 +58,54 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
+        WithSecurityContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
-public class ITUserServiceCreateInvalid {
+        locations = { "classpath:context/application-test-context.xml" })
+@Transactional
+@Rollback
+public class ITUserControllerCsrf {
 
     /**
-     * User service being tested.
+     * Mock MVC for the requests.
+     */
+    private MockMvc               mockMvc;
+
+    /**
+     * Web application context.
      */
     @Autowired
-    @Qualifier("userService")
-    private UserService service;
+    private WebApplicationContext webApplicationContext;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceCreateInvalid() {
+    public ITUserControllerCsrf() {
         super();
     }
 
     /**
-     * Verifies that it rejects an existing name.
+     * Sets up the mock MVC.
      */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_ExistingName_Exception() {
-        final DefaultUserForm user; // User to save
-
-        user = new DefaultUserForm();
-        user.setUsername("admin");
-        user.setPassword("password");
-
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
+    @BeforeEach
+    public final void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity()).build();
     }
 
     /**
-     * Verifies that it rejects a null name.
+     * Verifies that users can be created through the controller.
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_NoName_Exception() {
-        final DefaultUserForm user; // User to save
+    public final void testCreate_NoCsrf() throws Exception {
+        final RequestBuilder request; // Test request
 
-        user = new DefaultUserForm();
-        user.setUsername(null);
-        user.setPassword("password");
+        request = MockMvcRequestBuilders.post("/users/save")
+                .param("username", "username").param("password", "password");
 
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
-    }
-
-    /**
-     * Verifies that it rejects a null password.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    public final void testCreate_NoPassword_Exception() {
-        final DefaultUserForm user; // User to save
-
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword(null);
-
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
+        mockMvc.perform(request).andExpect(status().isForbidden());
     }
 
 }

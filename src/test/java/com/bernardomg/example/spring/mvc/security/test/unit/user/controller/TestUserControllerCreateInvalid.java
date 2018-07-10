@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.unit.controller.user;
+package com.bernardomg.example.spring.mvc.security.test.unit.user.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +34,7 @@ import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.bernardomg.example.spring.mvc.security.user.controller.UserController;
@@ -48,7 +49,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  *
  */
 @RunWith(JUnitPlatform.class)
-public class TestUserControllerCreate {
+public class TestUserControllerCreateInvalid {
 
     /**
      * Mock MVC for the requests.
@@ -58,7 +59,7 @@ public class TestUserControllerCreate {
     /**
      * Default constructor.
      */
-    public TestUserControllerCreate() {
+    public TestUserControllerCreateInvalid() {
         super();
     }
 
@@ -68,7 +69,7 @@ public class TestUserControllerCreate {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(getController())
-                .alwaysExpect(status().isOk()).build();
+                .alwaysExpect(status().is4xxClientError()).build();
     }
 
     /**
@@ -79,9 +80,11 @@ public class TestUserControllerCreate {
         final RequestBuilder request; // Test request
 
         request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "password");
+                .param("username", "username").param("password", "");
 
-        mockMvc.perform(request);
+        mockMvc.perform(request).andExpect(
+                MockMvcResultMatchers.model().attributeHasFieldErrors(
+                        UserController.PARAM_USER_FORM, "password"));
     }
 
     /**
