@@ -11,4 +11,8 @@ Sample [Spring MVC][spring-mvc] project which sets up web security.
 * CSRF token
 * Security annotations
 
+## Views
+
+Thymeleaf is used for the views.
+
 [spring-mvc]: https://spring.io
