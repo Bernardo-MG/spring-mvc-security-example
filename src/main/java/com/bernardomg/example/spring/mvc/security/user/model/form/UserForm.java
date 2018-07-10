@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.model;
+package com.bernardomg.example.spring.mvc.security.user.model.form;
 
 /**
  * Represents the form used for the creating and editing users.

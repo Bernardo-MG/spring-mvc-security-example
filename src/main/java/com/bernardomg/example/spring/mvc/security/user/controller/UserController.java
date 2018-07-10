@@ -40,9 +40,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.model.UserForm;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
+import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
 import com.bernardomg.example.spring.mvc.security.validation.group.Update;

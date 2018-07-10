@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.model;
+package com.bernardomg.example.spring.mvc.security.user.model.form;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

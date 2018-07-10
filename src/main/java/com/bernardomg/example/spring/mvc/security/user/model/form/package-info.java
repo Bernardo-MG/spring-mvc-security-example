@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * Model classes.
+ * User forms model classes.
  */
 
-package com.bernardomg.example.spring.mvc.security.model;
+package com.bernardomg.example.spring.mvc.security.user.model.form;

@@ -41,7 +41,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
