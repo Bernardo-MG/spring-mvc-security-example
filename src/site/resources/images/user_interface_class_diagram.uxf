@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>100</y>
+      <w>280</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>bg=cyan
+&lt;&lt;Interface&gt;&gt;
+/User/
+--
+
+--
++getCredentialsExpired(): Boolean
++getEnabled(): Boolean
++getExpired(): Boolean
++getLocked(): Boolean
++getPassword(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>130</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>bg=cyan
+&lt;&lt;Interface&gt;&gt;
+/Role/
+--
+
+--
++getName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>170</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>130</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>bg=cyan
+&lt;&lt;Interface&gt;&gt;
+/Privilege/
+--
+
+--
++getName(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>170</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
