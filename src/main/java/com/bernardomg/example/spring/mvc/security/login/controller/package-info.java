@@ -27,4 +27,4 @@
  * Takes care of setting up the login view.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.login;
+package com.bernardomg.example.spring.mvc.security.login.controller;

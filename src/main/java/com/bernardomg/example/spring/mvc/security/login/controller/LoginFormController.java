@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.login;
+package com.bernardomg.example.spring.mvc.security.login.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,14 +34,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Controller for the login view.
  * <p>
- * It takes care of setting upt the view for the login form. But it doesn't
+ * It takes care of setting up the view for the login form. But it doesn't
  * handle the login procedure, that is taken care by Spring security.
+ * <p>
+ * The template engine will take care of building the login page, but the
+ * controller will receive, and send to the view, the error flag.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
 @RequestMapping("/login")
 public final class LoginFormController {
+
+    /**
+     * Login view.
+     */
+    private static final String LOGIN_VIEW = "login";
 
     /**
      * Constructs a login controller.
@@ -68,9 +76,11 @@ public final class LoginFormController {
     public final String showForm(final Model model,
             @RequestParam(name = "error", required = false,
                     defaultValue = "false") final Boolean error) {
+
+        // Adds the error status
         model.addAttribute("error", error);
 
-        return LoginViews.LOGIN;
+        return LOGIN_VIEW;
     }
 
 }

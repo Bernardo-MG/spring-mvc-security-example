@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 /**
- * Controller classes.
+ * Generic controller classes.
  * <p>
- * These adapt the communication with the views.
+ * These are use to set up the generic application views.
  */
 
 package com.bernardomg.example.spring.mvc.security.controller;
