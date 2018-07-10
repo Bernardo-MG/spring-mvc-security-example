@@ -45,7 +45,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.service.UserService;
+import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
  * Integration tests for the persistent user service, verifying that users can

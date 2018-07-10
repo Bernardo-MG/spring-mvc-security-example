@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.users;
+package com.bernardomg.example.spring.mvc.security.user.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -42,8 +42,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bernardomg.example.spring.mvc.security.model.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
-import com.bernardomg.example.spring.mvc.security.service.UserService;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
+import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
 import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 

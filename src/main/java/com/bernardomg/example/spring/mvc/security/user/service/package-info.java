@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * Service classes.
+ * User services classes.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
+package com.bernardomg.example.spring.mvc.security.user.service;

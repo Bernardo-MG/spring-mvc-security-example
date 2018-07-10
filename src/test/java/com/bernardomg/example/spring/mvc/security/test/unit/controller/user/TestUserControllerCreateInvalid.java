@@ -37,8 +37,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.bernardomg.example.spring.mvc.security.controller.users.UserController;
-import com.bernardomg.example.spring.mvc.security.service.UserService;
+import com.bernardomg.example.spring.mvc.security.user.controller.UserController;
+import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
  * Integration tests for the secured URLs.

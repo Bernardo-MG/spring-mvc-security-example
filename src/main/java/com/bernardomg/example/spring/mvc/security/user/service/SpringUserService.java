@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
+package com.bernardomg.example.spring.mvc.security.user.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

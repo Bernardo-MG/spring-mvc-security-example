@@ -25,4 +25,4 @@
  * Users controllers.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.users;
+package com.bernardomg.example.spring.mvc.security.user.controller;

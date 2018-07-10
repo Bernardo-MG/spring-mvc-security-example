@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.service;
+package com.bernardomg.example.spring.mvc.security.user.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
