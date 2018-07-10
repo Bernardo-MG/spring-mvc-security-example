@@ -22,9 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
-
-import java.util.stream.StreamSupport;
+package com.bernardomg.example.spring.mvc.security.test.integration.auth;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -32,7 +30,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
@@ -42,13 +40,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.user.model.User;
-import com.bernardomg.example.spring.mvc.security.user.service.UserService;
-import com.google.common.collect.Iterables;
+import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be read.
+ * Integration tests for the persistent user details service, verifying that
+ * users can be read.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -61,85 +57,47 @@ import com.google.common.collect.Iterables;
 @ContextConfiguration(
         locations = { "classpath:context/application-context.xml" })
 @Transactional
-public class ITUserServiceRead {
+public class ITPersistentUserDetailsService {
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
-    private UserService service;
+    private PersistentUserDetailsService service;
 
     /**
      * Default constructor.
      */
-    public ITUserServiceRead() {
+    public ITPersistentUserDetailsService() {
         super();
     }
 
     /**
-     * Verifies that users can be read.
+     * Verifies that a single user with authorities can be read.
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetAllUsers() {
-        final Iterable<? extends User> users; // Read users
+    public final void testGetUser_Authorities() {
+        final UserDetails user; // Read user
 
-        users = service.getAllUsers();
-
-        Assertions.assertEquals(6, Iterables.size(users));
-    }
-
-    /**
-     * Verifies that users and their privileges can be read.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetAllUsers_Privileges() {
-        final Iterable<? extends User> users; // Read users
-        final User user; // Read user
-
-        users = service.getAllUsers();
-
-        // Finds the admin
-        user = StreamSupport.stream(users.spliterator(), false)
-                .filter((u) -> u.getUsername().equals("admin")).findFirst()
-                .get();
+        user = service.loadUserByUsername("admin");
 
         Assertions.assertEquals("admin", user.getUsername());
-        Assertions.assertFalse(user.getRoles().isEmpty());
-        Assertions.assertFalse(
-                user.getRoles().iterator().next().getPrivileges().isEmpty());
+        Assertions.assertFalse(user.getAuthorities().isEmpty());
     }
 
     /**
-     * Verifies that a single user can be read.
+     * Verifies that a single user with no authorities can be read.
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser_NoRoles() {
-        final User user; // Read user
+    public final void testGetUser_NoAuthorities() {
+        final UserDetails user; // Read user
 
-        user = service.getUser("noroles");
+        user = service.loadUserByUsername("noroles");
 
         Assertions.assertEquals("noroles", user.getUsername());
-        Assertions.assertTrue(user.getRoles().isEmpty());
-    }
-
-    /**
-     * Verifies that a single user can be read.
-     */
-    @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser_Roles_Privileges() {
-        final User user; // Read user
-
-        user = service.getUser("admin");
-
-        Assertions.assertEquals("admin", user.getUsername());
-        Assertions.assertFalse(user.getRoles().isEmpty());
-        Assertions.assertFalse(
-                user.getRoles().iterator().next().getPrivileges().isEmpty());
+        Assertions.assertTrue(user.getAuthorities().isEmpty());
     }
 
 }
