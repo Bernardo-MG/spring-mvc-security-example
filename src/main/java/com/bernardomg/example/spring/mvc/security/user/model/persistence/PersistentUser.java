@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.persistence.model;
+package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,8 +40,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.bernardomg.example.spring.mvc.security.model.Role;
-import com.bernardomg.example.spring.mvc.security.model.User;
+import com.bernardomg.example.spring.mvc.security.user.model.Role;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.google.common.base.MoreObjects;
 
 /**

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * Security repositories.
+ * Persistent user model classes.
  */
 
-package com.bernardomg.example.spring.mvc.security.persistence.repository;
+package com.bernardomg.example.spring.mvc.security.user.model.persistence;

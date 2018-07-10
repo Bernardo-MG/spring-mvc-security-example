@@ -33,10 +33,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
-import com.bernardomg.example.spring.mvc.security.persistence.model.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
+import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
 
 /**
  * Users service based on {@link PersistentUser} and Spring classes.

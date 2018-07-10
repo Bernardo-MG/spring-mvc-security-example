@@ -22,30 +22,21 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.model;
-
-import java.util.Collection;
+package com.bernardomg.example.spring.mvc.security.user.model;
 
 /**
- * User role. Groups a set of permissions.
+ * Role privilege. Represents a specific permission.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface Role {
+public interface Privilege {
 
     /**
-     * Returns the role name.
+     * Returns the privilege name.
      * 
-     * @return the role name
+     * @return the privilege name
      */
     public String getName();
-
-    /**
-     * Returns the user privileges.
-     * 
-     * @return the user privileges
-     */
-    public Collection<? extends Privilege> getPrivileges();
 
 }

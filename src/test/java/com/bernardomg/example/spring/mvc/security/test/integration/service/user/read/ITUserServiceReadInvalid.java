@@ -39,8 +39,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.service.UserService;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
 
 /**
  * Integration tests for the persistent user service, verifying that invalid

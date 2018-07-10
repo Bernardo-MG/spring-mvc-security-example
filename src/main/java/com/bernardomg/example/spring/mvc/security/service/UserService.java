@@ -26,8 +26,8 @@ package com.bernardomg.example.spring.mvc.security.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import com.bernardomg.example.spring.mvc.security.model.User;
 import com.bernardomg.example.spring.mvc.security.model.UserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
 
 /**
  * Service for handling user data.

@@ -1,9 +1,8 @@
-#set( $symbol_pound = '#' )
-${symbol_pound} Usage
+# Usage
 
 The project requires a database and a server. But the included Maven profiles allow running it locally.
 
-${symbol_pound}${symbol_pound} Running the project locally
+## Running the project locally
 
 To run the project locally in Jetty:
 

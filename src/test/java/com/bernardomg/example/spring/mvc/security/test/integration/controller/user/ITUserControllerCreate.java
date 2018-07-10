@@ -51,8 +51,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.bernardomg.example.spring.mvc.security.model.User;
-import com.bernardomg.example.spring.mvc.security.persistence.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.user.model.User;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
 import com.google.common.collect.Iterables;
 
 /**

@@ -14,7 +14,7 @@
 
       <csrf />
 
-      <form-login login-page='/login' login-processing-url="/login"
+      <form-login login-page="/login" login-processing-url="/login"
          default-target-url="/" authentication-failure-url="/login?error=true"
          always-use-default-target="true" />
 

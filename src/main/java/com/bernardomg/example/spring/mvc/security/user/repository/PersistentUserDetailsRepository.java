@@ -21,11 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * Security entities.
- * <p>
- * These include persistent implementations of {@code UserDetails} and
- * {@code GrantedAuthority}.
- */
 
-package com.bernardomg.example.spring.mvc.security.persistence.model;
+package com.bernardomg.example.spring.mvc.security.user.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
+
+/**
+ * Repository for user details.
+ * 
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+public interface PersistentUserDetailsRepository
+        extends JpaRepository<PersistentUser, Long> {
+
+    /**
+     * Returns the user details for the received username.
+     * 
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
+     */
+    public Optional<PersistentUser> findOneByUsername(final String username);
+
+}
