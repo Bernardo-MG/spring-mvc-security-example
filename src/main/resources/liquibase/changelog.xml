@@ -66,6 +66,23 @@
       </createTable>
    </changeSet>
 
+   <changeSet author="Bernardo" id="remember_me_tables">
+      <createTable tableName="PERSISTENT_LOGINS">
+         <column name="username" type="VARCHAR(64)">
+            <constraints nullable="false" />
+         </column>
+         <column name="series" type="VARCHAR(64)">
+            <constraints primaryKey="true" nullable="false" />
+         </column>
+         <column name="token" type="VARCHAR(64)">
+            <constraints nullable="false" />
+         </column>
+         <column name="last_used" type="TIMESTAMP">
+            <constraints nullable="false" />
+         </column>
+      </createTable>
+   </changeSet>
+
    <changeSet author="Bernardo" id="initial_data">
       <sqlFile encoding="utf8" path="populate/initial.sql"
          relativeToChangelogFile="true" stripComments="true" />

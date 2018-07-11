@@ -5,6 +5,25 @@
       http://www.springframework.org/schema/context 
       http://www.springframework.org/schema/context/spring-context.xsd">
 
+   <!-- Passwords -->
+
    <bean id="passwordEncoder" class="${password.encoder.bean}" />
+
+   <!-- Remember-me -->
+
+   <bean id="rememberMeFilter" class="${rememberme.filter.bean}">
+      <constructor-arg ref="authenticationManager" />
+      <constructor-arg ref="rememberMeServices" />
+   </bean>
+
+   <bean id="rememberMeServices" class="${rememberme.services.bean}">
+      <constructor-arg value="myAppKey" />
+      <constructor-arg ref="jdbcTokenRepository" />
+      <constructor-arg ref="userDetailsService" />
+   </bean>
+
+   <bean id="jdbcTokenRepository" class="${rememberme.token.repo.bean}">
+      <property name="dataSource" ref="dataSource" />
+   </bean>
 
 </beans>
