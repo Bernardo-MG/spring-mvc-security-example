@@ -17,7 +17,7 @@
    </bean>
 
    <bean id="rememberMeServices" class="${rememberme.services.bean}">
-      <constructor-arg value="myAppKey" />
+      <constructor-arg value="${rememberme.key}" />
       <constructor-arg ref="jdbcTokenRepository" />
       <constructor-arg ref="userDetailsService" />
    </bean>
