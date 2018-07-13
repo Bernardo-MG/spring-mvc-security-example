@@ -93,7 +93,7 @@ public class ITPersistentUserDetailsService {
     public final void testGetUser_Disabled() {
         final UserDetails user; // Read user
 
-        user = service.loadUserByUsername("admin");
+        user = service.loadUserByUsername("disabled");
 
         Assertions.assertEquals("disabled", user.getUsername());
     }
