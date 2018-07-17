@@ -14,17 +14,19 @@
 
       <csrf />
 
-      <form-login login-page='/login' login-processing-url="/login"
+      <form-login login-page="/login" login-processing-url="/login"
          default-target-url="/" authentication-failure-url="/login?error=true"
          always-use-default-target="true" />
 
       <logout logout-url="/logout" delete-cookies="JSESSIONID"
          logout-success-url="/" />
+
+      <remember-me data-source-ref="dataSource" token-validity-seconds="86400" />
    </http>
 
    <global-method-security pre-post-annotations="enabled" />
 
-   <authentication-manager>
+   <authentication-manager id="authenticationManager">
       <authentication-provider user-service-ref="userDetailsService">
          <password-encoder ref="passwordEncoder" />
       </authentication-provider>

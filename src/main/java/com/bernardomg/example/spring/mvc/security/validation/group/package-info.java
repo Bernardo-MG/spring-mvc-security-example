@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * Validation group classes.
+ * Validation groups classes.
  */
 
 package com.bernardomg.example.spring.mvc.security.validation.group;

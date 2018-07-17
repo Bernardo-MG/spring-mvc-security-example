@@ -17,6 +17,7 @@ The project by default comes with a useful series of features:
 * Roles and privileges model
 * User status (enabled/expired/locked)
 * CSRF token
+* Remember-me support
 * Security annotations
 
 ## Documentation

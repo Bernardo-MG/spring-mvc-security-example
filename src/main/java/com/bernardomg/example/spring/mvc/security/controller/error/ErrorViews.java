@@ -32,11 +32,6 @@ package com.bernardomg.example.spring.mvc.security.controller.error;
 public final class ErrorViews {
 
     /**
-     * Name for the 404 error view.
-     */
-    public static final String ERROR_404 = "404";
-
-    /**
      * Name for the exception view.
      */
     public static final String EXCEPTION = "exception";

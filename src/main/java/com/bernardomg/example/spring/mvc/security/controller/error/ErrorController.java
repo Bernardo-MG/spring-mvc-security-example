@@ -36,6 +36,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ErrorController {
 
     /**
+     * Name for the 404 error view.
+     */
+    private static final String ERROR_404 = "404";
+
+    /**
+     * Name for the 500 error view.
+     */
+    private static final String ERROR_500 = "500";
+
+    /**
      * Default constructor.
      */
     public ErrorController() {
@@ -49,7 +59,17 @@ public class ErrorController {
      */
     @RequestMapping("/404")
     public final String show404() {
-        return ErrorViews.ERROR_404;
+        return ERROR_404;
+    }
+
+    /**
+     * Shows the 500 error view.
+     * 
+     * @return the 500 error view
+     */
+    @RequestMapping("/500")
+    public final String show500() {
+        return ERROR_500;
     }
 
 }
