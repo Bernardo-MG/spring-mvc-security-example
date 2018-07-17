@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+
+	<section id="main-section" class="container-fluid">
+		<header class="page-header">
+			<h1>Edit user</h1>
+		</header>
+		<section id="form" class="form-well">
+			<form action="#" th:action="@{/users/roles/update}"
+				th:object="${form}" th:method="put" role="form" class="form">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">User Roles</div>
+						<div class="panel-body">
+                     <!-- Username input -->
+                     <div class="form-group"
+                        th:classappend="${#fields.hasErrors('username')} ? 'error'">
+                        <label class="control-label" for="username">Username</label>
+                        <div class="controls">
+                           <input type="text" th:field="*{username}" class="form-control" readonly="true" >
+                           <!-- Validation errors -->
+                           <p th:if="${#fields.hasErrors('username')}"
+                              class="label label-danger" th:errors="*{username}">Error</p>
+                        </div>
+                     </div>
+							<th:block th:each="role : ${roles}">
+								<!-- Expired input -->
+								<div class="form-group">
+									<div class="controls">
+										<div class="checkbox">
+											<label> <input type="checkbox" th:field="*{roles}"
+												th:value="${role.name}">
+											<th:block th:text="${role.name}"></th:block>
+											</label>
+										</div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+				<div id="submit" class="row">
+					<div class="col-md-12">
+						<button type="submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</section>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

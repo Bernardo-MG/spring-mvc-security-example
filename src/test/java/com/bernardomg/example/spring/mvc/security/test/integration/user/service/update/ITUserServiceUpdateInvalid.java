@@ -41,7 +41,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
@@ -64,14 +64,14 @@ public class ITUserServiceUpdateInvalid {
      * User repository.
      */
     @Autowired
-    private PersistentUserDetailsRepository repository;
+    private PersistentUserRepository repository;
 
     /**
      * User service being tested.
      */
     @Autowired
     @Qualifier("userService")
-    private UserService                     service;
+    private UserService              service;
 
     /**
      * Default constructor.

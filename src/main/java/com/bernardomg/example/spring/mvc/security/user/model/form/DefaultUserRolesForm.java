@@ -22,54 +22,72 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.error;
+package com.bernardomg.example.spring.mvc.security.user.model.form;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Collection;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
+import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 
 /**
- * Controller for error views.
+ * Default implementation of the user roles form.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
+ *
  */
-@Controller
-public class ErrorController {
+public final class DefaultUserRolesForm implements UserRolesForm {
 
     /**
-     * Name for the 404 error view.
+     * Enabled flag.
      */
-    private static final String ERROR_404 = "404";
+    @NotNull
+    private Collection<String> roles;
 
     /**
-     * Name for the 500 error view.
+     * The username.
      */
-    private static final String ERROR_500 = "500";
+    @NotNull(groups = { Creation.class, Update.class })
+    @Size(min = 3, max = 20, groups = { Creation.class, Update.class })
+    private String             username = "";
 
     /**
      * Default constructor.
      */
-    public ErrorController() {
+    public DefaultUserRolesForm() {
         super();
     }
 
-    /**
-     * Shows the 404 error view.
-     * 
-     * @return the 404 error view
-     */
-    @RequestMapping("/404")
-    public final String show404() {
-        return ERROR_404;
+    @Override
+    public final Collection<String> getRoles() {
+        return roles;
+    }
+
+    @Override
+    public final String getUsername() {
+        return username;
     }
 
     /**
-     * Shows the 500 error view.
+     * Sets the user roles.
      * 
-     * @return the 500 error view
+     * @param roles
+     *            the user roles
      */
-    @RequestMapping("/500")
-    public final String show500() {
-        return ERROR_500;
+    public final void setRoles(final Collection<String> roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * Sets the username used to authenticate the user.
+     * 
+     * @param value
+     *            the new username
+     */
+    public final void setUsername(final String value) {
+        username = value;
     }
 
 }

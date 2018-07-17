@@ -22,54 +22,30 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.error;
+package com.bernardomg.example.spring.mvc.security.user.repository;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
 
 /**
- * Controller for error views.
+ * Repository for users.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
+ *
  */
-@Controller
-public class ErrorController {
+public interface PersistentUserRepository
+        extends JpaRepository<PersistentUser, Long> {
 
     /**
-     * Name for the 404 error view.
-     */
-    private static final String ERROR_404 = "404";
-
-    /**
-     * Name for the 500 error view.
-     */
-    private static final String ERROR_500 = "500";
-
-    /**
-     * Default constructor.
-     */
-    public ErrorController() {
-        super();
-    }
-
-    /**
-     * Shows the 404 error view.
+     * Returns the user details for the received username.
      * 
-     * @return the 404 error view
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
      */
-    @RequestMapping("/404")
-    public final String show404() {
-        return ERROR_404;
-    }
-
-    /**
-     * Shows the 500 error view.
-     * 
-     * @return the 500 error view
-     */
-    @RequestMapping("/500")
-    public final String show500() {
-        return ERROR_500;
-    }
+    public Optional<PersistentUser> findOneByUsername(final String username);
 
 }

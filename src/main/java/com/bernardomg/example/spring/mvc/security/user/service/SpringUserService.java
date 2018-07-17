@@ -33,10 +33,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.UserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.form.UserRolesForm;
+import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentRole;
 import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRoleRepository;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
 /**
  * Users service based on {@link PersistentUser} and Spring classes.
@@ -50,28 +54,38 @@ public final class SpringUserService implements UserService {
     /**
      * Password encoder.
      */
-    private final PasswordEncoder                 passwordEncoder;
+    private final PasswordEncoder          passwordEncoder;
 
     /**
      * Users repository.
      */
-    private final PersistentUserDetailsRepository repository;
+    private final PersistentRoleRepository roleRepository;
+
+    /**
+     * Users repository.
+     */
+    private final PersistentUserRepository userRepository;
 
     /**
      * Default constructor.
      * 
      * @param userRepo
      *            users repository
+     * @param roleRepo
+     *            roles repository
      * @param passEncoder
      *            password encoder
      */
     @Autowired
-    public SpringUserService(final PersistentUserDetailsRepository userRepo,
+    public SpringUserService(final PersistentUserRepository userRepo,
+            final PersistentRoleRepository roleRepo,
             final PasswordEncoder passEncoder) {
         super();
 
-        repository = checkNotNull(userRepo,
+        userRepository = checkNotNull(userRepo,
                 "Received a null pointer as users repository");
+        roleRepository = checkNotNull(roleRepo,
+                "Received a null pointer as roles repository");
         passwordEncoder = checkNotNull(passEncoder,
                 "Received a null pointer as password encoder");
     }
@@ -80,6 +94,8 @@ public final class SpringUserService implements UserService {
     public final void create(final UserForm user) {
         final PersistentUser entity;
         final String encodedPassword;
+
+        checkNotNull(user);
 
         entity = new PersistentUser();
 
@@ -100,12 +116,17 @@ public final class SpringUserService implements UserService {
         }
         entity.setPassword(encodedPassword);
 
-        getPersistentUserDetailsRepository().save(entity);
+        getPersistentUserRepository().save(entity);
+    }
+
+    @Override
+    public final Iterable<? extends Role> getAllRoles() {
+        return getPersistentRoleRepository().findAll();
     }
 
     @Override
     public final Iterable<? extends User> getAllUsers() {
-        return getPersistentUserDetailsRepository().findAll();
+        return getPersistentUserRepository().findAll();
     }
 
     @Override
@@ -113,7 +134,9 @@ public final class SpringUserService implements UserService {
         final Optional<PersistentUser> read;
         final User user;
 
-        read = getPersistentUserDetailsRepository().findOneByUsername(username);
+        checkNotNull(username);
+
+        read = getPersistentUserRepository().findOneByUsername(username);
 
         if (read.isPresent()) {
             user = read.get();
@@ -130,7 +153,9 @@ public final class SpringUserService implements UserService {
         final PersistentUser entity;
         final String encodedPassword;
 
-        entity = getPersistentUserDetailsRepository()
+        checkNotNull(user);
+
+        entity = getPersistentUserRepository()
                 .findOneByUsername(user.getUsername()).get();
 
         BeanUtils.copyProperties(user, entity);
@@ -144,7 +169,30 @@ public final class SpringUserService implements UserService {
         }
         entity.setPassword(encodedPassword);
 
-        getPersistentUserDetailsRepository().save(entity);
+        getPersistentUserRepository().save(entity);
+    }
+
+    @Override
+    public final void updateRoles(final UserRolesForm userRoles) {
+        final Iterable<PersistentRole> roles;
+        final Optional<PersistentUser> read;
+        final PersistentUser user;
+
+        checkNotNull(userRoles);
+
+        read = getPersistentUserRepository()
+                .findOneByUsername(userRoles.getUsername());
+
+        if (read.isPresent()) {
+            user = read.get();
+
+            roles = getPersistentRoleRepository()
+                    .findByNameIn(userRoles.getRoles());
+
+            user.setRoles(roles);
+
+            getPersistentUserRepository().save(user);
+        }
     }
 
     /**
@@ -161,9 +209,17 @@ public final class SpringUserService implements UserService {
      * 
      * @return the users service
      */
-    private final PersistentUserDetailsRepository
-            getPersistentUserDetailsRepository() {
-        return repository;
+    private final PersistentRoleRepository getPersistentRoleRepository() {
+        return roleRepository;
+    }
+
+    /**
+     * Returns the users service.
+     * 
+     * @return the users service
+     */
+    private final PersistentUserRepository getPersistentUserRepository() {
+        return userRepository;
     }
 
 }

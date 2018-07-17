@@ -26,6 +26,9 @@ package com.bernardomg.example.spring.mvc.security.user.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeanUtils;
@@ -40,9 +43,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserRolesForm;
 import com.bernardomg.example.spring.mvc.security.user.model.form.UserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.form.UserRolesForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
 import com.bernardomg.example.spring.mvc.security.validation.group.Update;
@@ -59,29 +65,44 @@ import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 public final class UserController {
 
     /**
+     * User roles form param.
+     */
+    public static final String PARAM_ROLES            = "roles";
+
+    /**
      * Users form param.
      */
-    public static final String PARAM_USER_FORM    = "form";
+    public static final String PARAM_ROLES_FORM       = "formRoles";
+
+    /**
+     * Users form param.
+     */
+    public static final String PARAM_USER_FORM        = "form";
 
     /**
      * Users list param.
      */
-    public static final String PARAM_USERS        = "users";
+    public static final String PARAM_USERS            = "users";
 
     /**
      * Users creation form view.
      */
-    public static final String VIEW_USER_CREATION = "user/create";
+    public static final String VIEW_USER_CREATION     = "user/create";
 
     /**
      * Users edition form view.
      */
-    public static final String VIEW_USER_EDITION  = "user/edit";
+    public static final String VIEW_USER_EDITION      = "user/edit";
 
     /**
      * Users list view.
      */
-    public static final String VIEW_USER_LIST     = "user/list";
+    public static final String VIEW_USER_LIST         = "user/list";
+
+    /**
+     * Users edition form view.
+     */
+    public static final String VIEW_USER_ROLE_EDITION = "user/role/edit";
 
     /**
      * Users service.
@@ -108,8 +129,18 @@ public final class UserController {
      * @return the initial user form data
      */
     @ModelAttribute(PARAM_USER_FORM)
-    public final UserForm getEntityForm() {
+    public final UserForm getUserForm() {
         return new DefaultUserForm();
+    }
+
+    /**
+     * Returns the initial user roles form data.
+     * 
+     * @return the initial user roles form data
+     */
+    @ModelAttribute(PARAM_ROLES_FORM)
+    public final UserRolesForm getUserRolesForm() {
+        return new DefaultUserRolesForm();
     }
 
     /**
@@ -141,7 +172,6 @@ public final class UserController {
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-
             getService().create(form);
 
             path = showUsersList(model);
@@ -169,21 +199,56 @@ public final class UserController {
      *            username of the user to edit
      * @param model
      *            data model
-     * @return the name for the entity edition view
+     * @return the name for the user edition view
      */
     @GetMapping(path = "/edit/{username}")
     public final String showUserEdition(
             @PathVariable("username") final String username,
+            @ModelAttribute(PARAM_USER_FORM) final UserForm form,
             final ModelMap model) {
         final User user;
-        final UserForm form;
 
         user = getService().getUser(username);
-        form = new DefaultUserForm();
         BeanUtils.copyProperties(user, form);
+
         model.put(PARAM_USER_FORM, form);
 
         return VIEW_USER_EDITION;
+    }
+
+    /**
+     * Shows the user role editon view. This is done by returning the name of
+     * the view.
+     * 
+     * @param username
+     *            username of the user to edit
+     * @param model
+     *            data model
+     * @return the name for the user role edition view
+     */
+    @GetMapping(path = "/roles/edit/{username}")
+    public final String showUserRoleEdition(
+            @PathVariable("username") final String username,
+            @ModelAttribute(PARAM_ROLES_FORM) final UserRolesForm form,
+            final ModelMap model) {
+        final User user;
+        final Iterable<? extends Role> roles;
+        final Collection<String> roleNames;
+
+        user = getService().getUser(username);
+        roleNames = user.getRoles().stream().map(Role::getName)
+                .collect(Collectors.toList());
+        ((DefaultUserRolesForm) form).setRoles(roleNames);
+
+        BeanUtils.copyProperties(user, form);
+        ((DefaultUserRolesForm) form).setRoles(roleNames);
+
+        roles = getService().getAllRoles();
+
+        model.put(PARAM_USER_FORM, form);
+        model.put(PARAM_ROLES, roles);
+
+        return VIEW_USER_ROLE_EDITION;
     }
 
     /**
@@ -231,6 +296,43 @@ public final class UserController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             getService().update(form);
+
+            path = showUsersList(model);
+        }
+
+        return path;
+    }
+
+    /**
+     * Updates the roles list for a user.
+     * 
+     * @param model
+     *            model map
+     * @param form
+     *            form data
+     * @param bindingResult
+     *            binding result
+     * @param response
+     *            HTTP response
+     * @return the next view to show
+     */
+    @PostMapping("/roles/update")
+    public final String updateUserRoles(final ModelMap model,
+            @ModelAttribute(PARAM_ROLES_FORM) @Validated final UserRolesForm form,
+            final BindingResult bindingResult,
+            final HttpServletResponse response) {
+        final String path;
+
+        if (bindingResult.hasErrors()) {
+            // Invalid form data
+
+            // Returns to the form view
+            path = VIEW_USER_ROLE_EDITION;
+
+            // Marks the response as a bad request
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            getService().updateRoles(form);
 
             path = showUsersList(model);
         }

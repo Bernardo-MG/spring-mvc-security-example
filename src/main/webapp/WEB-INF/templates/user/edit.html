@@ -22,7 +22,7 @@
 								th:classappend="${#fields.hasErrors('username')} ? 'error'">
 								<label class="control-label" for="username">Username</label>
 								<div class="controls">
-									<input type="text" th:field="*{username}" class="form-control" >
+									<input type="text" th:field="*{username}" class="form-control" readonly="true" >
 									<!-- Validation errors -->
 									<p th:if="${#fields.hasErrors('username')}"
 										class="label label-danger" th:errors="*{username}">Error</p>

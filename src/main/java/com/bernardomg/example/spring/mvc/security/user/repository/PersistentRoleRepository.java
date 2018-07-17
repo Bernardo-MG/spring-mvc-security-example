@@ -22,54 +22,21 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.controller.error;
+package com.bernardomg.example.spring.mvc.security.user.repository;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentRole;
 
 /**
- * Controller for error views.
+ * Repository for user roles.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
+ *
  */
-@Controller
-public class ErrorController {
+public interface PersistentRoleRepository
+        extends JpaRepository<PersistentRole, Long> {
 
-    /**
-     * Name for the 404 error view.
-     */
-    private static final String ERROR_404 = "404";
-
-    /**
-     * Name for the 500 error view.
-     */
-    private static final String ERROR_500 = "500";
-
-    /**
-     * Default constructor.
-     */
-    public ErrorController() {
-        super();
-    }
-
-    /**
-     * Shows the 404 error view.
-     * 
-     * @return the 404 error view
-     */
-    @RequestMapping("/404")
-    public final String show404() {
-        return ERROR_404;
-    }
-
-    /**
-     * Shows the 500 error view.
-     * 
-     * @return the 500 error view
-     */
-    @RequestMapping("/500")
-    public final String show500() {
-        return ERROR_500;
-    }
+    public Iterable<PersistentRole> findByNameIn(final Iterable<String> names);
 
 }

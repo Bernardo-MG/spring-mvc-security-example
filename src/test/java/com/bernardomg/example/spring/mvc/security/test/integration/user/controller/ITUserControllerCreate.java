@@ -52,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.bernardomg.example.spring.mvc.security.user.model.User;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 import com.google.common.collect.Iterables;
 
 /**
@@ -77,19 +77,19 @@ public class ITUserControllerCreate {
     /**
      * Mock MVC for the requests.
      */
-    private MockMvc                         mockMvc;
+    private MockMvc                  mockMvc;
 
     /**
      * User repository.
      */
     @Autowired
-    private PersistentUserDetailsRepository repository;
+    private PersistentUserRepository repository;
 
     /**
      * Web application context.
      */
     @Autowired
-    private WebApplicationContext           webApplicationContext;
+    private WebApplicationContext    webApplicationContext;
 
     /**
      * Default constructor.

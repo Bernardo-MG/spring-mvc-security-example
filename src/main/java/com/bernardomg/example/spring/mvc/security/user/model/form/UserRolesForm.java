@@ -22,30 +22,28 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.user.repository;
-
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
+package com.bernardomg.example.spring.mvc.security.user.model.form;
 
 /**
- * Repository for user details.
+ * Represents the form used for the editing user roles.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface PersistentUserDetailsRepository
-        extends JpaRepository<PersistentUser, Long> {
+public interface UserRolesForm {
 
     /**
-     * Returns the user details for the received username.
+     * Returns the user roles.
      * 
-     * @param username
-     *            username to search for
-     * @return the user details for the received username
+     * @return the user roles
      */
-    public Optional<PersistentUser> findOneByUsername(final String username);
+    public Iterable<String> getRoles();
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return the username
+     */
+    public String getUsername();
 
 }

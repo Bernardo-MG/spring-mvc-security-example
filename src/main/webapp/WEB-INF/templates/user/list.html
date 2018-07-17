@@ -28,6 +28,7 @@
 					<td><span th:remove="tag" th:text="${user?.enabled}">enabled</span></td>
                <td><span th:remove="tag" th:text="${user?.locked}">locked</span></td>
                <td><span th:remove="tag" th:text="${user?.expired}">expired</span></td>
+               <td><a class="btn btn-default" th:href="@{/users/roles/edit/} + ${user?.username}" role="button">Edit Roles</a></td>
                <td><a class="btn btn-default" th:href="@{/users/edit/} + ${user?.username}" role="button">Edit</a></td>
 				</tr>
 			</tbody>

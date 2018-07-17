@@ -26,8 +26,10 @@ package com.bernardomg.example.spring.mvc.security.user.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.UserForm;
+import com.bernardomg.example.spring.mvc.security.user.model.form.UserRolesForm;
 
 /**
  * Service for handling user data.
@@ -46,6 +48,14 @@ public interface UserService {
      */
     @PreAuthorize("hasAuthority('CREATE_USER')")
     public void create(final UserForm user);
+
+    /**
+     * Returns all the roles in the application.
+     * 
+     * @return all the roles
+     */
+    @PreAuthorize("hasAuthority('READ_USER')")
+    public Iterable<? extends Role> getAllRoles();
 
     /**
      * Returns all the users in the application.
@@ -74,5 +84,14 @@ public interface UserService {
      */
     @PreAuthorize("hasAuthority('UPDATE_USER')")
     public void update(final UserForm user);
+
+    /**
+     * Updates the roles for the received user.
+     * 
+     * @param userRoles
+     *            user and roles to update
+     */
+    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    public void updateRoles(final UserRolesForm userRoles);
 
 }

@@ -44,7 +44,7 @@ import org.springframework.stereotype.Service;
 import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserDetailsRepository;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
 /**
  * User details service which takes the data from the persistence layer.
@@ -64,13 +64,13 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     /**
      * Logger.
      */
-    private static final Logger                   LOGGER = LoggerFactory
+    private static final Logger            LOGGER = LoggerFactory
             .getLogger(PersistentUserDetailsService.class);
 
     /**
      * Repository for the user data.
      */
-    private final PersistentUserDetailsRepository userRepo;
+    private final PersistentUserRepository userRepo;
 
     /**
      * Constructs a user details service.
@@ -80,7 +80,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      */
     @Autowired
     public PersistentUserDetailsService(
-            final PersistentUserDetailsRepository userRepository) {
+            final PersistentUserRepository userRepository) {
         super();
 
         userRepo = checkNotNull(userRepository,
@@ -95,7 +95,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
 
         LOGGER.debug("Asked for username {}", username);
 
-        user = getPersistentUserDetailsRepository()
+        user = getPersistentUserRepository()
                 .findOneByUsername(username.toLowerCase());
 
         if (user.isPresent()) {
@@ -114,8 +114,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      * 
      * @return the user details repository
      */
-    private final PersistentUserDetailsRepository
-            getPersistentUserDetailsRepository() {
+    private final PersistentUserRepository getPersistentUserRepository() {
         return userRepo;
     }
 
