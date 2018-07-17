@@ -192,11 +192,13 @@ public final class UserController {
     }
 
     /**
-     * Shows the user editon view. This is done by returning the name of the
+     * Shows the user edition view. This is done by returning the name of the
      * view.
      * 
      * @param username
      *            username of the user to edit
+     * @param form
+     *            form bean
      * @param model
      *            data model
      * @return the name for the user edition view
@@ -217,11 +219,13 @@ public final class UserController {
     }
 
     /**
-     * Shows the user role editon view. This is done by returning the name of
+     * Shows the user role edition view. This is done by returning the name of
      * the view.
      * 
      * @param username
      *            username of the user to edit
+     * @param form
+     *            form bean
      * @param model
      *            data model
      * @return the name for the user role edition view

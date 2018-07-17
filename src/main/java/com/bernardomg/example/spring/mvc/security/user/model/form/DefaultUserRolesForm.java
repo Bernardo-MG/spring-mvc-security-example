@@ -73,11 +73,11 @@ public final class DefaultUserRolesForm implements UserRolesForm {
     /**
      * Sets the user roles.
      * 
-     * @param roles
+     * @param rls
      *            the user roles
      */
-    public final void setRoles(final Collection<String> roles) {
-        this.roles = roles;
+    public final void setRoles(final Collection<String> rls) {
+        roles = rls;
     }
 
     /**

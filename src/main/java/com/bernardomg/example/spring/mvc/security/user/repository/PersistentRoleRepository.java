@@ -37,6 +37,13 @@ import com.bernardomg.example.spring.mvc.security.user.model.persistence.Persist
 public interface PersistentRoleRepository
         extends JpaRepository<PersistentRole, Long> {
 
+    /**
+     * Returns all the roles with one of the names received.
+     * 
+     * @param names
+     *            names of the roles
+     * @return roles names in the input
+     */
     public Iterable<PersistentRole> findByNameIn(final Iterable<String> names);
 
 }
