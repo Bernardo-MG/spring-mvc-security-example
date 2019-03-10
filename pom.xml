@@ -299,20 +299,20 @@
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el>2.2</glassfish.el>
       <guava.version>27.1-jre</guava.version>
-      <h2.version>1.4.197</h2.version>
+      <h2.version>1.4.198</h2.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.17.Final</hibernate.version>
       <hikari.version>3.1.0</hikari.version>
       <jackson.version>2.9.8</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
-      <junit.jupiter.version>5.2.0</junit.jupiter.version>
-      <junit.platform.version>1.2.0</junit.platform.version>
-      <liquibase.version>3.6.1</liquibase.version>
+      <junit.jupiter.version>5.4.0</junit.jupiter.version>
+      <junit.platform.version>1.4.0</junit.platform.version>
+      <liquibase.version>3.6.3</liquibase.version>
       <log4j.version>2.11.2</log4j.version>
-      <mockito.version>2.18.3</mockito.version>
+      <mockito.version>2.25.0</mockito.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.8.0-alpha2</slf4j.version>
-      <spring.data.version>Lovelace-RELEASE</spring.data.version>
+      <spring.data.train.version>Lovelace-RELEASE</spring.data.train.version>
       <spring.security.version>5.1.4.RELEASE</spring.security.version>
       <spring.version>5.1.5.RELEASE</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
@@ -363,7 +363,7 @@
             <!-- Spring Data Release Train -->
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-releasetrain</artifactId>
-            <version>${spring.data.version}</version>
+            <version>${spring.data.train.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
