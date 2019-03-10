@@ -312,17 +312,17 @@
       <mockito.version>2.18.3</mockito.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.8.0-alpha2</slf4j.version>
-      <spring.data.version>2.0.7.RELEASE</spring.data.version>
-      <spring.security.version>5.0.4.RELEASE</spring.security.version>
-      <spring.version>5.0.6.RELEASE</spring.version>
-      <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
-      <thymeleaf.spring.security.version>3.0.2.RELEASE</thymeleaf.spring.security.version>
+      <spring.data.version>Lovelace-RELEASE</spring.data.version>
+      <spring.security.version>5.1.4.RELEASE</spring.security.version>
+      <spring.version>5.1.5.RELEASE</spring.version>
+      <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+      <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
       <webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
       <webjars.fontAwesome.version>4.7.0</webjars.fontAwesome.version>
       <webjars.html5shiv.version>3.7.3-1</webjars.html5shiv.version>
       <webjars.jquery.version>3.3.1-1</webjars.jquery.version>
-      <webjars.locator.version>0.34</webjars.locator.version>
+      <webjars.locator.version>0.36</webjars.locator.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -334,7 +334,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>1.3.1</site.skin.version>
+      <site.skin.version>1.4.0</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -356,6 +356,14 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-bom</artifactId>
             <version>${spring.security.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <!-- Spring Data Release Train -->
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-releasetrain</artifactId>
+            <version>${spring.data.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -403,7 +411,6 @@
          <!-- Spring Data JPA -->
          <groupId>org.springframework.data</groupId>
          <artifactId>spring-data-jpa</artifactId>
-         <version>${spring.data.version}</version>
       </dependency>
       <dependency>
          <!-- Spring JDBC -->
