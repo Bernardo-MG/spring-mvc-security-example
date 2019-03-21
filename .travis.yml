@@ -9,7 +9,6 @@ jdk:
 env:
   - SERVER=jetty DEPLOY_DOCS=true
   - SERVER=tomcat7
-dist: precise
 
 before_install:
   # Gets scripts
