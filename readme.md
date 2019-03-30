@@ -1,6 +1,10 @@
 # Spring MVC Security Example
 
-Sample [Spring MVC][spring-mvc] project which sets up web security.
+Sample [Spring MVC][spring-mvc] project with web security.
+
+Handles user authentication, and access restrictions.
+
+Currently it only supports authenticating through the application itself, and not through external services.
 
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
