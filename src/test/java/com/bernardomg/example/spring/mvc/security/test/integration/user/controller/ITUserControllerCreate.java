@@ -26,7 +26,6 @@ package com.bernardomg.example.spring.mvc.security.test.integration.user.control
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,6 +46,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -104,7 +104,7 @@ public class ITUserControllerCreate {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).alwaysExpect(status().isOk()).build();
+                .apply(springSecurity()).build();
     }
 
     /**
@@ -120,11 +120,25 @@ public class ITUserControllerCreate {
                 .param("username", "username").param("password", "password")
                 .with(csrf());
 
-        mockMvc.perform(request);
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         users = repository.findAll();
 
         Assertions.assertEquals(7, Iterables.size(users));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    public final void testCreate_EmptyPassword() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = MockMvcRequestBuilders.post("/users/save")
+                .param("username", "username").param("password", "")
+                .with(csrf());
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
 }
