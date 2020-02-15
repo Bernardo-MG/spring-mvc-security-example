@@ -303,7 +303,7 @@
       <log4j.version>2.13.0</log4j.version>
       <mockito.version>3.2.4</mockito.version>
       <servlet.version>4.0.1</servlet.version>
-      <slf4j.version>2.0.0-alpha1</slf4j.version>
+      <slf4j.version>1.7.30</slf4j.version>
       <spring.data.train.version>Moore-SR4</spring.data.train.version>
       <spring.security.version>5.2.2.RELEASE</spring.security.version>
       <spring.version>5.2.3.RELEASE</spring.version>
@@ -496,6 +496,12 @@
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
          <version>${liquibase.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>ch.qos.logback</groupId>
+               <artifactId>logback-classic</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->
