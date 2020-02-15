@@ -28,6 +28,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,6 +52,12 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
  */
 @Service("userService")
 public final class SpringUserService implements UserService {
+
+    /**
+     * Logger.
+     */
+    private static final Logger            LOGGER = LoggerFactory
+            .getLogger(SpringUserService.class);
 
     /**
      * Password encoder.
@@ -108,25 +116,25 @@ public final class SpringUserService implements UserService {
         entity.setLocked(user.getLocked());
 
         if (user.getPassword() == null) {
-            // Let the persistence layer handle this
+            // Let the persistence layer handle this error
             encodedPassword = null;
         } else {
             // Password is encoded
-            encodedPassword = getPasswordEncoder().encode(user.getPassword());
+            encodedPassword = passwordEncoder.encode(user.getPassword());
         }
         entity.setPassword(encodedPassword);
 
-        getPersistentUserRepository().save(entity);
+        userRepository.save(entity);
     }
 
     @Override
     public final Iterable<? extends Role> getAllRoles() {
-        return getPersistentRoleRepository().findAll();
+        return roleRepository.findAll();
     }
 
     @Override
     public final Iterable<? extends User> getAllUsers() {
-        return getPersistentUserRepository().findAll();
+        return userRepository.findAll();
     }
 
     @Override
@@ -136,12 +144,13 @@ public final class SpringUserService implements UserService {
 
         checkNotNull(username);
 
-        read = getPersistentUserRepository().findOneByUsername(username);
+        read = userRepository.findOneByUsername(username);
 
         if (read.isPresent()) {
             user = read.get();
         } else {
             // TODO: Throw an exception maybe?
+            LOGGER.warn("User {} not found", username);
             user = null;
         }
 
@@ -155,21 +164,20 @@ public final class SpringUserService implements UserService {
 
         checkNotNull(user);
 
-        entity = getPersistentUserRepository()
-                .findOneByUsername(user.getUsername()).get();
+        entity = userRepository.findOneByUsername(user.getUsername()).get();
 
         BeanUtils.copyProperties(user, entity);
 
         if (user.getPassword() == null) {
-            // Let the persistence layer handle this
+            // Let the persistence layer handle this error
             encodedPassword = null;
         } else {
             // Password is encoded
-            encodedPassword = getPasswordEncoder().encode(user.getPassword());
+            encodedPassword = passwordEncoder.encode(user.getPassword());
         }
         entity.setPassword(encodedPassword);
 
-        getPersistentUserRepository().save(entity);
+        userRepository.save(entity);
     }
 
     @Override
@@ -180,46 +188,19 @@ public final class SpringUserService implements UserService {
 
         checkNotNull(userRoles);
 
-        read = getPersistentUserRepository()
-                .findOneByUsername(userRoles.getUsername());
+        read = userRepository.findOneByUsername(userRoles.getUsername());
 
         if (read.isPresent()) {
             user = read.get();
 
-            roles = getPersistentRoleRepository()
-                    .findByNameIn(userRoles.getRoles());
+            roles = roleRepository.findByNameIn(userRoles.getRoles());
 
             user.setRoles(roles);
 
-            getPersistentUserRepository().save(user);
+            userRepository.save(user);
+        } else {
+            LOGGER.warn("User {} not found", userRoles.getUsername());
         }
-    }
-
-    /**
-     * Returns the password encoder.
-     * 
-     * @return the password encoder
-     */
-    private final PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
-
-    /**
-     * Returns the users service.
-     * 
-     * @return the users service
-     */
-    private final PersistentRoleRepository getPersistentRoleRepository() {
-        return roleRepository;
-    }
-
-    /**
-     * Returns the users service.
-     * 
-     * @return the users service
-     */
-    private final PersistentUserRepository getPersistentUserRepository() {
-        return userRepository;
     }
 
 }

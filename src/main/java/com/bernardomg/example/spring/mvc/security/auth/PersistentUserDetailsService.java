@@ -95,8 +95,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
 
         LOGGER.debug("Asked for username {}", username);
 
-        user = getPersistentUserRepository()
-                .findOneByUsername(username.toLowerCase());
+        user = userRepo.findOneByUsername(username.toLowerCase());
 
         if (user.isPresent()) {
             LOGGER.debug("Username {} found in DB", username);
@@ -107,15 +106,6 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         }
 
         return details;
-    }
-
-    /**
-     * Returns the user details repository.
-     * 
-     * @return the user details repository
-     */
-    private final PersistentUserRepository getPersistentUserRepository() {
-        return userRepo;
     }
 
     /**
@@ -142,10 +132,12 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         // Loads privileges
         privileges = user.getRoles().stream().map(Role::getPrivileges)
                 .flatMap(Collection::stream).collect(Collectors.toList());
+        LOGGER.trace("Privileges for {}: {}", user.getUsername(), privileges);
 
         // Loads authorities
         authorities = privileges.stream().map(Privilege::getName)
                 .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        LOGGER.debug("Authorities for {}: {}", user.getUsername(), authorities);
 
         return new User(user.getUsername(), user.getPassword(), enabled,
                 accountNonExpired, credentialsNonExpired, accountNonLocked,

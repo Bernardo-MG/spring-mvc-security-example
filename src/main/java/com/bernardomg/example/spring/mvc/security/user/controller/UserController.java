@@ -172,7 +172,7 @@ public final class UserController {
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            getService().create(form);
+            service.create(form);
 
             path = showUsersList(model);
         }
@@ -210,7 +210,7 @@ public final class UserController {
             final ModelMap model) {
         final User user;
 
-        user = getService().getUser(username);
+        user = service.getUser(username);
         BeanUtils.copyProperties(user, form);
 
         model.put(PARAM_USER_FORM, form);
@@ -239,7 +239,7 @@ public final class UserController {
         final Iterable<? extends Role> roles;
         final Collection<String> roleNames;
 
-        user = getService().getUser(username);
+        user = service.getUser(username);
         roleNames = user.getRoles().stream().map(Role::getName)
                 .collect(Collectors.toList());
         ((DefaultUserRolesForm) form).setRoles(roleNames);
@@ -247,7 +247,7 @@ public final class UserController {
         BeanUtils.copyProperties(user, form);
         ((DefaultUserRolesForm) form).setRoles(roleNames);
 
-        roles = getService().getAllRoles();
+        roles = service.getAllRoles();
 
         model.put(PARAM_USER_FORM, form);
         model.put(PARAM_ROLES, roles);
@@ -265,7 +265,7 @@ public final class UserController {
      */
     @GetMapping
     public final String showUsersList(final ModelMap model) {
-        model.put(PARAM_USERS, getService().getAllUsers());
+        model.put(PARAM_USERS, service.getAllUsers());
 
         return VIEW_USER_LIST;
     }
@@ -299,7 +299,7 @@ public final class UserController {
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            getService().update(form);
+            service.update(form);
 
             path = showUsersList(model);
         }
@@ -336,21 +336,12 @@ public final class UserController {
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            getService().updateRoles(form);
+            service.updateRoles(form);
 
             path = showUsersList(model);
         }
 
         return path;
-    }
-
-    /**
-     * Returns the users service.
-     * 
-     * @return the users service
-     */
-    private final UserService getService() {
-        return service;
     }
 
 }
