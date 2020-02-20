@@ -27,8 +27,6 @@ package com.bernardomg.example.spring.mvc.security.test.integration.user.service
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDeniedException;
@@ -50,7 +48,6 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class })
