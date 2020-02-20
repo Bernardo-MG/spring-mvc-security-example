@@ -51,7 +51,7 @@ import com.google.common.collect.Iterables;
 @SpringJUnitConfig
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
 public class ITUserServiceCreate {

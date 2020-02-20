@@ -48,7 +48,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @SpringJUnitConfig
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/application-test-context.xml" })
 public class ITUserServiceUpdateInvalid {
 
     /**

@@ -46,7 +46,7 @@ import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsServ
 @SpringJUnitConfig
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 public class ITPersistentUserDetailsService {
 
