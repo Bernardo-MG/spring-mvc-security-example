@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
@@ -11,7 +12,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.3.0</version>
+      <version>1.3.1</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -80,8 +81,10 @@
    <profiles>
       <profile>
          <!-- Profile for the Eclipse Maven plugin -->
-         <!-- Sets the POM so this plugin does not give the usual unregistered goals errors -->
-         <!-- It will be activated automatically on Eclipse if this has the m2e plugin, by detecting the version property -->
+         <!-- Sets the POM so this plugin does not give the usual unregistered 
+            goals errors -->
+         <!-- It will be activated automatically on Eclipse if this has the 
+            m2e plugin, by detecting the version property -->
          <id>eclipse-maven</id>
          <activation>
             <property>
@@ -93,17 +96,23 @@
                <plugins>
                   <plugin>
                      <!-- m2e lifecycle mapping -->
-                     <!-- This is used to configure the Maven plugin for Eclipse. -->
-                     <!-- Among other things, it allows registering goals, which Eclipse would otherwise reject. -->
+                     <!-- This is used to configure the Maven plugin for 
+                        Eclipse. -->
+                     <!-- Among other things, it allows registering goals, 
+                        which Eclipse would otherwise reject. -->
                      <!-- It has no real effect on Maven. -->
                      <groupId>org.eclipse.m2e</groupId>
                      <artifactId>lifecycle-mapping</artifactId>
                      <version>${plugin.lifecycle.version}</version>
                      <configuration>
                         <!-- Sample fix for plugin executions -->
-                        <!-- This is to be used in case a Maven plugins gives problems in Eclipse -->
-                        <!-- <lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> <versionRange>[0.5,)</versionRange> 
-                           <goals> <goal>prepare-agent</goal> </goals> </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> </pluginExecutions> </lifecycleMappingMetadata> -->
+                        <!-- This is to be used in case a Maven plugins gives 
+                           problems in Eclipse -->
+                        <!-- <lifecycleMappingMetadata> <pluginExecutions> 
+                           <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> 
+                           <versionRange>[0.5,)</versionRange> <goals> <goal>prepare-agent</goal> </goals> 
+                           </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> 
+                           </pluginExecutions> </lifecycleMappingMetadata> -->
                         <downloadSources>true</downloadSources>
                         <downloadJavadocs>true</downloadJavadocs>
                      </configuration>
@@ -162,7 +171,8 @@
             <plugins>
                <plugin>
                   <!-- Jetty -->
-                  <!-- Jetty will run the web service during the integration tests -->
+                  <!-- Jetty will run the web service during the integration 
+                     tests -->
                   <groupId>org.eclipse.jetty</groupId>
                   <artifactId>jetty-maven-plugin</artifactId>
                   <version>${plugin.jetty.version}</version>
@@ -207,7 +217,8 @@
             <plugins>
                <plugin>
                   <!-- Tomcat 7 -->
-                  <!-- Tomcat 7 will run the web service during the integration tests -->
+                  <!-- Tomcat 7 will run the web service during the integration 
+                     tests -->
                   <groupId>org.apache.tomcat.maven</groupId>
                   <artifactId>tomcat7-maven-plugin</artifactId>
                   <version>${plugin.tomcat7.version}</version>
@@ -296,7 +307,6 @@
       <hikari.version>3.4.2</hikari.version>
       <jackson.version>2.10.2</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
-      <junit.version>4.13</junit.version>
       <junit.jupiter.version>5.6.0</junit.jupiter.version>
       <junit.platform.version>1.6.0</junit.platform.version>
       <liquibase.version>3.8.6</liquibase.version>
@@ -319,6 +329,7 @@
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
+      <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
       <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
@@ -677,12 +688,13 @@
          <artifactId>junit-platform-runner</artifactId>
          <version>${junit.platform.version}</version>
          <scope>test</scope>
-      </dependency>
-      <dependency>
-         <!-- JUnit Jupiter Platform -->
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-         <version>${junit.version}</version>
+         <exclusions>
+            <exclusion>
+               <!-- JUnit 3 -->
+               <groupId>junit</groupId>
+               <artifactId>junit</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <!-- Mockito -->
@@ -837,7 +849,8 @@
                </webResources>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
+               <!-- So instead of replacing ${project.name} Maven will replace 
+                  @project.name@. -->
                <useDefaultDelimiters>false</useDefaultDelimiters>
                <delimiters>
                   <delimiter>@</delimiter>
@@ -852,7 +865,8 @@
             <configuration>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
+               <!-- So instead of replacing ${project.name} Maven will replace 
+                  @project.name@. -->
                <useDefaultDelimiters>false</useDefaultDelimiters>
                <delimiters>
                   <delimiter>@</delimiter>
@@ -929,7 +943,8 @@
          </plugin>
          <plugin>
             <!-- PMD -->
-            <!-- Checks that the code complies with a series of code quality rules -->
+            <!-- Checks that the code complies with a series of code quality 
+               rules -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>
