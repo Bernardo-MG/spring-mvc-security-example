@@ -71,7 +71,7 @@ public class PersistentRole implements Role, Serializable {
     /**
      * Authority name.
      */
-    @Column(name = "name", nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false, unique = true, length = 60)
     private String                                name;
 
     /**

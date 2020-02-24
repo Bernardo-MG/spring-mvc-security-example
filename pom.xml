@@ -314,6 +314,7 @@
       <mockito.version>3.2.4</mockito.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.7.30</slf4j.version>
+      <snakeyaml.version>1.25</snakeyaml.version>
       <spring.data.train.version>Moore-SR4</spring.data.train.version>
       <spring.security.version>5.2.2.RELEASE</spring.security.version>
       <spring.version>5.2.3.RELEASE</spring.version>
@@ -513,6 +514,15 @@
                <artifactId>logback-classic</artifactId>
             </exclusion>
          </exclusions>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================ SNAKEYAML =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- SnakeYAML -->
+         <groupId>org.yaml</groupId>
+         <artifactId>snakeyaml</artifactId>
+         <version>${snakeyaml.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->
