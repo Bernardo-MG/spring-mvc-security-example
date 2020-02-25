@@ -35,7 +35,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
@@ -49,12 +48,11 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  *
  */
 @SpringJUnitConfig
-@WebAppConfiguration
 @Transactional
 @Rollback
 @Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
+        locations = { "classpath:context/service-test-context.xml" })
 @DisplayName("User service invalid creation operations")
 public class ITUserServiceCreateInvalid {
 
