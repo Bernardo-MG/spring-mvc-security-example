@@ -53,7 +53,6 @@ import com.google.common.collect.Iterables;
 @SpringJUnitConfig
 @Transactional
 @Rollback
-@Sql("/db/populate/full.sql")
 @ContextConfiguration(
         locations = { "classpath:context/service-test-context.xml" })
 @DisplayName("User service read operations")
@@ -75,6 +74,7 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("Users can be read")
+    @Sql("/db/populate/full.sql")
     public void testGetAllUsers() {
         final Iterable<? extends User> users;
 
@@ -85,7 +85,19 @@ public class ITUserServiceRead {
 
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @DisplayName("No users are returned when there are none in the DB")
+    public void testGetAllUsers_Empty() {
+        final Iterable<? extends User> users;
+
+        users = service.getAllUsers();
+
+        Assertions.assertEquals(0, Iterables.size(users));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("Users and their privileges can be read")
+    @Sql("/db/populate/full.sql")
     public void testGetAllUsers_Privileges() {
         final Iterable<? extends User> users;
         final User user;
@@ -105,7 +117,7 @@ public class ITUserServiceRead {
         role = user.getRoles().iterator().next();
         Assertions.assertEquals("ADMIN", role.getName());
 
-        Assertions.assertEquals(1, role.getPrivileges().size());
+        Assertions.assertEquals(3, role.getPrivileges().size());
         privilege = role.getPrivileges().iterator().next();
         Assertions.assertEquals("CREATE_USER", privilege.getName());
     }
@@ -113,6 +125,7 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("A single user with no roles can be read")
+    @Sql("/db/populate/full.sql")
     public void testGetUser_NoRoles() {
         final User user;
 
@@ -125,10 +138,10 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("A single user with roles and no privileges can be read")
-    public void testGetUser_Roles_Privileges() {
+    @Sql("/db/populate/admin_roles_no_privileges.sql")
+    public void testGetUser_Roles_NoPrivileges() {
         final User user;
         final Role role;
-        final Privilege privilege;
 
         user = service.getUser("admin");
 
@@ -138,9 +151,7 @@ public class ITUserServiceRead {
         role = user.getRoles().iterator().next();
         Assertions.assertEquals("ADMIN", role.getName());
 
-        Assertions.assertEquals(1, role.getPrivileges().size());
-        privilege = role.getPrivileges().iterator().next();
-        Assertions.assertEquals("CREATE_USER", privilege.getName());
+        Assertions.assertEquals(0, role.getPrivileges().size());
     }
 
 }
