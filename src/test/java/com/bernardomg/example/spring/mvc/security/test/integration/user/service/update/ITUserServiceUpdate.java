@@ -24,20 +24,20 @@
 
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.update;
 
-import java.util.NoSuchElementException;
-
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
@@ -48,19 +48,25 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  *
  */
 @SpringJUnitConfig
-@WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service update operations")
 public class ITUserServiceUpdate {
+
+    /**
+     * User repository.
+     */
+    @Autowired
+    private PersistentUserRepository repository;
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
-    private UserService service;
+    private UserService              service;
 
     /**
      * Default constructor.
@@ -69,19 +75,23 @@ public class ITUserServiceUpdate {
         super();
     }
 
-    /**
-     * Verifies that users can be updated.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    @DisplayName("An authenticated user can create update users")
     public final void testUpdate() {
         final DefaultUserForm user; // User to save
+        final User updated; // Updated user
 
         user = new DefaultUserForm();
-        user.setUsername("");
+        user.setUsername("noroles");
+        user.setPassword("password");
+        user.setEnabled(false);
 
-        Assertions.assertThrows(NoSuchElementException.class,
-                () -> service.update(user));
+        service.update(user);
+
+        updated = repository.findOneByUsername("noroles").get();
+
+        Assertions.assertEquals(false, updated.getEnabled());
     }
 
 }

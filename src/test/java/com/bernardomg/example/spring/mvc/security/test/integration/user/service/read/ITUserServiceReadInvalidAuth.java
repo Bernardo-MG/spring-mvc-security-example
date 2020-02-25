@@ -25,15 +25,17 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
@@ -45,16 +47,18 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  *
  */
 @SpringJUnitConfig
-@WebAppConfiguration
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service invalid authentication read operations")
 public class ITUserServiceReadInvalidAuth {
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**
@@ -64,45 +68,33 @@ public class ITUserServiceReadInvalidAuth {
         super();
     }
 
-    /**
-     * Verifies that trying to read all the users without being authenticated
-     * causes an exception.
-     */
     @Test
+    @DisplayName("Unauthenticated users can't read users")
     public final void testGetAllUsers_NoAuth_Exception() {
         Assertions.assertThrows(
                 AuthenticationCredentialsNotFoundException.class,
                 () -> service.getAllUsers());
     }
 
-    /**
-     * Verifies that trying to read all the users without privileges causes an
-     * exception.
-     */
     @Test
     @WithMockUser
+    @DisplayName("Users with no privileges can't read users")
     public final void testGetAllUsers_NoPrivileges_Exception() {
         Assertions.assertThrows(AccessDeniedException.class,
                 () -> service.getAllUsers());
     }
 
-    /**
-     * Verifies that trying to read a user without being authenticated causes an
-     * exception.
-     */
     @Test
+    @DisplayName("Unauthenticated users can't read a single user")
     public final void testGetUser_NoAuth_Exception() {
         Assertions.assertThrows(
                 AuthenticationCredentialsNotFoundException.class,
                 () -> service.getUser("noroles"));
     }
 
-    /**
-     * Verifies that trying to read a user without privileges causes an
-     * exception.
-     */
     @Test
     @WithMockUser
+    @DisplayName("Users with no privileges can't read a single user")
     public final void testGetUser_NoPrivileges_Exception() {
         Assertions.assertThrows(AccessDeniedException.class,
                 () -> service.getUser("noroles"));

@@ -25,14 +25,16 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
@@ -45,16 +47,18 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  *
  */
 @SpringJUnitConfig
-@WebAppConfiguration
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service invalid creation operations")
 public class ITUserServiceCreateInvalid {
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**
@@ -62,13 +66,13 @@ public class ITUserServiceCreateInvalid {
      */
     public ITUserServiceCreateInvalid() {
         super();
+
+        // TODO: Check the messages to make sure they are not the same error
     }
 
-    /**
-     * Verifies that it rejects an existing name.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Names can't be repeated")
     public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -80,11 +84,9 @@ public class ITUserServiceCreateInvalid {
                 () -> service.create(user));
     }
 
-    /**
-     * Verifies that it rejects a null name.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Null names are rejected")
     public final void testCreate_NoName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -96,11 +98,9 @@ public class ITUserServiceCreateInvalid {
                 () -> service.create(user));
     }
 
-    /**
-     * Verifies that it rejects a null password.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Null passwords are rejected")
     public final void testCreate_NoPassword_Exception() {
         final DefaultUserForm user; // User to save
 

@@ -29,11 +29,13 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -57,10 +59,12 @@ import com.google.common.collect.Iterables;
  */
 @SpringJUnitConfig
 @WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("User controller creation operations")
 public class ITUserControllerCreate {
 
     /**
@@ -101,6 +105,7 @@ public class ITUserControllerCreate {
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
         final RequestBuilder request; // Test request
         final Iterable<? extends User> users; // Read users
@@ -119,6 +124,7 @@ public class ITUserControllerCreate {
 
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Empty passwords are rejected")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request
 

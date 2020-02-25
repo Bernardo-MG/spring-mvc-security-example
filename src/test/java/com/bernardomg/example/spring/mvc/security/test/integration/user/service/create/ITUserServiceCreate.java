@@ -25,14 +25,14 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.User;
@@ -49,11 +49,12 @@ import com.google.common.collect.Iterables;
  *
  */
 @SpringJUnitConfig
-@WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 
     /**
@@ -66,7 +67,6 @@ public class ITUserServiceCreate {
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService              service;
 
     /**
@@ -76,11 +76,9 @@ public class ITUserServiceCreate {
         super();
     }
 
-    /**
-     * Verifies that users can be created.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("An authenticated user can create other users")
     public final void testCreate() {
         final DefaultUserForm user; // User to save
         final Iterable<? extends User> users; // Read users

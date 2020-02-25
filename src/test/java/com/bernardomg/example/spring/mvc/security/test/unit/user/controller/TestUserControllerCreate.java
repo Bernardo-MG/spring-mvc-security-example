@@ -27,6 +27,7 @@ package com.bernardomg.example.spring.mvc.security.test.unit.user.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,7 +46,8 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public class TestUserControllerCreate {
+@DisplayName("User controller creation operations parameters")
+public final class TestUserControllerCreate {
 
     /**
      * Mock MVC for the requests.
@@ -68,10 +70,8 @@ public class TestUserControllerCreate {
                 .alwaysExpect(status().isOk()).build();
     }
 
-    /**
-     * Verifies that invalid users are rejected by the controller.
-     */
     @Test
+    @DisplayName("Valid parameters are accepted")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request
 
