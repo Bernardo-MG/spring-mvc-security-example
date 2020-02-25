@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.user.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
@@ -47,6 +48,7 @@ public interface UserService {
      *            user to create
      */
     @PreAuthorize("hasAuthority('CREATE_USER')")
+    @Transactional
     public void create(final UserForm user);
 
     /**
@@ -55,6 +57,7 @@ public interface UserService {
      * @return all the roles
      */
     @PreAuthorize("hasAuthority('READ_USER')")
+    @Transactional
     public Iterable<? extends Role> getAllRoles();
 
     /**
@@ -63,6 +66,7 @@ public interface UserService {
      * @return all the users
      */
     @PreAuthorize("hasAuthority('READ_USER')")
+    @Transactional
     public Iterable<? extends User> getAllUsers();
 
     /**
@@ -73,6 +77,7 @@ public interface UserService {
      * @return user for the received username
      */
     @PreAuthorize("hasAuthority('READ_USER')")
+    @Transactional
     public User getUser(final String username);
 
     /**
@@ -83,6 +88,7 @@ public interface UserService {
      *            user to update
      */
     @PreAuthorize("hasAuthority('UPDATE_USER')")
+    @Transactional
     public void update(final UserForm user);
 
     /**
@@ -92,6 +98,7 @@ public interface UserService {
      *            user and roles to update
      */
     @PreAuthorize("hasAuthority('UPDATE_USER')")
+    @Transactional
     public void updateRoles(final UserRolesForm userRoles);
 
 }
