@@ -13,7 +13,7 @@
       location="classpath:config/persistence.properties,
                    classpath:config/persistence-h2.properties, 
                    classpath:config/persistence-access.properties,
-                   classpath:config/security.properties," />
+                   classpath:config/security.properties" />
 
    <!-- Imports -->
    <import resource="classpath:context/persistence.xml" />
