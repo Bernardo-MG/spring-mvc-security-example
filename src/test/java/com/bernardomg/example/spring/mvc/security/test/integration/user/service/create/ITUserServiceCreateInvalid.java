@@ -28,7 +28,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
@@ -60,7 +59,6 @@ public class ITUserServiceCreateInvalid {
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**

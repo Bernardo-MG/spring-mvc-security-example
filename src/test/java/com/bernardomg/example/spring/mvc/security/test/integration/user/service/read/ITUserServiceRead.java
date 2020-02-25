@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -64,7 +63,6 @@ public class ITUserServiceRead {
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**

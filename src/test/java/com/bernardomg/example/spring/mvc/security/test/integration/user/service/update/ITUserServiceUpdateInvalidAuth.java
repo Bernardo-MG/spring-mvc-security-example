@@ -28,7 +28,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -61,7 +60,6 @@ public class ITUserServiceUpdateInvalidAuth {
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**
