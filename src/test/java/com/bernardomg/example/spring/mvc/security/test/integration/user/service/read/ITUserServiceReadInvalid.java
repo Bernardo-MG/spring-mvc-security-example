@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,6 +48,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("User service invalid read operations")
 public class ITUserServiceReadInvalid {
 
     /**
@@ -63,12 +65,10 @@ public class ITUserServiceReadInvalid {
         super();
     }
 
-    /**
-     * Verifies that a single user can be read.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser() {
+    @DisplayName("A single not existing user can't be read")
+    public final void testGetUser_NotExisting() {
         final User user; // Read user
 
         user = service.getUser("abc");

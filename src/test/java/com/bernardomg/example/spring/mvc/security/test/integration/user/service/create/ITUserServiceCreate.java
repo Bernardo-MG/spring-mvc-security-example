@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -54,6 +55,7 @@ import com.google.common.collect.Iterables;
         locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 
     /**
@@ -76,11 +78,9 @@ public class ITUserServiceCreate {
         super();
     }
 
-    /**
-     * Verifies that users can be created.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("An authenticated user can create other users")
     public final void testCreate() {
         final DefaultUserForm user; // User to save
         final Iterable<? extends User> users; // Read users

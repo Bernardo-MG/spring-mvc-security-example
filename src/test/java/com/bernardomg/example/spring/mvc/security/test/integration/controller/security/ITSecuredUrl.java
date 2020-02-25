@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -43,18 +44,11 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-/**
- * Integration tests for the secured URLs.
- * <p>
- * Verifies that URLs are secured against anonymous access.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
- *
- */
 @SpringJUnitConfig
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("Secured URLs")
 public final class ITSecuredUrl {
 
     /**
@@ -84,12 +78,10 @@ public final class ITSecuredUrl {
                 .apply(springSecurity()).build();
     }
 
-    /**
-     * Verifies that the admin secured URL allows access to authenticated users.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    public final void testAdminSecured_admin() throws Exception {
+    @DisplayName("Admin-secured URLs allows admins")
+    public final void testAdminSecured_Admin() throws Exception {
         final RequestBuilder request; // Test request
 
         request = get("/secured/admin").with(csrf());
@@ -98,11 +90,20 @@ public final class ITSecuredUrl {
                 .andExpect(authenticated().withUsername("admin"));
     }
 
-    /**
-     * Verifies that the home URL allows access to authenticated users.
-     */
+    @Test
+    @DisplayName("Admin-secured rejects unauthenticated")
+    public final void testAdminSecured_Unauthorized() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = get("/secured/admin").with(csrf());
+
+        mockMvc.perform(request).andExpect(status().isFound())
+                .andExpect(unauthenticated());
+    }
+
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
+    @DisplayName("Root allows admins")
     public final void testHome_Admin() throws Exception {
         final RequestBuilder request; // Test request
 
@@ -112,28 +113,35 @@ public final class ITSecuredUrl {
                 .andExpect(authenticated().withUsername("admin"));
     }
 
-    /**
-     * Verifies that the home URL is secured against anonymous access.
-     */
     @Test
-    public final void testHome_Unauthorized_requiresAuthentication()
-            throws Exception {
+    @DisplayName("Root rejects unauthenticated")
+    public final void testHome_Unauthorized() throws Exception {
         final RequestBuilder request; // Test request
 
-        request = get("/");
+        request = get("/").with(csrf());
 
         mockMvc.perform(request).andExpect(status().isFound())
                 .andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that the login URL allows anonymous access.
-     */
     @Test
+    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
+    @DisplayName("Login allows admins")
+    public final void testLogin_Admin() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = get("/login").with(csrf());
+
+        mockMvc.perform(request).andExpect(status().isOk())
+                .andExpect(authenticated().withUsername("admin"));
+    }
+
+    @Test
+    @DisplayName("Login allows unauthenticated")
     public final void testLogin_Unauthorized() throws Exception {
         final RequestBuilder request; // Test request
 
-        request = get("/login");
+        request = get("/login").with(csrf());
 
         mockMvc.perform(request).andExpect(status().isOk())
                 .andExpect(unauthenticated());

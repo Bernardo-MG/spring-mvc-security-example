@@ -31,6 +31,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.FormLoginRequestBuilder;
@@ -53,6 +54,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("Application login")
 public final class ITLogin {
 
     /**
@@ -82,10 +84,8 @@ public final class ITLogin {
                 .apply(springSecurity()).build();
     }
 
-    /**
-     * Verifies that using a disabled user redirects to the login error URL.
-     */
     @Test
+    @DisplayName("A disabled user redirects to the login error URL")
     public final void testLogin_DisabledUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -94,10 +94,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
-    /**
-     * Verifies that using a disabled user name fails the login.
-     */
     @Test
+    @DisplayName("A disabled user fails the login")
     public final void testLogin_DisabledUser_Unauthenticated()
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
@@ -107,10 +105,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that using an expired user redirects to the login error URL.
-     */
     @Test
+    @DisplayName("A user with expired credentials redirects to the login error URL")
     public final void testLogin_ExpiredCredentials_ErrorRedirect()
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
@@ -120,10 +116,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
-    /**
-     * Verifies that using an expired user name fails the login.
-     */
     @Test
+    @DisplayName("A user with expired credentials fails the login")
     public final void testLogin_ExpiredCredentials_Unauthenticated()
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
@@ -133,10 +127,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that using an expired user redirects to the login error URL.
-     */
     @Test
+    @DisplayName("An expired user redirects to the login error URL")
     public final void testLogin_ExpiredUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -145,10 +137,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
-    /**
-     * Verifies that using an expired user name fails the login.
-     */
     @Test
+    @DisplayName("An expired user fails the login")
     public final void testLogin_ExpiredUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -157,10 +147,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that using an invalid password redirects to the login error URL.
-     */
     @Test
+    @DisplayName("An invalid password redirects to the login error URL")
     public final void testLogin_InvalidPassword_ErrorRedirect()
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
@@ -170,10 +158,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
-    /**
-     * Verifies that using an invalid user name fails the login.
-     */
     @Test
+    @DisplayName("An invalid password fails the login")
     public final void testLogin_InvalidPassword_Unauthenticated()
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
@@ -183,10 +169,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that using an invalid user redirects to the login error URL.
-     */
     @Test
+    @DisplayName("An invalid user redirects to the login error URL")
     public final void testLogin_InvalidUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -195,10 +179,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
-    /**
-     * Verifies that using an invalid user name fails the login.
-     */
     @Test
+    @DisplayName("An invalid user fails the login")
     public final void testLogin_InvalidUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -207,10 +189,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that using a locked user redirects to the login error URL.
-     */
     @Test
+    @DisplayName("A locked user redirects to the login error URL")
     public final void testLogin_LockedUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -219,10 +199,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
     }
 
-    /**
-     * Verifies that using a locked user name fails the login.
-     */
     @Test
+    @DisplayName("A locked user fails the login")
     public final void testLogin_LockedUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -231,10 +209,8 @@ public final class ITLogin {
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 
-    /**
-     * Verifies that using a valid user name allows to login.
-     */
     @Test
+    @DisplayName("A valid user logs in")
     public final void testLogin_ValidUser_Authenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 

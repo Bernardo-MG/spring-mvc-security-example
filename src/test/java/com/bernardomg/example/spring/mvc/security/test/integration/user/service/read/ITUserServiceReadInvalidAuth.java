@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.read;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,6 +49,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("User service invalid authentication read operations")
 public class ITUserServiceReadInvalidAuth {
 
     /**
@@ -64,45 +66,33 @@ public class ITUserServiceReadInvalidAuth {
         super();
     }
 
-    /**
-     * Verifies that trying to read all the users without being authenticated
-     * causes an exception.
-     */
     @Test
+    @DisplayName("Unauthenticated users can't read users")
     public final void testGetAllUsers_NoAuth_Exception() {
         Assertions.assertThrows(
                 AuthenticationCredentialsNotFoundException.class,
                 () -> service.getAllUsers());
     }
 
-    /**
-     * Verifies that trying to read all the users without privileges causes an
-     * exception.
-     */
     @Test
     @WithMockUser
+    @DisplayName("Users with no privileges can't read users")
     public final void testGetAllUsers_NoPrivileges_Exception() {
         Assertions.assertThrows(AccessDeniedException.class,
                 () -> service.getAllUsers());
     }
 
-    /**
-     * Verifies that trying to read a user without being authenticated causes an
-     * exception.
-     */
     @Test
+    @DisplayName("Unauthenticated users can't read a single user")
     public final void testGetUser_NoAuth_Exception() {
         Assertions.assertThrows(
                 AuthenticationCredentialsNotFoundException.class,
                 () -> service.getUser("noroles"));
     }
 
-    /**
-     * Verifies that trying to read a user without privileges causes an
-     * exception.
-     */
     @Test
     @WithMockUser
+    @DisplayName("Users with no privileges can't read a single user")
     public final void testGetUser_NoPrivileges_Exception() {
         Assertions.assertThrows(AccessDeniedException.class,
                 () -> service.getUser("noroles"));

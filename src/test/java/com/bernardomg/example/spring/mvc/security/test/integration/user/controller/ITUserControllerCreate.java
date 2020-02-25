@@ -29,6 +29,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -61,6 +62,7 @@ import com.google.common.collect.Iterables;
         locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@DisplayName("User controller creation operations")
 public class ITUserControllerCreate {
 
     /**
@@ -101,6 +103,7 @@ public class ITUserControllerCreate {
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
         final RequestBuilder request; // Test request
         final Iterable<? extends User> users; // Read users
@@ -119,6 +122,7 @@ public class ITUserControllerCreate {
 
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Empty passwords are rejected")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request
 

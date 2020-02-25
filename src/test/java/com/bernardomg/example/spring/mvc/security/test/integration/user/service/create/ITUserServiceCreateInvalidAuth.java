@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,6 +50,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("User service invalid credentials creation operations")
 public class ITUserServiceCreateInvalidAuth {
 
     /**
@@ -63,13 +65,12 @@ public class ITUserServiceCreateInvalidAuth {
      */
     public ITUserServiceCreateInvalidAuth() {
         super();
+
+        // TODO: Check the messages to make sure they are not the same error
     }
 
-    /**
-     * Verifies that trying to add a user without being authenticated causes an
-     * exception.
-     */
     @Test
+    @DisplayName("Unauthenticated users can't create other users")
     public final void testCreate_NoAuth_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -82,12 +83,9 @@ public class ITUserServiceCreateInvalidAuth {
                 () -> service.create(user));
     }
 
-    /**
-     * Verifies that trying to add a user without privileges causes an
-     * exception.
-     */
     @Test
     @WithMockUser
+    @DisplayName("Users with no privileges can't create other users")
     public final void testCreate_NoPrivileges_Exception() {
         final DefaultUserForm user; // User to save
 

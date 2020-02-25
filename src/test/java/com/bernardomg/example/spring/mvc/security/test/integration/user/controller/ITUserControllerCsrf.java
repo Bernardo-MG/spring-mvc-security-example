@@ -28,6 +28,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -54,6 +55,7 @@ import org.springframework.web.context.WebApplicationContext;
         locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@DisplayName("Requests with CSRF on the user controller")
 public class ITUserControllerCsrf {
 
     /**
@@ -88,6 +90,7 @@ public class ITUserControllerCsrf {
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Requests with no CSRF are rejected")
     public final void testCreate_NoCsrf() throws Exception {
         final RequestBuilder request; // Test request
 
