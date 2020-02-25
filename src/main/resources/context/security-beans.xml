@@ -7,22 +7,22 @@
 
    <!-- Passwords -->
 
-   <bean id="passwordEncoder" class="${password.encoder.bean}" />
+   <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
    <!-- Remember-me -->
 
-   <bean id="rememberMeFilter" class="${rememberme.filter.bean}">
+   <bean id="rememberMeFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
       <constructor-arg ref="authenticationManager" />
       <constructor-arg ref="rememberMeServices" />
    </bean>
 
-   <bean id="rememberMeServices" class="${rememberme.services.bean}">
+   <bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
       <constructor-arg value="${rememberme.key}" />
       <constructor-arg ref="jdbcTokenRepository" />
       <constructor-arg ref="userDetailsService" />
    </bean>
 
-   <bean id="jdbcTokenRepository" class="${rememberme.token.repo.bean}">
+   <bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
       <property name="dataSource" ref="dataSource" />
    </bean>
 

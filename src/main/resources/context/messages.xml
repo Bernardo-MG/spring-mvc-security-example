@@ -15,7 +15,7 @@
 
    <!-- Messages -->
 
-   <bean id="messageSource" class="${messageSource.class}">
+   <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
       <property name="basenames" ref="baseNames" />
    </bean>
 

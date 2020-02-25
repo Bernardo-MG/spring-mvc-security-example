@@ -25,7 +25,7 @@
    <!-- ================================== JPA ================================== -->
 
    <!-- JPA EntityManagerFactory -->
-   <bean id="entityManagerFactory" class="${jpa.entityManagerFactory.class}">
+   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
       <property name="jpaVendorAdapter" ref="jpaAdapter" />
       <property name="dataSource" ref="dataSource" />
       <property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
@@ -34,7 +34,7 @@
    </bean>
 
    <!-- JPA Adapter -->
-   <bean id="jpaAdapter" class="${jpa.adapter.class}">
+   <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
       <property name="database" value="${jpa.database}" />
       <property name="showSql" value="${jpa.showSql}" />
    </bean>
@@ -52,12 +52,12 @@
    </util:map>
 
    <!-- Entity manager -->
-   <bean id="entityManager" class="${jpa.entityManager.class}">
+   <bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
       <property name="entityManagerFactory" ref="entityManagerFactory" />
    </bean>
 
    <!-- Transaction manager -->
-   <bean id="transactionManager" class="${jpa.transactionManager.class}">
+   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
       <property name="entityManagerFactory" ref="entityManagerFactory" />
       <property name="dataSource" ref="dataSource" />
    </bean>
@@ -68,7 +68,7 @@
    <!-- ============================== DATASOURCE =============================== -->
 
    <!-- Data source -->
-   <bean id="dataSource" class="${jdbc.datasource.class}">
+   <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
       <property name="driverClassName" value="${jdbc.driver}" />
       <property name="jdbcUrl" value="${jdbc.url}" />
       <property name="username" value="${jdbc.username}" />
