@@ -10,7 +10,8 @@
 
    <!-- Properties -->
    <context:property-placeholder
-      location="classpath:config/persistence-h2.properties, 
+      location="classpath:config/persistence.properties,
+                   classpath:config/persistence-h2.properties, 
                    classpath:config/persistence-access.properties,
                    classpath:config/security.properties,
                    classpath:config/view.properties" />

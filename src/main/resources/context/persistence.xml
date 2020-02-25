@@ -39,12 +39,12 @@
    <util:map id="jpaProperties">
       <entry key="hibernate.dialect" value="${hibernate.dialect}" />
       <entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
-      <entry key="hibernate.ejb.naming_strategy" value="${hibernate.namingStrategy}" />
+      <entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
       <entry key="hibernate.show_sql" value="${jpa.showSql}" />
       <entry key="hibernate.format_sql" value="${hibernate.format_sql}" />
       <entry key="hibernate.cache.use_second_level_cache" value="${hibernate.cache.use_second_level_cache}" />
       <entry key="hibernate.cache.use_query_cache" value="${hibernate.cache.use_query_cache}" />
-      <entry key="hibernate.cache.region.factory_class" value="${hibernate.cache.region.factory_class}" />
+      <entry key="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
    </util:map>
 
    <!-- Transaction manager -->
