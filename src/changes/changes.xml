@@ -11,5 +11,10 @@
             First release of the project.
          </action>
       </release>
+      <release version="1.0.1" date="2020-02-26" description="Cleaned up code">
+         <action dev="bmg" type="update">
+            Cleaned up configuration.
+         </action>
+      </release>
    </body>
 </document>
