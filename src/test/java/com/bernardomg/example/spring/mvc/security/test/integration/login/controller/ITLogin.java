@@ -35,11 +35,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.FormLoginRequestBuilder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -52,6 +55,9 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @SpringJUnitConfig
 @WebAppConfiguration
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
 @DisplayName("Application login")

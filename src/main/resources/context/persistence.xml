@@ -16,27 +16,23 @@
       http://www.springframework.org/schema/tx
       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+   <!-- Imports -->
+   <import resource="classpath:context/datasource-properties.xml" />
+   <import resource="classpath:context/persistence-versioning.xml" />
+   <import resource="classpath:context/persistence-aop.xml" />
+
    <!-- ============================= CONFIGURATION ============================= -->
 
    <!-- Repositories -->
    <jpa:repositories
-      base-package="com.bernardomg.example.spring.mvc.security.**.repository" />
+      base-package="com.bernardomg.example.spring.mvc.security.**.repository" entity-manager-factory-ref="sessionFactory" />
 
    <!-- ================================== JPA ================================== -->
 
-   <!-- JPA EntityManagerFactory -->
-   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-      <property name="jpaVendorAdapter" ref="jpaAdapter" />
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />
-      <property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
       <property name="packagesToScan" value="${jpa.packagesToScan}" />
-      <property name="jpaProperties" ref="jpaProperties" />
-   </bean>
-
-   <!-- JPA Adapter -->
-   <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-      <property name="database" value="${jpa.database}" />
-      <property name="showSql" value="${jpa.showSql}" />
+      <property name="hibernateProperties" ref="jpaProperties" />
    </bean>
 
    <!-- JPA Properties -->
@@ -51,28 +47,12 @@
       <entry key="hibernate.cache.region.factory_class" value="${hibernate.cache.region.factory_class}" />
    </util:map>
 
-   <!-- Entity manager -->
-   <bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
-      <property name="entityManagerFactory" ref="entityManagerFactory" />
-   </bean>
-
    <!-- Transaction manager -->
-   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-      <property name="entityManagerFactory" ref="entityManagerFactory" />
-      <property name="dataSource" ref="dataSource" />
+   <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+      <property name="sessionFactory" ref="sessionFactory" />
    </bean>
 
    <!-- Activates transactionality -->
    <tx:annotation-driven transaction-manager="transactionManager" />
-
-   <!-- ============================== DATASOURCE =============================== -->
-
-   <!-- Data source -->
-   <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-      <property name="driverClassName" value="${jdbc.driver}" />
-      <property name="jdbcUrl" value="${jdbc.url}" />
-      <property name="username" value="${jdbc.username}" />
-      <property name="password" value="${jdbc.password}" />
-   </bean>
 
 </beans>

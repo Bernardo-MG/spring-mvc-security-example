@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,10 +52,11 @@ import com.google.common.collect.Iterables;
  */
 @SpringJUnitConfig
 @WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/application-test-context.xml" })
 @DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 

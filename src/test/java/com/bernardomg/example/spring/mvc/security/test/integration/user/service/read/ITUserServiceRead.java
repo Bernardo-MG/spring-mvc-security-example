@@ -32,7 +32,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,9 +54,11 @@ import com.google.common.collect.Iterables;
  */
 @SpringJUnitConfig
 @WebAppConfiguration
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
-@Transactional
 @DisplayName("User service read operations")
 public class ITUserServiceRead {
 
@@ -75,7 +79,7 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("Users can be read")
-    public final void testGetAllUsers() {
+    public void testGetAllUsers() {
         final Iterable<? extends User> users;
 
         users = service.getAllUsers();
@@ -86,7 +90,7 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("Users and their privileges can be read")
-    public final void testGetAllUsers_Privileges() {
+    public void testGetAllUsers_Privileges() {
         final Iterable<? extends User> users;
         final User user;
         final Role role;
@@ -113,7 +117,7 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("A single user with no roles can be read")
-    public final void testGetUser_NoRoles() {
+    public void testGetUser_NoRoles() {
         final User user;
 
         user = service.getUser("noroles");
@@ -125,7 +129,7 @@ public class ITUserServiceRead {
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("A single user with roles and no privileges can be read")
-    public final void testGetUser_Roles_Privileges() {
+    public void testGetUser_Roles_Privileges() {
         final User user;
         final Role role;
         final Privilege privilege;

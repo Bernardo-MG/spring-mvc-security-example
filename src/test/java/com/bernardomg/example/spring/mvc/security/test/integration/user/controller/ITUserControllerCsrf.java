@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -51,10 +52,11 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @SpringJUnitConfig
 @WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/application-test-context.xml" })
 @DisplayName("Requests with CSRF on the user controller")
 public class ITUserControllerCsrf {
 
