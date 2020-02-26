@@ -31,35 +31,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-/**
- * Integration tests for requests with CSRF.
- * <p>
- * Verifies that the CSRF token is required for modification requests.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
- *
- */
-@RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@SpringJUnitConfig
 @WebAppConfiguration
 @ContextConfiguration(
         locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("Requests with CSRF")
 public final class ITCsrf {
 
     /**
@@ -89,48 +76,40 @@ public final class ITCsrf {
                 .apply(springSecurity()).build();
     }
 
-    /**
-     * Verifies that POST requests with CSRF are supported.
-     */
     @Test
+    @DisplayName("CSRF supported on POST requests")
     public final void testPost_Csrf_Found() throws Exception {
-        final RequestBuilder request; // Test request
+        final RequestBuilder request;
 
         request = post("/").with(csrf());
 
         mockMvc.perform(request).andExpect(status().isFound());
     }
 
-    /**
-     * Verifies that POST requests without CSRF are rejected.
-     */
     @Test
+    @DisplayName("POST requests without CSRF are rejected")
     public final void testPost_NoCsrf_Forbidden() throws Exception {
-        final RequestBuilder request; // Test request
+        final RequestBuilder request;
 
         request = post("/");
 
         mockMvc.perform(request).andExpect(status().isForbidden());
     }
 
-    /**
-     * Verifies that PUT requests with CSRF are supported.
-     */
     @Test
+    @DisplayName("CSRF supported on PUT requests")
     public final void testPut_Csrf_Found() throws Exception {
-        final RequestBuilder request; // Test request
+        final RequestBuilder request;
 
         request = put("/").with(csrf());
 
         mockMvc.perform(request).andExpect(status().isFound());
     }
 
-    /**
-     * Verifies that PUT requests without CSRF are rejected.
-     */
     @Test
+    @DisplayName("PUT requests without CSRF are rejected")
     public final void testPut_NoCsrf_Forbidden() throws Exception {
-        final RequestBuilder request; // Test request
+        final RequestBuilder request;
 
         request = put("/");
 

@@ -25,13 +25,13 @@
       </mvc:resource-chain>
    </mvc:resources>
 
-   <bean id="webjarsResolver" class="${resolver.webjars.class}" />
+   <bean id="webjarsResolver" class="org.springframework.web.servlet.resource.WebJarsResourceResolver" />
 
    <mvc:default-servlet-handler />
 
-   <bean id="conversionService" class="${conversion.service.class}" />
+   <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 
-   <bean id="validator" class="${validator.factory.class}">
+   <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
       <property name="validationMessageSource" ref="messageSource" />
    </bean>
 

@@ -13,20 +13,18 @@
       location="classpath:config/persistence.properties,
                    classpath:config/persistence-h2.properties, 
                    classpath:config/persistence-access.properties,
-                   classpath:config/service.properties,
                    classpath:config/security.properties,
-                   classpath:config/view.properties,
-                   classpath:config/servlet.properties" />
+                   classpath:config/view.properties" />
 
    <!-- Imports -->
    <import resource="classpath:context/persistence.xml" />
-   <import resource="classpath:context/persistence-versioning.xml" />
    <import resource="classpath:context/security.xml" />
    <import resource="classpath:context/security-beans.xml" />
    <import resource="classpath:context/service.xml" />
    <import resource="classpath:context/mvc.xml" />
    <import resource="classpath:context/messages.xml" />
    <import resource="classpath:context/view.xml" />
+   <import resource="classpath:context/aspect.xml" />
 
    <!-- Auto scan -->
    <context:component-scan base-package="com.bernardomg.example.spring.mvc.security.**.service" />

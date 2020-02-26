@@ -20,8 +20,7 @@
 
    <!-- Properties -->
    <context:property-placeholder
-      location="classpath:config/view.properties,
-                   classpath:config/servlet.properties" />
+      location="classpath:config/view.properties" />
 
    <!-- Scans for controllers -->
    <context:component-scan base-package="com.bernardomg.example.spring.mvc.security.**.controller" />

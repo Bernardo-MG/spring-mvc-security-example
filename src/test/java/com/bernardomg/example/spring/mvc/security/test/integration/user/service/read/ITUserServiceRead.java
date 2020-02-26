@@ -27,21 +27,18 @@ package com.bernardomg.example.spring.mvc.security.test.integration.user.service
 import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
+import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 import com.google.common.collect.Iterables;
@@ -53,21 +50,18 @@ import com.google.common.collect.Iterables;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
-@WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+@SpringJUnitConfig
 @Transactional
+@Rollback
+@ContextConfiguration(
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service read operations")
 public class ITUserServiceRead {
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**
@@ -77,27 +71,38 @@ public class ITUserServiceRead {
         super();
     }
 
-    /**
-     * Verifies that users can be read.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetAllUsers() {
-        final Iterable<? extends User> users; // Read users
+    @DisplayName("Users can be read")
+    @Sql("/db/populate/full.sql")
+    public void testGetAllUsers() {
+        final Iterable<? extends User> users;
 
         users = service.getAllUsers();
 
         Assertions.assertEquals(6, Iterables.size(users));
     }
 
-    /**
-     * Verifies that users and their privileges can be read.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetAllUsers_Privileges() {
-        final Iterable<? extends User> users; // Read users
-        final User user; // Read user
+    @DisplayName("No users are returned when there are none in the DB")
+    public void testGetAllUsers_Empty() {
+        final Iterable<? extends User> users;
+
+        users = service.getAllUsers();
+
+        Assertions.assertEquals(0, Iterables.size(users));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @DisplayName("Users and their privileges can be read")
+    @Sql("/db/populate/full.sql")
+    public void testGetAllUsers_Privileges() {
+        final Iterable<? extends User> users;
+        final User user;
+        final Role role;
+        final Privilege privilege;
 
         users = service.getAllUsers();
 
@@ -107,18 +112,22 @@ public class ITUserServiceRead {
                 .get();
 
         Assertions.assertEquals("admin", user.getUsername());
-        Assertions.assertFalse(user.getRoles().isEmpty());
-        Assertions.assertFalse(
-                user.getRoles().iterator().next().getPrivileges().isEmpty());
+
+        Assertions.assertEquals(1, user.getRoles().size());
+        role = user.getRoles().iterator().next();
+        Assertions.assertEquals("ADMIN", role.getName());
+
+        Assertions.assertEquals(3, role.getPrivileges().size());
+        privilege = role.getPrivileges().iterator().next();
+        Assertions.assertEquals("CREATE_USER", privilege.getName());
     }
 
-    /**
-     * Verifies that a single user can be read.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser_NoRoles() {
-        final User user; // Read user
+    @DisplayName("A single user with no roles can be read")
+    @Sql("/db/populate/full.sql")
+    public void testGetUser_NoRoles() {
+        final User user;
 
         user = service.getUser("noroles");
 
@@ -126,20 +135,23 @@ public class ITUserServiceRead {
         Assertions.assertTrue(user.getRoles().isEmpty());
     }
 
-    /**
-     * Verifies that a single user can be read.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
-    public final void testGetUser_Roles_Privileges() {
-        final User user; // Read user
+    @DisplayName("A single user with roles and no privileges can be read")
+    @Sql("/db/populate/admin_roles_no_privileges.sql")
+    public void testGetUser_Roles_NoPrivileges() {
+        final User user;
+        final Role role;
 
         user = service.getUser("admin");
 
         Assertions.assertEquals("admin", user.getUsername());
-        Assertions.assertFalse(user.getRoles().isEmpty());
-        Assertions.assertFalse(
-                user.getRoles().iterator().next().getPrivileges().isEmpty());
+
+        Assertions.assertEquals(1, user.getRoles().size());
+        role = user.getRoles().iterator().next();
+        Assertions.assertEquals("ADMIN", role.getName());
+
+        Assertions.assertEquals(0, role.getPrivileges().size());
     }
 
 }

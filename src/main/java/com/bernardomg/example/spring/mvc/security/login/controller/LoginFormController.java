@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/login")
-public final class LoginFormController {
+public class LoginFormController {
 
     /**
      * Login view.
@@ -73,9 +73,8 @@ public final class LoginFormController {
      * @return the login form view
      */
     @GetMapping
-    public final String showForm(final Model model,
-            @RequestParam(name = "error", required = false,
-                    defaultValue = "false") final Boolean error) {
+    public String showForm(final Model model, @RequestParam(name = "error",
+            required = false, defaultValue = "false") final Boolean error) {
 
         // Adds the error status
         model.addAttribute("error", error);

@@ -24,24 +24,20 @@
 
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.update;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
+import java.util.NoSuchElementException;
 
-import com.bernardomg.example.spring.mvc.security.user.model.User;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
@@ -51,27 +47,20 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
-@WebAppConfiguration
+@SpringJUnitConfig
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service invalid update operations")
 public class ITUserServiceUpdateInvalid {
-
-    /**
-     * User repository.
-     */
-    @Autowired
-    private PersistentUserRepository repository;
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
-    private UserService              service;
+    private UserService service;
 
     /**
      * Default constructor.
@@ -80,25 +69,17 @@ public class ITUserServiceUpdateInvalid {
         super();
     }
 
-    /**
-     * Verifies that users can be updated.
-     */
     @Test
     @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    @DisplayName("Names can't be empty")
     public final void testUpdate() {
         final DefaultUserForm user; // User to save
-        final User updated; // Updated user
 
         user = new DefaultUserForm();
-        user.setUsername("noroles");
-        user.setPassword("password");
-        user.setEnabled(false);
+        user.setUsername("");
 
-        service.update(user);
-
-        updated = repository.findOneByUsername("noroles").get();
-
-        Assertions.assertEquals(false, updated.getEnabled());
+        Assertions.assertThrows(NoSuchElementException.class,
+                () -> service.update(user));
     }
 
 }

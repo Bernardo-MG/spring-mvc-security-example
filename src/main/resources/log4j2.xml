@@ -8,11 +8,11 @@
 
    <Appenders>
       <Console name="console" target="SYSTEM_OUT">
-         <PatternLayout pattern="[%p] %d %c %M - %m%n" />
+         <PatternLayout pattern="%-5p | %d{ISO8601} | %c{1.} %M %L | %m%n" />
       </Console>
 
       <File name="file" fileName="${filename}">
-         <PatternLayout pattern="[%p] %d %c %M - %m%n" />
+         <PatternLayout pattern="%-5p | %d{ISO8601} | %c{1.} %M %L | %m%n" />
       </File>
    </Appenders>
 
@@ -23,38 +23,36 @@
 
       <!-- Spring Framework -->
       <Logger name="org.springframework" level="warn" additivity="false">
-         <AppenderRef ref="file" />debug
          <AppenderRef ref="console" />
       </Logger>
       <Logger name="org.springframework.security" level="warn" additivity="false">
-         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>
 
       <!-- Hibernate -->
       <Logger name="org.hibernate" level="warn" additivity="false">
-         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>
       <Logger name="org.hibernate.SQL" level="warn" additivity="false">
-         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Logger>
 
+      <!-- Liquibase -->
+      <logger name="liquibase" level="warn" additivity="false">
+         <AppenderRef ref="console" />
+      </logger>
+
       <!-- Jackson -->
       <logger name="com.fasterxml.jackson" level="warn" additivity="false">
-         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </logger>
 
       <!-- Jetty -->
       <logger name="org.eclipse.jetty" level="warn" additivity="false">
-         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </logger>
 
       <Root level="error">
-         <AppenderRef ref="file" />
          <AppenderRef ref="console" />
       </Root>
    </Loggers>

@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -67,15 +68,14 @@ public class PersistentPrivilege implements Privilege, Serializable {
     /**
      * Authority name.
      */
-    @Column(name = "name", nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false, unique = true, length = 60)
     private String                           name;
 
     /**
      * Users with the role.
      */
     @ManyToMany(mappedBy = "roles")
-    private final Collection<PersistentUser> users            = Collections
-            .emptyList();
+    private final Collection<PersistentUser> users            = new ArrayList<>();
 
     /**
      * Default constructor.

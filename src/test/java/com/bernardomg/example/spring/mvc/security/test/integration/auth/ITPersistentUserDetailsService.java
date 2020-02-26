@@ -25,45 +25,32 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.auth;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.auth.PersistentUserDetailsService;
-
-/**
- * Integration tests for the persistent user details service, verifying that
- * users can be read.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
- *
- */
-@RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
-@WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+@SpringJUnitConfig
 @Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("Persistent user details service user reading tests")
 public class ITPersistentUserDetailsService {
 
     /**
      * User service being tested.
      */
     @Autowired
-    private PersistentUserDetailsService service;
+    private UserDetailsService service;
 
     /**
      * Default constructor.
@@ -73,12 +60,10 @@ public class ITPersistentUserDetailsService {
         // TODO: These tests can be done by mocking the repository
     }
 
-    /**
-     * Verifies that a single user with authorities can be read.
-     */
     @Test
+    @DisplayName("It is possible to read a user with authorities")
     public final void testGetUser_Authorities() {
-        final UserDetails user; // Read user
+        final UserDetails user;
 
         user = service.loadUserByUsername("admin");
 
@@ -86,24 +71,20 @@ public class ITPersistentUserDetailsService {
         Assertions.assertFalse(user.getAuthorities().isEmpty());
     }
 
-    /**
-     * Verifies that a disabled user can be read.
-     */
     @Test
+    @DisplayName("It is possible to read a disabled user")
     public final void testGetUser_Disabled() {
-        final UserDetails user; // Read user
+        final UserDetails user;
 
         user = service.loadUserByUsername("disabled");
 
         Assertions.assertEquals("disabled", user.getUsername());
     }
 
-    /**
-     * Verifies that a single user with no authorities can be read.
-     */
     @Test
+    @DisplayName("It is possible to read a user with no authorities")
     public final void testGetUser_NoAuthorities() {
-        final UserDetails user; // Read user
+        final UserDetails user;
 
         user = service.loadUserByUsername("noroles");
 
@@ -111,10 +92,8 @@ public class ITPersistentUserDetailsService {
         Assertions.assertTrue(user.getAuthorities().isEmpty());
     }
 
-    /**
-     * Verifies that reading a not existing user throws an exception.
-     */
     @Test
+    @DisplayName("Reading a not existing user throws an exception")
     public final void testGetUser_NotExisting_Exception() {
         Assertions.assertThrows(UsernameNotFoundException.class,
                 () -> service.loadUserByUsername("abc"));

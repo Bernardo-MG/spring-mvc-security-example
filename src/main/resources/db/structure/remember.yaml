@@ -1,0 +1,48 @@
+databaseChangeLog:
+-  changeSet:
+      id: remember_me_tables
+      author: Bernardo
+      changes:
+      -  createTable:
+            tableName: PERSISTENT_LOGINS
+            columns:
+            -  column:
+                  name: series
+                  type: varchar(60)
+                  constraints:
+                     primaryKey: true
+                     nullable: false
+            -  column:
+                  name: username
+                  type: varchar(60)
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: token
+                  type: varchar(60)
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: credentialsExpired
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: enabled
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: expired
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                     nullable: false
+            -  column:
+                  name: locked
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                     nullable: false

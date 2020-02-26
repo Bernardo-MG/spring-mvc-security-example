@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
@@ -11,7 +12,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.2.2</version>
+      <version>1.3.1</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -20,7 +21,7 @@
 
    <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-mvc-security-example</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.1</version>
    <packaging>war</packaging>
 
    <name>Spring MVC Security Example</name>
@@ -295,38 +296,42 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
+      <aspectj.version>1.9.5</aspectj.version>
+      <atomikos.version>5.0.6</atomikos.version>
       <classmate.version>1.3.4</classmate.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el>2.2</glassfish.el>
-      <guava.version>25.1-jre</guava.version>
-      <h2.version>1.4.197</h2.version>
+      <guava.version>28.2-jre</guava.version>
+      <h2.version>1.4.200</h2.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
       <hibernate.version>5.2.17.Final</hibernate.version>
-      <hikari.version>3.1.0</hikari.version>
-      <jackson.version>2.9.5</jackson.version>
+      <hikari.version>3.4.2</hikari.version>
+      <jackson.version>2.10.2</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
-      <junit.jupiter.version>5.2.0</junit.jupiter.version>
-      <junit.platform.version>1.2.0</junit.platform.version>
-      <liquibase.version>3.6.1</liquibase.version>
-      <log4j.version>2.11.0</log4j.version>
-      <mockito.version>2.18.3</mockito.version>
+      <junit.jupiter.version>5.6.0</junit.jupiter.version>
+      <junit.platform.version>1.6.0</junit.platform.version>
+      <liquibase.version>3.8.6</liquibase.version>
+      <log4j.version>2.13.0</log4j.version>
+      <mockito.version>3.2.4</mockito.version>
       <servlet.version>4.0.1</servlet.version>
-      <slf4j.version>1.8.0-alpha2</slf4j.version>
-      <spring.data.version>2.0.7.RELEASE</spring.data.version>
-      <spring.security.version>5.0.4.RELEASE</spring.security.version>
-      <spring.version>5.0.6.RELEASE</spring.version>
-      <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
-      <thymeleaf.spring.security.version>3.0.2.RELEASE</thymeleaf.spring.security.version>
+      <slf4j.version>1.7.30</slf4j.version>
+      <snakeyaml.version>1.25</snakeyaml.version>
+      <spring.data.train.version>Moore-SR4</spring.data.train.version>
+      <spring.security.version>5.2.2.RELEASE</spring.security.version>
+      <spring.version>5.2.3.RELEASE</spring.version>
+      <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+      <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
       <webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
       <webjars.fontAwesome.version>4.7.0</webjars.fontAwesome.version>
       <webjars.html5shiv.version>3.7.3-1</webjars.html5shiv.version>
       <webjars.jquery.version>3.3.1-1</webjars.jquery.version>
-      <webjars.locator.version>0.34</webjars.locator.version>
+      <webjars.locator.version>0.36</webjars.locator.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
+      <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
       <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
@@ -334,7 +339,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>1.3.1</site.skin.version>
+      <site.skin.version>2.0.2</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -356,6 +361,14 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-bom</artifactId>
             <version>${spring.security.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <!-- Spring Data Release Train -->
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-releasetrain</artifactId>
+            <version>${spring.data.train.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -403,7 +416,6 @@
          <!-- Spring Data JPA -->
          <groupId>org.springframework.data</groupId>
          <artifactId>spring-data-jpa</artifactId>
-         <version>${spring.data.version}</version>
       </dependency>
       <dependency>
          <!-- Spring JDBC -->
@@ -454,6 +466,22 @@
          <artifactId>spring-security-core</artifactId>
       </dependency>
       <!-- ============================================== -->
+      <!-- ================= ASPECTJ ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- AspectJ Runtime -->
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjrt</artifactId>
+         <version>${aspectj.version}</version>
+      </dependency>
+      <dependency>
+         <!-- AspectJ Weaver -->
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjweaver</artifactId>
+         <version>${aspectj.version}</version>
+         <scope>runtime</scope>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
       <!-- ============================================== -->
       <dependency>
@@ -490,6 +518,15 @@
          <version>${hikari.version}</version>
       </dependency>
       <!-- ============================================== -->
+      <!-- ================ ATOMIKOS ==================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Atomikos JDBC -->
+         <groupId>com.atomikos</groupId>
+         <artifactId>transactions-jdbc</artifactId>
+         <version>${atomikos.version}</version>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
       <!-- ============================================== -->
       <dependency>
@@ -497,6 +534,21 @@
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
          <version>${liquibase.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>ch.qos.logback</groupId>
+               <artifactId>logback-classic</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ================ SNAKEYAML =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- SnakeYAML -->
+         <groupId>org.yaml</groupId>
+         <artifactId>snakeyaml</artifactId>
+         <version>${snakeyaml.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->
@@ -672,6 +724,13 @@
          <artifactId>junit-platform-runner</artifactId>
          <version>${junit.platform.version}</version>
          <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <!-- JUnit 3 -->
+               <groupId>junit</groupId>
+               <artifactId>junit</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <!-- Mockito -->

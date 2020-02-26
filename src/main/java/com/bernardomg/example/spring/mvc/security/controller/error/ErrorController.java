@@ -58,7 +58,7 @@ public class ErrorController {
      * @return the 404 error view
      */
     @RequestMapping("/404")
-    public final String show404() {
+    public String show404() {
         return ERROR_404;
     }
 
@@ -68,7 +68,7 @@ public class ErrorController {
      * @return the 500 error view
      */
     @RequestMapping("/500")
-    public final String show500() {
+    public String show500() {
         return ERROR_500;
     }
 

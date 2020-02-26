@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -70,7 +71,7 @@ public class PersistentRole implements Role, Serializable {
     /**
      * Authority name.
      */
-    @Column(name = "name", nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false, unique = true, length = 60)
     private String                                name;
 
     /**
@@ -82,15 +83,13 @@ public class PersistentRole implements Role, Serializable {
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id",
                     referencedColumnName = "id"))
-    private final Collection<PersistentPrivilege> privileges       = Collections
-            .emptyList();
+    private final Collection<PersistentPrivilege> privileges       = new ArrayList<>();
 
     /**
      * Users with the role.
      */
     @ManyToMany(mappedBy = "roles")
-    private final Collection<PersistentUser>      users            = Collections
-            .emptyList();
+    private final Collection<PersistentUser>      users            = new ArrayList<>();
 
     /**
      * Default constructor.

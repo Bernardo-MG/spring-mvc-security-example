@@ -25,21 +25,17 @@
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.update;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
@@ -51,20 +47,19 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
-@WebAppConfiguration
+@SpringJUnitConfig
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/application-context.xml" })
+        locations = { "classpath:context/service-test-context.xml" })
+@DisplayName("User service invalid credentials update operations")
 public class ITUserServiceUpdateInvalidAuth {
 
     /**
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**
@@ -72,13 +67,12 @@ public class ITUserServiceUpdateInvalidAuth {
      */
     public ITUserServiceUpdateInvalidAuth() {
         super();
+
+        // TODO: Check the messages to make sure they are not the same error
     }
 
-    /**
-     * Verifies that trying to update a user without being authenticated causes
-     * an exception.
-     */
     @Test
+    @DisplayName("Unauthenticated users can't update other users")
     public final void testUpdate_NoAuth_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -92,12 +86,9 @@ public class ITUserServiceUpdateInvalidAuth {
                 () -> service.update(user));
     }
 
-    /**
-     * Verifies that trying to update a user without privileges causes an
-     * exception.
-     */
     @Test
     @WithMockUser
+    @DisplayName("Users with no privileges can't update other users")
     public final void testUpdate_NoPrivileges_Exception() {
         final DefaultUserForm user; // User to save
 

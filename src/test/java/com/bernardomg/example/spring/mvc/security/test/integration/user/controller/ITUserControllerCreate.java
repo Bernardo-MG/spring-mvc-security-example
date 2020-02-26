@@ -26,27 +26,22 @@ package com.bernardomg.example.spring.mvc.security.test.integration.user.control
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -62,16 +57,14 @@ import com.google.common.collect.Iterables;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@RunWith(JUnitPlatform.class)
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
+@SpringJUnitConfig
 @WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
 @Transactional
 @Rollback
+@Sql("/db/populate/full.sql")
+@ContextConfiguration(
+        locations = { "classpath:context/application-test-context.xml" })
+@DisplayName("User controller creation operations")
 public class ITUserControllerCreate {
 
     /**
@@ -104,7 +97,7 @@ public class ITUserControllerCreate {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).alwaysExpect(status().isOk()).build();
+                .apply(springSecurity()).build();
     }
 
     /**
@@ -112,6 +105,7 @@ public class ITUserControllerCreate {
      */
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
         final RequestBuilder request; // Test request
         final Iterable<? extends User> users; // Read users
@@ -120,11 +114,26 @@ public class ITUserControllerCreate {
                 .param("username", "username").param("password", "password")
                 .with(csrf());
 
-        mockMvc.perform(request);
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         users = repository.findAll();
 
         Assertions.assertEquals(7, Iterables.size(users));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @DisplayName("Empty passwords are rejected")
+    public final void testCreate_EmptyPassword() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = MockMvcRequestBuilders.post("/users/save")
+                .param("username", "username").param("password", "")
+                .with(csrf());
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
 }
