@@ -28,12 +28,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
@@ -46,9 +47,11 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  *
  */
 @SpringJUnitConfig
-@WebAppConfiguration
+@Transactional
+@Rollback
+@Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
+        locations = { "classpath:context/service-test-context.xml" })
 @DisplayName("User service invalid creation operations")
 public class ITUserServiceCreateInvalid {
 
@@ -56,7 +59,6 @@ public class ITUserServiceCreateInvalid {
      * User service being tested.
      */
     @Autowired
-    @Qualifier("userService")
     private UserService service;
 
     /**

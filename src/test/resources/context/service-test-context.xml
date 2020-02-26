@@ -11,7 +11,7 @@
    <!-- Properties -->
    <context:property-placeholder
       location="classpath:config/persistence.properties,
-                   classpath:config/persistence-h2.properties,
+                   classpath:config/persistence-h2.properties, 
                    classpath:config/persistence-access.properties,
                    classpath:config/security.properties" />
 
@@ -20,6 +20,7 @@
    <import resource="classpath:context/security.xml" />
    <import resource="classpath:context/security-beans.xml" />
    <import resource="classpath:context/service.xml" />
+   <import resource="classpath:context/messages.xml" />
    <import resource="classpath:context/aspect.xml" />
 
    <!-- Auto scan -->
