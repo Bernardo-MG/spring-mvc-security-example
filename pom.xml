@@ -221,7 +221,7 @@
       <hikari.version>3.4.2</hikari.version>
       <jackson.version>2.10.2</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
-      <javassist.version>3.12.1.GA</javassist.version>
+      <javassist.version>3.26.0-GA</javassist.version>
       <junit.jupiter.version>5.6.0</junit.jupiter.version>
       <junit.platform.version>1.6.0</junit.platform.version>
       <liquibase.version>3.8.6</liquibase.version>
@@ -608,7 +608,7 @@
       </dependency>
       <dependency>
          <!-- Javassist -->
-         <groupId>javassist</groupId>
+         <groupId>org.javassist</groupId>
          <artifactId>javassist</artifactId>
          <version>${javassist.version}</version>
       </dependency>
