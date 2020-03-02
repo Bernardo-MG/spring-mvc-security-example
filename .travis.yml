@@ -6,6 +6,8 @@ language: java
 jdk:
   # JDK 8 is set to deploy the docs and artifacts
   - openjdk8
+  - openjdk10
+  - openjdk11
 env:
   - SERVER=jetty DEPLOY_DOCS=true
 
