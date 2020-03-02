@@ -611,7 +611,6 @@
          <groupId>javassist</groupId>
          <artifactId>javassist</artifactId>
          <version>${javassist.version}</version>
-         <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
       <!-- =========== VERSION ENFORCEMENT ============== -->
