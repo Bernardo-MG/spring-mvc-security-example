@@ -160,93 +160,6 @@
             <maven.test.skip>true</maven.test.skip>
          </properties>
       </profile>
-      <!-- ============================================== -->
-      <!-- ========= EMBEDDED SERVER PROFILES =========== -->
-      <!-- ============================================== -->
-      <profile>
-         <!-- Jetty profile -->
-         <!-- Sets ups Jetty for testing and local deployment -->
-         <id>jetty</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <!-- Jetty -->
-                  <!-- Jetty will run the web service during the integration 
-                     tests -->
-                  <groupId>org.eclipse.jetty</groupId>
-                  <artifactId>jetty-maven-plugin</artifactId>
-                  <version>${plugin.jetty.version}</version>
-                  <configuration>
-                     <stopKey>STOP</stopKey>
-                     <stopPort>9999</stopPort>
-                     <stopWait>5</stopWait>
-                  </configuration>
-                  <executions>
-                     <execution>
-                        <id>start-jetty-it</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                           <goal>start</goal>
-                        </goals>
-                        <configuration>
-                           <scanIntervalSeconds>0</scanIntervalSeconds>
-                           <daemon>true</daemon>
-                           <useTestScope>true</useTestScope>
-                           <webApp>
-                              <overrideDescriptor>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/web.xml</overrideDescriptor>
-                           </webApp>
-                        </configuration>
-                     </execution>
-                     <execution>
-                        <id>stop-jetty-it</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                           <goal>stop</goal>
-                        </goals>
-                     </execution>
-                  </executions>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-      <profile>
-         <!-- Tomcat 7 profile -->
-         <!-- Sets ups Tomcat 7 for testing and local deployment -->
-         <id>tomcat7</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <!-- Tomcat 7 -->
-                  <!-- Tomcat 7 will run the web service during the integration 
-                     tests -->
-                  <groupId>org.apache.tomcat.maven</groupId>
-                  <artifactId>tomcat7-maven-plugin</artifactId>
-                  <version>${plugin.tomcat7.version}</version>
-                  <executions>
-                     <execution>
-                        <id>start-tomcat-it</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                           <goal>run</goal>
-                        </goals>
-                        <configuration>
-                           <fork>true</fork>
-                           <useTestClasspath>true</useTestClasspath>
-                           <warSourceDirectory>${project.build.directory}/${project.artifactId}-${project.version}/</warSourceDirectory>
-                        </configuration>
-                     </execution>
-                     <execution>
-                        <id>stop-tomcat-it</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                           <goal>shutdown</goal>
-                        </goals>
-                     </execution>
-                  </executions>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
    </profiles>
 
    <!-- ********************************************** -->
@@ -335,7 +248,6 @@
       <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
-      <plugin.tomcat7.version>2.2</plugin.tomcat7.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
@@ -931,6 +843,19 @@
                <reporter>checkstyle</reporter>
                <reportFile>target/jshint.xml</reportFile>
                <failOnError>true</failOnError>
+            </configuration>
+         </plugin>
+         <plugin>
+            <!-- Jetty -->
+            <!-- Jetty will run the web service during the integration 
+               tests -->
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>${plugin.jetty.version}</version>
+            <configuration>
+               <stopKey>STOP</stopKey>
+               <stopPort>9999</stopPort>
+               <stopWait>5</stopWait>
             </configuration>
          </plugin>
       </plugins>
