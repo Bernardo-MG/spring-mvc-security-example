@@ -27,4 +27,4 @@
  * Components used as part of the authentication procedure.
  */
 
-package com.bernardomg.example.spring.mvc.security.auth;
+package com.bernardomg.example.spring.mvc.security.auth.service;
