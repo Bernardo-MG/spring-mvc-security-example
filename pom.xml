@@ -230,6 +230,7 @@
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.7.30</slf4j.version>
       <snakeyaml.version>1.25</snakeyaml.version>
+      <spring.boot.version>1.5.15.RELEASE</spring.boot.version>
       <spring.data.train.version>Moore-SR4</spring.data.train.version>
       <spring.security.version>5.2.2.RELEASE</spring.security.version>
       <spring.version>5.2.3.RELEASE</spring.version>
@@ -249,6 +250,7 @@
       <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.minify.version>1.7.6</plugin.minify.version>
+      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
@@ -377,6 +379,42 @@
          <!-- Spring Security Core -->
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-core</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- =============== SPRING BOOT ================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Boot Starter: Thymeleaf -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-thymeleaf</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Web -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Devtools -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-devtools</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>runtime</scope>
+         <optional>true</optional>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Test -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>org.junit.vintage</groupId>
+               <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
@@ -854,8 +892,7 @@
          </plugin>
          <plugin>
             <!-- Jetty -->
-            <!-- Jetty will run the web service during the integration 
-               tests -->
+            <!-- Jetty will run the web service during the integration tests -->
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
             <version>${plugin.jetty.version}</version>
@@ -864,6 +901,13 @@
                <stopPort>9999</stopPort>
                <stopWait>5</stopWait>
             </configuration>
+         </plugin>
+         <plugin>
+            <!-- Spring Boot -->
+            <!-- Takes care of running Spring Boot application -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${plugin.spring.boot.version}</version>
          </plugin>
       </plugins>
    </build>
