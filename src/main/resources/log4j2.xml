@@ -47,11 +47,6 @@
          <AppenderRef ref="console" />
       </logger>
 
-      <!-- Jetty -->
-      <logger name="org.eclipse.jetty" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </logger>
-
       <Root level="error">
          <AppenderRef ref="console" />
       </Root>

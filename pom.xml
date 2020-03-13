@@ -238,7 +238,6 @@
       <!-- ============================================== -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
       <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
-      <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
       <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
@@ -859,18 +858,6 @@
                <reporter>checkstyle</reporter>
                <reportFile>target/jshint.xml</reportFile>
                <failOnError>true</failOnError>
-            </configuration>
-         </plugin>
-         <plugin>
-            <!-- Jetty -->
-            <!-- Jetty will run the web service during the integration tests -->
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>${plugin.jetty.version}</version>
-            <configuration>
-               <stopKey>STOP</stopKey>
-               <stopPort>9999</stopPort>
-               <stopWait>5</stopWait>
             </configuration>
          </plugin>
          <plugin>
