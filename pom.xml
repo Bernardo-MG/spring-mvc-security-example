@@ -240,7 +240,6 @@
       <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
       <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
-      <plugin.minify.version>1.7.6</plugin.minify.version>
       <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
@@ -743,13 +742,6 @@
                <artifactId>jshint-maven-plugin</artifactId>
                <version>${plugin.jshint.version}</version>
             </plugin>
-            <plugin>
-               <!-- Minify -->
-               <!-- Minifies files. -->
-               <groupId>com.samaxes.maven</groupId>
-               <artifactId>minify-maven-plugin</artifactId>
-               <version>${plugin.minify.version}</version>
-            </plugin>
          </plugins>
       </pluginManagement>
       <plugins>
@@ -793,28 +785,6 @@
                   <version>${site.skin.version}</version>
                </dependency>
             </dependencies>
-         </plugin>
-         <plugin>
-            <!-- Minify -->
-            <!-- Minifies files. -->
-            <groupId>com.samaxes.maven</groupId>
-            <artifactId>minify-maven-plugin</artifactId>
-            <executions>
-               <execution>
-                  <id>default-minify</id>
-                  <phase>package</phase>
-                  <configuration>
-                     <cssSourceDir>resources/css</cssSourceDir>
-                     <cssSourceIncludes>
-                        <cssSourceInclude>**</cssSourceInclude>
-                     </cssSourceIncludes>
-                     <cssFinalFile>style.css</cssFinalFile>
-                  </configuration>
-                  <goals>
-                     <goal>minify</goal>
-                  </goals>
-               </execution>
-            </executions>
          </plugin>
          <plugin>
             <!-- WAR -->
