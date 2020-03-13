@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
@@ -81,10 +80,8 @@
    <profiles>
       <profile>
          <!-- Profile for the Eclipse Maven plugin -->
-         <!-- Sets the POM so this plugin does not give the usual unregistered 
-            goals errors -->
-         <!-- It will be activated automatically on Eclipse if this has the 
-            m2e plugin, by detecting the version property -->
+         <!-- Sets the POM so this plugin does not give the usual unregistered goals errors -->
+         <!-- It will be activated automatically on Eclipse if this has the m2e plugin, by detecting the version property -->
          <id>eclipse-maven</id>
          <activation>
             <property>
@@ -96,23 +93,17 @@
                <plugins>
                   <plugin>
                      <!-- m2e lifecycle mapping -->
-                     <!-- This is used to configure the Maven plugin for 
-                        Eclipse. -->
-                     <!-- Among other things, it allows registering goals, 
-                        which Eclipse would otherwise reject. -->
+                     <!-- This is used to configure the Maven plugin for Eclipse. -->
+                     <!-- Among other things, it allows registering goals, which Eclipse would otherwise reject. -->
                      <!-- It has no real effect on Maven. -->
                      <groupId>org.eclipse.m2e</groupId>
                      <artifactId>lifecycle-mapping</artifactId>
                      <version>${plugin.lifecycle.version}</version>
                      <configuration>
                         <!-- Sample fix for plugin executions -->
-                        <!-- This is to be used in case a Maven plugins gives 
-                           problems in Eclipse -->
-                        <!-- <lifecycleMappingMetadata> <pluginExecutions> 
-                           <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> 
-                           <versionRange>[0.5,)</versionRange> <goals> <goal>prepare-agent</goal> </goals> 
-                           </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> 
-                           </pluginExecutions> </lifecycleMappingMetadata> -->
+                        <!-- This is to be used in case a Maven plugins gives problems in Eclipse -->
+                        <!-- <lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> <versionRange>[0.5,)</versionRange> 
+                           <goals> <goal>prepare-agent</goal> </goals> </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> </pluginExecutions> </lifecycleMappingMetadata> -->
                         <downloadSources>true</downloadSources>
                         <downloadJavadocs>true</downloadJavadocs>
                      </configuration>
@@ -393,6 +384,18 @@
          <!-- Spring Boot Starter: Web -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: JPA -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-jpa</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Security -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-security</artifactId>
          <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
@@ -842,8 +845,7 @@
                </webResources>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace 
-                  @project.name@. -->
+               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
                <useDefaultDelimiters>false</useDefaultDelimiters>
                <delimiters>
                   <delimiter>@</delimiter>
@@ -858,8 +860,7 @@
             <configuration>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace 
-                  @project.name@. -->
+               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
                <useDefaultDelimiters>false</useDefaultDelimiters>
                <delimiters>
                   <delimiter>@</delimiter>
@@ -955,8 +956,7 @@
          </plugin>
          <plugin>
             <!-- PMD -->
-            <!-- Checks that the code complies with a series of code quality 
-               rules -->
+            <!-- Checks that the code complies with a series of code quality rules -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>
