@@ -46,7 +46,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
 import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.ControllerTestConfig;
 import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
 import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
@@ -66,7 +68,8 @@ import com.google.common.collect.Iterables;
 @Rollback
 @Sql("/db/populate/full.sql")
 @ContextConfiguration(classes = { UserServiceTestConfig.class,
-        PersistenceTestConfig.class, SecurityConfig.class })
+        PersistenceTestConfig.class, SecurityConfig.class,
+        ControllerTestConfig.class, AuthenticationConfig.class })
 @DisplayName("User controller creation operations")
 public class ITUserControllerCreate {
 
