@@ -45,6 +45,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
+import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.ControllerTestConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
+
 /**
  * Integration tests for the login procedure.
  * <p>
@@ -58,8 +64,9 @@ import org.springframework.web.context.WebApplicationContext;
 @Transactional
 @Rollback
 @Sql("/db/populate/full.sql")
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
+@ContextConfiguration(classes = { UserServiceTestConfig.class,
+        PersistenceTestConfig.class, SecurityConfig.class,
+        ControllerTestConfig.class, AuthenticationConfig.class })
 @DisplayName("Application login")
 public final class ITLogin {
 
