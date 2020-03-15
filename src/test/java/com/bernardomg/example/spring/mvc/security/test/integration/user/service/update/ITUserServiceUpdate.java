@@ -35,9 +35,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
-import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
-import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
 import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
@@ -55,9 +52,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @Transactional
 @Rollback
 @Sql("/db/populate/full.sql")
-@ContextConfiguration(
-        classes = { UserServiceTestConfig.class, PersistenceTestConfig.class,
-                SecurityConfig.class, AuthenticationConfig.class })
+@ContextConfiguration(classes = { UserServiceTestConfig.class })
 @DisplayName("User service update operations")
 public class ITUserServiceUpdate {
 

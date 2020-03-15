@@ -37,9 +37,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
-import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
-import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
 import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
 import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
@@ -57,9 +54,7 @@ import com.google.common.collect.Iterables;
 @SpringJUnitConfig
 @Transactional
 @Rollback
-@ContextConfiguration(
-        classes = { UserServiceTestConfig.class, PersistenceTestConfig.class,
-                SecurityConfig.class, AuthenticationConfig.class })
+@ContextConfiguration(classes = { UserServiceTestConfig.class })
 @DisplayName("User service read operations")
 public class ITUserServiceRead {
 

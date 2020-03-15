@@ -42,17 +42,11 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
-import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
-import com.bernardomg.example.spring.mvc.security.test.config.ControllerTestConfig;
-import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
-import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.SecuredControllerTestConfig;
 
 @SpringJUnitConfig
 @WebAppConfiguration
-@ContextConfiguration(classes = { UserServiceTestConfig.class,
-        PersistenceTestConfig.class, SecurityConfig.class,
-        ControllerTestConfig.class, AuthenticationConfig.class })
+@ContextConfiguration(classes = { SecuredControllerTestConfig.class })
 @DisplayName("Requests with CSRF")
 public final class ITCsrf {
 
