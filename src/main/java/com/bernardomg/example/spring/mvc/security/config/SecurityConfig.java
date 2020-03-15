@@ -43,10 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true).failureUrl("/login?error=true")
-                .permitAll()
             .and()
                 .logout().logoutUrl("/logout")
-                .deleteCookies("JSESSIONID").logoutSuccessUrl("/").permitAll()
+                .deleteCookies("JSESSIONID").logoutSuccessUrl("/")
             .and()
                 .rememberMe().tokenValiditySeconds(86400);
       // @formatter:on
