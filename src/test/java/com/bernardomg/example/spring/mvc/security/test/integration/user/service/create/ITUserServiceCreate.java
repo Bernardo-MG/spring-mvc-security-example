@@ -28,14 +28,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
+import com.bernardomg.example.spring.mvc.security.Application;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
@@ -53,7 +53,7 @@ import com.google.common.collect.Iterables;
 @Transactional
 @Rollback
 @Sql("/db/populate/full.sql")
-@ContextConfiguration(classes = { UserServiceTestConfig.class })
+@SpringBootTest(classes = Application.class)
 @DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 

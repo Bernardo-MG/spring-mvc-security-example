@@ -25,7 +25,7 @@ databaseChangeLog:
                   constraints:
                      nullable: false
             -  column:
-                  name: credentialsExpired
+                  name: CREDENTIALS_EXPIRED
                   type: boolean
                   defaultValue: false
                   constraints:

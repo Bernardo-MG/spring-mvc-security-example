@@ -28,21 +28,22 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.bernardomg.example.spring.mvc.security.Application;
 
 @SpringJUnitConfig
 @Transactional
 @Rollback
 @Sql("/db/populate/full.sql")
-@ContextConfiguration(
-        locations = { "classpath:context/service-test-context.xml" })
+@SpringBootTest(classes = Application.class)
 @DisplayName("Persistent user details service user reading tests")
 public class ITPersistentUserDetailsService {
 
