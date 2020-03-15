@@ -36,13 +36,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/static/**").permitAll()
-                .anyRequest().authenticated().and().csrf().and().formLogin()
-                .loginPage("/login").loginProcessingUrl("/login")
+        // @formatter:off
+        http.authorizeRequests()
+            .antMatchers("/static/**", "/login*").permitAll()
+            .anyRequest().authenticated().and().csrf()
+            .and()
+                .formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true).failureUrl("/login?error=true")
-                .permitAll().and().logout().deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/").permitAll().and().rememberMe()
-                .tokenValiditySeconds(86400);
+                .permitAll()
+            .and()
+                .logout().logoutUrl("/logout")
+                .deleteCookies("JSESSIONID").logoutSuccessUrl("/").permitAll()
+            .and()
+                .rememberMe().tokenValiditySeconds(86400);
+      // @formatter:on
     }
 
 }
