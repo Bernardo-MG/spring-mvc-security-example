@@ -201,7 +201,6 @@
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
       <aspectj.version>1.9.5</aspectj.version>
-      <atomikos.version>5.0.6</atomikos.version>
       <classmate.version>1.5.1</classmate.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
@@ -474,15 +473,6 @@
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
          <version>${hikari.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ ATOMIKOS ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Atomikos JDBC -->
-         <groupId>com.atomikos</groupId>
-         <artifactId>transactions-jdbc</artifactId>
-         <version>${atomikos.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
