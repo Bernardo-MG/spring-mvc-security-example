@@ -24,6 +24,18 @@ public class AuthenticationConfig {
         super();
     }
 
+    @Bean("jdbcTokenRepository")
+    public PersistentTokenRepository
+            getJdbcTokenRepository(final DataSource dataSource) {
+        final JdbcTokenRepositoryImpl repo;
+
+        repo = new JdbcTokenRepositoryImpl();
+
+        repo.setDataSource(dataSource);
+
+        return repo;
+    }
+
     @Bean("passwordEncoder")
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,18 +56,6 @@ public class AuthenticationConfig {
             final PersistentTokenRepository tokenRepository) {
         return new PersistentTokenBasedRememberMeServices(key,
                 userDetailsService, tokenRepository);
-    }
-
-    @Bean("jdbcTokenRepository")
-    public PersistentTokenRepository
-            getJdbcTokenRepository(final DataSource dataSource) {
-        final JdbcTokenRepositoryImpl repo;
-
-        repo = new JdbcTokenRepositoryImpl();
-
-        repo.setDataSource(dataSource);
-
-        return repo;
     }
 
 }

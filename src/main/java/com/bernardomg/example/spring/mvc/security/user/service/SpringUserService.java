@@ -31,9 +31,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
@@ -50,7 +48,6 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Service("userService")
 public final class SpringUserService implements UserService {
 
     /**
@@ -84,7 +81,6 @@ public final class SpringUserService implements UserService {
      * @param passEncoder
      *            password encoder
      */
-    @Autowired
     public SpringUserService(final PersistentUserRepository userRepo,
             final PersistentRoleRepository roleRepo,
             final PasswordEncoder passEncoder) {

@@ -368,6 +368,11 @@
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-core</artifactId>
       </dependency>
+      <dependency>
+         <!-- Spring Security Aspects -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-aspects</artifactId>
+      </dependency>
       <!-- ============================================== -->
       <!-- =============== SPRING BOOT ================== -->
       <!-- ============================================== -->
@@ -410,17 +415,10 @@
          <optional>true</optional>
       </dependency>
       <dependency>
-         <!-- Spring Boot Starter: Test -->
+         <!-- Spring Boot Starter: AOP -->
          <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-test</artifactId>
+         <artifactId>spring-boot-starter-aop</artifactId>
          <version>${spring.boot.version}</version>
-         <scope>test</scope>
-         <exclusions>
-            <exclusion>
-               <groupId>org.junit.vintage</groupId>
-               <artifactId>junit-vintage-engine</artifactId>
-            </exclusion>
-         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
@@ -704,6 +702,19 @@
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-test</artifactId>
          <scope>test</scope>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Test -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>org.junit.vintage</groupId>
+               <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
    </dependencies>
 

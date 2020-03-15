@@ -10,10 +10,6 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class Application {
 
-    public Application() {
-        super();
-    }
-
     public static void main(final String[] args) {
         final ApplicationContext ctx = SpringApplication.run(Application.class,
                 args);
@@ -25,6 +21,10 @@ public class Application {
         for (final String beanName : beanNames) {
             System.out.println(beanName);
         }
+    }
+
+    public Application() {
+        super();
     }
 
 }
