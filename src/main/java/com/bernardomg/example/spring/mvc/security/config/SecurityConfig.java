@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.authorizeRequests()
             .antMatchers("/static/**", "/login*").permitAll()
-            .anyRequest().authenticated().and().csrf()
+            .anyRequest().authenticated()
             .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true).failureUrl("/login?error=true")
