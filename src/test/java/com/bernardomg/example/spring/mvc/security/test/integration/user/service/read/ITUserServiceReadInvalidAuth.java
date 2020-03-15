@@ -37,6 +37,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
+import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
@@ -51,7 +55,8 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 @Rollback
 @Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/service-test-context.xml" })
+        classes = { UserServiceTestConfig.class, PersistenceTestConfig.class,
+                SecurityConfig.class, AuthenticationConfig.class })
 @DisplayName("User service invalid authentication read operations")
 public class ITUserServiceReadInvalidAuth {
 

@@ -35,6 +35,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.example.spring.mvc.security.config.AuthenticationConfig;
+import com.bernardomg.example.spring.mvc.security.config.SecurityConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.PersistenceTestConfig;
+import com.bernardomg.example.spring.mvc.security.test.config.UserServiceTestConfig;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
@@ -53,7 +57,8 @@ import com.google.common.collect.Iterables;
 @Rollback
 @Sql("/db/populate/full.sql")
 @ContextConfiguration(
-        locations = { "classpath:context/service-test-context.xml" })
+        classes = { UserServiceTestConfig.class, PersistenceTestConfig.class,
+                SecurityConfig.class, AuthenticationConfig.class })
 @DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 
