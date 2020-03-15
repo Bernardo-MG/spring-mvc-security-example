@@ -48,13 +48,13 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public final class SpringUserService implements UserService {
+public final class DefaultUserService implements UserService {
 
     /**
      * Logger.
      */
     private static final Logger            LOGGER = LoggerFactory
-            .getLogger(SpringUserService.class);
+            .getLogger(DefaultUserService.class);
 
     /**
      * Password encoder.
@@ -81,7 +81,7 @@ public final class SpringUserService implements UserService {
      * @param passEncoder
      *            password encoder
      */
-    public SpringUserService(final PersistentUserRepository userRepo,
+    public DefaultUserService(final PersistentUserRepository userRepo,
             final PersistentRoleRepository roleRepo,
             final PasswordEncoder passEncoder) {
         super();

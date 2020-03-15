@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRoleRepository;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
-import com.bernardomg.example.spring.mvc.security.user.service.SpringUserService;
+import com.bernardomg.example.spring.mvc.security.user.service.DefaultUserService;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 @Configuration
@@ -21,7 +21,7 @@ public class ServiceConfig {
     public UserService getUserService(final PersistentUserRepository userRepo,
             final PersistentRoleRepository roleRepo,
             final PasswordEncoder passEncoder) {
-        return new SpringUserService(userRepo, roleRepo, passEncoder);
+        return new DefaultUserService(userRepo, roleRepo, passEncoder);
     }
 
 }
