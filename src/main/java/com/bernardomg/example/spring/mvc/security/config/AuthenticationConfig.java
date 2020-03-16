@@ -17,6 +17,9 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
+import com.bernardomg.example.spring.mvc.security.auth.service.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
+
 @Configuration
 public class AuthenticationConfig {
 
@@ -56,6 +59,12 @@ public class AuthenticationConfig {
             final PersistentTokenRepository tokenRepository) {
         return new PersistentTokenBasedRememberMeServices(key,
                 userDetailsService, tokenRepository);
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService getUserDetailsService(
+            final PersistentUserRepository userRepository) {
+        return new PersistentUserDetailsService(userRepository);
     }
 
 }

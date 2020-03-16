@@ -434,7 +434,6 @@
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjweaver</artifactId>
          <version>${aspectj.version}</version>
-         <scope>runtime</scope>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
@@ -504,24 +503,6 @@
          <groupId>com.h2database</groupId>
          <artifactId>h2</artifactId>
          <version>${h2.version}</version>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ THYMELEAF =================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <groupId>org.thymeleaf</groupId>
-         <artifactId>thymeleaf</artifactId>
-         <version>${thymeleaf.version}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.thymeleaf</groupId>
-         <artifactId>thymeleaf-spring5</artifactId>
-         <version>${thymeleaf.version}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.thymeleaf.extras</groupId>
-         <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-         <version>${thymeleaf.spring.security.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ SERVLET ===================== -->
