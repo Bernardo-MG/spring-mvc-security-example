@@ -22,7 +22,7 @@
       </Logger>
 
       <!-- Spring Framework -->
-      <Logger name="org.springframework" level="warn" additivity="false">
+      <Logger name="org.springframework" level="debug" additivity="false">
          <AppenderRef ref="console" />
       </Logger>
       <Logger name="org.springframework.security" level="warn" additivity="false">
