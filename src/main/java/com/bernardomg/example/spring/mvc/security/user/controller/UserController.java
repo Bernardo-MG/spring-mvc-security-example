@@ -158,7 +158,7 @@ public class UserController {
      */
     @PostMapping("/save")
     public String saveUser(final ModelMap model,
-            @ModelAttribute(PARAM_USER_FORM) @Validated(Creation.class) final UserForm form,
+            @ModelAttribute(PARAM_USER_FORM) @Validated(Creation.class) final DefaultUserForm form,
             final BindingResult bindingResult,
             final HttpServletResponse response) {
         final String path;
@@ -206,7 +206,7 @@ public class UserController {
     @GetMapping(path = "/edit/{username}")
     public String showUserEdition(
             @PathVariable("username") final String username,
-            @ModelAttribute(PARAM_USER_FORM) final UserForm form,
+            @ModelAttribute(PARAM_USER_FORM) final DefaultUserForm form,
             final ModelMap model) {
         final User user;
 
@@ -233,7 +233,7 @@ public class UserController {
     @GetMapping(path = "/roles/edit/{username}")
     public String showUserRoleEdition(
             @PathVariable("username") final String username,
-            @ModelAttribute(PARAM_ROLES_FORM) final UserRolesForm form,
+            @ModelAttribute(PARAM_ROLES_FORM) final DefaultUserRolesForm form,
             final ModelMap model) {
         final User user;
         final Iterable<? extends Role> roles;
@@ -242,10 +242,10 @@ public class UserController {
         user = service.getUser(username);
         roleNames = user.getRoles().stream().map(Role::getName)
                 .collect(Collectors.toList());
-        ((DefaultUserRolesForm) form).setRoles(roleNames);
+        form.setRoles(roleNames);
 
         BeanUtils.copyProperties(user, form);
-        ((DefaultUserRolesForm) form).setRoles(roleNames);
+        form.setRoles(roleNames);
 
         roles = service.getAllRoles();
 
@@ -285,7 +285,7 @@ public class UserController {
      */
     @PostMapping("/update")
     public String updateUser(final ModelMap model,
-            @ModelAttribute(PARAM_USER_FORM) @Validated(Update.class) final UserForm form,
+            @ModelAttribute(PARAM_USER_FORM) @Validated(Update.class) final DefaultUserForm form,
             final BindingResult bindingResult,
             final HttpServletResponse response) {
         final String path;
@@ -322,7 +322,7 @@ public class UserController {
      */
     @PostMapping("/roles/update")
     public String updateUserRoles(final ModelMap model,
-            @ModelAttribute(PARAM_ROLES_FORM) @Validated final UserRolesForm form,
+            @ModelAttribute(PARAM_ROLES_FORM) @Validated final DefaultUserRolesForm form,
             final BindingResult bindingResult,
             final HttpServletResponse response) {
         final String path;
