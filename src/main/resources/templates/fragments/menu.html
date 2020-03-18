@@ -15,14 +15,12 @@
 			<div id="navbar-main-body"
 				class="navbar-body navbar-collapse collapse">
 				<small class="navbar-text">v@project.version@</small>
-				<span th:if="${authentication != null}">
-               <small class="navbar-text" sec:authorize="isAuthenticated()"><form class="form-inline" th:action="@{/logout}" method="POST">
-                              <label for="logout" th:text="${#authentication?.name}">username</label>
-                              <button id="logout" type="submit" class="linkButton">
-                                 <span class="fa fa-sign-out"></span>
-                              </button>
-                           </form></small>
-				</span>
+            <small class="navbar-text" sec:authorize="isAuthenticated()"><form class="form-inline" th:action="@{/logout}" method="POST">
+                           <label for="logout" th:text="${#authentication?.name}">username</label>
+                           <button id="logout" type="submit" class="linkButton">
+                              <span class="fa fa-sign-out"></span>
+                           </button>
+                        </form></small>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<ul class="list-unstyled icons-list">
