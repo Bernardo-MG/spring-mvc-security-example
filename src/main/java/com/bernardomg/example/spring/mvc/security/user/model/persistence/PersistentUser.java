@@ -64,7 +64,7 @@ public class PersistentUser implements User {
     /**
      * User expired flag.
      */
-    @Column(name = "credentialsExpired", nullable = false)
+    @Column(name = "CREDENTIALS_EXPIRED", nullable = false)
     private Boolean                          credentialsExpired;
 
     /**

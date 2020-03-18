@@ -15,7 +15,7 @@
 --
 
 --
-+getCredentialsExpired(): Boolean
++getCREDENTIALS_EXPIRED(): Boolean
 +getEnabled(): Boolean
 +getExpired(): Boolean
 +getLocked(): Boolean

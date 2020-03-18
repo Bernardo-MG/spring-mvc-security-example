@@ -47,11 +47,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginFormController {
 
     /**
-     * Login view.
-     */
-    private static final String LOGIN_VIEW = "login";
-
-    /**
      * Constructs a login controller.
      */
     @Autowired
@@ -79,7 +74,7 @@ public class LoginFormController {
         // Adds the error status
         model.addAttribute("error", error);
 
-        return LOGIN_VIEW;
+        return "login";
     }
 
 }

@@ -18,7 +18,6 @@
 
    <!-- Imports -->
    <import resource="classpath:context/datasource-properties.xml" />
-   <import resource="classpath:context/persistence-versioning.xml" />
    <import resource="classpath:context/persistence-aop.xml" />
 
    <!-- ============================= CONFIGURATION ============================= -->
