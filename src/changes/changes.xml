@@ -16,5 +16,10 @@
             Cleaned up configuration.
          </action>
       </release>
+      <release version="1.1.1" date="2020-02-26" description="Spring Boot">
+         <action dev="bmg" type="update">
+            Using Spring Boot.
+         </action>
+      </release>
    </body>
 </document>

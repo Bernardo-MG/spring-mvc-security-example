@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
@@ -81,10 +80,8 @@
    <profiles>
       <profile>
          <!-- Profile for the Eclipse Maven plugin -->
-         <!-- Sets the POM so this plugin does not give the usual unregistered 
-            goals errors -->
-         <!-- It will be activated automatically on Eclipse if this has the 
-            m2e plugin, by detecting the version property -->
+         <!-- Sets the POM so this plugin does not give the usual unregistered goals errors -->
+         <!-- It will be activated automatically on Eclipse if this has the m2e plugin, by detecting the version property -->
          <id>eclipse-maven</id>
          <activation>
             <property>
@@ -96,23 +93,17 @@
                <plugins>
                   <plugin>
                      <!-- m2e lifecycle mapping -->
-                     <!-- This is used to configure the Maven plugin for 
-                        Eclipse. -->
-                     <!-- Among other things, it allows registering goals, 
-                        which Eclipse would otherwise reject. -->
+                     <!-- This is used to configure the Maven plugin for Eclipse. -->
+                     <!-- Among other things, it allows registering goals, which Eclipse would otherwise reject. -->
                      <!-- It has no real effect on Maven. -->
                      <groupId>org.eclipse.m2e</groupId>
                      <artifactId>lifecycle-mapping</artifactId>
                      <version>${plugin.lifecycle.version}</version>
                      <configuration>
                         <!-- Sample fix for plugin executions -->
-                        <!-- This is to be used in case a Maven plugins gives 
-                           problems in Eclipse -->
-                        <!-- <lifecycleMappingMetadata> <pluginExecutions> 
-                           <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> 
-                           <versionRange>[0.5,)</versionRange> <goals> <goal>prepare-agent</goal> </goals> 
-                           </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> 
-                           </pluginExecutions> </lifecycleMappingMetadata> -->
+                        <!-- This is to be used in case a Maven plugins gives problems in Eclipse -->
+                        <!-- <lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> <versionRange>[0.5,)</versionRange> 
+                           <goals> <goal>prepare-agent</goal> </goals> </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> </pluginExecutions> </lifecycleMappingMetadata> -->
                         <downloadSources>true</downloadSources>
                         <downloadJavadocs>true</downloadJavadocs>
                      </configuration>
@@ -210,14 +201,13 @@
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
       <aspectj.version>1.9.5</aspectj.version>
-      <atomikos.version>5.0.6</atomikos.version>
-      <classmate.version>1.3.4</classmate.version>
+      <classmate.version>1.5.1</classmate.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
       <guava.version>28.2-jre</guava.version>
       <h2.version>1.4.200</h2.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
-      <hibernate.version>5.2.17.Final</hibernate.version>
+      <hibernate.version>5.4.12.Final</hibernate.version>
       <hikari.version>3.4.2</hikari.version>
       <jackson.version>2.10.2</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
@@ -230,9 +220,10 @@
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.7.30</slf4j.version>
       <snakeyaml.version>1.25</snakeyaml.version>
-      <spring.data.train.version>Moore-SR4</spring.data.train.version>
-      <spring.security.version>5.2.2.RELEASE</spring.security.version>
-      <spring.version>5.2.3.RELEASE</spring.version>
+      <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
+      <spring.data.train.version>Moore-SR5</spring.data.train.version>
+      <spring.security.version>5.3.0.RELEASE</spring.security.version>
+      <spring.version>5.2.4.RELEASE</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
       <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
@@ -246,9 +237,8 @@
       <!-- ============================================== -->
       <plugin.changes.version>2.12.1</plugin.changes.version>
       <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
-      <plugin.jetty.version>9.4.8.v20171121</plugin.jetty.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
-      <plugin.minify.version>1.7.6</plugin.minify.version>
+      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
@@ -378,6 +368,58 @@
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-core</artifactId>
       </dependency>
+      <dependency>
+         <!-- Spring Security Aspects -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-aspects</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- =============== SPRING BOOT ================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Boot Starter: Thymeleaf -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-thymeleaf</artifactId>
+         <version>${spring.boot.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Web -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: JPA -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-jpa</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Security -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-security</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Devtools -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-devtools</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>runtime</scope>
+         <optional>true</optional>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: AOP -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-aop</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
       <!-- ============================================== -->
@@ -392,7 +434,6 @@
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjweaver</artifactId>
          <version>${aspectj.version}</version>
-         <scope>runtime</scope>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
@@ -431,15 +472,6 @@
          <version>${hikari.version}</version>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================ ATOMIKOS ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Atomikos JDBC -->
-         <groupId>com.atomikos</groupId>
-         <artifactId>transactions-jdbc</artifactId>
-         <version>${atomikos.version}</version>
-      </dependency>
-      <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
       <!-- ============================================== -->
       <dependency>
@@ -476,18 +508,8 @@
       <!-- ================ THYMELEAF =================== -->
       <!-- ============================================== -->
       <dependency>
-         <groupId>org.thymeleaf</groupId>
-         <artifactId>thymeleaf</artifactId>
-         <version>${thymeleaf.version}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.thymeleaf</groupId>
-         <artifactId>thymeleaf-spring5</artifactId>
-         <version>${thymeleaf.version}</version>
-      </dependency>
-      <dependency>
          <groupId>org.thymeleaf.extras</groupId>
-         <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+         <artifactId>thymeleaf-extras-springsecurity5</artifactId>
          <version>${thymeleaf.spring.security.version}</version>
       </dependency>
       <!-- ============================================== -->
@@ -670,6 +692,19 @@
          <artifactId>spring-security-test</artifactId>
          <scope>test</scope>
       </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Test -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <version>${spring.boot.version}</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>org.junit.vintage</groupId>
+               <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
    </dependencies>
 
    <!-- ********************************************** -->
@@ -701,13 +736,6 @@
                <groupId>com.cj.jshintmojo</groupId>
                <artifactId>jshint-maven-plugin</artifactId>
                <version>${plugin.jshint.version}</version>
-            </plugin>
-            <plugin>
-               <!-- Minify -->
-               <!-- Minifies files. -->
-               <groupId>com.samaxes.maven</groupId>
-               <artifactId>minify-maven-plugin</artifactId>
-               <version>${plugin.minify.version}</version>
             </plugin>
          </plugins>
       </pluginManagement>
@@ -754,58 +782,14 @@
             </dependencies>
          </plugin>
          <plugin>
-            <!-- Minify -->
-            <!-- Minifies files. -->
-            <groupId>com.samaxes.maven</groupId>
-            <artifactId>minify-maven-plugin</artifactId>
-            <executions>
-               <execution>
-                  <id>default-minify</id>
-                  <phase>package</phase>
-                  <configuration>
-                     <cssSourceDir>resources/css</cssSourceDir>
-                     <cssSourceIncludes>
-                        <cssSourceInclude>**</cssSourceInclude>
-                     </cssSourceIncludes>
-                     <cssFinalFile>style.css</cssFinalFile>
-                  </configuration>
-                  <goals>
-                     <goal>minify</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
             <!-- WAR -->
             <!-- Generates the WAR package. -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
             <configuration>
-               <webResources>
-                  <resource>
-                     <!-- Persistence access data is filtered -->
-                     <filtering>true</filtering>
-                     <directory>${project.basedir}/src/main/resources/config</directory>
-                     <targetPath>WEB-INF/classes/config</targetPath>
-                     <includes>
-                        <include>persistence-access.properties</include>
-                     </includes>
-                  </resource>
-                  <resource>
-                     <!-- Web resources -->
-                     <directory>${project.basedir}/src/main/webapp/WEB-INF/templates/fragments/</directory>
-                     <targetPath>WEB-INF/templates/fragments</targetPath>
-                     <includes>
-                        <!-- Filter the template footer -->
-                        <include>**.html</include>
-                     </includes>
-                     <filtering>true</filtering>
-                  </resource>
-               </webResources>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace 
-                  @project.name@. -->
+               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
                <useDefaultDelimiters>false</useDefaultDelimiters>
                <delimiters>
                   <delimiter>@</delimiter>
@@ -820,8 +804,7 @@
             <configuration>
                <!-- Variables to to override will be delimited with a @. -->
                <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace 
-                  @project.name@. -->
+               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
                <useDefaultDelimiters>false</useDefaultDelimiters>
                <delimiters>
                   <delimiter>@</delimiter>
@@ -853,17 +836,11 @@
             </configuration>
          </plugin>
          <plugin>
-            <!-- Jetty -->
-            <!-- Jetty will run the web service during the integration 
-               tests -->
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>${plugin.jetty.version}</version>
-            <configuration>
-               <stopKey>STOP</stopKey>
-               <stopPort>9999</stopPort>
-               <stopWait>5</stopWait>
-            </configuration>
+            <!-- Spring Boot -->
+            <!-- Takes care of running Spring Boot application -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${plugin.spring.boot.version}</version>
          </plugin>
       </plugins>
    </build>
@@ -911,8 +888,7 @@
          </plugin>
          <plugin>
             <!-- PMD -->
-            <!-- Checks that the code complies with a series of code quality 
-               rules -->
+            <!-- Checks that the code complies with a series of code quality rules -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>

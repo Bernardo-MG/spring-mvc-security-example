@@ -72,7 +72,7 @@ public final class TestUserControllerCreate {
 
     @Test
     @DisplayName("Valid parameters are accepted")
-    public final void testCreate_EmptyPassword() throws Exception {
+    public final void testCreate() throws Exception {
         final RequestBuilder request; // Test request
 
         request = MockMvcRequestBuilders.post("/users/save")

@@ -32,14 +32,12 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
@@ -58,7 +56,6 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
  * @author Bernardo
  *
  */
-@Service("userDetailsService")
 public final class PersistentUserDetailsService implements UserDetailsService {
 
     /**
@@ -78,7 +75,6 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      * @param userRepository
      *            repository for user details
      */
-    @Autowired
     public PersistentUserDetailsService(
             final PersistentUserRepository userRepository) {
         super();

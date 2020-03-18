@@ -35,8 +35,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,10 +44,11 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.bernardomg.example.spring.mvc.security.Application;
+
 @SpringJUnitConfig
 @WebAppConfiguration
-@ContextConfiguration(
-        locations = { "classpath:context/application-test-context.xml" })
+@SpringBootTest(classes = Application.class)
 @DisplayName("Secured URLs")
 public final class ITSecuredUrl {
 
@@ -76,29 +77,6 @@ public final class ITSecuredUrl {
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
-    }
-
-    @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
-    @DisplayName("Admin-secured URLs allows admins")
-    public final void testAdminSecured_Admin() throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = get("/secured/admin").with(csrf());
-
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
-    }
-
-    @Test
-    @DisplayName("Admin-secured rejects unauthenticated")
-    public final void testAdminSecured_Unauthorized() throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = get("/secured/admin").with(csrf());
-
-        mockMvc.perform(request).andExpect(status().isFound())
-                .andExpect(unauthenticated());
     }
 
     @Test
