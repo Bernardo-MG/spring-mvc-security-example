@@ -52,6 +52,8 @@ The application is coded in Java, using Maven to manage the project.
 
 The project has been tested on the following Java versions:
 * JDK 8
+* JDK 10
+* JDK 11
 
 All other dependencies are handled through Maven, and noted in the included POM file.
 
@@ -61,15 +63,9 @@ The project can be installed by creating the war file and deploying it into a se
 
 ### Running
 
-To run the project locally in an embedded server just use the following Maven command:
+This is a Spring Boot app. It can be run for example with Eclipse's Spring Boot plugin.
 
-```
-$ mvn jetty:run-war
-```
-
-After this the project will be accessible at [http://localhost:8080/](http://localhost:8080/).
-
-This path is defined in the server.test.path property inside the POM.
+Once it is running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
 
 ## Collaborate
 
