@@ -14,7 +14,6 @@
 
 			<div id="navbar-main-body"
 				class="navbar-body navbar-collapse collapse">
-				<small class="navbar-text">v@project.version@</small>
             <small class="navbar-text" sec:authorize="isAuthenticated()"><form class="form-inline" th:action="@{/logout}" method="POST">
                            <label for="logout" th:text="${#authentication?.name}">username</label>
                            <button id="logout" type="submit" class="linkButton">
@@ -22,13 +21,6 @@
                            </button>
                         </form></small>
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<ul class="list-unstyled icons-list">
-							<li><a href="@project.scm.url@" title="GitHub"
-								aria-label="GitHub"><span class="fa fa-github"
-									aria-hidden="true"></span></a></li>
-						</ul>
-					</li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false"><span th:remove="tag">Pages</span> <span

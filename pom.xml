@@ -721,8 +721,8 @@
             <!-- Main resources -->
             <directory>src/main/resources/</directory>
             <includes>
-               <!-- Filter the persistence access properties -->
-               <include>config/**/*.properties</include>
+               <!-- Filter the application properties -->
+               <include>application.properties</include>
             </includes>
             <filtering>true</filtering>
          </resource>
@@ -786,30 +786,12 @@
             <!-- Generates the WAR package. -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
-            <configuration>
-               <!-- Variables to to override will be delimited with a @. -->
-               <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
-               <useDefaultDelimiters>false</useDefaultDelimiters>
-               <delimiters>
-                  <delimiter>@</delimiter>
-               </delimiters>
-            </configuration>
          </plugin>
          <plugin>
             <!-- Resources -->
             <!-- Handles the project resources. -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
-            <configuration>
-               <!-- Variables to to override will be delimited with a @. -->
-               <!-- This avoids collisions with Spring variables. -->
-               <!-- So instead of replacing ${project.name} Maven will replace @project.name@. -->
-               <useDefaultDelimiters>false</useDefaultDelimiters>
-               <delimiters>
-                  <delimiter>@</delimiter>
-               </delimiters>
-            </configuration>
          </plugin>
          <plugin>
             <!-- JSHint -->
