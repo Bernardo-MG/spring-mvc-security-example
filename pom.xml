@@ -505,6 +505,14 @@
          <version>${h2.version}</version>
       </dependency>
       <!-- ============================================== -->
+      <!-- ================ THYMELEAF =================== -->
+      <!-- ============================================== -->
+      <dependency>
+         <groupId>org.thymeleaf.extras</groupId>
+         <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+         <version>${thymeleaf.spring.security.version}</version>
+      </dependency>
+      <!-- ============================================== -->
       <!-- ================ SERVLET ===================== -->
       <!-- ============================================== -->
       <dependency>
