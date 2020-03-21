@@ -26,5 +26,7 @@
             Moved all configuration to classes.
          </action>
       </release>
+      <release version="1.2.0" date="2020-03-21" description="">
+      </release>
    </body>
 </document>
