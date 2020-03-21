@@ -52,7 +52,7 @@ public class ServiceLoggingAspect {
             value = "execution(* com.bernardomg.example..*Service*.*(..))",
             returning = "returnValue")
     public void afterCall(final JoinPoint joinPoint, final Object returnValue) {
-        LOGGER.debug("Called {} and returning {}",
+        LOGGER.trace("Called {} and returning {}",
                 joinPoint.getSignature().toShortString(), returnValue);
     }
 
@@ -65,7 +65,7 @@ public class ServiceLoggingAspect {
     @Before(value = "execution(* com.bernardomg.tabletop.painting..*Service*.*(..))",
             argNames = "joinPoint")
     public void beforeCall(final JoinPoint joinPoint) {
-        LOGGER.debug("Calling {} with arguments {}",
+        LOGGER.trace("Calling {} with arguments {}",
                 joinPoint.getSignature().toShortString(), joinPoint.getArgs());
     }
 
