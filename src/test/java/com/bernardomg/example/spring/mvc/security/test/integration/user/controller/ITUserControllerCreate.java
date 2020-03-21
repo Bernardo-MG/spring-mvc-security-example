@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -64,6 +65,7 @@ import com.google.common.collect.Iterables;
 @Rollback
 @Sql("/db/populate/full.sql")
 @SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
 @DisplayName("User controller creation operations")
 public class ITUserControllerCreate {
 

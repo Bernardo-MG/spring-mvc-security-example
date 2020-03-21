@@ -33,6 +33,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,7 @@ import com.bernardomg.example.spring.mvc.security.Application;
 @Rollback
 @Sql("/db/populate/full.sql")
 @SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
 @DisplayName("Persistent user details service user reading tests")
 public class ITPersistentUserDetailsService {
 

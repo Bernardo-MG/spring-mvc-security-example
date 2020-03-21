@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.user.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
@@ -37,6 +38,7 @@ import com.bernardomg.example.spring.mvc.security.user.model.form.UserRolesForm;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Transactional
 public interface UserService {
 
     /**
