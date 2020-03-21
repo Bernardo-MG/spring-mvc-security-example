@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -49,6 +50,7 @@ import com.bernardomg.example.spring.mvc.security.Application;
 @SpringJUnitConfig
 @WebAppConfiguration
 @SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
 @DisplayName("Secured URLs")
 public final class ITSecuredUrl {
 
