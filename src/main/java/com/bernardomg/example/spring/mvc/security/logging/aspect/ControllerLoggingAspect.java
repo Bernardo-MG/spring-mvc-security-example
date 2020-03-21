@@ -49,7 +49,7 @@ public class ControllerLoggingAspect {
      *            returned value
      */
     @AfterReturning(
-            value = "execution(* com.bernardomg.tabletop.painting..*Controller*.*(..))",
+            value = "execution(* com.bernardomg.example..*Controller*.*(..))",
             returning = "returnValue")
     public void afterCall(final JoinPoint joinPoint, final Object returnValue) {
         LOGGER.debug("Called {} and returning {}",

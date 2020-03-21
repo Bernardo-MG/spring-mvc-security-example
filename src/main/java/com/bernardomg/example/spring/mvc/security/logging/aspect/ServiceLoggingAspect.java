@@ -49,7 +49,7 @@ public class ServiceLoggingAspect {
      *            returned value
      */
     @AfterReturning(
-            value = "execution(* com.bernardomg.tabletop.painting..*Service*.*(..))",
+            value = "execution(* com.bernardomg.example..*Service*.*(..))",
             returning = "returnValue")
     public void afterCall(final JoinPoint joinPoint, final Object returnValue) {
         LOGGER.debug("Called {} and returning {}",
