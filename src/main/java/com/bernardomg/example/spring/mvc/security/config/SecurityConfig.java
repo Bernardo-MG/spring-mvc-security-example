@@ -5,10 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
@@ -36,20 +41,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        // @formatter:off
-        http.authorizeRequests()
-            .antMatchers("/static/**", "/login*").permitAll()
-            .anyRequest().authenticated()
-            .and()
-                .formLogin().loginPage("/login").loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true).failureUrl("/login?error=true")
-            .and()
-                .logout().logoutUrl("/logout")
-                .deleteCookies("JSESSIONID").logoutSuccessUrl("/")
-            .and()
-                .rememberMe().tokenValiditySeconds(86400)
-            .and().oauth2Login();
-      // @formatter:on
+        final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
+        final Customizer<FormLoginConfigurer<HttpSecurity>> formLoginCustomizer;
+        final Customizer<LogoutConfigurer<HttpSecurity>> logoutCustomizer;
+        final Customizer<RememberMeConfigurer<HttpSecurity>> rememberMeCustomizer;
+
+        // Authorization
+        authorizeRequestsCustomizer = c -> c
+                .antMatchers("/static/**", "/login*").permitAll().anyRequest()
+                .authenticated();
+        // Login form
+        formLoginCustomizer = c -> c.loginPage("/login")
+                .loginProcessingUrl("/login").defaultSuccessUrl("/", true)
+                .failureUrl("/login?error=true");
+        // Logout
+        logoutCustomizer = c -> c.logoutUrl("/logout")
+                .deleteCookies("JSESSIONID").logoutSuccessUrl("/");
+        // Remember me
+        rememberMeCustomizer = c -> c.tokenValiditySeconds(86400);
+
+        http.authorizeRequests(authorizeRequestsCustomizer)
+                .formLogin(formLoginCustomizer).logout(logoutCustomizer)
+                .rememberMe(rememberMeCustomizer).oauth2Login();
     }
 
 }
