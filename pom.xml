@@ -20,7 +20,7 @@
 
    <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-mvc-security-example</artifactId>
-   <version>1.1.1</version>
+   <version>1.2.0</version>
    <packaging>war</packaging>
 
    <name>Spring MVC Security Example</name>
@@ -418,6 +418,12 @@
          <!-- Spring Boot Starter: AOP -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-aop</artifactId>
+         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: OAUTH2 -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-oauth2-client</artifactId>
          <version>${spring.boot.version}</version>
       </dependency>
       <!-- ============================================== -->

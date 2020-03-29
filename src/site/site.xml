@@ -39,6 +39,7 @@
          <item name="Usage" href="./usage.html" />
          <item name="Model" href="./model.html" />
          <item name="Login" href="./login.html" />
+         <item name="OAuth" href="./oauth.html" />
          <item name="Passwords" href="./passwords.html" />
          <item name="Remember Me" href="./rememberme.html" />
          <item name="CSRF" href="./csrf.html" />
