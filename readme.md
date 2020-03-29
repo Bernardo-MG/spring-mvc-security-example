@@ -23,6 +23,7 @@ The project by default comes with a useful series of features:
 * CSRF token
 * Remember-me support
 * Security annotations
+* OAuth authentication
 
 ## Documentation
 

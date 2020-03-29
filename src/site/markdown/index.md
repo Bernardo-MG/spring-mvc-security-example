@@ -13,6 +13,7 @@ Handles user authentication, and access restrictions.
 * CSRF token
 * Remember-me support
 * Security annotations
+* OAuth authentication
 
 ## Views
 
