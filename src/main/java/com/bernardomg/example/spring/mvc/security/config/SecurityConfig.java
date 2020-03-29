@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
@@ -45,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final Customizer<FormLoginConfigurer<HttpSecurity>> formLoginCustomizer;
         final Customizer<LogoutConfigurer<HttpSecurity>> logoutCustomizer;
         final Customizer<RememberMeConfigurer<HttpSecurity>> rememberMeCustomizer;
+        final Customizer<OAuth2LoginConfigurer<HttpSecurity>> oauth2LoginCustomizer;
 
         // Authorization
         authorizeRequestsCustomizer = c -> c
@@ -59,10 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID").logoutSuccessUrl("/");
         // Remember me
         rememberMeCustomizer = c -> c.tokenValiditySeconds(86400);
+        // OAUTH2
+        oauth2LoginCustomizer = c -> c.loginPage("/login");
 
         http.authorizeRequests(authorizeRequestsCustomizer)
                 .formLogin(formLoginCustomizer).logout(logoutCustomizer)
-                .rememberMe(rememberMeCustomizer);
+                .rememberMe(rememberMeCustomizer)
+                .oauth2Login(oauth2LoginCustomizer);
     }
 
 }
