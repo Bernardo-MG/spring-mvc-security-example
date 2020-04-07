@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
+import com.bernardomg.example.spring.mvc.security.auth.service.DefaultGrantedAuthoritiesMapper;
 import com.bernardomg.example.spring.mvc.security.auth.service.PersistentUserDetailsService;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
@@ -25,6 +27,11 @@ public class AuthenticationConfig {
 
     public AuthenticationConfig() {
         super();
+    }
+
+    @Bean("grantedAuthoritiesMapper")
+    public GrantedAuthoritiesMapper getGrantedAuthoritiesMapper() {
+        return new DefaultGrantedAuthoritiesMapper();
     }
 
     @Bean("jdbcTokenRepository")
