@@ -14,6 +14,9 @@ databaseChangeLog:
                      primaryKey: true
                      nullable: false
             -  column:
+                  name: email
+                  type: varchar(60)
+            -  column:
                   name: name
                   type: varchar(60)
                   constraints:
@@ -22,10 +25,8 @@ databaseChangeLog:
             -  column:
                   name: password
                   type: varchar(60)
-                  constraints:
-                     nullable: false
             -  column:
-                  name: CREDENTIALS_EXPIRED
+                  name: credentials_expired
                   type: boolean
                   defaultValue: false
                   constraints:

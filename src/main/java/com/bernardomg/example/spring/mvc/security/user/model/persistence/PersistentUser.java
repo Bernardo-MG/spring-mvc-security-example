@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -59,25 +60,31 @@ public class PersistentUser implements User {
      * Serialization id.
      */
     @Transient
-    private static final long                serialVersionUID = 4807136960800402795L;
+    private static final long                serialVersionUID   = 4807136960800402795L;
 
     /**
      * User expired flag.
      */
     @Column(name = "CREDENTIALS_EXPIRED", nullable = false)
-    private Boolean                          credentialsExpired;
+    private Boolean                          credentialsExpired = false;
+
+    /**
+     * User email.
+     */
+    @Column(name = "email", nullable = false, length = 60)
+    private String                           email;
 
     /**
      * User enabled flag.
      */
     @Column(name = "enabled", nullable = false)
-    private Boolean                          enabled;
+    private Boolean                          enabled            = true;
 
     /**
      * User expired flag.
      */
     @Column(name = "expired", nullable = false)
-    private Boolean                          expired;
+    private Boolean                          expired            = false;
 
     /**
      * Entity id.
@@ -91,7 +98,7 @@ public class PersistentUser implements User {
      * User locked flag.
      */
     @Column(name = "locked", nullable = false)
-    private Boolean                          locked;
+    private Boolean                          locked             = false;
 
     /**
      * User password.
@@ -108,8 +115,7 @@ public class PersistentUser implements User {
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id",
                     referencedColumnName = "id"))
-    private final Collection<PersistentRole> roles            = Collections
-            .emptyList();
+    private final Collection<PersistentRole> roles              = new ArrayList<>();
 
     /**
      * User name.
@@ -145,6 +151,11 @@ public class PersistentUser implements User {
     @Override
     public Boolean getCredentialsExpired() {
         return credentialsExpired;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
     }
 
     /**
@@ -214,6 +225,16 @@ public class PersistentUser implements User {
      */
     public void setCredentialsExpired(final Boolean flag) {
         credentialsExpired = flag;
+    }
+
+    /**
+     * Sets the user email.
+     * 
+     * @param mail
+     *            email to set
+     */
+    public void setEmail(final String mail) {
+        email = mail;
     }
 
     /**

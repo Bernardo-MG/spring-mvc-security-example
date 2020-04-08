@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.rememberme.RememberMeAuth
 
 import com.bernardomg.example.spring.mvc.security.auth.service.CustomOAuth2UserService;
 import com.bernardomg.example.spring.mvc.security.auth.service.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRoleRepository;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
 @Configuration
@@ -29,12 +30,6 @@ public class AuthenticationConfig {
 
     public AuthenticationConfig() {
         super();
-    }
-
-    @Bean("oAuth2UserService")
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User>
-            getOAuth2UserService() {
-        return new CustomOAuth2UserService();
     }
 
     @Bean("jdbcTokenRepository")
@@ -47,6 +42,13 @@ public class AuthenticationConfig {
         repo.setDataSource(dataSource);
 
         return repo;
+    }
+
+    @Bean("oAuth2UserService")
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User>
+            getOAuth2UserService(final PersistentUserRepository userRepo,
+                    final PersistentRoleRepository roleRepo) {
+        return new CustomOAuth2UserService(userRepo, roleRepo);
     }
 
     @Bean("passwordEncoder")

@@ -44,6 +44,13 @@ public interface User {
     public Boolean getCredentialsExpired();
 
     /**
+     * Returns the user email.
+     * 
+     * @return the user email
+     */
+    public String getEmail();
+
+    /**
      * Returns the user enabled flag.
      * 
      * @return the user enabled flag

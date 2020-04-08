@@ -40,6 +40,15 @@ public interface PersistentUserRepository
         extends JpaRepository<PersistentUser, Long> {
 
     /**
+     * Returns the user details for the received email.
+     * 
+     * @param email
+     *            email to search for
+     * @return the user details for the received email
+     */
+    public Optional<PersistentUser> findOneByEmail(final String email);
+
+    /**
      * Returns the user details for the received username.
      * 
      * @param username
