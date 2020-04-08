@@ -65,15 +65,35 @@ public final class CustomOAuth2UserService
         final OAuth2AccessToken accessToken;
         final Collection<GrantedAuthority> mappedAuthorities;
         final OAuth2User oauthuser;
+
+        oauthuser = delegate.loadUser(userRequest);
+
+        accessToken = userRequest.getAccessToken();
+        mappedAuthorities = loadUser(oauthuser);
+
+        LOGGER.debug("User {}", oauthuser);
+        LOGGER.debug("Access token {}", accessToken);
+        LOGGER.debug("Mapped authorities {}", mappedAuthorities);
+        LOGGER.debug("Attributes {}", oauthuser.getAttributes());
+        LOGGER.debug("Name {}", oauthuser.getName());
+
+        attributes = oauthuser.getAttributes();
+        authorities = new HashSet<>(oauthuser.getAuthorities());
+
+        authorities.add(new SimpleGrantedAuthority("READ_USER"));
+
+        return new DefaultOAuth2User(mappedAuthorities, attributes, "id");
+    }
+
+    private final Collection<GrantedAuthority>
+            loadUser(final OAuth2User oauthuser) {
+        final Collection<GrantedAuthority> mappedAuthorities;
         final Optional<PersistentUser> userOpt;
         final PersistentUser user;
         final String email;
         final Iterable<PersistentRole> roles;
         final Collection<String> privileges;
 
-        oauthuser = delegate.loadUser(userRequest);
-
-        accessToken = userRequest.getAccessToken();
         if (oauthuser.getAttributes().containsKey("email")) {
             email = oauthuser.getAttributes().get("email").toString();
             userOpt = userRepository.findOneByEmail(email);
@@ -105,17 +125,7 @@ public final class CustomOAuth2UserService
             mappedAuthorities = Collections.emptyList();
         }
 
-        LOGGER.debug("User {}", oauthuser);
-        LOGGER.debug("Mapped authorities {}", mappedAuthorities);
-        LOGGER.debug("Attributes {}", oauthuser.getAttributes());
-        LOGGER.debug("Name {}", oauthuser.getName());
-
-        attributes = oauthuser.getAttributes();
-        authorities = new HashSet<>(oauthuser.getAuthorities());
-
-        authorities.add(new SimpleGrantedAuthority("READ_USER"));
-
-        return new DefaultOAuth2User(mappedAuthorities, attributes, "id");
+        return mappedAuthorities;
     }
 
 }

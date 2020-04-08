@@ -31,6 +31,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
@@ -124,16 +125,19 @@ public final class DefaultUserService implements UserService {
     }
 
     @Override
+    @Cacheable("roles")
     public final Iterable<? extends Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
+    @Cacheable("users")
     public final Iterable<? extends User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
+    @Cacheable("user")
     public final User getUser(final String username) {
         final Optional<PersistentUser> read;
         final User user;

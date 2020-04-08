@@ -26,6 +26,7 @@ package com.bernardomg.example.spring.mvc.security.user.repository;
 
 import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
@@ -56,5 +57,9 @@ public interface PersistentUserRepository
      * @return the user details for the received username
      */
     public Optional<PersistentUser> findOneByUsername(final String username);
+
+    @Override
+    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
+    public <S extends PersistentUser> S save(S entity);
 
 }
