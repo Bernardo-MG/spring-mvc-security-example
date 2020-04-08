@@ -100,18 +100,4 @@ public class ITUserServiceCreateInvalid {
                 () -> service.create(user));
     }
 
-    @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    @DisplayName("Null passwords are rejected")
-    public final void testCreate_NoPassword_Exception() {
-        final DefaultUserForm user; // User to save
-
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword(null);
-
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
-    }
-
 }
