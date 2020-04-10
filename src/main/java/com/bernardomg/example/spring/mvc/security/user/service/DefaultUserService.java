@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2018 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
@@ -124,16 +125,19 @@ public final class DefaultUserService implements UserService {
     }
 
     @Override
+    @Cacheable("roles")
     public final Iterable<? extends Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
+    @Cacheable("users")
     public final Iterable<? extends User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
+    @Cacheable("user")
     public final User getUser(final String username) {
         final Optional<PersistentUser> read;
         final User user;

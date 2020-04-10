@@ -33,9 +33,15 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class ServiceLoggingAspect {
 
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ServiceLoggingAspect.class);
 
+    /**
+     * Default constructor.
+     */
     public ServiceLoggingAspect() {
         super();
     }

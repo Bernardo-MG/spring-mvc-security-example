@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2018 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,13 @@ public interface User {
      * @return the credentials expired flag
      */
     public Boolean getCredentialsExpired();
+
+    /**
+     * Returns the user email.
+     * 
+     * @return the user email
+     */
+    public String getEmail();
 
     /**
      * Returns the user enabled flag.

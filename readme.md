@@ -64,9 +64,13 @@ The project can be installed by creating the war file and deploying it into a se
 
 ### Running
 
-This is a Spring Boot app. It can be run for example with Eclipse's Spring Boot plugin.
+As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
 
-Once it is running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
+```
+$ mvn spring-boot:run
+```
+
+Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
 
 ## Collaborate
 

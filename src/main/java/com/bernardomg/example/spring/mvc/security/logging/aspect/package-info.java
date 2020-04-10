@@ -21,45 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.example.spring.mvc.security.user.repository;
-
-import java.util.Optional;
-
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentUser;
-
 /**
- * Repository for users.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * Logging aspects.
  */
-public interface PersistentUserRepository
-        extends JpaRepository<PersistentUser, Long> {
 
-    /**
-     * Returns the user details for the received email.
-     * 
-     * @param email
-     *            email to search for
-     * @return the user details for the received email
-     */
-    public Optional<PersistentUser> findOneByEmail(final String email);
-
-    /**
-     * Returns the user details for the received username.
-     * 
-     * @param username
-     *            username to search for
-     * @return the user details for the received username
-     */
-    public Optional<PersistentUser> findOneByUsername(final String username);
-
-    @Override
-    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
-    public <S extends PersistentUser> S save(S entity);
-
-}
+package com.bernardomg.example.spring.mvc.security.logging.aspect;

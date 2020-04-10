@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2018 the original author or authors.
+ * Copyright (c) 2017-2020 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -95,20 +95,6 @@ public class ITUserServiceCreateInvalid {
         user = new DefaultUserForm();
         user.setUsername(null);
         user.setPassword("password");
-
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
-    }
-
-    @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    @DisplayName("Null passwords are rejected")
-    public final void testCreate_NoPassword_Exception() {
-        final DefaultUserForm user; // User to save
-
-        user = new DefaultUserForm();
-        user.setUsername("username");
-        user.setPassword(null);
 
         Assertions.assertThrows(DataIntegrityViolationException.class,
                 () -> service.create(user));

@@ -1,3 +1,26 @@
+/**
+ * The MIT License (MIT)
+ * <p>
+ * Copyright (c) 2017-2020 the original author or authors.
+ * <p>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 package com.bernardomg.example.spring.mvc.security.config;
 
@@ -11,15 +34,26 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
+import com.bernardomg.example.spring.mvc.security.auth.service.RegisterOAuth2UserService;
 import com.bernardomg.example.spring.mvc.security.auth.service.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRoleRepository;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
+/**
+ * Authentication configuration.
+ * 
+ * @author Bernardo Martínez Garrido
+ *
+ */
 @Configuration
 public class AuthenticationConfig {
 
@@ -37,6 +71,13 @@ public class AuthenticationConfig {
         repo.setDataSource(dataSource);
 
         return repo;
+    }
+
+    @Bean("oAuth2UserService")
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User>
+            getOAuth2UserService(final PersistentUserRepository userRepo,
+                    final PersistentRoleRepository roleRepo) {
+        return new RegisterOAuth2UserService(userRepo, roleRepo);
     }
 
     @Bean("passwordEncoder")

@@ -43,6 +43,7 @@ tmp/**/*
 local.properties
 /src/main/resources/rebel.xml
 .springBeans
+.sts4-cache/
 
 # IntelliJ Idea files #
 .idea
