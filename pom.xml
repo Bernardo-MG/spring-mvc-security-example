@@ -53,8 +53,8 @@
    </issueManagement>
 
    <ciManagement>
-      <system>Travis CI</system>
-      <url>https://travis-ci.org/bernardo-mg/spring-mvc-security-example</url>
+      <system>Github workflow</system>
+      <url>https://github.com/bernardo-mg/spring-mvc-security-example/actions</url>
       <notifiers />
    </ciManagement>
 
