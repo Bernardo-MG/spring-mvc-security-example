@@ -200,37 +200,38 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <aspectj.version>1.9.5</aspectj.version>
+      <aspectj.version>1.9.6</aspectj.version>
+      <bytebuddy.version>1.10.19</bytebuddy.version>
       <classmate.version>1.5.1</classmate.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
-      <guava.version>28.2-jre</guava.version>
+      <guava.version>30.1-jre</guava.version>
       <h2.version>1.4.200</h2.version>
       <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
-      <hibernate.version>5.4.12.Final</hibernate.version>
-      <hikari.version>3.4.2</hikari.version>
-      <jackson.version>2.10.3</jackson.version>
+      <hibernate.version>5.4.28.Final</hibernate.version>
+      <hikari.version>4.0.2</hikari.version>
+      <jackson.version>2.12.1</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
       <javassist.version>3.27.0-GA</javassist.version>
-      <junit.jupiter.version>5.6.1</junit.jupiter.version>
-      <liquibase.version>3.8.9</liquibase.version>
-      <log4j.version>2.13.1</log4j.version>
-      <mockito.version>3.3.3</mockito.version>
+      <junit.jupiter.version>5.7.1</junit.jupiter.version>
+      <liquibase.version>4.3.1</liquibase.version>
+      <log4j.version>2.14.0</log4j.version>
+      <mockito.version>3.7.7</mockito.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.7.30</slf4j.version>
-      <snakeyaml.version>1.26</snakeyaml.version>
+      <snakeyaml.version>1.27</snakeyaml.version>
       <spring.boot.version>2.2.6.RELEASE</spring.boot.version>
-      <spring.data.train.version>Moore-SR6</spring.data.train.version>
-      <spring.security.version>5.3.1.RELEASE</spring.security.version>
-      <spring.version>5.2.5.RELEASE</spring.version>
+      <spring.data.train.version>Neumann-SR7</spring.data.train.version>
+      <spring.security.version>5.4.5</spring.security.version>
+      <spring.version>5.3.4</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
       <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
       <webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
       <webjars.fontAwesome.version>4.7.0</webjars.fontAwesome.version>
       <webjars.html5shiv.version>3.7.3-1</webjars.html5shiv.version>
-      <webjars.jquery.version>3.3.1-1</webjars.jquery.version>
-      <webjars.locator.version>0.36</webjars.locator.version>
+      <webjars.jquery.version>3.5.1</webjars.jquery.version>
+      <webjars.locator.version>0.40</webjars.locator.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -482,6 +483,12 @@
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
          <version>${hikari.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
@@ -660,6 +667,12 @@
          <groupId>commons-logging</groupId>
          <artifactId>commons-logging</artifactId>
          <version>${commons.logging.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Byte Buddy -->
+         <groupId>net.bytebuddy</groupId>
+         <artifactId>byte-buddy</artifactId>
+         <version>${bytebuddy.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
