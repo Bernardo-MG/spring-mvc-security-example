@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.3.1</version>
+      <version>1.4.0</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -240,7 +240,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.0.6</site.skin.version>
+      <site.skin.version>2.0.11</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -844,16 +844,6 @@
    <reporting>
       <plugins>
          <plugin>
-            <!-- FindBugs -->
-            <!-- Checks for patterns which are prone to errors -->
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>findbugs-maven-plugin</artifactId>
-            <configuration>
-               <!-- Exclusion patterns -->
-               <excludeFilterFile>${project.basedir}/src/config/findbugs/findbugs-exclude.xml</excludeFilterFile>
-            </configuration>
-         </plugin>
-         <plugin>
             <!-- Checkstyle -->
             <!-- Checks that the source files comply with style standards -->
             <!-- It is using a customized rules file -->
@@ -862,20 +852,6 @@
             <configuration>
                <!-- The customized rules file -->
                <configLocation>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</configLocation>
-               <!-- Excludes generated code -->
-               <excludes>**/generated/**/*</excludes>
-            </configuration>
-         </plugin>
-         <plugin>
-            <!-- Javadoc -->
-            <!-- Generates the javadocs -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-               <sourceFileExcludes>
-                  <!-- Excludes generated code -->
-                  <exclude>**/generated/**/*</exclude>
-               </sourceFileExcludes>
             </configuration>
          </plugin>
          <plugin>
@@ -888,10 +864,6 @@
                   <!-- The customized rules file -->
                   <ruleset>${project.basedir}/src/config/pmd/pmd-rules.xml</ruleset>
                </rulesets>
-               <excludes>
-                  <!-- Excludes generated code -->
-                  <exclude>**/generated/**/*</exclude>
-               </excludes>
             </configuration>
          </plugin>
       </plugins>
