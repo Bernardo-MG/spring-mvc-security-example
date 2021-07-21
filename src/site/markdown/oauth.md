@@ -3,6 +3,7 @@
 An external OAuth server may be used instead of the login form.
 
 Currently, the following providers are supported:
+
 * GitHub
 
 ## Setting Up GitHub
