@@ -29,17 +29,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -108,7 +105,6 @@ public final class RegisterOAuth2UserService
     public OAuth2User loadUser(final OAuth2UserRequest userRequest)
             throws OAuth2AuthenticationException {
         final Map<String, Object> attributes;
-        final Set<GrantedAuthority> authorities;
         final OAuth2AccessToken accessToken;
         final Collection<GrantedAuthority> mappedAuthorities;
         final OAuth2User oauthuser;
@@ -125,9 +121,6 @@ public final class RegisterOAuth2UserService
         LOGGER.debug("Name {}", oauthuser.getName());
 
         attributes = oauthuser.getAttributes();
-        authorities = new HashSet<>(oauthuser.getAuthorities());
-
-        authorities.add(new SimpleGrantedAuthority("READ_USER"));
 
         return new DefaultOAuth2User(mappedAuthorities, attributes, "id");
     }
