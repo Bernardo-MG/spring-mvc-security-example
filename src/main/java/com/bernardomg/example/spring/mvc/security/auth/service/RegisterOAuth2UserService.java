@@ -157,8 +157,11 @@ public final class RegisterOAuth2UserService
             email = String.valueOf(oauthuser.getAttributes().get("email"));
             userOpt = userRepository.findOneByEmail(email);
             if (userOpt.isPresent()) {
+                LOGGER.trace("Found user for email {}", email);
                 user = userOpt.get();
             } else {
+                LOGGER.debug("No user found for email {}. Creating new user",
+                        email);
                 user = new PersistentUser();
                 if (oauthuser.getAttributes().containsKey("name")) {
                     user.setUsername(
