@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.2</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -200,30 +200,30 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <aspectj.version>1.9.6</aspectj.version>
-      <bytebuddy.version>1.10.19</bytebuddy.version>
+      <aspectj.version>1.9.7</aspectj.version>
+      <bytebuddy.version>1.11.8</bytebuddy.version>
       <classmate.version>1.5.1</classmate.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
-      <guava.version>30.1-jre</guava.version>
+      <guava.version>30.1.1-jre</guava.version>
       <h2.version>1.4.200</h2.version>
-      <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
-      <hibernate.version>5.4.28.Final</hibernate.version>
-      <hikari.version>4.0.2</hikari.version>
-      <jackson.version>2.12.1</jackson.version>
+      <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
+      <hibernate.version>5.5.6.Final</hibernate.version>
+      <hikari.version>4.0.3</hikari.version>
+      <jackson.version>2.12.4</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
       <javassist.version>3.27.0-GA</javassist.version>
-      <junit.jupiter.version>5.7.1</junit.jupiter.version>
+      <junit.jupiter.version>5.7.2</junit.jupiter.version>
       <liquibase.version>4.3.1</liquibase.version>
-      <log4j.version>2.14.0</log4j.version>
-      <mockito.version>3.7.7</mockito.version>
+      <log4j.version>2.14.1</log4j.version>
+      <mockito.version>3.11.2</mockito.version>
       <servlet.version>4.0.1</servlet.version>
       <slf4j.version>1.7.30</slf4j.version>
-      <snakeyaml.version>1.27</snakeyaml.version>
-      <spring.boot.version>2.2.6.RELEASE</spring.boot.version>
-      <spring.data.train.version>Neumann-SR7</spring.data.train.version>
-      <spring.security.version>5.4.5</spring.security.version>
-      <spring.version>5.3.4</spring.version>
+      <snakeyaml.version>1.29</snakeyaml.version>
+      <spring.boot.version>2.5.3</spring.boot.version>
+      <spring.data.version>2021.0.3</spring.data.version>
+      <spring.security.version>5.5.1</spring.security.version>
+      <spring.version>5.3.9</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
       <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
       <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
@@ -237,11 +237,11 @@
       <!-- ============================================== -->
       <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
-      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
+      <plugin.spring.boot.version>2.4.3</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.0.11</site.skin.version>
+      <site.skin.version>2.2.4</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -267,10 +267,10 @@
             <scope>import</scope>
          </dependency>
          <dependency>
-            <!-- Spring Data Release Train -->
+            <!-- Spring Data BOM -->
             <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-releasetrain</artifactId>
-            <version>${spring.data.train.version}</version>
+            <artifactId>spring-data-bom</artifactId>
+            <version>${spring.data.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
