@@ -62,7 +62,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      * Logger.
      */
     private static final Logger            LOGGER = LoggerFactory
-            .getLogger(PersistentUserDetailsService.class);
+        .getLogger(PersistentUserDetailsService.class);
 
     /**
      * Repository for the user data.
@@ -80,7 +80,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         super();
 
         userRepo = checkNotNull(userRepository,
-                "Received a null pointer as repository");
+            "Received a null pointer as repository");
     }
 
     @Override
@@ -126,18 +126,24 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         accountNonLocked = !user.getLocked();
 
         // Loads privileges
-        privileges = user.getRoles().stream().map(Role::getPrivileges)
-                .flatMap(Collection::stream).collect(Collectors.toList());
+        privileges = user.getRoles()
+            .stream()
+            .map(Role::getPrivileges)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
         LOGGER.trace("Privileges for {}: {}", user.getUsername(), privileges);
 
         // Loads authorities
-        authorities = privileges.stream().map(Privilege::getName)
-                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        authorities = privileges.stream()
+            .map(Privilege::getName)
+            .distinct()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
         LOGGER.debug("Authorities for {}: {}", user.getUsername(), authorities);
 
         return new User(user.getUsername(), user.getPassword(), enabled,
-                accountNonExpired, credentialsNonExpired, accountNonLocked,
-                authorities);
+            accountNonExpired, credentialsNonExpired, accountNonLocked,
+            authorities);
     }
 
 }
