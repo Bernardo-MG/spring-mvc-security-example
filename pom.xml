@@ -11,7 +11,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.4.2</version>
+      <version>1.5.0</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -201,47 +201,41 @@
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
       <aspectj.version>1.9.7</aspectj.version>
-      <bytebuddy.version>1.11.8</bytebuddy.version>
+      <bytebuddy.version>1.12.7</bytebuddy.version>
       <classmate.version>1.5.1</classmate.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
       <guava.version>30.1.1-jre</guava.version>
       <h2.version>1.4.200</h2.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <hibernate.version>5.5.6.Final</hibernate.version>
+      <hibernate.version>5.6.4.Final</hibernate.version>
       <hikari.version>4.0.3</hikari.version>
-      <jackson.version>2.12.4</jackson.version>
+      <jackson.version>2.13.1</jackson.version>
       <javaee.api.version>2.2</javaee.api.version>
       <javassist.version>3.27.0-GA</javassist.version>
-      <junit.jupiter.version>5.7.2</junit.jupiter.version>
-      <liquibase.version>4.3.1</liquibase.version>
-      <log4j.version>2.14.1</log4j.version>
-      <mockito.version>3.11.2</mockito.version>
+      <junit.jupiter.version>5.8.2</junit.jupiter.version>
+      <liquibase.version>4.8.0</liquibase.version>
+      <log4j.version>2.17.1</log4j.version>
+      <mockito.version>4.3.1</mockito.version>
       <servlet.version>4.0.1</servlet.version>
-      <slf4j.version>1.7.30</slf4j.version>
-      <snakeyaml.version>1.29</snakeyaml.version>
-      <spring.boot.version>2.5.3</spring.boot.version>
-      <spring.data.version>2021.0.3</spring.data.version>
-      <spring.security.version>5.5.1</spring.security.version>
-      <spring.version>5.3.9</spring.version>
+      <slf4j.version>1.7.36</slf4j.version>
+      <snakeyaml.version>1.30</snakeyaml.version>
+      <spring.boot.version>2.6.3</spring.boot.version>
+      <spring.data.version>2021.1.2</spring.data.version>
+      <spring.security.version>5.6.1</spring.security.version>
+      <spring.version>5.3.16</spring.version>
       <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
       <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
-      <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
-      <webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
-      <webjars.fontAwesome.version>4.7.0</webjars.fontAwesome.version>
-      <webjars.html5shiv.version>3.7.3-1</webjars.html5shiv.version>
-      <webjars.jquery.version>3.5.1</webjars.jquery.version>
-      <webjars.locator.version>0.40</webjars.locator.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
       <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
       <plugin.jshint.version>1.6.0</plugin.jshint.version>
-      <plugin.spring.boot.version>2.4.3</plugin.spring.boot.version>
+      <plugin.spring.boot.version>2.5.3</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.4</site.skin.version>
+      <site.skin.version>2.2.6</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -540,45 +534,6 @@
          <artifactId>javax.servlet-api</artifactId>
          <version>${servlet.version}</version>
          <scope>provided</scope>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ WEBJARS ===================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Bootstrap -->
-         <groupId>org.webjars</groupId>
-         <artifactId>bootstrap</artifactId>
-         <version>${webjars.bootstrap.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Bootswatch Readable -->
-         <groupId>org.webjars</groupId>
-         <artifactId>bootswatch-readable</artifactId>
-         <version>${webjars.bootswatch.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Font Awesome -->
-         <groupId>org.webjars</groupId>
-         <artifactId>font-awesome</artifactId>
-         <version>${webjars.fontAwesome.version}</version>
-      </dependency>
-      <dependency>
-         <!-- HTML5 Shiv -->
-         <groupId>org.webjars</groupId>
-         <artifactId>html5shiv</artifactId>
-         <version>${webjars.html5shiv.version}</version>
-      </dependency>
-      <dependency>
-         <!-- JQuery -->
-         <groupId>org.webjars</groupId>
-         <artifactId>jquery</artifactId>
-         <version>${webjars.jquery.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Webjars Locator -->
-         <groupId>org.webjars</groupId>
-         <artifactId>webjars-locator</artifactId>
-         <version>${webjars.locator.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOGGING =================== -->

@@ -1,36 +1,29 @@
 <header th:fragment="menu">
-	<nav id="navbar-main" class="navbar navbar-main navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar-main-body"
-					aria-expanded="false" aria-controls="navbar-main">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" th:href="@{/}">Spring MVC Security Example</a>
-			</div>
+   <nav id="navbar-main" class="navbar navbar-expand-md navbar-light bg-light">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Spring MVC Security Example</a>
+         </div>
 
-			<div id="navbar-main-body"
-				class="navbar-body navbar-collapse collapse">
-            <small class="navbar-text" sec:authorize="isAuthenticated()"><form class="form-inline" th:action="@{/logout}" method="POST">
-                           <label for="logout" th:text="${#authentication?.name}">username</label>
-                           <button id="logout" type="submit" class="linkButton">
-                              <span class="fa fa-sign-out"></span>
-                           </button>
-                        </form></small>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span th:remove="tag">Pages</span> <span
-							aria-hidden="true"></span> </a>
-						<ul class="dropdown-menu" role="menu">
-                     <li><a th:href="@{/users}">Users List</a></li>
-                     <li><a th:href="@{/users/create}">Add User</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+         <div class="collapse navbar-collapse" id="navbar-main-menu">
+            <small class="navbar-text" sec:authorize="isAuthenticated()">
+               <form class="form-inline" th:action="@{/logout}" method="POST">
+                  <label for="logout" th:text="${#authentication?.name}">username</label>
+                  <button id="logout" type="submit" class="btn btn-link">
+                     <i class="fa-solid fa-right-from-bracket"></i>
+                  </button>
+               </form>
+            </small>
+            <ul class="nav navbar-nav ms-auto">
+               <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="examplesDropdown" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:remove="tag">Pages</span> <span
+                        aria-hidden="true"></span> </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="examplesDropdown">
+                     <li><a th:href="@{/users}" class="dropdown-item" title="Users List">Users List</a></li>
+                     <li><a th:href="@{/users/create}" class="dropdown-item" title="Add User">Add User</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </nav>
 </header>
