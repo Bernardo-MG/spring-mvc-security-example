@@ -117,7 +117,7 @@ public final class RegisterOAuth2UserService
         final Optional<PersistentUser> userOpt;
         final PersistentUser user;
         final String email;
-        final Iterable<PersistentRole> roles;
+        final Collection<PersistentRole> roles;
         final Collection<String> privileges;
 
         // TODO: What if somebody creates a fake account with the email? Is it

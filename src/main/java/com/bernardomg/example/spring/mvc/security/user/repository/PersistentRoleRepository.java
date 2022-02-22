@@ -24,6 +24,8 @@
 
 package com.bernardomg.example.spring.mvc.security.user.repository;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentRole;
@@ -44,6 +46,7 @@ public interface PersistentRoleRepository
      *            names of the roles
      * @return roles names in the input
      */
-    public Iterable<PersistentRole> findByNameIn(final Iterable<String> names);
+    public Collection<PersistentRole>
+            findByNameIn(final Iterable<String> names);
 
 }

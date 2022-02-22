@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.user.service;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -182,7 +183,7 @@ public final class DefaultUserService implements UserService {
 
     @Override
     public final void updateRoles(final UserRolesForm userRoles) {
-        final Iterable<PersistentRole> roles;
+        final Collection<PersistentRole> roles;
         final Optional<PersistentUser> read;
         final PersistentUser user;
 

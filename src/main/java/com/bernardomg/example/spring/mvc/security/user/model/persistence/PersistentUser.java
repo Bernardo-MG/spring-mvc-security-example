@@ -25,6 +25,7 @@
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -57,31 +58,31 @@ public class PersistentUser implements User {
      * Serialization id.
      */
     @Transient
-    private static final long        serialVersionUID   = 4807136960800402795L;
+    private static final long          serialVersionUID   = 4807136960800402795L;
 
     /**
      * User expired flag.
      */
     @Column(name = "CREDENTIALS_EXPIRED", nullable = false)
-    private Boolean                  credentialsExpired = false;
+    private Boolean                    credentialsExpired = false;
 
     /**
      * User email.
      */
     @Column(name = "email", nullable = false, length = 60)
-    private String                   email;
+    private String                     email;
 
     /**
      * User enabled flag.
      */
     @Column(name = "enabled", nullable = false)
-    private Boolean                  enabled            = true;
+    private Boolean                    enabled            = true;
 
     /**
      * User expired flag.
      */
     @Column(name = "expired", nullable = false)
-    private Boolean                  expired            = false;
+    private Boolean                    expired            = false;
 
     /**
      * Entity id.
@@ -89,19 +90,19 @@ public class PersistentUser implements User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                     id;
+    private Long                       id;
 
     /**
      * User locked flag.
      */
     @Column(name = "locked", nullable = false)
-    private Boolean                  locked             = false;
+    private Boolean                    locked             = false;
 
     /**
      * User password.
      */
     @Column(name = "password", nullable = false, length = 60)
-    private String                   password;
+    private String                     password;
 
     /**
      * Granted roles.
@@ -112,13 +113,13 @@ public class PersistentUser implements User {
                     referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id",
                     referencedColumnName = "id"))
-    private Iterable<PersistentRole> roles              = new ArrayList<>();
+    private Collection<PersistentRole> roles              = new ArrayList<>();
 
     /**
      * User name.
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String                   username;
+    private String                     username;
 
     /**
      * Default constructor.
