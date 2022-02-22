@@ -24,8 +24,6 @@
 
 package com.bernardomg.example.spring.mvc.security.user.model;
 
-import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentPrivilege;
-
 /**
  * User role. Groups a set of permissions.
  * 
@@ -70,13 +68,5 @@ public interface Role {
      *            new name
      */
     public void setName(final String role);
-
-    /**
-     * Sets the role privileges.
-     * 
-     * @param privs
-     *            the role privileges
-     */
-    public void setPrivileges(final Iterable<PersistentPrivilege> privs);
 
 }
