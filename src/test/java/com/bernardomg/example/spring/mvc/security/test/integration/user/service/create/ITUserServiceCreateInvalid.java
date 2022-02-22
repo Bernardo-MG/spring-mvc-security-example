@@ -83,7 +83,7 @@ public class ITUserServiceCreateInvalid {
         user.setPassword("password");
 
         Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
+            () -> service.create(user));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ITUserServiceCreateInvalid {
         user.setPassword("password");
 
         Assertions.assertThrows(DataIntegrityViolationException.class,
-                () -> service.create(user));
+            () -> service.create(user));
     }
 
 }

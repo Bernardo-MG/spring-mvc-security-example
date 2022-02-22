@@ -91,7 +91,8 @@ public class ITUserServiceUpdate {
 
         service.update(user);
 
-        updated = repository.findOneByUsername("noroles").get();
+        updated = repository.findOneByUsername("noroles")
+            .get();
 
         Assertions.assertEquals(false, updated.getEnabled());
     }

@@ -81,7 +81,7 @@ public class ITUserServiceUpdateInvalid {
         user.setUsername("");
 
         Assertions.assertThrows(NoSuchElementException.class,
-                () -> service.update(user));
+            () -> service.update(user));
     }
 
 }

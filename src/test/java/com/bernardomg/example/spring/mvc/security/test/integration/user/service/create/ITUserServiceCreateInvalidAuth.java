@@ -83,8 +83,8 @@ public class ITUserServiceCreateInvalidAuth {
         user.setPassword("password");
 
         Assertions.assertThrows(
-                AuthenticationCredentialsNotFoundException.class,
-                () -> service.create(user));
+            AuthenticationCredentialsNotFoundException.class,
+            () -> service.create(user));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ITUserServiceCreateInvalidAuth {
         user.setPassword("password");
 
         Assertions.assertThrows(AccessDeniedException.class,
-                () -> service.create(user));
+            () -> service.create(user));
     }
 
 }

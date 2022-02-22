@@ -76,7 +76,8 @@ public final class ITCsrf {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).build();
+            .apply(springSecurity())
+            .build();
     }
 
     @Test
@@ -86,7 +87,8 @@ public final class ITCsrf {
 
         request = post("/").with(csrf());
 
-        mockMvc.perform(request).andExpect(status().isFound());
+        mockMvc.perform(request)
+            .andExpect(status().isFound());
     }
 
     @Test
@@ -96,7 +98,8 @@ public final class ITCsrf {
 
         request = post("/");
 
-        mockMvc.perform(request).andExpect(status().isForbidden());
+        mockMvc.perform(request)
+            .andExpect(status().isForbidden());
     }
 
     @Test
@@ -106,7 +109,8 @@ public final class ITCsrf {
 
         request = put("/").with(csrf());
 
-        mockMvc.perform(request).andExpect(status().isFound());
+        mockMvc.perform(request)
+            .andExpect(status().isFound());
     }
 
     @Test
@@ -116,7 +120,8 @@ public final class ITCsrf {
 
         request = put("/");
 
-        mockMvc.perform(request).andExpect(status().isForbidden());
+        mockMvc.perform(request)
+            .andExpect(status().isForbidden());
     }
 
 }

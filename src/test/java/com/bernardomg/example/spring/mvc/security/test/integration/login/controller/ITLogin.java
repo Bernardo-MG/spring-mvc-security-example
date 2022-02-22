@@ -90,7 +90,8 @@ public final class ITLogin {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).build();
+            .apply(springSecurity())
+            .build();
     }
 
     @Test
@@ -98,9 +99,11 @@ public final class ITLogin {
     public final void testLogin_DisabledUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("disabled").password("1111");
+        login = formLogin().user("disabled")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+        mockMvc.perform(login)
+            .andExpect(redirectedUrl("/login?error=true"));
     }
 
     @Test
@@ -109,9 +112,11 @@ public final class ITLogin {
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("disabled").password("1111");
+        login = formLogin().user("disabled")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(unauthenticated());
+        mockMvc.perform(login)
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -120,9 +125,11 @@ public final class ITLogin {
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expCreds").password("1111");
+        login = formLogin().user("expCreds")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+        mockMvc.perform(login)
+            .andExpect(redirectedUrl("/login?error=true"));
     }
 
     @Test
@@ -131,9 +138,11 @@ public final class ITLogin {
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expCreds").password("1111");
+        login = formLogin().user("expCreds")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(unauthenticated());
+        mockMvc.perform(login)
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -141,9 +150,11 @@ public final class ITLogin {
     public final void testLogin_ExpiredUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expired").password("1111");
+        login = formLogin().user("expired")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+        mockMvc.perform(login)
+            .andExpect(redirectedUrl("/login?error=true"));
     }
 
     @Test
@@ -151,9 +162,11 @@ public final class ITLogin {
     public final void testLogin_ExpiredUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expired").password("1111");
+        login = formLogin().user("expired")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(unauthenticated());
+        mockMvc.perform(login)
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -162,9 +175,11 @@ public final class ITLogin {
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("admin").password("abc");
+        login = formLogin().user("admin")
+            .password("abc");
 
-        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+        mockMvc.perform(login)
+            .andExpect(redirectedUrl("/login?error=true"));
     }
 
     @Test
@@ -173,9 +188,11 @@ public final class ITLogin {
             throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("admin").password("abc");
+        login = formLogin().user("admin")
+            .password("abc");
 
-        mockMvc.perform(login).andExpect(unauthenticated());
+        mockMvc.perform(login)
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -183,9 +200,11 @@ public final class ITLogin {
     public final void testLogin_InvalidUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("abc").password("1234");
+        login = formLogin().user("abc")
+            .password("1234");
 
-        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+        mockMvc.perform(login)
+            .andExpect(redirectedUrl("/login?error=true"));
     }
 
     @Test
@@ -193,9 +212,11 @@ public final class ITLogin {
     public final void testLogin_InvalidUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("abc").password("1234");
+        login = formLogin().user("abc")
+            .password("1234");
 
-        mockMvc.perform(login).andExpect(unauthenticated());
+        mockMvc.perform(login)
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -203,9 +224,11 @@ public final class ITLogin {
     public final void testLogin_LockedUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("locked").password("1111");
+        login = formLogin().user("locked")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(redirectedUrl("/login?error=true"));
+        mockMvc.perform(login)
+            .andExpect(redirectedUrl("/login?error=true"));
     }
 
     @Test
@@ -213,9 +236,11 @@ public final class ITLogin {
     public final void testLogin_LockedUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("locked").password("1111");
+        login = formLogin().user("locked")
+            .password("1111");
 
-        mockMvc.perform(login).andExpect(unauthenticated());
+        mockMvc.perform(login)
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -223,9 +248,11 @@ public final class ITLogin {
     public final void testLogin_ValidUser_Authenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("admin").password("1234");
+        login = formLogin().user("admin")
+            .password("1234");
 
-        mockMvc.perform(login).andExpect(authenticated().withUsername("admin"));
+        mockMvc.perform(login)
+            .andExpect(authenticated().withUsername("admin"));
     }
 
 }

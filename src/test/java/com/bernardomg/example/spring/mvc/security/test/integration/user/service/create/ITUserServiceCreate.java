@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.test.integration.user.service.create;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,6 @@ import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the persistent user service, verifying that users can
@@ -93,7 +93,7 @@ public class ITUserServiceCreate {
 
         users = repository.findAll();
 
-        Assertions.assertEquals(7, Iterables.size(users));
+        Assertions.assertEquals(7, IterableUtils.size(users));
     }
 
 }

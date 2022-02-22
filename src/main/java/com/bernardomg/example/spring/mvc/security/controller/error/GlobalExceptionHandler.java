@@ -47,7 +47,7 @@ public final class GlobalExceptionHandler
      * Logger for the exception handler.
      */
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(GlobalExceptionHandler.class);
+        .getLogger(GlobalExceptionHandler.class);
 
     /**
      * Default constructor.
@@ -65,9 +65,10 @@ public final class GlobalExceptionHandler
         LOGGER.error(ex.getMessage(), ex);
 
         modelView = new ModelAndView(ErrorViews.EXCEPTION);
-        modelView.getModel().put("code",
-                HttpStatus.INTERNAL_SERVER_ERROR.value());
-        modelView.getModel().put("message", ex.getMessage());
+        modelView.getModel()
+            .put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        modelView.getModel()
+            .put("message", ex.getMessage());
 
         return modelView;
     }

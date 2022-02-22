@@ -78,7 +78,8 @@ public final class ITSecuredUrl {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).build();
+            .apply(springSecurity())
+            .build();
     }
 
     @Test
@@ -89,8 +90,9 @@ public final class ITSecuredUrl {
 
         request = get("/").with(csrf());
 
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
+        mockMvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(authenticated().withUsername("admin"));
     }
 
     @Test
@@ -100,8 +102,9 @@ public final class ITSecuredUrl {
 
         request = get("/").with(csrf());
 
-        mockMvc.perform(request).andExpect(status().isFound())
-                .andExpect(unauthenticated());
+        mockMvc.perform(request)
+            .andExpect(status().isFound())
+            .andExpect(unauthenticated());
     }
 
     @Test
@@ -112,8 +115,9 @@ public final class ITSecuredUrl {
 
         request = get("/login").with(csrf());
 
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
+        mockMvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(authenticated().withUsername("admin"));
     }
 
     @Test
@@ -123,8 +127,9 @@ public final class ITSecuredUrl {
 
         request = get("/login").with(csrf());
 
-        mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(unauthenticated());
+        mockMvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(unauthenticated());
     }
 
 }

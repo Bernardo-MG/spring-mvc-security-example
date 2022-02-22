@@ -24,8 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.user.service;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
+import java.util.Objects;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -55,7 +54,7 @@ public final class DefaultUserService implements UserService {
      * Logger.
      */
     private static final Logger            LOGGER = LoggerFactory
-            .getLogger(DefaultUserService.class);
+        .getLogger(DefaultUserService.class);
 
     /**
      * Password encoder.
@@ -87,12 +86,12 @@ public final class DefaultUserService implements UserService {
             final PasswordEncoder passEncoder) {
         super();
 
-        userRepository = checkNotNull(userRepo,
-                "Received a null pointer as users repository");
-        roleRepository = checkNotNull(roleRepo,
-                "Received a null pointer as roles repository");
-        passwordEncoder = checkNotNull(passEncoder,
-                "Received a null pointer as password encoder");
+        userRepository = Objects.requireNonNull(userRepo,
+            "Received a null pointer as users repository");
+        roleRepository = Objects.requireNonNull(roleRepo,
+            "Received a null pointer as roles repository");
+        passwordEncoder = Objects.requireNonNull(passEncoder,
+            "Received a null pointer as password encoder");
     }
 
     @Override
@@ -100,7 +99,7 @@ public final class DefaultUserService implements UserService {
         final PersistentUser entity;
         final String encodedPassword;
 
-        checkNotNull(user);
+        Objects.requireNonNull(user);
 
         entity = new PersistentUser();
 
@@ -142,7 +141,7 @@ public final class DefaultUserService implements UserService {
         final Optional<PersistentUser> read;
         final User user;
 
-        checkNotNull(username);
+        Objects.requireNonNull(username);
 
         read = userRepository.findOneByUsername(username);
 
@@ -162,9 +161,10 @@ public final class DefaultUserService implements UserService {
         final PersistentUser entity;
         final String encodedPassword;
 
-        checkNotNull(user);
+        Objects.requireNonNull(user);
 
-        entity = userRepository.findOneByUsername(user.getUsername()).get();
+        entity = userRepository.findOneByUsername(user.getUsername())
+            .get();
 
         BeanUtils.copyProperties(user, entity);
 
@@ -186,7 +186,7 @@ public final class DefaultUserService implements UserService {
         final Optional<PersistentUser> read;
         final PersistentUser user;
 
-        checkNotNull(userRoles);
+        Objects.requireNonNull(userRoles);
 
         read = userRepository.findOneByUsername(userRoles.getUsername());
 

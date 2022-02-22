@@ -24,11 +24,11 @@
 
 package com.bernardomg.example.spring.mvc.security.auth.service;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +79,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
             final PersistentUserRepository userRepository) {
         super();
 
-        userRepo = checkNotNull(userRepository,
+        userRepo = Objects.requireNonNull(userRepository,
             "Received a null pointer as repository");
     }
 
@@ -126,8 +126,8 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         accountNonLocked = !user.getLocked();
 
         // Loads privileges
-        privileges = user.getRoles()
-            .stream()
+        privileges = StreamSupport.stream(user.getRoles()
+            .spliterator(), false)
             .map(Role::getPrivileges)
             .flatMap(Collection::stream)
             .collect(Collectors.toList());

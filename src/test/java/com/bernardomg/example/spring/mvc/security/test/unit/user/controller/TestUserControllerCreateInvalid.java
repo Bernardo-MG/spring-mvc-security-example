@@ -63,28 +63,6 @@ public class TestUserControllerCreateInvalid {
     }
 
     /**
-     * Sets up the mock MVC.
-     */
-    @BeforeEach
-    public final void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(getController())
-                .alwaysExpect(status().is4xxClientError()).build();
-    }
-
-    @Test
-    @DisplayName("Invalid parameters are accepted")
-    public final void testCreate_EmptyPassword() throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "");
-
-        mockMvc.perform(request).andExpect(
-                MockMvcResultMatchers.model().attributeHasFieldErrors(
-                        UserController.PARAM_USER_FORM, "password"));
-    }
-
-    /**
      * Returns a controller with mocked dependencies.
      * 
      * @return a mocked controller
@@ -95,6 +73,31 @@ public class TestUserControllerCreateInvalid {
         service = Mockito.mock(UserService.class);
 
         return new UserController(service);
+    }
+
+    /**
+     * Sets up the mock MVC.
+     */
+    @BeforeEach
+    public final void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(getController())
+            .alwaysExpect(status().is4xxClientError())
+            .build();
+    }
+
+    @Test
+    @DisplayName("Invalid parameters are accepted")
+    public final void testCreate_EmptyPassword() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = MockMvcRequestBuilders.post("/users/save")
+            .param("username", "username")
+            .param("password", "");
+
+        mockMvc.perform(request)
+            .andExpect(MockMvcResultMatchers.model()
+                .attributeHasFieldErrors(UserController.PARAM_USER_FORM,
+                    "password"));
     }
 
 }

@@ -74,8 +74,8 @@ public class ITUserServiceReadInvalidAuth {
     @DisplayName("Unauthenticated users can't read users")
     public final void testGetAllUsers_NoAuth_Exception() {
         Assertions.assertThrows(
-                AuthenticationCredentialsNotFoundException.class,
-                () -> service.getAllUsers());
+            AuthenticationCredentialsNotFoundException.class,
+            () -> service.getAllUsers());
     }
 
     @Test
@@ -83,15 +83,15 @@ public class ITUserServiceReadInvalidAuth {
     @DisplayName("Users with no privileges can't read users")
     public final void testGetAllUsers_NoPrivileges_Exception() {
         Assertions.assertThrows(AccessDeniedException.class,
-                () -> service.getAllUsers());
+            () -> service.getAllUsers());
     }
 
     @Test
     @DisplayName("Unauthenticated users can't read a single user")
     public final void testGetUser_NoAuth_Exception() {
         Assertions.assertThrows(
-                AuthenticationCredentialsNotFoundException.class,
-                () -> service.getUser("noroles"));
+            AuthenticationCredentialsNotFoundException.class,
+            () -> service.getUser("noroles"));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ITUserServiceReadInvalidAuth {
     @DisplayName("Users with no privileges can't read a single user")
     public final void testGetUser_NoPrivileges_Exception() {
         Assertions.assertThrows(AccessDeniedException.class,
-                () -> service.getUser("noroles"));
+            () -> service.getUser("noroles"));
     }
 
 }

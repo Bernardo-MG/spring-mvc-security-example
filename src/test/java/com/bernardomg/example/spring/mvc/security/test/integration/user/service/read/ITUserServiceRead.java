@@ -26,6 +26,7 @@ package com.bernardomg.example.spring.mvc.security.test.integration.user.service
 
 import java.util.stream.StreamSupport;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,6 @@ import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
 import com.bernardomg.example.spring.mvc.security.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
-import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the persistent user service, verifying that users can
@@ -82,7 +82,7 @@ public class ITUserServiceRead {
 
         users = service.getAllUsers();
 
-        Assertions.assertEquals(6, Iterables.size(users));
+        Assertions.assertEquals(6, IterableUtils.size(users));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class ITUserServiceRead {
 
         users = service.getAllUsers();
 
-        Assertions.assertEquals(0, Iterables.size(users));
+        Assertions.assertEquals(0, IterableUtils.size(users));
     }
 
     @Test
@@ -110,17 +110,24 @@ public class ITUserServiceRead {
 
         // Finds the admin
         user = StreamSupport.stream(users.spliterator(), false)
-                .filter((u) -> u.getUsername().equals("admin")).findFirst()
-                .get();
+            .filter((u) -> u.getUsername()
+                .equals("admin"))
+            .findFirst()
+            .get();
 
         Assertions.assertEquals("admin", user.getUsername());
 
-        Assertions.assertEquals(1, user.getRoles().size());
-        role = user.getRoles().iterator().next();
+        Assertions.assertEquals(1, IterableUtils.size(user.getRoles()));
+        role = user.getRoles()
+            .iterator()
+            .next();
         Assertions.assertEquals("ADMIN", role.getName());
 
-        Assertions.assertEquals(3, role.getPrivileges().size());
-        privilege = role.getPrivileges().iterator().next();
+        Assertions.assertEquals(3, role.getPrivileges()
+            .size());
+        privilege = role.getPrivileges()
+            .iterator()
+            .next();
         Assertions.assertEquals("CREATE_USER", privilege.getName());
     }
 
@@ -134,7 +141,7 @@ public class ITUserServiceRead {
         user = service.getUser("noroles");
 
         Assertions.assertEquals("noroles", user.getUsername());
-        Assertions.assertTrue(user.getRoles().isEmpty());
+        Assertions.assertTrue(IterableUtils.isEmpty(user.getRoles()));
     }
 
     @Test
@@ -149,11 +156,14 @@ public class ITUserServiceRead {
 
         Assertions.assertEquals("admin", user.getUsername());
 
-        Assertions.assertEquals(1, user.getRoles().size());
-        role = user.getRoles().iterator().next();
+        Assertions.assertEquals(1, IterableUtils.size(user.getRoles()));
+        role = user.getRoles()
+            .iterator()
+            .next();
         Assertions.assertEquals("ADMIN", role.getName());
 
-        Assertions.assertEquals(0, role.getPrivileges().size());
+        Assertions.assertEquals(0, role.getPrivileges()
+            .size());
     }
 
 }

@@ -62,26 +62,6 @@ public final class TestUserControllerCreate {
     }
 
     /**
-     * Sets up the mock MVC.
-     */
-    @BeforeEach
-    public final void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(getController())
-                .alwaysExpect(status().isOk()).build();
-    }
-
-    @Test
-    @DisplayName("Valid parameters are accepted")
-    public final void testCreate() throws Exception {
-        final RequestBuilder request; // Test request
-
-        request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "password");
-
-        mockMvc.perform(request);
-    }
-
-    /**
      * Returns a controller with mocked dependencies.
      * 
      * @return a mocked controller
@@ -92,6 +72,28 @@ public final class TestUserControllerCreate {
         service = Mockito.mock(UserService.class);
 
         return new UserController(service);
+    }
+
+    /**
+     * Sets up the mock MVC.
+     */
+    @BeforeEach
+    public final void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(getController())
+            .alwaysExpect(status().isOk())
+            .build();
+    }
+
+    @Test
+    @DisplayName("Valid parameters are accepted")
+    public final void testCreate() throws Exception {
+        final RequestBuilder request; // Test request
+
+        request = MockMvcRequestBuilders.post("/users/save")
+            .param("username", "username")
+            .param("password", "password");
+
+        mockMvc.perform(request);
     }
 
 }

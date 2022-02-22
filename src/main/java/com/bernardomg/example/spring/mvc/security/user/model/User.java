@@ -24,8 +24,6 @@
 
 package com.bernardomg.example.spring.mvc.security.user.model;
 
-import java.util.Collection;
-
 /**
  * User, and all its authentication data.
  * 
@@ -85,7 +83,7 @@ public interface User {
      * 
      * @return the user roles
      */
-    public Collection<? extends Role> getRoles();
+    public Iterable<? extends Role> getRoles();
 
     /**
      * Returns the user username.

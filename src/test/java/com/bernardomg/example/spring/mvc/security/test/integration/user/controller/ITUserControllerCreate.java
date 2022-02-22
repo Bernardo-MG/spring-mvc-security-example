@@ -27,6 +27,7 @@ package com.bernardomg.example.spring.mvc.security.test.integration.user.control
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +51,6 @@ import org.springframework.web.context.WebApplicationContext;
 import com.bernardomg.example.spring.mvc.security.Application;
 import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
-import com.google.common.collect.Iterables;
 
 /**
  * Integration tests for the users controller, verifying that it can create
@@ -99,7 +99,8 @@ public class ITUserControllerCreate {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).build();
+            .apply(springSecurity())
+            .build();
     }
 
     /**
@@ -113,15 +114,17 @@ public class ITUserControllerCreate {
         final Iterable<? extends User> users; // Read users
 
         request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "password")
-                .with(csrf());
+            .param("username", "username")
+            .param("password", "password")
+            .with(csrf());
 
         mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+            .andExpect(MockMvcResultMatchers.status()
+                .isOk());
 
         users = repository.findAll();
 
-        Assertions.assertEquals(7, Iterables.size(users));
+        Assertions.assertEquals(7, IterableUtils.size(users));
     }
 
     @Test
@@ -131,11 +134,13 @@ public class ITUserControllerCreate {
         final RequestBuilder request; // Test request
 
         request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "")
-                .with(csrf());
+            .param("username", "username")
+            .param("password", "")
+            .with(csrf());
 
         mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+            .andExpect(MockMvcResultMatchers.status()
+                .is4xxClientError());
     }
 
 }

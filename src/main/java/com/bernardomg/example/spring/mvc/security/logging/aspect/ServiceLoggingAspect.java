@@ -37,7 +37,7 @@ public class ServiceLoggingAspect {
      * Logger.
      */
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(ServiceLoggingAspect.class);
+        .getLogger(ServiceLoggingAspect.class);
 
     /**
      * Default constructor.
@@ -58,8 +58,8 @@ public class ServiceLoggingAspect {
             value = "execution(* com.bernardomg.example..*Service*.*(..))",
             returning = "returnValue")
     public void afterCall(final JoinPoint joinPoint, final Object returnValue) {
-        LOGGER.trace("Called {} and returning {}",
-                joinPoint.getSignature().toShortString(), returnValue);
+        LOGGER.trace("Called {} and returning {}", joinPoint.getSignature()
+            .toShortString(), returnValue);
     }
 
     /**
@@ -71,8 +71,8 @@ public class ServiceLoggingAspect {
     @Before(value = "execution(* com.bernardomg.tabletop.painting..*Service*.*(..))",
             argNames = "joinPoint")
     public void beforeCall(final JoinPoint joinPoint) {
-        LOGGER.trace("Calling {} with arguments {}",
-                joinPoint.getSignature().toShortString(), joinPoint.getArgs());
+        LOGGER.trace("Calling {} with arguments {}", joinPoint.getSignature()
+            .toShortString(), joinPoint.getArgs());
     }
 
 }

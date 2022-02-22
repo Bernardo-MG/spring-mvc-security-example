@@ -27,8 +27,6 @@ package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,8 +37,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Iterables;
+
+import lombok.Data;
 
 /**
  * Persistent implementation of {@code Privilege}.
@@ -50,12 +48,13 @@ import com.google.common.collect.Iterables;
  */
 @Entity(name = "Privilege")
 @Table(name = "PRIVILEGES")
+@Data
 public class PersistentPrivilege implements Privilege, Serializable {
 
     /**
      * Serialization id.
      */
-    private static final long                serialVersionUID = 8513041662486312372L;
+    private static final long          serialVersionUID = 8513041662486312372L;
 
     /**
      * Entity id.
@@ -63,108 +62,25 @@ public class PersistentPrivilege implements Privilege, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                             id;
+    private Long                       id;
 
     /**
      * Authority name.
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String                           name;
+    private String                     name;
 
     /**
      * Users with the role.
      */
     @ManyToMany(mappedBy = "roles")
-    private final Collection<PersistentUser> users            = new ArrayList<>();
+    private Collection<PersistentUser> users            = new ArrayList<>();
 
     /**
      * Default constructor.
      */
     public PersistentPrivilege() {
         super();
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final PersistentPrivilege other = (PersistentPrivilege) obj;
-        return Objects.equals(name, other.name);
-    }
-
-    /**
-     * Returns the user id.
-     * 
-     * @return the user id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Returns the users with the role.
-     * 
-     * @return the users with the role
-     */
-    public Collection<PersistentUser> getUsers() {
-        return Collections.unmodifiableCollection(users);
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(name);
-    }
-
-    /**
-     * Sets the user id.
-     * 
-     * @param identifier
-     *            the new id
-     */
-    public void setId(final Long identifier) {
-        id = identifier;
-    }
-
-    /**
-     * Sets the role name.
-     * 
-     * @param role
-     *            new name
-     */
-    public void setName(final String role) {
-        name = role;
-    }
-
-    /**
-     * Sets the users with the role.
-     * 
-     * @param usrs
-     *            the users with the role
-     */
-    public void setUsers(final Collection<PersistentUser> usrs) {
-        users.clear();
-
-        Iterables.addAll(users, usrs);
-    }
-
-    @Override
-    public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

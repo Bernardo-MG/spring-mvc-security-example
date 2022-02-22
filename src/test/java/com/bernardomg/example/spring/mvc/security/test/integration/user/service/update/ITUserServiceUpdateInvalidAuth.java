@@ -84,8 +84,8 @@ public class ITUserServiceUpdateInvalidAuth {
         user.setEnabled(false);
 
         Assertions.assertThrows(
-                AuthenticationCredentialsNotFoundException.class,
-                () -> service.update(user));
+            AuthenticationCredentialsNotFoundException.class,
+            () -> service.update(user));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class ITUserServiceUpdateInvalidAuth {
         user.setEnabled(false);
 
         Assertions.assertThrows(AccessDeniedException.class,
-                () -> service.update(user));
+            () -> service.update(user));
     }
 
 }

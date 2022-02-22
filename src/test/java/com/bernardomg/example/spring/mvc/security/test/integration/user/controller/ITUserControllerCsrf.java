@@ -87,7 +87,8 @@ public class ITUserControllerCsrf {
     @BeforeEach
     public final void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(springSecurity()).build();
+            .apply(springSecurity())
+            .build();
     }
 
     /**
@@ -100,9 +101,11 @@ public class ITUserControllerCsrf {
         final RequestBuilder request; // Test request
 
         request = MockMvcRequestBuilders.post("/users/save")
-                .param("username", "username").param("password", "password");
+            .param("username", "username")
+            .param("password", "password");
 
-        mockMvc.perform(request).andExpect(status().isForbidden());
+        mockMvc.perform(request)
+            .andExpect(status().isForbidden());
     }
 
 }

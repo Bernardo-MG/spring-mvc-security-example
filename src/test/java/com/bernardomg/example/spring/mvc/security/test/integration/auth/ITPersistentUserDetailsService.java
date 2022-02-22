@@ -71,7 +71,8 @@ public class ITPersistentUserDetailsService {
         user = service.loadUserByUsername("admin");
 
         Assertions.assertEquals("admin", user.getUsername());
-        Assertions.assertFalse(user.getAuthorities().isEmpty());
+        Assertions.assertFalse(user.getAuthorities()
+            .isEmpty());
     }
 
     @Test
@@ -92,14 +93,15 @@ public class ITPersistentUserDetailsService {
         user = service.loadUserByUsername("noroles");
 
         Assertions.assertEquals("noroles", user.getUsername());
-        Assertions.assertTrue(user.getAuthorities().isEmpty());
+        Assertions.assertTrue(user.getAuthorities()
+            .isEmpty());
     }
 
     @Test
     @DisplayName("Reading a not existing user throws an exception")
     public final void testGetUser_NotExisting_Exception() {
         Assertions.assertThrows(UsernameNotFoundException.class,
-                () -> service.loadUserByUsername("abc"));
+            () -> service.loadUserByUsername("abc"));
     }
 
 }

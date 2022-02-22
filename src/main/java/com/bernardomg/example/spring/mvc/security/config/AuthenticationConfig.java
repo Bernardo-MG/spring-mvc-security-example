@@ -43,8 +43,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
-import com.bernardomg.example.spring.mvc.security.auth.service.RegisterOAuth2UserService;
 import com.bernardomg.example.spring.mvc.security.auth.service.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.auth.service.RegisterOAuth2UserService;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRoleRepository;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
@@ -90,7 +90,7 @@ public class AuthenticationConfig {
             final AuthenticationManager authenticationManager,
             final RememberMeServices rememberMeServices) {
         return new RememberMeAuthenticationFilter(authenticationManager,
-                rememberMeServices);
+            rememberMeServices);
     }
 
     @Bean("rememberMeServices")
@@ -99,7 +99,7 @@ public class AuthenticationConfig {
             final UserDetailsService userDetailsService,
             final PersistentTokenRepository tokenRepository) {
         return new PersistentTokenBasedRememberMeServices(key,
-                userDetailsService, tokenRepository);
+            userDetailsService, tokenRepository);
     }
 
     @Bean("userDetailsService")

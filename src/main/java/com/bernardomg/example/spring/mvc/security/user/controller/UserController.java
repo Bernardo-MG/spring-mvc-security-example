@@ -24,10 +24,10 @@
 
 package com.bernardomg.example.spring.mvc.security.user.controller;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -119,8 +119,8 @@ public class UserController {
     public UserController(final UserService userService) {
         super();
 
-        service = checkNotNull(userService,
-                "Received a null pointer as users service");
+        service = Objects.requireNonNull(userService,
+            "Received a null pointer as users service");
     }
 
     /**
@@ -240,8 +240,10 @@ public class UserController {
         final Collection<String> roleNames;
 
         user = service.getUser(username);
-        roleNames = user.getRoles().stream().map(Role::getName)
-                .collect(Collectors.toList());
+        roleNames = StreamSupport.stream(user.getRoles()
+            .spliterator(), false)
+            .map(Role::getName)
+            .collect(Collectors.toList());
         form.setRoles(roleNames);
 
         BeanUtils.copyProperties(user, form);
