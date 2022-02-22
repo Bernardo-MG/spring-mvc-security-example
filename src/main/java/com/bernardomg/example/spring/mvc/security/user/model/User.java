@@ -92,4 +92,68 @@ public interface User {
      */
     public String getUsername();
 
+    /**
+     * Sets the credentials expired flag.
+     * 
+     * @param flag
+     *            the credentials expired flag
+     */
+    public void setCredentialsExpired(final Boolean flag);
+
+    /**
+     * Sets the user email.
+     * 
+     * @param mail
+     *            email to set
+     */
+    public void setEmail(final String mail);
+
+    /**
+     * Sets the user enabled flag.
+     * 
+     * @param flag
+     *            the user enabled flag
+     */
+    public void setEnabled(final Boolean flag);
+
+    /**
+     * Sets the user expired flag.
+     * 
+     * @param flag
+     *            the user expired flag
+     */
+    public void setExpired(final Boolean flag);
+
+    /**
+     * Sets the user id.
+     * 
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier);
+
+    /**
+     * Sets the user locked flag.
+     * 
+     * @param flag
+     *            the user locked flag
+     */
+    public void setLocked(final Boolean flag);
+
+    /**
+     * Sets the user password.
+     * 
+     * @param pass
+     *            the user password
+     */
+    public void setPassword(final String pass);
+
+    /**
+     * Sets the user name.
+     * 
+     * @param name
+     *            the user name
+     */
+    public void setUsername(final String name);
+
 }

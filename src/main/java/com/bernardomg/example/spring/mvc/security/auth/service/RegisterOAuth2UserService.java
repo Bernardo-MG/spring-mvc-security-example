@@ -157,7 +157,7 @@ public final class RegisterOAuth2UserService
             privileges = StreamSupport.stream(user.getRoles()
                 .spliterator(), false)
                 .map(Role::getPrivileges)
-                .flatMap(Collection::stream)
+                .flatMap(p -> StreamSupport.stream(p.spliterator(), false))
                 .map(Privilege::getName)
                 .collect(Collectors.toList());
             mappedAuthorities = AuthorityUtils

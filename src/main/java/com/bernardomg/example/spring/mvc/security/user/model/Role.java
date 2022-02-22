@@ -24,7 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.user.model;
 
-import java.util.Collection;
+import com.bernardomg.example.spring.mvc.security.user.model.persistence.PersistentPrivilege;
 
 /**
  * User role. Groups a set of permissions.
@@ -33,6 +33,13 @@ import java.util.Collection;
  *
  */
 public interface Role {
+
+    /**
+     * Returns the user id.
+     * 
+     * @return the user id
+     */
+    public Long getId();
 
     /**
      * Returns the role name.
@@ -46,6 +53,30 @@ public interface Role {
      * 
      * @return the user privileges
      */
-    public Collection<? extends Privilege> getPrivileges();
+    public Iterable<? extends Privilege> getPrivileges();
+
+    /**
+     * Sets the user id.
+     * 
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier);
+
+    /**
+     * Sets the role name.
+     * 
+     * @param role
+     *            new name
+     */
+    public void setName(final String role);
+
+    /**
+     * Sets the role privileges.
+     * 
+     * @param privs
+     *            the role privileges
+     */
+    public void setPrivileges(final Iterable<PersistentPrivilege> privs);
 
 }

@@ -129,7 +129,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
         privileges = StreamSupport.stream(user.getRoles()
             .spliterator(), false)
             .map(Role::getPrivileges)
-            .flatMap(Collection::stream)
+            .flatMap(p -> StreamSupport.stream(p.spliterator(), false))
             .collect(Collectors.toList());
         LOGGER.trace("Privileges for {}: {}", user.getUsername(), privileges);
 
