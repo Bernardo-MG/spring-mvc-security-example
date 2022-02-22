@@ -79,24 +79,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Authorization
         authorizeRequestsCustomizer = c -> c
-                .antMatchers("/static/**", "/login*").permitAll().anyRequest()
-                .authenticated();
+            .antMatchers("/static/**", "/login*")
+            .permitAll()
+            .anyRequest()
+            .authenticated();
         // Login form
         formLoginCustomizer = c -> c.loginPage("/login")
-                .loginProcessingUrl("/login").defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true");
+            .loginProcessingUrl("/login")
+            .defaultSuccessUrl("/", true)
+            .failureUrl("/login?error=true");
         // Logout
         logoutCustomizer = c -> c.logoutUrl("/logout")
-                .deleteCookies("JSESSIONID").logoutSuccessUrl("/");
+            .deleteCookies("JSESSIONID")
+            .logoutSuccessUrl("/");
         // Remember me
-        rememberMeCustomizer = c -> c.tokenValiditySeconds(86400);
+        // One day
+        rememberMeCustomizer = c -> c.tokenValiditySeconds(24 * 60 * 60);
         // OAUTH2
         oauth2LoginCustomizer = c -> c.loginPage("/login");
 
         http.authorizeRequests(authorizeRequestsCustomizer)
-                .formLogin(formLoginCustomizer).logout(logoutCustomizer)
-                .rememberMe(rememberMeCustomizer)
-                .oauth2Login(oauth2LoginCustomizer);
+            .formLogin(formLoginCustomizer)
+            .logout(logoutCustomizer)
+            .rememberMe(rememberMeCustomizer)
+            .oauth2Login(oauth2LoginCustomizer);
     }
 
 }
