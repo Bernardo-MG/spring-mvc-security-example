@@ -68,7 +68,7 @@ public class ServiceLoggingAspect {
      * @param joinPoint
      *            point where the aspect is applied
      */
-    @Before(value = "execution(* com.bernardomg.tabletop.painting..*Service*.*(..))",
+    @Before(value = "execution(* com.bernardomg.example..*Service*.*(..))",
             argNames = "joinPoint")
     public void beforeCall(final JoinPoint joinPoint) {
         LOGGER.trace("Calling {} with arguments {}", joinPoint.getSignature()
