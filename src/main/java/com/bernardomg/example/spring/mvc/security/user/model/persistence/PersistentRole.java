@@ -85,12 +85,6 @@ public class PersistentRole implements Role, Serializable {
     private Collection<PersistentPrivilege> privileges       = new ArrayList<>();
 
     /**
-     * Users with the role.
-     */
-    @ManyToMany(mappedBy = "roles")
-    private Collection<PersistentUser>      users            = new ArrayList<>();
-
-    /**
      * Default constructor.
      */
     public PersistentRole() {

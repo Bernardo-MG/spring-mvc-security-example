@@ -25,15 +25,12 @@
 package com.bernardomg.example.spring.mvc.security.user.model.persistence;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.bernardomg.example.spring.mvc.security.user.model.Privilege;
@@ -54,7 +51,7 @@ public class PersistentPrivilege implements Privilege, Serializable {
     /**
      * Serialization id.
      */
-    private static final long          serialVersionUID = 8513041662486312372L;
+    private static final long serialVersionUID = 8513041662486312372L;
 
     /**
      * Entity id.
@@ -62,19 +59,13 @@ public class PersistentPrivilege implements Privilege, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long                       id;
+    private Long              id;
 
     /**
      * Authority name.
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String                     name;
-
-    /**
-     * Users with the role.
-     */
-    @ManyToMany(mappedBy = "roles")
-    private Collection<PersistentUser> users            = new ArrayList<>();
+    private String            name;
 
     /**
      * Default constructor.
