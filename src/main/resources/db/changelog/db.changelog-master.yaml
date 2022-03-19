@@ -10,7 +10,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       - sqlFile:
-          path: populate/initial.sql
+          path: populate/initial_user.sql
           encoding: UTF-8
           stripComments: true
           relativeToChangelogFile: true
