@@ -22,23 +22,44 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
+package com.bernardomg.example.spring.mvc.security.mvc.error;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Method security configuration.
+ * Controller for error views.
  *
  * @author Bernardo Mart&iacute;nez Garrido
- *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+@Controller
+public class ErrorController {
 
-    public MethodSecurityConfig() {
+    /**
+     * Default constructor.
+     */
+    public ErrorController() {
         super();
+    }
+
+    /**
+     * Shows the 404 error view.
+     *
+     * @return the 404 error view
+     */
+    @RequestMapping("/404")
+    public String show404() {
+        return "404";
+    }
+
+    /**
+     * Shows the 500 error view.
+     *
+     * @return the 500 error view
+     */
+    @RequestMapping("/500")
+    public String show500() {
+        return "500";
     }
 
 }

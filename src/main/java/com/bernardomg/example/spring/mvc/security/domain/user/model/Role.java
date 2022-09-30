@@ -22,23 +22,51 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+package com.bernardomg.example.spring.mvc.security.domain.user.model;
 
 /**
- * Method security configuration.
+ * User role. Groups a set of permissions.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+public interface Role {
 
-    public MethodSecurityConfig() {
-        super();
-    }
+    /**
+     * Returns the user id.
+     *
+     * @return the user id
+     */
+    public Long getId();
+
+    /**
+     * Returns the role name.
+     *
+     * @return the role name
+     */
+    public String getName();
+
+    /**
+     * Returns the user privileges.
+     *
+     * @return the user privileges
+     */
+    public Iterable<? extends Privilege> getPrivileges();
+
+    /**
+     * Sets the user id.
+     *
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier);
+
+    /**
+     * Sets the role name.
+     *
+     * @param role
+     *            new name
+     */
+    public void setName(final String role);
 
 }

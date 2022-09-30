@@ -43,7 +43,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 /**
  * Security configuration.
  *
- * @author Bernardo Martínez Garrido
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Configuration

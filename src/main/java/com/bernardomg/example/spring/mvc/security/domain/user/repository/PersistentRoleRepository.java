@@ -22,23 +22,29 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
+package com.bernardomg.example.spring.mvc.security.domain.user.repository;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import java.util.Collection;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
 
 /**
- * Method security configuration.
+ * Repository for user roles.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+public interface PersistentRoleRepository extends JpaRepository<PersistentRole, Long> {
 
-    public MethodSecurityConfig() {
-        super();
-    }
+    /**
+     * Returns all the roles with one of the names received.
+     *
+     * @param names
+     *            names of the roles
+     * @return roles names in the input
+     */
+    public Collection<PersistentRole> findByNameIn(final Iterable<String> names);
 
 }

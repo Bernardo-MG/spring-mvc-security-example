@@ -22,23 +22,28 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+package com.bernardomg.example.spring.mvc.security.domain.user.model.form;
 
 /**
- * Method security configuration.
+ * Represents the form used for the editing user roles.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+public interface UserRolesForm {
 
-    public MethodSecurityConfig() {
-        super();
-    }
+    /**
+     * Returns the user roles.
+     *
+     * @return the user roles
+     */
+    public Iterable<String> getRoles();
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return the username
+     */
+    public String getUsername();
 
 }

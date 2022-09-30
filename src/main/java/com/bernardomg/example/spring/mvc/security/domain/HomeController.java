@@ -22,23 +22,42 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
+package com.bernardomg.example.spring.mvc.security.domain;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Method security configuration.
+ * Controller for home view.
  *
  * @author Bernardo Mart&iacute;nez Garrido
- *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+@Controller
+@RequestMapping("/")
+public class HomeController {
 
-    public MethodSecurityConfig() {
+    /**
+     * Name for the welcome view.
+     */
+    private static final String VIEW_WELCOME = "welcome";
+
+    /**
+     * Default constructor.
+     */
+    public HomeController() {
         super();
+    }
+
+    /**
+     * Shows the welcome view.
+     *
+     * @return the welcome view
+     */
+    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
+    public String showWelcome() {
+        return VIEW_WELCOME;
     }
 
 }

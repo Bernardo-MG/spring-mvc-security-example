@@ -22,23 +22,43 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
+package com.bernardomg.example.spring.mvc.security.domain.user.repository;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import java.util.Optional;
+
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 
 /**
- * Method security configuration.
+ * Repository for users.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+public interface PersistentUserRepository extends JpaRepository<PersistentUser, Long> {
 
-    public MethodSecurityConfig() {
-        super();
-    }
+    /**
+     * Returns the user details for the received email.
+     *
+     * @param email
+     *            email to search for
+     * @return the user details for the received email
+     */
+    public Optional<PersistentUser> findOneByEmail(final String email);
+
+    /**
+     * Returns the user details for the received username.
+     *
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
+     */
+    public Optional<PersistentUser> findOneByUsername(final String username);
+
+    @Override
+    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
+    public <S extends PersistentUser> S save(S entity);
 
 }

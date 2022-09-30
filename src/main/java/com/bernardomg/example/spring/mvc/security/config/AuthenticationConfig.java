@@ -43,15 +43,15 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
-import com.bernardomg.example.spring.mvc.security.auth.service.PersistentUserDetailsService;
-import com.bernardomg.example.spring.mvc.security.auth.service.RegisterOAuth2UserService;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRoleRepository;
-import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
+import com.bernardomg.example.spring.mvc.security.auth.oauth.RegisterOAuth2UserService;
+import com.bernardomg.example.spring.mvc.security.auth.userdetails.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
+import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
 /**
  * Authentication configuration.
  *
- * @author Bernardo Martínez Garrido
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Configuration

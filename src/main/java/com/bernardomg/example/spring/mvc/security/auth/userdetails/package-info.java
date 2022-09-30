@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2020 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,23 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-
 /**
- * Method security configuration.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * User details components.
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
 
-    public MethodSecurityConfig() {
-        super();
-    }
-
-}
+package com.bernardomg.example.spring.mvc.security.auth.userdetails;

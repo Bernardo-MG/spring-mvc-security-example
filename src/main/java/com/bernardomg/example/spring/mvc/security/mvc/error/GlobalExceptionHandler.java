@@ -22,35 +22,52 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security;
+package com.bernardomg.example.spring.mvc.security.mvc.error;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 
 /**
- * Application executable. Runs a Spring Boot web application built from the project classes.
+ * Captures and handles exceptions for all the controllers.
  *
  * @author Bernardo Mart&iacute;nez Garrido
- *
  */
-@SpringBootApplication
-public class Application {
+@ControllerAdvice
+public final class GlobalExceptionHandler extends AbstractHandlerExceptionResolver {
 
     /**
-     * Executable method.
-     *
-     * @param args
-     *            application arguments
+     * Logger for the exception handler.
      */
-    public static void main(final String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * Default constructor.
      */
-    public Application() {
+    public GlobalExceptionHandler() {
         super();
+    }
+
+    @Override
+    protected ModelAndView doResolveException(final HttpServletRequest request, final HttpServletResponse response,
+            final Object handler, final Exception ex) {
+        final ModelAndView modelView;
+
+        LOGGER.error(ex.getMessage(), ex);
+
+        modelView = new ModelAndView(ErrorViews.EXCEPTION);
+        modelView.getModel()
+            .put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        modelView.getModel()
+            .put("message", ex.getMessage());
+
+        return modelView;
     }
 
 }

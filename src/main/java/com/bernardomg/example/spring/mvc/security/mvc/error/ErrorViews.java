@@ -22,22 +22,24 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+package com.bernardomg.example.spring.mvc.security.mvc.error;
 
 /**
- * Method security configuration.
+ * Views for the error controllers.
  *
  * @author Bernardo Mart&iacute;nez Garrido
- *
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
+public final class ErrorViews {
 
-    public MethodSecurityConfig() {
+    /**
+     * Name for the exception view.
+     */
+    public static final String EXCEPTION = "exception";
+
+    /**
+     * Private constructor to avoid initialization.
+     */
+    private ErrorViews() {
         super();
     }
 

@@ -21,24 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.example.spring.mvc.security.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-
 /**
- * Method security configuration.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * User repositories.
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig {
 
-    public MethodSecurityConfig() {
-        super();
-    }
-
-}
+package com.bernardomg.example.spring.mvc.security.domain.user.repository;
