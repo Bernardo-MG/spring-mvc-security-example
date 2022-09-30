@@ -29,13 +29,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 /**
  * Method security configuration.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true,
-        jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class MethodSecurityConfig {
 
     public MethodSecurityConfig() {

@@ -32,7 +32,7 @@ import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 
 /**
  * Default implementation of the user form.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -104,7 +104,7 @@ public final class DefaultUserForm implements UserForm {
 
     /**
      * Sets the enabled flag.
-     * 
+     *
      * @param flag
      *            the enabled flag
      */
@@ -114,7 +114,7 @@ public final class DefaultUserForm implements UserForm {
 
     /**
      * Sets the expired flag.
-     * 
+     *
      * @param flag
      *            the expired flag
      */
@@ -124,7 +124,7 @@ public final class DefaultUserForm implements UserForm {
 
     /**
      * Sets the locked flag.
-     * 
+     *
      * @param flag
      *            the locked flag
      */
@@ -134,7 +134,7 @@ public final class DefaultUserForm implements UserForm {
 
     /**
      * Sets the password used to authenticate the user.
-     * 
+     *
      * @param value
      *            the new password
      */
@@ -144,7 +144,7 @@ public final class DefaultUserForm implements UserForm {
 
     /**
      * Sets the username used to authenticate the user.
-     * 
+     *
      * @param value
      *            the new username
      */

@@ -45,7 +45,7 @@ import lombok.Data;
 
 /**
  * Persistent implementation of {@code Role}.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -77,11 +77,8 @@ public class PersistentRole implements Role, Serializable {
      * Granted privileges.
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ROLE_PRIVILEGES",
-            joinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id",
-                    referencedColumnName = "id"))
+    @JoinTable(name = "ROLE_PRIVILEGES", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private Collection<PersistentPrivilege> privileges       = new ArrayList<>();
 
     /**

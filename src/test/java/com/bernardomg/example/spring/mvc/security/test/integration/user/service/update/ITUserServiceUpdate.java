@@ -43,9 +43,8 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be updated.
- * 
+ * Integration tests for the persistent user service, verifying that users can be updated.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -81,8 +80,8 @@ public class ITUserServiceUpdate {
     @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
     @DisplayName("An authenticated user can create update users")
     public final void testUpdate() {
-        final DefaultUserForm user; // User to save
-        final User updated; // Updated user
+        final DefaultUserForm user;    // User to save
+        final User            updated; // Updated user
 
         user = new DefaultUserForm();
         user.setUsername("noroles");

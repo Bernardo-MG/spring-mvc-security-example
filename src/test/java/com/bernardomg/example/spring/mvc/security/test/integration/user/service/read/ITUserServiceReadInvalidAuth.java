@@ -42,9 +42,8 @@ import com.bernardomg.example.spring.mvc.security.Application;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can't
- * be read with an invalid authentication.
- * 
+ * Integration tests for the persistent user service, verifying that users can't be read with an invalid authentication.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -73,33 +72,27 @@ public class ITUserServiceReadInvalidAuth {
     @Test
     @DisplayName("Unauthenticated users can't read users")
     public final void testGetAllUsers_NoAuth_Exception() {
-        Assertions.assertThrows(
-            AuthenticationCredentialsNotFoundException.class,
-            () -> service.getAllUsers());
+        Assertions.assertThrows(AuthenticationCredentialsNotFoundException.class, () -> service.getAllUsers());
     }
 
     @Test
     @WithMockUser
     @DisplayName("Users with no privileges can't read users")
     public final void testGetAllUsers_NoPrivileges_Exception() {
-        Assertions.assertThrows(AccessDeniedException.class,
-            () -> service.getAllUsers());
+        Assertions.assertThrows(AccessDeniedException.class, () -> service.getAllUsers());
     }
 
     @Test
     @DisplayName("Unauthenticated users can't read a single user")
     public final void testGetUser_NoAuth_Exception() {
-        Assertions.assertThrows(
-            AuthenticationCredentialsNotFoundException.class,
-            () -> service.getUser("noroles"));
+        Assertions.assertThrows(AuthenticationCredentialsNotFoundException.class, () -> service.getUser("noroles"));
     }
 
     @Test
     @WithMockUser
     @DisplayName("Users with no privileges can't read a single user")
     public final void testGetUser_NoPrivileges_Exception() {
-        Assertions.assertThrows(AccessDeniedException.class,
-            () -> service.getUser("noroles"));
+        Assertions.assertThrows(AccessDeniedException.class, () -> service.getUser("noroles"));
     }
 
 }

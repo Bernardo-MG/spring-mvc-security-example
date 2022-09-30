@@ -100,8 +100,7 @@ public class ITPersistentUserDetailsService {
     @Test
     @DisplayName("Reading a not existing user throws an exception")
     public final void testGetUser_NotExisting_Exception() {
-        Assertions.assertThrows(UsernameNotFoundException.class,
-            () -> service.loadUserByUsername("abc"));
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("abc"));
     }
 
 }

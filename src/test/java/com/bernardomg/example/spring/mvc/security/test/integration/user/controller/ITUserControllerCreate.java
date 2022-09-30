@@ -53,9 +53,8 @@ import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
 /**
- * Integration tests for the users controller, verifying that it can create
- * users.
- * 
+ * Integration tests for the users controller, verifying that it can create users.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -110,8 +109,8 @@ public class ITUserControllerCreate {
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
-        final RequestBuilder request; // Test request
-        final Iterable<? extends User> users; // Read users
+        final RequestBuilder           request; // Test request
+        final Iterable<? extends User> users;   // Read users
 
         request = MockMvcRequestBuilders.post("/users/save")
             .param("username", "username")

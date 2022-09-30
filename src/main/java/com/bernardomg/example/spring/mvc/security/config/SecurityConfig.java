@@ -42,7 +42,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Security configuration.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */
@@ -64,22 +64,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
-        final Customizer<FormLoginConfigurer<HttpSecurity>> formLoginCustomizer;
-        final Customizer<LogoutConfigurer<HttpSecurity>> logoutCustomizer;
-        final Customizer<RememberMeConfigurer<HttpSecurity>> rememberMeCustomizer;
-        final Customizer<OAuth2LoginConfigurer<HttpSecurity>> oauth2LoginCustomizer;
+        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                 formLoginCustomizer;
+        final Customizer<LogoutConfigurer<HttpSecurity>>                                                    logoutCustomizer;
+        final Customizer<RememberMeConfigurer<HttpSecurity>>                                                rememberMeCustomizer;
+        final Customizer<OAuth2LoginConfigurer<HttpSecurity>>                                               oauth2LoginCustomizer;
 
         // Authorization
-        authorizeRequestsCustomizer = c -> c
-            .antMatchers("/static/**", "/login*")
+        authorizeRequestsCustomizer = c -> c.antMatchers("/static/**", "/login*")
             .permitAll()
             .anyRequest()
             .authenticated();

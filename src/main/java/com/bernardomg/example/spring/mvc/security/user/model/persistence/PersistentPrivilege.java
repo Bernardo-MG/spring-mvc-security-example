@@ -39,7 +39,7 @@ import lombok.Data;
 
 /**
  * Persistent implementation of {@code Privilege}.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */

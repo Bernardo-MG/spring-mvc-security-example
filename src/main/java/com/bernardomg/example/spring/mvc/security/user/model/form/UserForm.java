@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.user.model.form;
 
 /**
  * Represents the form used for the creating and editing users.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -34,21 +34,21 @@ public interface UserForm {
 
     /**
      * Returns the user enabled flag.
-     * 
+     *
      * @return the user enabled flag
      */
     public Boolean getEnabled();
 
     /**
      * Returns the user expired flag.
-     * 
+     *
      * @return the user expired flag
      */
     public Boolean getExpired();
 
     /**
      * Returns the user locked flag.
-     * 
+     *
      * @return the user locked flag
      */
     public Boolean getLocked();

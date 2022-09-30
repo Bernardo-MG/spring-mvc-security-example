@@ -35,7 +35,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
  * Service configuration.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */
@@ -47,8 +47,7 @@ public class ServiceConfig {
     }
 
     @Bean("userService")
-    public UserService getUserService(final PersistentUserRepository userRepo,
-            final PersistentRoleRepository roleRepo,
+    public UserService getUserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
             final PasswordEncoder passEncoder) {
         return new DefaultUserService(userRepo, roleRepo, passEncoder);
     }

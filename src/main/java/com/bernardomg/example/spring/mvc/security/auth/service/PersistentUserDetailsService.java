@@ -47,12 +47,10 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
 /**
  * User details service which takes the data from the persistence layer.
  * <p>
- * It uses a Spring repository and searches for any user detail matching the
- * received username.
+ * It uses a Spring repository and searches for any user detail matching the received username.
  * <p>
- * This search is case insensitive, as the persisted user details are expected
- * to contain the username in lower case.
- * 
+ * This search is case insensitive, as the persisted user details are expected to contain the username in lower case.
+ *
  * @author Bernardo
  *
  */
@@ -61,8 +59,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     /**
      * Logger.
      */
-    private static final Logger            LOGGER = LoggerFactory
-        .getLogger(PersistentUserDetailsService.class);
+    private static final Logger            LOGGER = LoggerFactory.getLogger(PersistentUserDetailsService.class);
 
     /**
      * Repository for the user data.
@@ -71,53 +68,49 @@ public final class PersistentUserDetailsService implements UserDetailsService {
 
     /**
      * Constructs a user details service.
-     * 
+     *
      * @param userRepository
      *            repository for user details
      */
-    public PersistentUserDetailsService(
-            final PersistentUserRepository userRepository) {
+    public PersistentUserDetailsService(final PersistentUserRepository userRepository) {
         super();
 
-        userRepo = Objects.requireNonNull(userRepository,
-            "Received a null pointer as repository");
+        userRepo = Objects.requireNonNull(userRepository, "Received a null pointer as repository");
     }
 
     @Override
-    public final UserDetails loadUserByUsername(final String username)
-            throws UsernameNotFoundException {
+    public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final Optional<PersistentUser> user;
-        final UserDetails details;
+        final UserDetails              details;
 
         LOGGER.debug("Asked for username {}", username);
 
         user = userRepo.findOneByUsername(username.toLowerCase());
 
-        if (user.isPresent()) {
-            LOGGER.debug("Username {} found in DB", username);
-            details = toUserDetails(user.get());
-        } else {
+        if (!user.isPresent()) {
             LOGGER.debug("Username {} not found in DB", username);
             throw new UsernameNotFoundException(username);
         }
+        LOGGER.debug("Username {} found in DB", username);
+        details = toUserDetails(user.get());
 
         return details;
     }
 
     /**
      * Transforms a user entity into a user details object.
-     * 
+     *
      * @param user
      *            entity to transform
      * @return equivalent user details
      */
     private final UserDetails toUserDetails(final PersistentUser user) {
-        final Boolean enabled;
-        final Boolean accountNonExpired;
-        final Boolean credentialsNonExpired;
-        final Boolean accountNonLocked;
+        final Boolean                                enabled;
+        final Boolean                                accountNonExpired;
+        final Boolean                                credentialsNonExpired;
+        final Boolean                                accountNonLocked;
         final Collection<? extends GrantedAuthority> authorities;
-        final Collection<? extends Privilege> privileges;
+        final Collection<? extends Privilege>        privileges;
 
         // Loads status
         enabled = user.getEnabled();
@@ -141,9 +134,8 @@ public final class PersistentUserDetailsService implements UserDetailsService {
             .collect(Collectors.toList());
         LOGGER.debug("Authorities for {}: {}", user.getUsername(), authorities);
 
-        return new User(user.getUsername(), user.getPassword(), enabled,
-            accountNonExpired, credentialsNonExpired, accountNonLocked,
-            authorities);
+        return new User(user.getUsername(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
+            accountNonLocked, authorities);
     }
 
 }

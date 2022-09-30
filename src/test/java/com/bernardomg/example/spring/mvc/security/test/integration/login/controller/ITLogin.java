@@ -52,7 +52,7 @@ import com.bernardomg.example.spring.mvc.security.Application;
  * Integration tests for the login procedure.
  * <p>
  * Verifies that the login URL handles login attempts.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -108,8 +108,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A disabled user fails the login")
-    public final void testLogin_DisabledUser_Unauthenticated()
-            throws Exception {
+    public final void testLogin_DisabledUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("disabled")
@@ -121,8 +120,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A user with expired credentials redirects to the login error URL")
-    public final void testLogin_ExpiredCredentials_ErrorRedirect()
-            throws Exception {
+    public final void testLogin_ExpiredCredentials_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("expCreds")
@@ -134,8 +132,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A user with expired credentials fails the login")
-    public final void testLogin_ExpiredCredentials_Unauthenticated()
-            throws Exception {
+    public final void testLogin_ExpiredCredentials_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("expCreds")
@@ -171,8 +168,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An invalid password redirects to the login error URL")
-    public final void testLogin_InvalidPassword_ErrorRedirect()
-            throws Exception {
+    public final void testLogin_InvalidPassword_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("admin")
@@ -184,8 +180,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An invalid password fails the login")
-    public final void testLogin_InvalidPassword_Unauthenticated()
-            throws Exception {
+    public final void testLogin_InvalidPassword_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
         login = formLogin().user("admin")

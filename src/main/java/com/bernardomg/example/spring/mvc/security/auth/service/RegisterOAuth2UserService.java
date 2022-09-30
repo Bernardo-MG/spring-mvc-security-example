@@ -53,20 +53,17 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentRole
 import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUserRepository;
 
 /**
- * OAUTH 2 user service linked to the DB users. It registers any new user based
- * on his email.
- * 
+ * OAUTH 2 user service linked to the DB users. It registers any new user based on his email.
+ *
  * @author Bernardo Martínez Garrido
  *
  */
-public final class RegisterOAuth2UserService
-        implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     /**
      * Logger.
      */
-    private static final Logger            LOGGER   = LoggerFactory
-        .getLogger(RegisterOAuth2UserService.class);
+    private static final Logger            LOGGER   = LoggerFactory.getLogger(RegisterOAuth2UserService.class);
 
     /**
      * Base service. Applies inheritance through composition.
@@ -85,40 +82,59 @@ public final class RegisterOAuth2UserService
 
     /**
      * Constructs a service.
-     * 
+     *
      * @param userRepo
      *            users repository
      * @param roleRepo
      *            roles repository
      */
-    public RegisterOAuth2UserService(final PersistentUserRepository userRepo,
-            final PersistentRoleRepository roleRepo) {
+    public RegisterOAuth2UserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo) {
         super();
 
-        userRepository = Objects.requireNonNull(userRepo,
-            "Received a null pointer as users repository");
-        roleRepository = Objects.requireNonNull(roleRepo,
-            "Received a null pointer as users repository");
+        userRepository = Objects.requireNonNull(userRepo, "Received a null pointer as users repository");
+        roleRepository = Objects.requireNonNull(roleRepo, "Received a null pointer as users repository");
+    }
+
+    @Override
+    public final OAuth2User loadUser(final OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        final Map<String, Object>          attributes;
+        final OAuth2AccessToken            accessToken;
+        final Collection<GrantedAuthority> mappedAuthorities;
+        final OAuth2User                   oauthuser;
+
+        oauthuser = delegate.loadUser(userRequest);
+
+        accessToken = userRequest.getAccessToken();
+        mappedAuthorities = loadUser(oauthuser);
+
+        LOGGER.debug("User {}", oauthuser);
+        LOGGER.debug("Access token {}", accessToken);
+        LOGGER.debug("Mapped authorities {}", mappedAuthorities);
+        LOGGER.debug("Attributes {}", oauthuser.getAttributes());
+        LOGGER.debug("Name {}", oauthuser.getName());
+
+        attributes = oauthuser.getAttributes();
+
+        return new DefaultOAuth2User(mappedAuthorities, attributes, "id");
     }
 
     /**
      * Loads the user and returns his authorities.
      * <p>
-     * If the user exists on DB, the the authorities are taken from it.
-     * Otherwise, the user is created with default authorities.
-     * 
+     * If the user exists on DB, the the authorities are taken from it. Otherwise, the user is created with default
+     * authorities.
+     *
      * @param oauthuser
      *            user to load
      * @return the user authorities
      */
-    private final Collection<GrantedAuthority>
-            loadUser(final OAuth2User oauthuser) {
+    private final Collection<GrantedAuthority> loadUser(final OAuth2User oauthuser) {
         final Collection<GrantedAuthority> mappedAuthorities;
-        final Optional<PersistentUser> userOpt;
-        final PersistentUser user;
-        final String email;
-        final Collection<PersistentRole> roles;
-        final Collection<String> privileges;
+        final Optional<PersistentUser>     userOpt;
+        final PersistentUser               user;
+        final String                       email;
+        final Collection<PersistentRole>   roles;
+        final Collection<String>           privileges;
 
         // TODO: What if somebody creates a fake account with the email? Is it
         // possible?
@@ -131,8 +147,7 @@ public final class RegisterOAuth2UserService
                 LOGGER.trace("Found user for email {}", email);
                 user = userOpt.get();
             } else {
-                LOGGER.debug("No user found for email {}. Creating new user",
-                    email);
+                LOGGER.debug("No user found for email {}. Creating new user", email);
                 user = new PersistentUser();
                 if (oauthuser.getAttributes()
                     .containsKey("name")) {
@@ -140,9 +155,7 @@ public final class RegisterOAuth2UserService
                         .get("name")
                         .toString());
                 } else {
-                    LOGGER.warn(
-                        "OAUTH user {} is missing name field, applying email as name",
-                        oauthuser.getName());
+                    LOGGER.warn("OAUTH user {} is missing name field, applying email as name", oauthuser.getName());
                     user.setUsername(email);
                 }
                 user.setEmail(email);
@@ -160,39 +173,13 @@ public final class RegisterOAuth2UserService
                 .flatMap(p -> StreamSupport.stream(p.spliterator(), false))
                 .map(Privilege::getName)
                 .collect(Collectors.toList());
-            mappedAuthorities = AuthorityUtils
-                .createAuthorityList(privileges.toArray(new String[] {}));
+            mappedAuthorities = AuthorityUtils.createAuthorityList(privileges.toArray(new String[] {}));
         } else {
-            LOGGER.warn("OAUTH user {} is missing email attribute",
-                oauthuser.getName());
+            LOGGER.warn("OAUTH user {} is missing email attribute", oauthuser.getName());
             mappedAuthorities = Collections.emptyList();
         }
 
         return mappedAuthorities;
-    }
-
-    @Override
-    public OAuth2User loadUser(final OAuth2UserRequest userRequest)
-            throws OAuth2AuthenticationException {
-        final Map<String, Object> attributes;
-        final OAuth2AccessToken accessToken;
-        final Collection<GrantedAuthority> mappedAuthorities;
-        final OAuth2User oauthuser;
-
-        oauthuser = delegate.loadUser(userRequest);
-
-        accessToken = userRequest.getAccessToken();
-        mappedAuthorities = loadUser(oauthuser);
-
-        LOGGER.debug("User {}", oauthuser);
-        LOGGER.debug("Access token {}", accessToken);
-        LOGGER.debug("Mapped authorities {}", mappedAuthorities);
-        LOGGER.debug("Attributes {}", oauthuser.getAttributes());
-        LOGGER.debug("Name {}", oauthuser.getName());
-
-        attributes = oauthuser.getAttributes();
-
-        return new DefaultOAuth2User(mappedAuthorities, attributes, "id");
     }
 
 }

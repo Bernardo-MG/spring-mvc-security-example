@@ -24,8 +24,7 @@
 /**
  * Spring MVC with applied security sample.
  * <p>
- * The executable class is contained at this root package, to scan all those
- * above it.
+ * The executable class is contained at this root package, to scan all those above it.
  */
 
 package com.bernardomg.example.spring.mvc.security;

@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.controller.error;
 
 /**
  * Views for the error controllers.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public final class ErrorViews {

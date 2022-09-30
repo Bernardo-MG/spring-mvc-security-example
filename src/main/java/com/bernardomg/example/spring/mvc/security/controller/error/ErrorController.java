@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller for error views.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
@@ -44,7 +44,7 @@ public class ErrorController {
 
     /**
      * Shows the 404 error view.
-     * 
+     *
      * @return the 404 error view
      */
     @RequestMapping("/404")
@@ -54,7 +54,7 @@ public class ErrorController {
 
     /**
      * Shows the 500 error view.
-     * 
+     *
      * @return the 500 error view
      */
     @RequestMapping("/500")

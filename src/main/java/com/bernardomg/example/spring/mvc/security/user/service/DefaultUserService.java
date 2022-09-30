@@ -45,7 +45,7 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
 
 /**
  * Users service based on {@link PersistentUser} and Spring classes.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -54,8 +54,7 @@ public final class DefaultUserService implements UserService {
     /**
      * Logger.
      */
-    private static final Logger            LOGGER = LoggerFactory
-        .getLogger(DefaultUserService.class);
+    private static final Logger            LOGGER = LoggerFactory.getLogger(DefaultUserService.class);
 
     /**
      * Password encoder.
@@ -74,7 +73,7 @@ public final class DefaultUserService implements UserService {
 
     /**
      * Default constructor.
-     * 
+     *
      * @param userRepo
      *            users repository
      * @param roleRepo
@@ -82,23 +81,19 @@ public final class DefaultUserService implements UserService {
      * @param passEncoder
      *            password encoder
      */
-    public DefaultUserService(final PersistentUserRepository userRepo,
-            final PersistentRoleRepository roleRepo,
+    public DefaultUserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
             final PasswordEncoder passEncoder) {
         super();
 
-        userRepository = Objects.requireNonNull(userRepo,
-            "Received a null pointer as users repository");
-        roleRepository = Objects.requireNonNull(roleRepo,
-            "Received a null pointer as roles repository");
-        passwordEncoder = Objects.requireNonNull(passEncoder,
-            "Received a null pointer as password encoder");
+        userRepository = Objects.requireNonNull(userRepo, "Received a null pointer as users repository");
+        roleRepository = Objects.requireNonNull(roleRepo, "Received a null pointer as roles repository");
+        passwordEncoder = Objects.requireNonNull(passEncoder, "Received a null pointer as password encoder");
     }
 
     @Override
     public final void create(final UserForm user) {
         final PersistentUser entity;
-        final String encodedPassword;
+        final String         encodedPassword;
 
         Objects.requireNonNull(user);
 
@@ -140,7 +135,7 @@ public final class DefaultUserService implements UserService {
     @Cacheable("user")
     public final User getUser(final String username) {
         final Optional<PersistentUser> read;
-        final User user;
+        final User                     user;
 
         Objects.requireNonNull(username);
 
@@ -160,7 +155,7 @@ public final class DefaultUserService implements UserService {
     @Override
     public final void update(final UserForm user) {
         final PersistentUser entity;
-        final String encodedPassword;
+        final String         encodedPassword;
 
         Objects.requireNonNull(user);
 
@@ -184,8 +179,8 @@ public final class DefaultUserService implements UserService {
     @Override
     public final void updateRoles(final UserRolesForm userRoles) {
         final Collection<PersistentRole> roles;
-        final Optional<PersistentUser> read;
-        final PersistentUser user;
+        final Optional<PersistentUser>   read;
+        final PersistentUser             user;
 
         Objects.requireNonNull(userRoles);
 

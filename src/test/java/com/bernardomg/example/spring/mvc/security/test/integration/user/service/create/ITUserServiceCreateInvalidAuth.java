@@ -43,9 +43,9 @@ import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserFor
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can't
- * be created with an invalid authentication.
- * 
+ * Integration tests for the persistent user service, verifying that users can't be created with an invalid
+ * authentication.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -82,9 +82,7 @@ public class ITUserServiceCreateInvalidAuth {
         user.setUsername("username");
         user.setPassword("password");
 
-        Assertions.assertThrows(
-            AuthenticationCredentialsNotFoundException.class,
-            () -> service.create(user));
+        Assertions.assertThrows(AuthenticationCredentialsNotFoundException.class, () -> service.create(user));
     }
 
     @Test
@@ -97,8 +95,7 @@ public class ITUserServiceCreateInvalidAuth {
         user.setUsername("username");
         user.setPassword("password");
 
-        Assertions.assertThrows(AccessDeniedException.class,
-            () -> service.create(user));
+        Assertions.assertThrows(AccessDeniedException.class, () -> service.create(user));
     }
 
 }

@@ -33,16 +33,15 @@ import com.bernardomg.example.spring.mvc.security.user.model.persistence.Persist
 
 /**
  * Repository for users.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface PersistentUserRepository
-        extends JpaRepository<PersistentUser, Long> {
+public interface PersistentUserRepository extends JpaRepository<PersistentUser, Long> {
 
     /**
      * Returns the user details for the received email.
-     * 
+     *
      * @param email
      *            email to search for
      * @return the user details for the received email
@@ -51,7 +50,7 @@ public interface PersistentUserRepository
 
     /**
      * Returns the user details for the received username.
-     * 
+     *
      * @param username
      *            username to search for
      * @return the user details for the received username

@@ -49,7 +49,7 @@ import com.bernardomg.example.spring.mvc.security.Application;
 
 /**
  * Integration tests for the users controller, verifying that it handles CSRF.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */

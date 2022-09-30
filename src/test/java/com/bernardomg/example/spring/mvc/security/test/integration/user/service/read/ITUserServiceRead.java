@@ -46,9 +46,8 @@ import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be read.
- * 
+ * Integration tests for the persistent user service, verifying that users can be read.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -102,16 +101,16 @@ public class ITUserServiceRead {
     @Sql("/db/populate/full.sql")
     public void testGetAllUsers_Privileges() {
         final Iterable<? extends User> users;
-        final User user;
-        final Role role;
-        final Privilege privilege;
+        final User                     user;
+        final Role                     role;
+        final Privilege                privilege;
 
         users = service.getAllUsers();
 
         // Finds the admin
         user = StreamSupport.stream(users.spliterator(), false)
-            .filter((u) -> u.getUsername()
-                .equals("admin"))
+            .filter((u) -> "admin"
+                .equals(u.getUsername()))
             .findFirst()
             .get();
 

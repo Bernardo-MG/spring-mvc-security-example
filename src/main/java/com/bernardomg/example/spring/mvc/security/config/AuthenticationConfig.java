@@ -50,7 +50,7 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
 
 /**
  * Authentication configuration.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */
@@ -62,8 +62,7 @@ public class AuthenticationConfig {
     }
 
     @Bean("jdbcTokenRepository")
-    public PersistentTokenRepository
-            getJdbcTokenRepository(final DataSource dataSource) {
+    public PersistentTokenRepository getJdbcTokenRepository(final DataSource dataSource) {
         final JdbcTokenRepositoryImpl repo;
 
         repo = new JdbcTokenRepositoryImpl();
@@ -75,8 +74,7 @@ public class AuthenticationConfig {
 
     @Bean("oAuth2UserService")
     public OAuth2UserService<OAuth2UserRequest, OAuth2User>
-            getOAuth2UserService(final PersistentUserRepository userRepo,
-                    final PersistentRoleRepository roleRepo) {
+            getOAuth2UserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo) {
         return new RegisterOAuth2UserService(userRepo, roleRepo);
     }
 
@@ -86,25 +84,19 @@ public class AuthenticationConfig {
     }
 
     @Bean("rememberMeFilter")
-    public Filter getRememberMeFilter(
-            final AuthenticationManager authenticationManager,
+    public Filter getRememberMeFilter(final AuthenticationManager authenticationManager,
             final RememberMeServices rememberMeServices) {
-        return new RememberMeAuthenticationFilter(authenticationManager,
-            rememberMeServices);
+        return new RememberMeAuthenticationFilter(authenticationManager, rememberMeServices);
     }
 
     @Bean("rememberMeServices")
-    public RememberMeServices getRememberMeServices(
-            @Value("${rememberme.key}") final String key,
-            final UserDetailsService userDetailsService,
-            final PersistentTokenRepository tokenRepository) {
-        return new PersistentTokenBasedRememberMeServices(key,
-            userDetailsService, tokenRepository);
+    public RememberMeServices getRememberMeServices(@Value("${rememberme.key}") final String key,
+            final UserDetailsService userDetailsService, final PersistentTokenRepository tokenRepository) {
+        return new PersistentTokenBasedRememberMeServices(key, userDetailsService, tokenRepository);
     }
 
     @Bean("userDetailsService")
-    public UserDetailsService getUserDetailsService(
-            final PersistentUserRepository userRepository) {
+    public UserDetailsService getUserDetailsService(final PersistentUserRepository userRepository) {
         return new PersistentUserDetailsService(userRepository);
     }
 

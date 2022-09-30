@@ -42,9 +42,8 @@ import com.bernardomg.example.spring.mvc.security.user.model.form.DefaultUserFor
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that invalid
- * users are rejected.
- * 
+ * Integration tests for the persistent user service, verifying that invalid users are rejected.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -82,8 +81,7 @@ public class ITUserServiceCreateInvalid {
         user.setUsername("admin");
         user.setPassword("password");
 
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-            () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(user));
     }
 
     @Test
@@ -96,8 +94,7 @@ public class ITUserServiceCreateInvalid {
         user.setUsername(null);
         user.setPassword("password");
 
-        Assertions.assertThrows(DataIntegrityViolationException.class,
-            () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(user));
     }
 
 }

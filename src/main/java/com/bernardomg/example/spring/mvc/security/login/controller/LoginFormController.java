@@ -34,12 +34,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Controller for the login view.
  * <p>
- * It takes care of setting up the view for the login form. But it doesn't
- * handle the login procedure, that is taken care by Spring security.
+ * It takes care of setting up the view for the login form. But it doesn't handle the login procedure, that is taken
+ * care by Spring security.
  * <p>
- * The template engine will take care of building the login page, but the
- * controller will receive, and send to the view, the error flag.
- * 
+ * The template engine will take care of building the login page, but the controller will receive, and send to the view,
+ * the error flag.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
@@ -57,10 +57,9 @@ public class LoginFormController {
     /**
      * Shows the login form.
      * <p>
-     * It also handles the boolean parameter which indicates if there was an
-     * error during login. This parameter is sent to the view, which will show a
-     * warning.
-     * 
+     * It also handles the boolean parameter which indicates if there was an error during login. This parameter is sent
+     * to the view, which will show a warning.
+     *
      * @param model
      *            data model
      * @param error
@@ -68,8 +67,8 @@ public class LoginFormController {
      * @return the login form view
      */
     @GetMapping
-    public String showForm(final Model model, @RequestParam(name = "error",
-            required = false, defaultValue = "false") final Boolean error) {
+    public String showForm(final Model model,
+            @RequestParam(name = "error", required = false, defaultValue = "false") final Boolean error) {
 
         // Adds the error status
         model.addAttribute("error", error);

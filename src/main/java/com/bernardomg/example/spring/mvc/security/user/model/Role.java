@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.user.model;
 
 /**
  * User role. Groups a set of permissions.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -34,28 +34,28 @@ public interface Role {
 
     /**
      * Returns the user id.
-     * 
+     *
      * @return the user id
      */
     public Long getId();
 
     /**
      * Returns the role name.
-     * 
+     *
      * @return the role name
      */
     public String getName();
 
     /**
      * Returns the user privileges.
-     * 
+     *
      * @return the user privileges
      */
     public Iterable<? extends Privilege> getPrivileges();
 
     /**
      * Sets the user id.
-     * 
+     *
      * @param identifier
      *            the new id
      */
@@ -63,7 +63,7 @@ public interface Role {
 
     /**
      * Sets the role name.
-     * 
+     *
      * @param role
      *            new name
      */

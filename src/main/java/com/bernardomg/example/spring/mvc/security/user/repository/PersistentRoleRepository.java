@@ -32,21 +32,19 @@ import com.bernardomg.example.spring.mvc.security.user.model.persistence.Persist
 
 /**
  * Repository for user roles.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface PersistentRoleRepository
-        extends JpaRepository<PersistentRole, Long> {
+public interface PersistentRoleRepository extends JpaRepository<PersistentRole, Long> {
 
     /**
      * Returns all the roles with one of the names received.
-     * 
+     *
      * @param names
      *            names of the roles
      * @return roles names in the input
      */
-    public Collection<PersistentRole>
-            findByNameIn(final Iterable<String> names);
+    public Collection<PersistentRole> findByNameIn(final Iterable<String> names);
 
 }

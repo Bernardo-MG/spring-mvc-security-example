@@ -29,7 +29,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * Aspects configuration.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */

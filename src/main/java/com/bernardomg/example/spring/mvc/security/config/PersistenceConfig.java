@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Persistence configuration.
- * 
+ *
  * @author Bernardo Martínez Garrido
  *
  */

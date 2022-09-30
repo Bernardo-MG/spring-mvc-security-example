@@ -57,7 +57,7 @@ import com.bernardomg.example.spring.mvc.security.validation.group.Update;
  * Secured controller.
  * <p>
  * It makes use of role-based security.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
@@ -111,7 +111,7 @@ public class UserController {
 
     /**
      * Constructs a login controller.
-     * 
+     *
      * @param userService
      *            users service
      */
@@ -119,13 +119,12 @@ public class UserController {
     public UserController(final UserService userService) {
         super();
 
-        service = Objects.requireNonNull(userService,
-            "Received a null pointer as users service");
+        service = Objects.requireNonNull(userService, "Received a null pointer as users service");
     }
 
     /**
      * Returns the initial user form data.
-     * 
+     *
      * @return the initial user form data
      */
     @ModelAttribute(PARAM_USER_FORM)
@@ -135,7 +134,7 @@ public class UserController {
 
     /**
      * Returns the initial user roles form data.
-     * 
+     *
      * @return the initial user roles form data
      */
     @ModelAttribute(PARAM_ROLES_FORM)
@@ -145,7 +144,7 @@ public class UserController {
 
     /**
      * Persists a user.
-     * 
+     *
      * @param model
      *            model map
      * @param form
@@ -159,8 +158,7 @@ public class UserController {
     @PostMapping("/save")
     public String saveUser(final ModelMap model,
             @ModelAttribute(PARAM_USER_FORM) @Validated(Creation.class) final DefaultUserForm form,
-            final BindingResult bindingResult,
-            final HttpServletResponse response) {
+            final BindingResult bindingResult, final HttpServletResponse response) {
         final String path;
 
         if (bindingResult.hasErrors()) {
@@ -181,9 +179,8 @@ public class UserController {
     }
 
     /**
-     * Shows the user creation view. This is done by returning the name of the
-     * view.
-     * 
+     * Shows the user creation view. This is done by returning the name of the view.
+     *
      * @return the name for the entity edition view
      */
     @GetMapping(path = "/create")
@@ -192,9 +189,8 @@ public class UserController {
     }
 
     /**
-     * Shows the user edition view. This is done by returning the name of the
-     * view.
-     * 
+     * Shows the user edition view. This is done by returning the name of the view.
+     *
      * @param username
      *            username of the user to edit
      * @param form
@@ -204,10 +200,8 @@ public class UserController {
      * @return the name for the user edition view
      */
     @GetMapping(path = "/edit/{username}")
-    public String showUserEdition(
-            @PathVariable("username") final String username,
-            @ModelAttribute(PARAM_USER_FORM) final DefaultUserForm form,
-            final ModelMap model) {
+    public String showUserEdition(@PathVariable("username") final String username,
+            @ModelAttribute(PARAM_USER_FORM) final DefaultUserForm form, final ModelMap model) {
         final User user;
 
         user = service.getUser(username);
@@ -219,9 +213,8 @@ public class UserController {
     }
 
     /**
-     * Shows the user role edition view. This is done by returning the name of
-     * the view.
-     * 
+     * Shows the user role edition view. This is done by returning the name of the view.
+     *
      * @param username
      *            username of the user to edit
      * @param form
@@ -231,13 +224,11 @@ public class UserController {
      * @return the name for the user role edition view
      */
     @GetMapping(path = "/roles/edit/{username}")
-    public String showUserRoleEdition(
-            @PathVariable("username") final String username,
-            @ModelAttribute(PARAM_ROLES_FORM) final DefaultUserRolesForm form,
-            final ModelMap model) {
-        final User user;
+    public String showUserRoleEdition(@PathVariable("username") final String username,
+            @ModelAttribute(PARAM_ROLES_FORM) final DefaultUserRolesForm form, final ModelMap model) {
+        final User                     user;
         final Iterable<? extends Role> roles;
-        final Collection<String> roleNames;
+        final Collection<String>       roleNames;
 
         user = service.getUser(username);
         roleNames = StreamSupport.stream(user.getRoles()
@@ -258,9 +249,8 @@ public class UserController {
     }
 
     /**
-     * Shows a page with all the users. This is done by returning the name of
-     * the view.
-     * 
+     * Shows a page with all the users. This is done by returning the name of the view.
+     *
      * @param model
      *            data model
      * @return the admin view
@@ -274,7 +264,7 @@ public class UserController {
 
     /**
      * Updates a user.
-     * 
+     *
      * @param model
      *            model map
      * @param form
@@ -288,8 +278,7 @@ public class UserController {
     @PostMapping("/update")
     public String updateUser(final ModelMap model,
             @ModelAttribute(PARAM_USER_FORM) @Validated(Update.class) final DefaultUserForm form,
-            final BindingResult bindingResult,
-            final HttpServletResponse response) {
+            final BindingResult bindingResult, final HttpServletResponse response) {
         final String path;
 
         if (bindingResult.hasErrors()) {
@@ -311,7 +300,7 @@ public class UserController {
 
     /**
      * Updates the roles list for a user.
-     * 
+     *
      * @param model
      *            model map
      * @param form
@@ -325,8 +314,7 @@ public class UserController {
     @PostMapping("/roles/update")
     public String updateUserRoles(final ModelMap model,
             @ModelAttribute(PARAM_ROLES_FORM) @Validated final DefaultUserRolesForm form,
-            final BindingResult bindingResult,
-            final HttpServletResponse response) {
+            final BindingResult bindingResult, final HttpServletResponse response) {
         final String path;
 
         if (bindingResult.hasErrors()) {

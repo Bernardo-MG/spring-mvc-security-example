@@ -42,7 +42,7 @@ import com.bernardomg.example.spring.mvc.security.user.service.UserService;
  * Integration tests for the secured URLs.
  * <p>
  * Verifies that URLs are secured against anonymous access.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -59,19 +59,6 @@ public final class TestUserControllerCreate {
      */
     public TestUserControllerCreate() {
         super();
-    }
-
-    /**
-     * Returns a controller with mocked dependencies.
-     * 
-     * @return a mocked controller
-     */
-    private final UserController getController() {
-        final UserService service; // Mocked service
-
-        service = Mockito.mock(UserService.class);
-
-        return new UserController(service);
     }
 
     /**
@@ -94,6 +81,19 @@ public final class TestUserControllerCreate {
             .param("password", "password");
 
         mockMvc.perform(request);
+    }
+
+    /**
+     * Returns a controller with mocked dependencies.
+     *
+     * @return a mocked controller
+     */
+    private final UserController getController() {
+        final UserService service; // Mocked service
+
+        service = Mockito.mock(UserService.class);
+
+        return new UserController(service);
     }
 
 }

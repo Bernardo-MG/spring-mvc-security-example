@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Logging aspect for services. Will log arguments and returned values.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Component
@@ -36,8 +36,7 @@ public class ServiceLoggingAspect {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(ServiceLoggingAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceLoggingAspect.class);
 
     /**
      * Default constructor.
@@ -48,15 +47,13 @@ public class ServiceLoggingAspect {
 
     /**
      * Logs the returned value after the method is called.
-     * 
+     *
      * @param joinPoint
      *            point where the aspect is applied
      * @param returnValue
      *            returned value
      */
-    @AfterReturning(
-            value = "execution(* com.bernardomg.example..*Service*.*(..))",
-            returning = "returnValue")
+    @AfterReturning(value = "execution(* com.bernardomg.example..*Service*.*(..))", returning = "returnValue")
     public void afterCall(final JoinPoint joinPoint, final Object returnValue) {
         LOGGER.trace("Called {} and returning {}", joinPoint.getSignature()
             .toShortString(), returnValue);
@@ -64,12 +61,11 @@ public class ServiceLoggingAspect {
 
     /**
      * Logs the received arguments before the method is called.
-     * 
+     *
      * @param joinPoint
      *            point where the aspect is applied
      */
-    @Before(value = "execution(* com.bernardomg.example..*Service*.*(..))",
-            argNames = "joinPoint")
+    @Before(value = "execution(* com.bernardomg.example..*Service*.*(..))", argNames = "joinPoint")
     public void beforeCall(final JoinPoint joinPoint) {
         LOGGER.trace("Calling {} with arguments {}", joinPoint.getSignature()
             .toShortString(), joinPoint.getArgs());

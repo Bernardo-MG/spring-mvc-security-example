@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.validation.group;
 
 /**
  * Interface marking the validation group to use when creating data.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */

@@ -41,9 +41,8 @@ import com.bernardomg.example.spring.mvc.security.user.model.User;
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that invalid
- * users can't be read.
- * 
+ * Integration tests for the persistent user service, verifying that invalid users can't be read.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */

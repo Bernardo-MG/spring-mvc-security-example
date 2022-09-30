@@ -34,7 +34,7 @@ import com.bernardomg.example.spring.mvc.security.user.model.form.UserRolesForm;
 
 /**
  * Service for handling user data.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -42,9 +42,8 @@ import com.bernardomg.example.spring.mvc.security.user.model.form.UserRolesForm;
 public interface UserService {
 
     /**
-     * Persists the received user. If it already exists then the user is
-     * invalid.
-     * 
+     * Persists the received user. If it already exists then the user is invalid.
+     *
      * @param user
      *            user to create
      */
@@ -53,7 +52,7 @@ public interface UserService {
 
     /**
      * Returns all the roles in the application.
-     * 
+     *
      * @return all the roles
      */
     @PreAuthorize("hasAuthority('READ_USER')")
@@ -61,7 +60,7 @@ public interface UserService {
 
     /**
      * Returns all the users in the application.
-     * 
+     *
      * @return all the users
      */
     @PreAuthorize("hasAuthority('READ_USER')")
@@ -69,7 +68,7 @@ public interface UserService {
 
     /**
      * Returns the user with the received username.
-     * 
+     *
      * @param username
      *            username of the user to search
      * @return user for the received username
@@ -78,9 +77,8 @@ public interface UserService {
     public User getUser(final String username);
 
     /**
-     * Updates the received user. The user is only valid if it doesn't exist
-     * already.
-     * 
+     * Updates the received user. The user is only valid if it doesn't exist already.
+     *
      * @param user
      *            user to update
      */
@@ -89,7 +87,7 @@ public interface UserService {
 
     /**
      * Updates the roles for the received user.
-     * 
+     *
      * @param userRoles
      *            user and roles to update
      */

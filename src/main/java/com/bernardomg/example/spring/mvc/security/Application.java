@@ -28,9 +28,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Application executable. Runs a Spring Boot web application built from the
- * project classes.
- * 
+ * Application executable. Runs a Spring Boot web application built from the project classes.
+ *
  * @author Bernardo Martínez Garrido
  *
  */
@@ -39,7 +38,7 @@ public class Application {
 
     /**
      * Executable method.
-     * 
+     *
      * @param args
      *            application arguments
      */

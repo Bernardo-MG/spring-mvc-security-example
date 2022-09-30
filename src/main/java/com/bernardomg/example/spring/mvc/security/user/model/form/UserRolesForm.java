@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.user.model.form;
 
 /**
  * Represents the form used for the editing user roles.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -34,7 +34,7 @@ public interface UserRolesForm {
 
     /**
      * Returns the user roles.
-     * 
+     *
      * @return the user roles
      */
     public Iterable<String> getRoles();

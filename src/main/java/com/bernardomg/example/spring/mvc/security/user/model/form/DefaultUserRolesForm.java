@@ -34,7 +34,7 @@ import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 
 /**
  * Default implementation of the user roles form.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -72,7 +72,7 @@ public final class DefaultUserRolesForm implements UserRolesForm {
 
     /**
      * Sets the user roles.
-     * 
+     *
      * @param rls
      *            the user roles
      */
@@ -82,7 +82,7 @@ public final class DefaultUserRolesForm implements UserRolesForm {
 
     /**
      * Sets the username used to authenticate the user.
-     * 
+     *
      * @param value
      *            the new username
      */

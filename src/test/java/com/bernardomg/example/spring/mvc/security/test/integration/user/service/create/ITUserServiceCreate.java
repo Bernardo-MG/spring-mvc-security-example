@@ -44,9 +44,8 @@ import com.bernardomg.example.spring.mvc.security.user.repository.PersistentUser
 import com.bernardomg.example.spring.mvc.security.user.service.UserService;
 
 /**
- * Integration tests for the persistent user service, verifying that users can
- * be created.
- * 
+ * Integration tests for the persistent user service, verifying that users can be created.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -82,7 +81,7 @@ public class ITUserServiceCreate {
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() {
-        final DefaultUserForm user; // User to save
+        final DefaultUserForm          user;  // User to save
         final Iterable<? extends User> users; // Read users
 
         user = new DefaultUserForm();

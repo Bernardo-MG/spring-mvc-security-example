@@ -45,7 +45,7 @@ import lombok.Data;
 
 /**
  * Persistent implementation of {@code User}.
- * 
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
@@ -108,11 +108,8 @@ public class PersistentUser implements User {
      * Granted roles.
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_ROLES",
-            joinColumns = @JoinColumn(name = "user_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "id"))
+    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<PersistentRole> roles              = new ArrayList<>();
 
     /**
