@@ -34,21 +34,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.bernardomg.example.spring.mvc.security.Application;
+import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.MvcIntegrationTest;
 
-@SpringJUnitConfig
-@WebAppConfiguration
-@SpringBootTest(classes = Application.class)
-@ActiveProfiles("test")
+@MvcIntegrationTest
 @DisplayName("Requests with CSRF")
 public final class ITCsrf {
 

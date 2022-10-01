@@ -31,21 +31,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.bernardomg.example.spring.mvc.security.Application;
+import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.MvcIntegrationTest;
 
 /**
  * Integration tests for the users controller, verifying that it handles CSRF.
@@ -53,13 +47,8 @@ import com.bernardomg.example.spring.mvc.security.Application;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@SpringJUnitConfig
-@WebAppConfiguration
-@Transactional
-@Rollback
+@MvcIntegrationTest
 @Sql("/db/populate/full.sql")
-@SpringBootTest(classes = Application.class)
-@ActiveProfiles("test")
 @DisplayName("Requests with CSRF on the user controller")
 public class ITUserControllerCsrf {
 

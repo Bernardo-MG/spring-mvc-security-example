@@ -29,19 +29,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.Application;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
+import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.IntegrationTest;
 
 /**
  * Integration tests for the persistent user service, verifying that users can be created.
@@ -49,12 +44,8 @@ import com.bernardomg.example.spring.mvc.security.domain.user.service.UserServic
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@SpringJUnitConfig
-@Transactional
-@Rollback
+@IntegrationTest
 @Sql("/db/populate/full.sql")
-@SpringBootTest(classes = Application.class)
-@ActiveProfiles("test")
 @DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 
