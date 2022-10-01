@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,54 +22,57 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
 import lombok.Data;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * Dto implementation of {@code User}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "PRIVILEGES")
 @Data
-public class PersistentPrivilege implements Serializable {
+public class DtoUser implements User {
 
     /**
-     * Serialization id.
+     * User expired flag.
      */
-    private static final long serialVersionUID = 8513041662486312372L;
+    private Boolean credentialsExpired = false;
+
+    /**
+     * User email.
+     */
+    private String  email;
+
+    /**
+     * User enabled flag.
+     */
+    private Boolean enabled            = true;
+
+    /**
+     * User expired flag.
+     */
+    private Boolean expired            = false;
 
     /**
      * Entity id.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
+    private Long    id;
 
     /**
-     * Authority name.
+     * User locked flag.
      */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
+    private Boolean locked             = false;
 
     /**
-     * Default constructor.
+     * User password.
      */
-    public PersistentPrivilege() {
-        super();
-    }
+    private String  password;
+
+    /**
+     * User name.
+     */
+    private String  username;
 
 }

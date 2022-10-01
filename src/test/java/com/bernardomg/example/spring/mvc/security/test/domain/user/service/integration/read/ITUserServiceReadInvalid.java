@@ -37,7 +37,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.Application;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 
 /**
@@ -72,7 +72,7 @@ public class ITUserServiceReadInvalid {
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("A single not existing user can't be read")
     public final void testGetUser_NotExisting() {
-        final User user; // Read user
+        final PersistentUser user; // Read user
 
         user = service.getUser("abc");
 

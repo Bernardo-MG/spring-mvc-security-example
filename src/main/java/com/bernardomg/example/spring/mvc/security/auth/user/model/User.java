@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
 /**
  * User, and all its authentication data.
@@ -65,6 +65,13 @@ public interface User {
     public Boolean getExpired();
 
     /**
+     * Returns the user id.
+     *
+     * @return the user id
+     */
+    public Long getId();
+
+    /**
      * Returns the user locked flag.
      *
      * @return the user locked flag
@@ -79,81 +86,10 @@ public interface User {
     public String getPassword();
 
     /**
-     * Returns the user roles.
-     *
-     * @return the user roles
-     */
-    public Iterable<? extends Role> getRoles();
-
-    /**
      * Returns the user username.
      *
      * @return the user username
      */
     public String getUsername();
-
-    /**
-     * Sets the credentials expired flag.
-     *
-     * @param flag
-     *            the credentials expired flag
-     */
-    public void setCredentialsExpired(final Boolean flag);
-
-    /**
-     * Sets the user email.
-     *
-     * @param mail
-     *            email to set
-     */
-    public void setEmail(final String mail);
-
-    /**
-     * Sets the user enabled flag.
-     *
-     * @param flag
-     *            the user enabled flag
-     */
-    public void setEnabled(final Boolean flag);
-
-    /**
-     * Sets the user expired flag.
-     *
-     * @param flag
-     *            the user expired flag
-     */
-    public void setExpired(final Boolean flag);
-
-    /**
-     * Sets the user id.
-     *
-     * @param identifier
-     *            the new id
-     */
-    public void setId(final Long identifier);
-
-    /**
-     * Sets the user locked flag.
-     *
-     * @param flag
-     *            the user locked flag
-     */
-    public void setLocked(final Boolean flag);
-
-    /**
-     * Sets the user password.
-     *
-     * @param pass
-     *            the user password
-     */
-    public void setPassword(final String pass);
-
-    /**
-     * Sets the user name.
-     *
-     * @param name
-     *            the user name
-     */
-    public void setUsername(final String name);
 
 }

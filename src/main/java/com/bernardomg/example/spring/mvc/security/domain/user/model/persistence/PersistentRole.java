@@ -39,8 +39,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
-
 import lombok.Data;
 
 /**
@@ -52,7 +50,7 @@ import lombok.Data;
 @Entity(name = "Role")
 @Table(name = "ROLES")
 @Data
-public class PersistentRole implements Role, Serializable {
+public class PersistentRole implements Serializable {
 
     /**
      * Serialization id.

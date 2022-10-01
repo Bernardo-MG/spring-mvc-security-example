@@ -25,6 +25,8 @@
 package com.bernardomg.example.spring.mvc.security.domain.user.service;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,8 +35,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoRole;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoUser;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.Role;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
@@ -102,21 +106,42 @@ public final class DefaultUserService implements UserService {
 
     @Override
     @Cacheable("roles")
-    public final Iterable<? extends Role> getAllRoles() {
+    public final List<PersistentRole> getAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
     @Cacheable("users")
-    public final Iterable<? extends User> getAllUsers() {
+    public final List<PersistentUser> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
+    public final Collection<PersistentRole> getRoles(final String username) {
+        final Optional<PersistentUser>   read;
+        final Collection<PersistentRole> roles;
+
+        Objects.requireNonNull(username);
+
+        read = userRepository.findOneByUsername(username);
+
+        if (read.isPresent()) {
+            roles = read.get()
+                .getRoles();
+        } else {
+            // TODO: Throw an exception maybe?
+            log.warn("User {} not found", username);
+            roles = Collections.emptyList();
+        }
+
+        return roles;
+    }
+
+    @Override
     @Cacheable("user")
-    public final User getUser(final String username) {
+    public final PersistentUser getUser(final String username) {
         final Optional<PersistentUser> read;
-        final User                     user;
+        final PersistentUser           user;
 
         Objects.requireNonNull(username);
 
@@ -178,6 +203,24 @@ public final class DefaultUserService implements UserService {
         } else {
             log.warn("User {} not found", userRoles.getUsername());
         }
+    }
+
+    private final Role toDto(final PersistentRole entity) {
+        final DtoRole role;
+
+        role = new DtoRole();
+        BeanUtils.copyProperties(entity, role);
+
+        return role;
+    }
+
+    private final User toDto(final PersistentUser entity) {
+        final DtoUser user;
+
+        user = new DtoUser();
+        BeanUtils.copyProperties(entity, user);
+
+        return user;
     }
 
 }

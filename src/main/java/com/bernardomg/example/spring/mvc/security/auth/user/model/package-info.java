@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.repository;
-
-import java.util.Collection;
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
-
 /**
- * Repository for user roles.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * User model.
  */
-public interface PersistentRoleRepository extends JpaRepository<PersistentRole, Long> {
 
-    /**
-     * Returns the roles with the name received.
-     *
-     * @param name
-     *            name of the role
-     * @return roles names in the input
-     */
-    public Optional<PersistentRole> findByName(final String name);
-
-    /**
-     * Returns all the roles with one of the names received.
-     *
-     * @param names
-     *            names of the roles
-     * @return roles names in the input
-     */
-    public Collection<PersistentRole> findByNameIn(final Iterable<String> names);
-
-}
+package com.bernardomg.example.spring.mvc.security.auth.user.model;

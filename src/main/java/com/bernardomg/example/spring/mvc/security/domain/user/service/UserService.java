@@ -24,13 +24,15 @@
 
 package com.bernardomg.example.spring.mvc.security.domain.user.service;
 
+import java.util.Collection;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 
 /**
  * Service for handling user data.
@@ -52,29 +54,47 @@ public interface UserService {
 
     /**
      * Returns all the roles in the application.
+     * <p>
+     * TODO: Don't return entities
      *
      * @return all the roles
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public Iterable<? extends Role> getAllRoles();
+    public Iterable<PersistentRole> getAllRoles();
 
     /**
      * Returns all the users in the application.
+     * <p>
+     * TODO: Don't return entities
      *
      * @return all the users
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public Iterable<? extends User> getAllUsers();
+    public Iterable<PersistentUser> getAllUsers();
+
+    /**
+     * Returns the roles for the user with the received username.
+     * <p>
+     * TODO: Don't return entities
+     *
+     * @param username
+     *            username of the user to search
+     * @return roles for the user
+     */
+    @PreAuthorize("hasAuthority('READ_USER')")
+    public Collection<PersistentRole> getRoles(final String username);
 
     /**
      * Returns the user with the received username.
+     * <p>
+     * TODO: Don't return entities
      *
      * @param username
      *            username of the user to search
      * @return user for the received username
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public User getUser(final String username);
+    public PersistentUser getUser(final String username);
 
     /**
      * Updates the received user. The user is only valid if it doesn't exist already.

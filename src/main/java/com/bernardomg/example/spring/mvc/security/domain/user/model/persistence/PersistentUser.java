@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -39,8 +40,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
-
 import lombok.Data;
 
 /**
@@ -52,7 +51,7 @@ import lombok.Data;
 @Entity(name = "UserDetails")
 @Table(name = "USERS")
 @Data
-public class PersistentUser implements User {
+public class PersistentUser implements Serializable {
 
     /**
      * Serialization id.
@@ -63,7 +62,7 @@ public class PersistentUser implements User {
     /**
      * User expired flag.
      */
-    @Column(name = "CREDENTIALS_EXPIRED", nullable = false)
+    @Column(name = "credentials_expired", nullable = false)
     private Boolean                    credentialsExpired = false;
 
     /**
@@ -115,7 +114,7 @@ public class PersistentUser implements User {
     /**
      * User name.
      */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
+    @Column(name = "username", nullable = false, unique = true, length = 60)
     private String                     username;
 
     /**

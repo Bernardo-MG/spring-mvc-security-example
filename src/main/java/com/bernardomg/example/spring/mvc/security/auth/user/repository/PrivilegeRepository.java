@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,54 +22,27 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
+package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
-import java.io.Serializable;
+import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Data;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * Repository for privileges.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "PRIVILEGES")
-@Data
-public class PersistentPrivilege implements Serializable {
+public interface PrivilegeRepository {
 
     /**
-     * Serialization id.
+     * Returns all the privileges for a user. This requires a join from the user up to the privileges.
+     *
+     * @param id
+     *            user id
+     * @return all the privileges for the user
      */
-    private static final long serialVersionUID = 8513041662486312372L;
-
-    /**
-     * Entity id.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
-
-    /**
-     * Authority name.
-     */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
-
-    /**
-     * Default constructor.
-     */
-    public PersistentPrivilege() {
-        super();
-    }
+    public Collection<Privilege> findForUser(final Long id);
 
 }

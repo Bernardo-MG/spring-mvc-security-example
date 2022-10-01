@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,27 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model;
+package com.bernardomg.example.spring.mvc.security.auth.user.repository;
+
+import java.util.Optional;
+
+import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
 
 /**
- * Role privilege. Represents a specific permission.
+ * Repository for users.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface Privilege {
+public interface UserRepository {
 
     /**
-     * Returns the privilege name.
+     * Returns the user details for the received username.
      *
-     * @return the privilege name
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
      */
-    public String getName();
+    public Optional<User> findOneByUsername(final String username);
 
 }

@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: USERS
+            tableName: users
             columns:
             -  column:
                   name: id
@@ -17,7 +17,7 @@ databaseChangeLog:
                   name: email
                   type: varchar(60)
             -  column:
-                  name: name
+                  name: username
                   type: varchar(60)
                   constraints:
                      nullable: false
@@ -28,19 +28,19 @@ databaseChangeLog:
             -  column:
                   name: credentials_expired
                   type: boolean
-                  defaultValue: false
+                  defaultValue: 'false'
                   constraints:
                      nullable: false
             -  column:
                   name: enabled
                   type: boolean
-                  defaultValue: true
+                  defaultValue: 'true'
                   constraints:
                      nullable: false
             -  column:
                   name: expired
                   type: boolean
-                  defaultValue: false
+                  defaultValue: 'false'
                   constraints:
                      nullable: false
             -  column:
@@ -54,7 +54,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: ROLES
+            tableName: roles
             columns:
             -  column:
                   name: id
@@ -70,7 +70,7 @@ databaseChangeLog:
                      nullable: false
                      unique: true
       -  createTable:
-            tableName: PRIVILEGES
+            tableName: privileges
             columns:
             -  column:
                   name: id
@@ -90,7 +90,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: ROLE_PRIVILEGES
+            tableName: role_privileges
             columns:
             -  column:
                   name: role_id
@@ -107,7 +107,7 @@ databaseChangeLog:
                      references: PRIVILEGES(id)
                      nullable: false
       -  createTable:
-            tableName: USER_ROLES
+            tableName: user_roles
             columns:
             -  column:
                   name: user_id
@@ -123,3 +123,11 @@ databaseChangeLog:
                      foreignKeyName: fk_user_roles_role_id
                      references: ROLES(id)
                      nullable: false
+      -  addUniqueConstraint:
+            constraintName: role_privileges_unique
+            tableName: role_privileges
+            columnNames: role_id, privilege_id
+      -  addUniqueConstraint:
+            constraintName: user_roles_unique
+            tableName: user_roles
+            columnNames: user_id, role_id

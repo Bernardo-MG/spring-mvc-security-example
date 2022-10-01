@@ -27,7 +27,7 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 
-INSERT INTO USERS (name, password, enabled, locked, expired, CREDENTIALS_EXPIRED) VALUES
+INSERT INTO USERS (username, password, enabled, locked, expired, credentials_expired) VALUES
    ('admin',      '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW',   true,    false,   false,   false),
    ('noroles',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   false),
    ('locked',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    true,    false,   false),

@@ -86,15 +86,9 @@ public class ITPersistentUserDetailsService {
     }
 
     @Test
-    @DisplayName("It is possible to read a user with no authorities")
+    @DisplayName("It is not possible to read a user with no authorities")
     public final void testGetUser_NoAuthorities() {
-        final UserDetails user;
-
-        user = service.loadUserByUsername("noroles");
-
-        Assertions.assertEquals("noroles", user.getUsername());
-        Assertions.assertTrue(user.getAuthorities()
-            .isEmpty());
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("noroles"));
     }
 
     @Test

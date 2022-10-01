@@ -37,8 +37,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.Application;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 
@@ -81,7 +81,7 @@ public class ITUserServiceUpdate {
     @DisplayName("An authenticated user can create update users")
     public final void testUpdate() {
         final DefaultUserForm user;    // User to save
-        final User            updated; // Updated user
+        final PersistentUser  updated; // Updated user
 
         user = new DefaultUserForm();
         user.setUsername("noroles");

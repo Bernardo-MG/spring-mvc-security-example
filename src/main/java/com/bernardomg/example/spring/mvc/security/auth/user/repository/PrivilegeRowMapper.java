@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,51 +22,42 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model;
+package com.bernardomg.example.spring.mvc.security.auth.user.repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoPrivilege;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
 
 /**
- * User role. Groups a set of permissions.
+ * SQL row mapper for privileges.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface Role {
+public final class PrivilegeRowMapper implements RowMapper<Privilege> {
 
-    /**
-     * Returns the user id.
-     *
-     * @return the user id
-     */
-    public Long getId();
+    public PrivilegeRowMapper() {
+        super();
+    }
 
-    /**
-     * Returns the role name.
-     *
-     * @return the role name
-     */
-    public String getName();
+    @Override
+    public final Privilege mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+        final DtoPrivilege privilege;
 
-    /**
-     * Returns the user privileges.
-     *
-     * @return the user privileges
-     */
-    public Iterable<? extends Privilege> getPrivileges();
+        try {
+            privilege = new DtoPrivilege();
+            privilege.setId(rs.getLong("id"));
+            privilege.setName(rs.getString("name"));
+        } catch (final SQLException e) {
+            // TODO: Handle better
+            throw new RuntimeException(e);
+        }
 
-    /**
-     * Sets the user id.
-     *
-     * @param identifier
-     *            the new id
-     */
-    public void setId(final Long identifier);
-
-    /**
-     * Sets the role name.
-     *
-     * @param role
-     *            new name
-     */
-    public void setName(final String role);
+        return privilege;
+    }
 
 }

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,57 +36,114 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Privilege;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * User details service which takes the data from the persistence layer.
+ * User details service which takes the user data from the persistence layer.
  * <p>
- * It uses a Spring repository and searches for any user detail matching the received username.
+ * Makes use of repositories, which will return the user and his privileges.
  * <p>
- * This search is case insensitive, as the persisted user details are expected to contain the username in lower case.
+ * The user search is based on the username, and is case insensitive. As the persisted user details are expected to
+ * contain the username in lower case.
+ * <h2>Granted authorities</h2>
+ * <p>
+ * Privileges are read moving through the model. The service receives a username and then finds the privileges assigned
+ * to the related user:
+ * <p>
+ * {@code user -> role -> privileges}
+ * <p>
+ * These privileges are used to create the granted authorities.
+ * <h2>Exceptions</h2>
+ * <p>
+ * When loading users any of these cases throws a {@code UsernameNotFoundException}:
+ * <ul>
+ * <li>There is no user for the username</li>
+ * <li>Theres is a user, but he has no privileges</li>
+ * </ul>
  *
- * @author Bernardo
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Slf4j
 public final class PersistentUserDetailsService implements UserDetailsService {
 
     /**
+     * Repository for the privileges.
+     */
+    private final PrivilegeRepository privilegeRepo;
+
+    /**
      * Repository for the user data.
      */
-    private final PersistentUserRepository userRepo;
+    private final UserRepository      userRepo;
 
     /**
      * Constructs a user details service.
      *
      * @param userRepository
      *            repository for user details
+     * @param privilegeRepository
+     *            repository for privileges
      */
-    public PersistentUserDetailsService(final PersistentUserRepository userRepository) {
+    public PersistentUserDetailsService(final UserRepository userRepository,
+            final PrivilegeRepository privilegeRepository) {
         super();
 
         userRepo = Objects.requireNonNull(userRepository, "Received a null pointer as repository");
+        privilegeRepo = Objects.requireNonNull(privilegeRepository, "Received a null pointer as repository");
     }
 
     @Override
     public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final Optional<PersistentUser> user;
-
-        log.debug("Asked for username {}", username);
+        final Optional<com.bernardomg.example.spring.mvc.security.auth.user.model.User> user;
+        final Collection<? extends GrantedAuthority>                                    authorities;
+        final UserDetails                                                               details;
 
         user = userRepo.findOneByUsername(username.toLowerCase());
 
         if (!user.isPresent()) {
-            log.debug("Username {} not found in DB", username);
+            log.warn("Username {} not found in DB", username);
             throw new UsernameNotFoundException(username);
         }
-        log.debug("Username {} found in DB", username);
-        return toUserDetails(user.get());
+
+        authorities = getAuthorities(user.get()
+            .getId());
+
+        if (authorities.isEmpty()) {
+            log.warn("Username {} has no authorities", username);
+            throw new UsernameNotFoundException(username);
+        }
+
+        details = toUserDetails(user.get(), authorities);
+
+        log.debug("User {} exists", username);
+        log.debug("Authorities for {}: {}", username, details.getAuthorities());
+        log.debug("User {} is enabled: {}", username, details.isEnabled());
+        log.debug("User {} is non expired: {}", username, details.isAccountNonExpired());
+        log.debug("User {} is non locked: {}", username, details.isAccountNonLocked());
+        log.debug("User {} has credentials non expired: {}", username, details.isCredentialsNonExpired());
+
+        return details;
+    }
+
+    /**
+     * Returns all the authorities for the user.
+     *
+     * @param id
+     *            id of the user
+     * @return all the authorities for the user
+     */
+    private final Collection<GrantedAuthority> getAuthorities(final Long id) {
+        return privilegeRepo.findForUser(id)
+            .stream()
+            .map(Privilege::getName)
+            .distinct()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -97,35 +153,18 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      *            entity to transform
      * @return equivalent user details
      */
-    private final UserDetails toUserDetails(final PersistentUser user) {
-        final Boolean                                enabled;
-        final Boolean                                accountNonExpired;
-        final Boolean                                credentialsNonExpired;
-        final Boolean                                accountNonLocked;
-        final Collection<? extends GrantedAuthority> authorities;
-        final Collection<? extends Privilege>        privileges;
+    private final UserDetails toUserDetails(final com.bernardomg.example.spring.mvc.security.auth.user.model.User user,
+            final Collection<? extends GrantedAuthority> authorities) {
+        final Boolean enabled;
+        final Boolean accountNonExpired;
+        final Boolean credentialsNonExpired;
+        final Boolean accountNonLocked;
 
         // Loads status
         enabled = user.getEnabled();
         accountNonExpired = !user.getExpired();
         credentialsNonExpired = !user.getCredentialsExpired();
         accountNonLocked = !user.getLocked();
-
-        // Loads privileges
-        privileges = StreamSupport.stream(user.getRoles()
-            .spliterator(), false)
-            .map(Role::getPrivileges)
-            .flatMap(p -> StreamSupport.stream(p.spliterator(), false))
-            .collect(Collectors.toList());
-        log.trace("Privileges for {}: {}", user.getUsername(), privileges);
-
-        // Loads authorities
-        authorities = privileges.stream()
-            .map(Privilege::getName)
-            .distinct()
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
-        log.debug("Authorities for {}: {}", user.getUsername(), authorities);
 
         return new User(user.getUsername(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
             accountNonLocked, authorities);

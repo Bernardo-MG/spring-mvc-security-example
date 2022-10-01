@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,54 +22,21 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Data;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * Role privilege. Represents a specific permission.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "PRIVILEGES")
-@Data
-public class PersistentPrivilege implements Serializable {
+public interface Privilege {
 
     /**
-     * Serialization id.
+     * Returns the privilege name.
+     *
+     * @return the privilege name
      */
-    private static final long serialVersionUID = 8513041662486312372L;
-
-    /**
-     * Entity id.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
-
-    /**
-     * Authority name.
-     */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
-
-    /**
-     * Default constructor.
-     */
-    public PersistentPrivilege() {
-        super();
-    }
+    public String getName();
 
 }

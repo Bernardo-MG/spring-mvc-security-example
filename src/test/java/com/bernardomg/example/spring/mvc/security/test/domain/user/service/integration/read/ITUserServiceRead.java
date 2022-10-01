@@ -40,9 +40,9 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.Application;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Privilege;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentPrivilege;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 
 /**
@@ -77,7 +77,7 @@ public class ITUserServiceRead {
     @DisplayName("Users can be read")
     @Sql("/db/populate/full.sql")
     public void testGetAllUsers() {
-        final Iterable<? extends User> users;
+        final Iterable<PersistentUser> users;
 
         users = service.getAllUsers();
 
@@ -88,7 +88,7 @@ public class ITUserServiceRead {
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("No users are returned when there are none in the DB")
     public void testGetAllUsers_Empty() {
-        final Iterable<? extends User> users;
+        final Iterable<PersistentUser> users;
 
         users = service.getAllUsers();
 
@@ -100,10 +100,10 @@ public class ITUserServiceRead {
     @DisplayName("Users and their privileges can be read")
     @Sql("/db/populate/full.sql")
     public void testGetAllUsers_Privileges() {
-        final Iterable<? extends User> users;
-        final User                     user;
-        final Role                     role;
-        final Privilege                privilege;
+        final Iterable<PersistentUser> users;
+        final PersistentUser           user;
+        final PersistentRole           role;
+        final PersistentPrivilege      privilege;
 
         users = service.getAllUsers();
 
@@ -133,7 +133,7 @@ public class ITUserServiceRead {
     @DisplayName("A single user with no roles can be read")
     @Sql("/db/populate/full.sql")
     public void testGetUser_NoRoles() {
-        final User user;
+        final PersistentUser user;
 
         user = service.getUser("noroles");
 
@@ -146,8 +146,8 @@ public class ITUserServiceRead {
     @DisplayName("A single user with roles and no privileges can be read")
     @Sql("/db/populate/admin_roles_no_privileges.sql")
     public void testGetUser_Roles_NoPrivileges() {
-        final User user;
-        final Role role;
+        final PersistentUser user;
+        final PersistentRole role;
 
         user = service.getUser("admin");
 

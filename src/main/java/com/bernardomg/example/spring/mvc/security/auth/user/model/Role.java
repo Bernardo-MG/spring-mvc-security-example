@@ -22,54 +22,44 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Data;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * User role. Groups a set of permissions.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "PRIVILEGES")
-@Data
-public class PersistentPrivilege implements Serializable {
+public interface Role {
 
     /**
-     * Serialization id.
+     * Returns the user id.
+     *
+     * @return the user id
      */
-    private static final long serialVersionUID = 8513041662486312372L;
+    public Long getId();
 
     /**
-     * Entity id.
+     * Returns the role name.
+     *
+     * @return the role name
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
+    public String getName();
 
     /**
-     * Authority name.
+     * Sets the user id.
+     *
+     * @param identifier
+     *            the new id
      */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
+    public void setId(final Long identifier);
 
     /**
-     * Default constructor.
+     * Sets the role name.
+     *
+     * @param role
+     *            new name
      */
-    public PersistentPrivilege() {
-        super();
-    }
+    public void setName(final String role);
 
 }

@@ -49,7 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.bernardomg.example.spring.mvc.security.Application;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
 /**
@@ -110,7 +110,7 @@ public class ITUserControllerCreate {
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
         final RequestBuilder           request; // Test request
-        final Iterable<? extends User> users;   // Read users
+        final Iterable<PersistentUser> users;   // Read users
 
         request = MockMvcRequestBuilders.post("/users/save")
             .param("username", "username")

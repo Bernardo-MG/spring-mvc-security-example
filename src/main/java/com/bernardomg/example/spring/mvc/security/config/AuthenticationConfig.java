@@ -44,6 +44,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
 import com.bernardomg.example.spring.mvc.security.auth.oauth.RegisterOAuth2UserService;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 import com.bernardomg.example.spring.mvc.security.auth.userdetails.PersistentUserDetailsService;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
@@ -73,9 +75,10 @@ public class AuthenticationConfig {
     }
 
     @Bean("oAuth2UserService")
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User>
-            getOAuth2UserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo) {
-        return new RegisterOAuth2UserService(userRepo, roleRepo);
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> getOAuth2UserService(
+            final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
+            final PrivilegeRepository privilegeRepo) {
+        return new RegisterOAuth2UserService(userRepo, roleRepo, privilegeRepo);
     }
 
     @Bean("passwordEncoder")
@@ -96,8 +99,9 @@ public class AuthenticationConfig {
     }
 
     @Bean("userDetailsService")
-    public UserDetailsService getUserDetailsService(final PersistentUserRepository userRepository) {
-        return new PersistentUserDetailsService(userRepository);
+    public UserDetailsService getUserDetailsService(final UserRepository userRepository,
+            final PrivilegeRepository privilegeRepository) {
+        return new PersistentUserDetailsService(userRepository, privilegeRepository);
     }
 
 }

@@ -27,7 +27,6 @@ package com.bernardomg.example.spring.mvc.security.domain.user.controller;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,12 +42,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserRolesForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
 import com.bernardomg.example.spring.mvc.security.validation.group.Update;
@@ -202,7 +201,7 @@ public class UserController {
     @GetMapping(path = "/edit/{username}")
     public String showUserEdition(@PathVariable("username") final String username,
             @ModelAttribute(PARAM_USER_FORM) final DefaultUserForm form, final ModelMap model) {
-        final User user;
+        final PersistentUser user;
 
         user = service.getUser(username);
         BeanUtils.copyProperties(user, form);
@@ -226,24 +225,25 @@ public class UserController {
     @GetMapping(path = "/roles/edit/{username}")
     public String showUserRoleEdition(@PathVariable("username") final String username,
             @ModelAttribute(PARAM_ROLES_FORM) final DefaultUserRolesForm form, final ModelMap model) {
-        final User                     user;
-        final Iterable<? extends Role> roles;
-        final Collection<String>       roleNames;
+        final PersistentUser             user;
+        final Collection<PersistentRole> roles;
+        final Iterable<PersistentRole>   allRoles;
+        final Collection<String>         roleNames;
 
-        user = service.getUser(username);
-        roleNames = StreamSupport.stream(user.getRoles()
-            .spliterator(), false)
-            .map(Role::getName)
+        roles = service.getRoles(username);
+        roleNames = roles.stream()
+            .map(PersistentRole::getName)
             .collect(Collectors.toList());
         form.setRoles(roleNames);
 
+        user = service.getUser(username);
         BeanUtils.copyProperties(user, form);
         form.setRoles(roleNames);
 
-        roles = service.getAllRoles();
+        allRoles = service.getAllRoles();
 
         model.put(PARAM_USER_FORM, form);
-        model.put(PARAM_ROLES, roles);
+        model.put(PARAM_ROLES, allRoles);
 
         return VIEW_USER_ROLE_EDITION;
     }

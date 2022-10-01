@@ -31,10 +31,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -43,8 +42,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Privilege;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
@@ -67,6 +66,11 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
     private final DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
 
     /**
+     * Repository for the privileges.
+     */
+    private final PrivilegeRepository      privilegeRepository;
+
+    /**
      * Roles repository.
      */
     private final PersistentRoleRepository roleRepository;
@@ -84,11 +88,13 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
      * @param roleRepo
      *            roles repository
      */
-    public RegisterOAuth2UserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo) {
+    public RegisterOAuth2UserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
+            final PrivilegeRepository privilegeRepo) {
         super();
 
         userRepository = Objects.requireNonNull(userRepo, "Received a null pointer as users repository");
-        roleRepository = Objects.requireNonNull(roleRepo, "Received a null pointer as users repository");
+        roleRepository = Objects.requireNonNull(roleRepo, "Received a null pointer as roles repository");
+        privilegeRepository = Objects.requireNonNull(privilegeRepo, "Received a null pointer as privileges repository");
     }
 
     @Override
@@ -115,6 +121,22 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
     }
 
     /**
+     * Returns all the authorities for the user.
+     *
+     * @param id
+     *            id of the user
+     * @return all the authorities for the user
+     */
+    private final Collection<GrantedAuthority> getAuthorities(final Long id) {
+        return privilegeRepository.findForUser(id)
+            .stream()
+            .map(Privilege::getName)
+            .distinct()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+    }
+
+    /**
      * Loads the user and returns his authorities.
      * <p>
      * If the user exists on DB, the the authorities are taken from it. Otherwise, the user is created with default
@@ -125,12 +147,11 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
      * @return the user authorities
      */
     private final Collection<GrantedAuthority> loadUser(final OAuth2User oauthuser) {
-        final Collection<GrantedAuthority> mappedAuthorities;
+        final Collection<GrantedAuthority> authorities;
         final Optional<PersistentUser>     userOpt;
         final PersistentUser               user;
         final String                       email;
-        final Collection<PersistentRole>   roles;
-        final Collection<String>           privileges;
+        final Optional<PersistentRole>     role;
 
         // TODO: What if somebody creates a fake account with the email? Is it
         // possible?
@@ -156,26 +177,22 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
                 }
                 user.setEmail(email);
 
-                roles = roleRepository.findByNameIn(Arrays.asList("USER"));
+                role = roleRepository.findByName("USER");
 
-                user.setRoles(roles);
+                if (role.isPresent()) {
+                    user.setRoles(Arrays.asList(role.get()));
+                }
 
                 userRepository.save(user);
             }
 
-            privileges = StreamSupport.stream(user.getRoles()
-                .spliterator(), false)
-                .map(Role::getPrivileges)
-                .flatMap(p -> StreamSupport.stream(p.spliterator(), false))
-                .map(Privilege::getName)
-                .collect(Collectors.toList());
-            mappedAuthorities = AuthorityUtils.createAuthorityList(privileges.toArray(new String[] {}));
+            authorities = getAuthorities(user.getId());
         } else {
             log.warn("OAUTH user {} is missing email attribute", oauthuser.getName());
-            mappedAuthorities = Collections.emptyList();
+            authorities = Collections.emptyList();
         }
 
-        return mappedAuthorities;
+        return authorities;
     }
 
 }

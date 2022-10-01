@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       -  createTable:
-            tableName: PERSISTENT_LOGINS
+            tableName: persistent_logins
             columns:
             -  column:
                   name: series
@@ -23,7 +23,7 @@ databaseChangeLog:
                   constraints:
                      nullable: false
             -  column:
-                  name: CREDENTIALS_EXPIRED
+                  name: credentials_expired
                   type: boolean
                   defaultValue: false
                   constraints:

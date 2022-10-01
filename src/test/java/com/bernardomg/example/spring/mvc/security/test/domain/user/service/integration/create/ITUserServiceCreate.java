@@ -38,8 +38,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.mvc.security.Application;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.User;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 
@@ -82,7 +82,7 @@ public class ITUserServiceCreate {
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() {
         final DefaultUserForm          user;  // User to save
-        final Iterable<? extends User> users; // Read users
+        final Iterable<PersistentUser> users; // Read users
 
         user = new DefaultUserForm();
         user.setUsername("username");
