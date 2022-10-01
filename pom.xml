@@ -144,15 +144,13 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <aspectj.version>1.9.7</aspectj.version>
-      <bytebuddy.version>1.12.7</bytebuddy.version>
+      <aspectj.version>1.9.9.1</aspectj.version>
+      <bytebuddy.version>1.12.13</bytebuddy.version>
       <commons.collection.version>4.4</commons.collection.version>
-      <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <javassist.version>3.27.0-GA</javassist.version>
-      <spring.boot.version>2.6.3</spring.boot.version>
-      <spring.version>5.3.16</spring.version>
+      <spring.boot.version>2.7.3</spring.boot.version>
+      <spring.version>5.3.23</spring.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -161,7 +159,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.6</site.skin.version>
+      <site.skin.version>2.2.7</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -329,11 +327,13 @@
          <!-- AspectJ Runtime -->
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjrt</artifactId>
+         <version>${aspectj.version}</version>
       </dependency>
       <dependency>
          <!-- AspectJ Weaver -->
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjweaver</artifactId>
+         <version>${aspectj.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
@@ -493,21 +493,9 @@
          <version>${glassfish.el.version}</version>
          <scope>provided</scope>
       </dependency>
-      <dependency>
-         <!-- Javassist -->
-         <groupId>org.javassist</groupId>
-         <artifactId>javassist</artifactId>
-         <version>${javassist.version}</version>
-      </dependency>
       <!-- ============================================== -->
       <!-- =========== VERSION ENFORCEMENT ============== -->
       <!-- ============================================== -->
-      <dependency>
-         <!-- Commons Logging -->
-         <groupId>commons-logging</groupId>
-         <artifactId>commons-logging</artifactId>
-         <version>${commons.logging.version}</version>
-      </dependency>
       <dependency>
          <!-- Byte Buddy -->
          <groupId>net.bytebuddy</groupId>
