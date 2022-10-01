@@ -145,32 +145,13 @@
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
       <aspectj.version>1.9.7</aspectj.version>
-      <bytebuddy.version>1.12.7</bytebuddy.version>
-      <classmate.version>1.5.1</classmate.version>
       <commons.collection.version>4.4</commons.collection.version>
       <commons.logging.version>1.2</commons.logging.version>
       <glassfish.el.version>2.2</glassfish.el.version>
-      <h2.version>1.4.200</h2.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <hibernate.version>5.6.4.Final</hibernate.version>
-      <hikari.version>4.0.3</hikari.version>
-      <jackson.version>2.13.1</jackson.version>
-      <javaee.api.version>2.2</javaee.api.version>
       <javassist.version>3.27.0-GA</javassist.version>
-      <junit.jupiter.version>5.8.2</junit.jupiter.version>
-      <liquibase.version>4.8.0</liquibase.version>
-      <lombok.version>1.18.22</lombok.version>
-      <log4j.version>2.17.1</log4j.version>
-      <mockito.version>4.3.1</mockito.version>
-      <servlet.version>4.0.1</servlet.version>
-      <slf4j.version>1.7.36</slf4j.version>
-      <snakeyaml.version>1.30</snakeyaml.version>
       <spring.boot.version>2.6.3</spring.boot.version>
-      <spring.data.version>2021.1.2</spring.data.version>
-      <spring.security.version>5.6.1</spring.security.version>
       <spring.version>5.3.16</spring.version>
-      <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
-      <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -197,34 +178,10 @@
             <scope>import</scope>
          </dependency>
          <dependency>
-            <!-- Spring Security BOM -->
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-bom</artifactId>
-            <version>${spring.security.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- Spring Data BOM -->
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-bom</artifactId>
-            <version>${spring.data.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- Jackson BOM -->
-            <groupId>com.fasterxml.jackson</groupId>
-            <artifactId>jackson-bom</artifactId>
-            <version>${jackson.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- JUnit BOM -->
-            <groupId>org.junit</groupId>
-            <artifactId>junit-bom</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <!-- Spring Boot BOM -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -325,7 +282,6 @@
          <!-- Spring Boot Starter: Thymeleaf -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-thymeleaf</artifactId>
-         <version>${spring.boot.version}</version>
          <exclusions>
             <exclusion>
                <groupId>org.springframework.boot</groupId>
@@ -337,25 +293,21 @@
          <!-- Spring Boot Starter: Web -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: JPA -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-data-jpa</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Security -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-security</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
-         <version>${spring.boot.version}</version>
          <scope>runtime</scope>
          <optional>true</optional>
       </dependency>
@@ -363,13 +315,11 @@
          <!-- Spring Boot Starter: AOP -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-aop</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: OAUTH2 -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-oauth2-client</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
@@ -378,13 +328,11 @@
          <!-- AspectJ Runtime -->
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjrt</artifactId>
-         <version>${aspectj.version}</version>
       </dependency>
       <dependency>
          <!-- AspectJ Weaver -->
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjweaver</artifactId>
-         <version>${aspectj.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
@@ -393,7 +341,6 @@
          <!-- JPA API -->
          <groupId>javax.persistence</groupId>
          <artifactId>javax.persistence-api</artifactId>
-         <version>${javaee.api.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
@@ -402,13 +349,11 @@
          <!-- Hibernate Core -->
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>
-         <version>${hibernate.version}</version>
       </dependency>
       <dependency>
          <!-- Hibernate Ehcache -->
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-ehcache</artifactId>
-         <version>${hibernate.version}</version>
       </dependency>
       <dependency>
          <!-- Hibernate validator -->
@@ -420,7 +365,6 @@
          <!-- Hikari CP -->
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
-         <version>${hikari.version}</version>
          <exclusions>
             <exclusion>
                <groupId>org.slf4j</groupId>
@@ -435,7 +379,6 @@
          <!-- Liquibase -->
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
-         <version>${liquibase.version}</version>
          <exclusions>
             <exclusion>
                <groupId>ch.qos.logback</groupId>
@@ -450,7 +393,6 @@
          <!-- SnakeYAML -->
          <groupId>org.yaml</groupId>
          <artifactId>snakeyaml</artifactId>
-         <version>${snakeyaml.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->
@@ -459,7 +401,6 @@
          <!-- H2 database -->
          <groupId>com.h2database</groupId>
          <artifactId>h2</artifactId>
-         <version>${h2.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ THYMELEAF =================== -->
@@ -467,7 +408,6 @@
       <dependency>
          <groupId>org.thymeleaf.extras</groupId>
          <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-         <version>${thymeleaf.spring.security.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ SERVLET ===================== -->
@@ -476,7 +416,6 @@
          <!-- Servlet API -->
          <groupId>javax.servlet</groupId>
          <artifactId>javax.servlet-api</artifactId>
-         <version>${servlet.version}</version>
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
@@ -486,7 +425,6 @@
          <!-- Lombok -->
          <groupId>org.projectlombok</groupId>
          <artifactId>lombok</artifactId>
-         <version>${lombok.version}</version>
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
@@ -505,31 +443,26 @@
          <!-- Log4j core -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-core</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j Commons Logging Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-jcl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j SLF4J Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-slf4j-impl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j Web -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-web</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- SL4J API -->
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
-         <version>${slf4j.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= JACKSON ==================== -->
@@ -569,22 +502,10 @@
       <!-- =========== VERSION ENFORCEMENT ============== -->
       <!-- ============================================== -->
       <dependency>
-         <!-- FasterXML ClassMate -->
-         <groupId>com.fasterxml</groupId>
-         <artifactId>classmate</artifactId>
-         <version>${classmate.version}</version>
-      </dependency>
-      <dependency>
          <!-- Commons Logging -->
          <groupId>commons-logging</groupId>
          <artifactId>commons-logging</artifactId>
          <version>${commons.logging.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Byte Buddy -->
-         <groupId>net.bytebuddy</groupId>
-         <artifactId>byte-buddy</artifactId>
-         <version>${bytebuddy.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
@@ -612,7 +533,6 @@
          <!-- Mockito -->
          <groupId>org.mockito</groupId>
          <artifactId>mockito-core</artifactId>
-         <version>${mockito.version}</version>
          <scope>test</scope>
       </dependency>
       <dependency>
@@ -631,7 +551,6 @@
          <!-- Spring Boot Starter: Test -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
-         <version>${spring.boot.version}</version>
          <scope>test</scope>
          <exclusions>
             <exclusion>
