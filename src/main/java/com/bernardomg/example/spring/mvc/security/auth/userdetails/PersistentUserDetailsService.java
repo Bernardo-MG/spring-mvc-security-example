@@ -30,8 +30,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -44,6 +42,8 @@ import com.bernardomg.example.spring.mvc.security.domain.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * User details service which takes the data from the persistence layer.
  * <p>
@@ -54,12 +54,8 @@ import com.bernardomg.example.spring.mvc.security.domain.user.repository.Persist
  * @author Bernardo
  *
  */
+@Slf4j
 public final class PersistentUserDetailsService implements UserDetailsService {
-
-    /**
-     * Logger.
-     */
-    private static final Logger            LOGGER = LoggerFactory.getLogger(PersistentUserDetailsService.class);
 
     /**
      * Repository for the user data.
@@ -82,15 +78,15 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final Optional<PersistentUser> user;
 
-        LOGGER.debug("Asked for username {}", username);
+        log.debug("Asked for username {}", username);
 
         user = userRepo.findOneByUsername(username.toLowerCase());
 
         if (!user.isPresent()) {
-            LOGGER.debug("Username {} not found in DB", username);
+            log.debug("Username {} not found in DB", username);
             throw new UsernameNotFoundException(username);
         }
-        LOGGER.debug("Username {} found in DB", username);
+        log.debug("Username {} found in DB", username);
         return toUserDetails(user.get());
     }
 
@@ -121,7 +117,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
             .map(Role::getPrivileges)
             .flatMap(p -> StreamSupport.stream(p.spliterator(), false))
             .collect(Collectors.toList());
-        LOGGER.trace("Privileges for {}: {}", user.getUsername(), privileges);
+        log.trace("Privileges for {}: {}", user.getUsername(), privileges);
 
         // Loads authorities
         authorities = privileges.stream()
@@ -129,7 +125,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
             .distinct()
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
-        LOGGER.debug("Authorities for {}: {}", user.getUsername(), authorities);
+        log.debug("Authorities for {}: {}", user.getUsername(), authorities);
 
         return new User(user.getUsername(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
             accountNonLocked, authorities);

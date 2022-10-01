@@ -33,8 +33,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -52,18 +50,16 @@ import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * OAUTH 2 user service linked to the DB users. It registers any new user based on his email.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Slf4j
 public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-
-    /**
-     * Logger.
-     */
-    private static final Logger            LOGGER   = LoggerFactory.getLogger(RegisterOAuth2UserService.class);
 
     /**
      * Base service. Applies inheritance through composition.
@@ -107,11 +103,11 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
         accessToken = userRequest.getAccessToken();
         mappedAuthorities = loadUser(oauthuser);
 
-        LOGGER.debug("User {}", oauthuser);
-        LOGGER.debug("Access token {}", accessToken);
-        LOGGER.debug("Mapped authorities {}", mappedAuthorities);
-        LOGGER.debug("Attributes {}", oauthuser.getAttributes());
-        LOGGER.debug("Name {}", oauthuser.getName());
+        log.debug("User {}", oauthuser);
+        log.debug("Access token {}", accessToken);
+        log.debug("Mapped authorities {}", mappedAuthorities);
+        log.debug("Attributes {}", oauthuser.getAttributes());
+        log.debug("Name {}", oauthuser.getName());
 
         attributes = oauthuser.getAttributes();
 
@@ -144,10 +140,10 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
                 .get("email"));
             userOpt = userRepository.findOneByEmail(email);
             if (userOpt.isPresent()) {
-                LOGGER.trace("Found user for email {}", email);
+                log.trace("Found user for email {}", email);
                 user = userOpt.get();
             } else {
-                LOGGER.debug("No user found for email {}. Creating new user", email);
+                log.debug("No user found for email {}. Creating new user", email);
                 user = new PersistentUser();
                 if (oauthuser.getAttributes()
                     .containsKey("name")) {
@@ -155,7 +151,7 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
                         .get("name")
                         .toString());
                 } else {
-                    LOGGER.warn("OAUTH user {} is missing name field, applying email as name", oauthuser.getName());
+                    log.warn("OAUTH user {} is missing name field, applying email as name", oauthuser.getName());
                     user.setUsername(email);
                 }
                 user.setEmail(email);
@@ -175,7 +171,7 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
                 .collect(Collectors.toList());
             mappedAuthorities = AuthorityUtils.createAuthorityList(privileges.toArray(new String[] {}));
         } else {
-            LOGGER.warn("OAUTH user {} is missing email attribute", oauthuser.getName());
+            log.warn("OAUTH user {} is missing email attribute", oauthuser.getName());
             mappedAuthorities = Collections.emptyList();
         }
 

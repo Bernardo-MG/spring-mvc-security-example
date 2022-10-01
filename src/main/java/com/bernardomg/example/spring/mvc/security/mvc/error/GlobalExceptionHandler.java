@@ -27,12 +27,12 @@ package com.bernardomg.example.spring.mvc.security.mvc.error;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Captures and handles exceptions for all the controllers.
@@ -40,12 +40,8 @@ import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @ControllerAdvice
+@Slf4j
 public final class GlobalExceptionHandler extends AbstractHandlerExceptionResolver {
-
-    /**
-     * Logger for the exception handler.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * Default constructor.
@@ -59,7 +55,7 @@ public final class GlobalExceptionHandler extends AbstractHandlerExceptionResolv
             final Object handler, final Exception ex) {
         final ModelAndView modelView;
 
-        LOGGER.error(ex.getMessage(), ex);
+        log.error(ex.getMessage(), ex);
 
         modelView = new ModelAndView(ErrorViews.EXCEPTION);
         modelView.getModel()

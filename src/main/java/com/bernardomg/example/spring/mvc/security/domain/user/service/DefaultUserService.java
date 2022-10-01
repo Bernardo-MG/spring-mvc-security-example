@@ -28,8 +28,6 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +43,7 @@ import com.bernardomg.example.spring.mvc.security.domain.user.repository.Persist
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Users service based on {@link PersistentUser} and Spring classes.
@@ -54,12 +53,8 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public final class DefaultUserService implements UserService {
-
-    /**
-     * Logger.
-     */
-    private static final Logger            LOGGER = LoggerFactory.getLogger(DefaultUserService.class);
 
     /**
      * Password encoder.
@@ -131,7 +126,7 @@ public final class DefaultUserService implements UserService {
             user = read.get();
         } else {
             // TODO: Throw an exception maybe?
-            LOGGER.warn("User {} not found", username);
+            log.warn("User {} not found", username);
             user = null;
         }
 
@@ -181,7 +176,7 @@ public final class DefaultUserService implements UserService {
 
             userRepository.save(user);
         } else {
-            LOGGER.warn("User {} not found", userRoles.getUsername());
+            log.warn("User {} not found", userRoles.getUsername());
         }
     }
 
