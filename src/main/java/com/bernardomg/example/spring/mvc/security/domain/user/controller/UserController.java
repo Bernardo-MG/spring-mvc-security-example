@@ -25,13 +25,11 @@
 package com.bernardomg.example.spring.mvc.security.domain.user.controller;
 
 import java.util.Collection;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -52,6 +50,8 @@ import com.bernardomg.example.spring.mvc.security.domain.user.service.UserServic
 import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
 import com.bernardomg.example.spring.mvc.security.validation.group.Update;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Secured controller.
  * <p>
@@ -61,6 +61,7 @@ import com.bernardomg.example.spring.mvc.security.validation.group.Update;
  */
 @Controller
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 
     /**
@@ -107,19 +108,6 @@ public class UserController {
      * Users service.
      */
     private final UserService  service;
-
-    /**
-     * Constructs a login controller.
-     *
-     * @param userService
-     *            users service
-     */
-    @Autowired
-    public UserController(final UserService userService) {
-        super();
-
-        service = Objects.requireNonNull(userService, "Received a null pointer as users service");
-    }
 
     /**
      * Returns the initial user form data.
