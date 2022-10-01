@@ -304,6 +304,11 @@
          <artifactId>spring-boot-starter-security</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Boot Starter: log4j -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-log4j2</artifactId>
+      </dependency>
+      <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
