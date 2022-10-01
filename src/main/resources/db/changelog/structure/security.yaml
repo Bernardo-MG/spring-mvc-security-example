@@ -46,7 +46,7 @@ databaseChangeLog:
             -  column:
                   name: locked
                   type: boolean
-                  defaultValue: false
+                  defaultValue: 'false'
                   constraints:
                      nullable: false
 -  changeSet:
