@@ -31,7 +31,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -105,13 +104,11 @@ public final class DefaultUserService implements UserService {
     }
 
     @Override
-    @Cacheable("roles")
     public final List<PersistentRole> getAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
-    @Cacheable("users")
     public final List<PersistentUser> getAllUsers() {
         return userRepository.findAll();
     }
@@ -138,7 +135,6 @@ public final class DefaultUserService implements UserService {
     }
 
     @Override
-    @Cacheable("user")
     public final PersistentUser getUser(final String username) {
         final Optional<PersistentUser> read;
         final PersistentUser           user;

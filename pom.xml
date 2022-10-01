@@ -352,11 +352,6 @@
          <artifactId>hibernate-core</artifactId>
       </dependency>
       <dependency>
-         <!-- Hibernate Ehcache -->
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-ehcache</artifactId>
-      </dependency>
-      <dependency>
          <!-- Hibernate validator -->
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
