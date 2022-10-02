@@ -27,33 +27,40 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 
-INSERT INTO USERS (id, username, password, enabled, locked, expired, credentials_expired) VALUES
+INSERT INTO users (id, username, password, enabled, locked, expired, credentials_expired) VALUES
    (1, 'admin',      '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW',   true,    false,   false,   false),
    (2, 'noroles',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   false),
    (3, 'locked',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    true,    false,   false),
    (4, 'expired',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   true,    false),
    (5, 'disabled',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   false,   false,   false,   false),
-   (6, 'expCreds',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true);
+   (6, 'expcreds',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true),
+   (7, 'noread',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true);
 
-INSERT INTO ROLES (id, name) VALUES
+INSERT INTO roles (id, name) VALUES
    (1, 'ADMIN'),
-   (2, 'USER');
+   (2, 'USER'),
+   (3, 'NO_READ');
 
-INSERT INTO PRIVILEGES (id, name) VALUES
+INSERT INTO privileges (id, name) VALUES
    (1, 'CREATE_USER'),
    (2, 'READ_USER'),
    (3, 'UPDATE_USER'),
    (4, 'DELETE_USER');
 
-INSERT INTO ROLE_PRIVILEGES (role_id, privilege_id) VALUES
+INSERT INTO role_privileges (role_id, privilege_id) VALUES
    (1, 1),
    (1, 2),
    (1, 3),
    (1, 4),
-   (2, 2);
+   (2, 2),
+   (3, 1),
+   (3, 3),
+   (3, 4);
 
-INSERT INTO USER_ROLES (user_id, role_id) VALUES
+INSERT INTO user_roles (user_id, role_id) VALUES
    (1, 1),
    (3, 1),
    (4, 1),
-   (5, 1);
+   (5, 1),
+   (6, 1),
+   (7, 3);
