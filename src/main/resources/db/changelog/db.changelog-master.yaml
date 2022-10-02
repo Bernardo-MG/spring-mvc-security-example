@@ -9,11 +9,20 @@ databaseChangeLog:
       file: structure/sequence.yaml
       relativeToChangelogFile: true
   - changeSet:
-      id: initial_data
+      id: initial_users
       author: Bernardo
       changes:
       - sqlFile:
           path: populate/initial_user.sql
+          encoding: UTF-8
+          stripComments: true
+          relativeToChangelogFile: true
+  - changeSet:
+      id: initial_sequences
+      author: Bernardo
+      changes:
+      - sqlFile:
+          path: populate/initial_sequences.sql
           encoding: UTF-8
           stripComments: true
           relativeToChangelogFile: true
