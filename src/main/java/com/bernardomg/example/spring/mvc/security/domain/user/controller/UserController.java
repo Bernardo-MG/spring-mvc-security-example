@@ -40,12 +40,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bernardomg.example.spring.mvc.security.domain.user.model.RoleData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.UserData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserRolesForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.validation.group.Creation;
 import com.bernardomg.example.spring.mvc.security.validation.group.Update;
@@ -189,7 +189,7 @@ public class UserController {
     @GetMapping(path = "/edit/{username}")
     public String showUserEdition(@PathVariable("username") final String username,
             @ModelAttribute(PARAM_USER_FORM) final DefaultUserForm form, final ModelMap model) {
-        final PersistentUser user;
+        final UserData user;
 
         user = service.getUser(username);
         BeanUtils.copyProperties(user, form);
@@ -213,14 +213,14 @@ public class UserController {
     @GetMapping(path = "/roles/edit/{username}")
     public String showUserRoleEdition(@PathVariable("username") final String username,
             @ModelAttribute(PARAM_ROLES_FORM) final DefaultUserRolesForm form, final ModelMap model) {
-        final PersistentUser             user;
-        final Collection<PersistentRole> roles;
-        final Iterable<PersistentRole>   allRoles;
-        final Collection<String>         roleNames;
+        final UserData             user;
+        final Collection<RoleData> roles;
+        final Iterable<RoleData>   allRoles;
+        final Collection<String>   roleNames;
 
         roles = service.getRoles(username);
         roleNames = roles.stream()
-            .map(PersistentRole::getName)
+            .map(RoleData::getName)
             .collect(Collectors.toList());
         form.setRoles(roleNames);
 

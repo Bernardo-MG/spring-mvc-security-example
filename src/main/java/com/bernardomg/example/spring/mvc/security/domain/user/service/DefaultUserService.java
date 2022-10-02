@@ -29,17 +29,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoRole;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoUser;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.Role;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.DtoPrivilegeData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.DtoRoleData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.DtoUserData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.PrivilegeData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.RoleData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.UserData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentPrivilege;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
@@ -104,19 +108,25 @@ public final class DefaultUserService implements UserService {
     }
 
     @Override
-    public final List<PersistentRole> getAllRoles() {
-        return roleRepository.findAll();
+    public final List<RoleData> getAllRoles() {
+        return roleRepository.findAll()
+            .stream()
+            .map(this::toDto)
+            .collect(Collectors.toList());
     }
 
     @Override
-    public final List<PersistentUser> getAllUsers() {
-        return userRepository.findAll();
+    public final List<UserData> getAllUsers() {
+        return userRepository.findAll()
+            .stream()
+            .map(this::toDto)
+            .collect(Collectors.toList());
     }
 
     @Override
-    public final Collection<PersistentRole> getRoles(final String username) {
-        final Optional<PersistentUser>   read;
-        final Collection<PersistentRole> roles;
+    public final Collection<RoleData> getRoles(final String username) {
+        final Optional<PersistentUser> read;
+        final Collection<RoleData>     roles;
 
         Objects.requireNonNull(username);
 
@@ -124,7 +134,10 @@ public final class DefaultUserService implements UserService {
 
         if (read.isPresent()) {
             roles = read.get()
-                .getRoles();
+                .getRoles()
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
         } else {
             // TODO: Throw an exception maybe?
             log.warn("User {} not found", username);
@@ -135,16 +148,16 @@ public final class DefaultUserService implements UserService {
     }
 
     @Override
-    public final PersistentUser getUser(final String username) {
+    public final UserData getUser(final String username) {
         final Optional<PersistentUser> read;
-        final PersistentUser           user;
+        final UserData                 user;
 
         Objects.requireNonNull(username);
 
         read = userRepository.findOneByUsername(username);
 
         if (read.isPresent()) {
-            user = read.get();
+            user = toDto(read.get());
         } else {
             // TODO: Throw an exception maybe?
             log.warn("User {} not found", username);
@@ -201,20 +214,37 @@ public final class DefaultUserService implements UserService {
         }
     }
 
-    private final Role toDto(final PersistentRole entity) {
-        final DtoRole role;
+    private final PrivilegeData toDto(final PersistentPrivilege entity) {
+        final DtoPrivilegeData privilege;
 
-        role = new DtoRole();
+        privilege = new DtoPrivilegeData();
+        BeanUtils.copyProperties(entity, privilege);
+
+        return privilege;
+    }
+
+    private final RoleData toDto(final PersistentRole entity) {
+        final DtoRoleData role;
+
+        role = new DtoRoleData();
         BeanUtils.copyProperties(entity, role);
+        role.setPrivileges(entity.getPrivileges()
+            .stream()
+            .map(this::toDto)
+            .collect(Collectors.toList()));
 
         return role;
     }
 
-    private final User toDto(final PersistentUser entity) {
-        final DtoUser user;
+    private final UserData toDto(final PersistentUser entity) {
+        final DtoUserData user;
 
-        user = new DtoUser();
+        user = new DtoUserData();
         BeanUtils.copyProperties(entity, user);
+        user.setRoles(entity.getRoles()
+            .stream()
+            .map(this::toDto)
+            .collect(Collectors.toList()));
 
         return user;
     }

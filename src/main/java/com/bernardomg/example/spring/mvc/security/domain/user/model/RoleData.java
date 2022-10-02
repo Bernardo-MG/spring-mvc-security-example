@@ -22,50 +22,53 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
+package com.bernardomg.example.spring.mvc.security.domain.user.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-
-import lombok.Data;
+import java.util.Collection;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * User role. Groups a set of permissions.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "privileges")
-@Data
-@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "seq_name",
-        valueColumnName = "seq_count", initialValue = 10, allocationSize = 1)
-public class PersistentPrivilege implements Serializable {
+public interface RoleData {
 
     /**
-     * Serialization id.
+     * Returns the user id.
+     *
+     * @return the user id
      */
-    private static final long serialVersionUID = 8513041662486312372L;
+    public Long getId();
 
     /**
-     * Entity id.
+     * Returns the role name.
+     *
+     * @return the role name
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_privileges_id")
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
+    public String getName();
 
     /**
-     * Privilege name.
+     * Returns all the roles privileges.
+     *
+     * @return roles privileges
      */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
+    public Collection<PrivilegeData> getPrivileges();
+
+    /**
+     * Sets the user id.
+     *
+     * @param identifier
+     *            the new id
+     */
+    public void setId(final Long identifier);
+
+    /**
+     * Sets the role name.
+     *
+     * @param role
+     *            new name
+     */
+    public void setName(final String role);
 
 }

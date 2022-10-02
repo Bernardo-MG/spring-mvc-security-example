@@ -49,7 +49,7 @@ import lombok.Data;
  *
  */
 @Entity(name = "Role")
-@Table(name = "ROLES")
+@Table(name = "roles")
 @Data
 @TableGenerator(name = "seq_roles_id", table = "sequences", pkColumnName = "seq_name", valueColumnName = "seq_count",
         initialValue = 10, allocationSize = 1)
@@ -81,12 +81,5 @@ public class PersistentRole implements Serializable {
     @JoinTable(name = "ROLE_PRIVILEGES", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private Collection<PersistentPrivilege> privileges       = new ArrayList<>();
-
-    /**
-     * Default constructor.
-     */
-    public PersistentRole() {
-        super();
-    }
 
 }

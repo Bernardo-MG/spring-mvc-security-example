@@ -31,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.UserData;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.IntegrationTest;
 
@@ -63,7 +63,7 @@ public class ITUserServiceReadInvalid {
     @WithMockUser(username = "admin", authorities = { "READ_USER" })
     @DisplayName("A single not existing user can't be read")
     public final void testGetUser_NotExisting() {
-        final PersistentUser user; // Read user
+        final UserData user;
 
         user = service.getUser("abc");
 

@@ -22,50 +22,35 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.model.persistence;
+package com.bernardomg.example.spring.mvc.security.domain.user.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import lombok.Data;
 
 /**
- * Persistent implementation of {@code Privilege}.
+ * Persistent implementation of {@code Role}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Entity(name = "Privilege")
-@Table(name = "privileges")
 @Data
-@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "seq_name",
-        valueColumnName = "seq_count", initialValue = 10, allocationSize = 1)
-public class PersistentPrivilege implements Serializable {
-
-    /**
-     * Serialization id.
-     */
-    private static final long serialVersionUID = 8513041662486312372L;
+public class DtoRoleData implements RoleData {
 
     /**
      * Entity id.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_privileges_id")
-    @Column(name = "id", nullable = false, unique = true)
-    private Long              id;
+    private Long                      id;
 
     /**
-     * Privilege name.
+     * Authority name.
      */
-    @Column(name = "name", nullable = false, unique = true, length = 60)
-    private String            name;
+    private String                    name;
+
+    /**
+     * Granted privileges.
+     */
+    private Collection<PrivilegeData> privileges = new ArrayList<>();
 
 }

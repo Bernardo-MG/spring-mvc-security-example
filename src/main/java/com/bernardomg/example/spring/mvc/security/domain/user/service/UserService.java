@@ -29,10 +29,10 @@ import java.util.Collection;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bernardomg.example.spring.mvc.security.domain.user.model.RoleData;
+import com.bernardomg.example.spring.mvc.security.domain.user.model.UserData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
 
 /**
  * Service for handling user data.
@@ -60,7 +60,7 @@ public interface UserService {
      * @return all the roles
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public Iterable<PersistentRole> getAllRoles();
+    public Iterable<RoleData> getAllRoles();
 
     /**
      * Returns all the users in the application.
@@ -70,7 +70,7 @@ public interface UserService {
      * @return all the users
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public Iterable<PersistentUser> getAllUsers();
+    public Iterable<UserData> getAllUsers();
 
     /**
      * Returns the roles for the user with the received username.
@@ -82,7 +82,7 @@ public interface UserService {
      * @return roles for the user
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public Collection<PersistentRole> getRoles(final String username);
+    public Collection<RoleData> getRoles(final String username);
 
     /**
      * Returns the user with the received username.
@@ -94,7 +94,7 @@ public interface UserService {
      * @return user for the received username
      */
     @PreAuthorize("hasAuthority('READ_USER')")
-    public PersistentUser getUser(final String username);
+    public UserData getUser(final String username);
 
     /**
      * Updates the received user. The user is only valid if it doesn't exist already.
