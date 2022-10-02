@@ -41,12 +41,14 @@ INSERT INTO ROLES (id, name) VALUES
 INSERT INTO PRIVILEGES (id, name) VALUES
    (1, 'CREATE_USER'),
    (2, 'READ_USER'),
-   (3, 'UPDATE_USER');
+   (3, 'UPDATE_USER'),
+   (4, 'DELETE_USER');
 
 INSERT INTO ROLE_PRIVILEGES (role_id, privilege_id) VALUES
    (1, 1),
    (1, 2),
-   (1, 3);
+   (1, 3),
+   (1, 4);
 
 INSERT INTO USER_ROLES (user_id, role_id) VALUES
    (1, 1),

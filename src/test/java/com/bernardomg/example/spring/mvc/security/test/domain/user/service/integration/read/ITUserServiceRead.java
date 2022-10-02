@@ -112,7 +112,7 @@ public class ITUserServiceRead {
             .next();
         Assertions.assertEquals("ADMIN", role.getName());
 
-        Assertions.assertEquals(3, IterableUtils.size(role.getPrivileges()));
+        Assertions.assertEquals(4, IterableUtils.size(role.getPrivileges()));
         privilege = role.getPrivileges()
             .iterator()
             .next();
