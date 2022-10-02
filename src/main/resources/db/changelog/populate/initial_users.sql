@@ -34,7 +34,7 @@ INSERT INTO users (id, username, password, enabled, locked, expired, credentials
    (4, 'expired',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   true,    false),
    (5, 'disabled',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   false,   false,   false,   false),
    (6, 'expcreds',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true),
-   (7, 'noread',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true);
+   (7, 'noread',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   false);
 
 INSERT INTO roles (id, name) VALUES
    (1, 'ADMIN'),
