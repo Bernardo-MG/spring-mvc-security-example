@@ -64,7 +64,7 @@ public class ITUserServiceCreateInvalid {
 
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    @DisplayName("Names can't be repeated")
+    @DisplayName("Usernames can't be repeated")
     public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -77,7 +77,7 @@ public class ITUserServiceCreateInvalid {
 
     @Test
     @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
-    @DisplayName("Null names are rejected")
+    @DisplayName("Null usernames are rejected")
     public final void testCreate_NoName_Exception() {
         final DefaultUserForm user; // User to save
 

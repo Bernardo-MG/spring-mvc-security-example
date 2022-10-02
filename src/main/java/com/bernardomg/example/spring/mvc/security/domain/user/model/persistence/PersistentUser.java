@@ -37,6 +37,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -51,6 +52,7 @@ import lombok.Data;
 @Entity(name = "UserDetails")
 @Table(name = "USERS")
 @Data
+@SequenceGenerator(name = "seq_users_id", initialValue = 10, allocationSize = 1)
 public class PersistentUser implements Serializable {
 
     /**
@@ -87,7 +89,7 @@ public class PersistentUser implements Serializable {
      * Entity id.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users_id")
     @Column(name = "id", nullable = false, unique = true)
     private Long                       id;
 

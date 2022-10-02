@@ -37,6 +37,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -50,6 +51,7 @@ import lombok.Data;
 @Entity(name = "Role")
 @Table(name = "ROLES")
 @Data
+@SequenceGenerator(name = "seq_roles_id", initialValue = 10, allocationSize = 1)
 public class PersistentRole implements Serializable {
 
     /**
@@ -61,7 +63,7 @@ public class PersistentRole implements Serializable {
      * Entity id.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_roles_id")
     @Column(name = "id", nullable = false, unique = true)
     private Long                            id;
 
