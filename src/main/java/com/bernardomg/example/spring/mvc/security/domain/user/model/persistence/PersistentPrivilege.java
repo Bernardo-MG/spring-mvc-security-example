@@ -31,8 +31,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import lombok.Data;
 
@@ -45,7 +45,8 @@ import lombok.Data;
 @Entity(name = "Privilege")
 @Table(name = "PRIVILEGES")
 @Data
-@SequenceGenerator(name = "seq_privileges_id", initialValue = 10, allocationSize = 1)
+@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "seq_name",
+        valueColumnName = "seq_count", initialValue = 10, allocationSize = 1)
 public class PersistentPrivilege implements Serializable {
 
     /**
@@ -57,7 +58,7 @@ public class PersistentPrivilege implements Serializable {
      * Entity id.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_privileges_id")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_privileges_id")
     @Column(name = "id", nullable = false, unique = true)
     private Long              id;
 

@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       file: structure/remember.yaml
       relativeToChangelogFile: true
+  - include:
+      file: structure/sequence.yaml
+      relativeToChangelogFile: true

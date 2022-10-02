@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: sequence_generators
+      author: Bernardo
+      changes:
+        - createTable:
+            tableName: sequences
+            columns:
+              - column:
+                  name: seq_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seq_count
+                  type: integer
+                  constraints:
+                    nullable: false
