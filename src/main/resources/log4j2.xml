@@ -17,37 +17,12 @@
    </Appenders>
 
    <Loggers>
+      <!-- Application log -->
       <Logger name="com.bernardomg.example" level="debug" additivity="false">
          <AppenderRef ref="console" />
       </Logger>
 
-      <!-- Spring Framework -->
-      <Logger name="org.springframework" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-      <Logger name="org.springframework.security" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-
-      <!-- Hibernate -->
-      <Logger name="org.hibernate" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-      <Logger name="org.hibernate.SQL" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-
-      <!-- Liquibase -->
-      <logger name="liquibase" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </logger>
-
-      <!-- Jackson -->
-      <logger name="com.fasterxml.jackson" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </logger>
-
-      <Root level="warn">
+      <Root level="error">
          <AppenderRef ref="console" />
       </Root>
    </Loggers>
