@@ -13,7 +13,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       - sqlFile:
-          path: populate/initial_users.sql
+          path: data/initial_users.sql
           encoding: UTF-8
           stripComments: true
           relativeToChangelogFile: true
@@ -22,7 +22,7 @@ databaseChangeLog:
       author: Bernardo
       changes:
       - sqlFile:
-          path: populate/initial_sequences.sql
+          path: data/initial_sequences.sql
           encoding: UTF-8
           stripComments: true
           relativeToChangelogFile: true
