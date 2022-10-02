@@ -4,70 +4,72 @@
 
 <head th:include="fragments/header :: header" />
 <body>
-	<header class="header" th:include="fragments/menu :: menu" />
+   <header class="header" th:include="fragments/menu :: menu" />
 
-	<section id="main-section" class="container-fluid">
-		<header class="page-header">
-			<h1>Login</h1>
-		</header>
-		<article class="well">
-			<p>Try one of the following users:</p>
-			<table class="table">
-				<tr>
-					<th>Username</th>
-					<th>Password</th>
-					<th>Roles</th>
-				</tr>
-				<tr>
-					<td>admin</td>
-					<td>1234</td>
-					<td>ADMIN_ROLE</td>
-				</tr>
-				<tr>
-					<td>noread</td>
-					<td>1111</td>
-					<td></td>
-				</tr>
-			</table>
-		</article>
-		<form th:action="@{/login}" method="post" class="form-horizontal">
-			<div class="alert alert-danger" role="alert" th:if="${error}">Login
-				error</div>
-			<div class="form-group">
-				<label for="username" class="col-sm-2 control-label">Username</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="username"
-						id="username" placeholder="Username">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="col-sm-2 control-label">Password</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" name="password"
-						id="password" placeholder="Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="checkbox col-md-offset-2">
-					<label> <input type="checkbox" name="remember-me"
-						id="remember-me">Remember me
-					</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary">Sign in</button>
-				</div>
-			</div>
-		</form>
-		<div>
-         <a th:href="@{/oauth2/authorization/github}">Log in with GitHub</a>
+   <section id="main-section" class="container-fluid">
+      <header class="page-header">
+         <h1>Login</h1>
+      </header>
+      <article class="well">
+         <p>Try one of the following users:</p>
+         <table class="table">
+            <tr>
+               <th>Username</th>
+               <th>Password</th>
+               <th>Roles</th>
+            </tr>
+            <tr>
+               <td>admin</td>
+               <td>1234</td>
+               <td>ADMIN_ROLE</td>
+            </tr>
+            <tr>
+               <td>noread</td>
+               <td>1111</td>
+               <td></td>
+            </tr>
+         </table>
+      </article>
+      <form th:action="@{/login}" method="post" class="form-horizontal">
+         <div class="alert alert-danger" role="alert" th:if="${error}">Login
+            error</div>
+         <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+               <input type="text" class="form-control" name="username"
+                  id="username" placeholder="Username">
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+               <input type="password" class="form-control"
+                  name="password" id="password" placeholder="Password">
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="checkbox col-md-offset-2">
+               <label> <input type="checkbox" name="remember-me"
+                  id="remember-me">Remember me
+               </label>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+               <button type="submit" class="btn btn-primary">Sign
+                  in</button>
+            </div>
+         </div>
+      </form>
+      <div>
+         <a th:href="@{/oauth2/authorization/github}">Log in with
+            GitHub</a>
       </div>
-	</section>
+   </section>
 
-	<footer>
-		<div th:include="fragments/scripts :: general" />
-	</footer>
+   <footer>
+      <div th:include="fragments/scripts :: general" />
+   </footer>
 </body>
 
 </html>
