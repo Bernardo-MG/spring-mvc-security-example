@@ -41,5 +41,19 @@
             Updated dependencies.
          </action>
       </release>
+      <release version="1.3.0" date="2021-02-21" description="Reworked project">
+         <action dev="bmg" type="update">
+            Using JDBC for reading user data on security components.
+         </action>
+         <action dev="bmg" type="update">
+            Views no longer receive JPA entities.
+         </action>
+         <action dev="bmg" type="update">
+            Cleaned up project.
+         </action>
+         <action dev="bmg" type="update">
+            Updated dependencies.
+         </action>
+      </release>
    </body>
 </document>

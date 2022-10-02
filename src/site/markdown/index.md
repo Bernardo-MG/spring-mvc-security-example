@@ -20,3 +20,15 @@ Handles user authentication, and access restrictions.
 Thymeleaf is used for the views.
 
 [spring-mvc]: https://spring.io
+
+### Users
+
+| User     | Password | Permissions    |
+|----------|----------|----------------|
+| admin    | 1234     | all            |
+| noroles  | 1111     | none           |
+| locked   | 1111     | all            |
+| expired  | 1111     | all            |
+| disabled | 1111     | all            |
+| expcreds | 1111     | all            |
+| noread   | 1111     | all minus read |

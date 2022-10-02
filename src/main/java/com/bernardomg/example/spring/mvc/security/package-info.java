@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2020 the original author or authors.
+ * Copyright (c) 2017-2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,7 @@
 /**
  * Spring MVC with applied security sample.
  * <p>
- * The executable class is contained at this root package, to scan all those
- * above it.
+ * The executable class is contained at this root package, to scan all those above it.
  */
 
 package com.bernardomg.example.spring.mvc.security;

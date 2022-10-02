@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2020 the original author or authors.
+ * Copyright (c) 2017-2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,79 +24,92 @@
 
 package com.bernardomg.example.spring.mvc.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.Filter;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
+
+import com.bernardomg.example.spring.mvc.security.auth.oauth.RegisterOAuth2UserService;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
+import com.bernardomg.example.spring.mvc.security.auth.userdetails.PersistentUserDetailsService;
+import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
+import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
 /**
- * Security configuration.
- * 
- * @author Bernardo Martínez Garrido
+ * Authentication configuration.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+public class SecurityConfig {
 
     public SecurityConfig() {
         super();
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    @Bean("authenticationManagerFactoryBean")
+    public AuthenticationManagerFactoryBean getAuthenticationManagerFactoryBean() {
+        return new AuthenticationManagerFactoryBean();
     }
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.userDetailsService(userDetailsService);
+    @Bean("jdbcTokenRepository")
+    public PersistentTokenRepository getJdbcTokenRepository(final DataSource dataSource) {
+        final JdbcTokenRepositoryImpl repo;
+
+        repo = new JdbcTokenRepositoryImpl();
+
+        repo.setDataSource(dataSource);
+
+        return repo;
     }
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
-        final Customizer<FormLoginConfigurer<HttpSecurity>> formLoginCustomizer;
-        final Customizer<LogoutConfigurer<HttpSecurity>> logoutCustomizer;
-        final Customizer<RememberMeConfigurer<HttpSecurity>> rememberMeCustomizer;
-        final Customizer<OAuth2LoginConfigurer<HttpSecurity>> oauth2LoginCustomizer;
+    @Bean("oAuth2UserService")
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> getOAuth2UserService(
+            final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
+            final PrivilegeRepository privilegeRepo) {
+        return new RegisterOAuth2UserService(userRepo, roleRepo, privilegeRepo);
+    }
 
-        // Authorization
-        authorizeRequestsCustomizer = c -> c
-                .antMatchers("/static/**", "/login*").permitAll().anyRequest()
-                .authenticated();
-        // Login form
-        formLoginCustomizer = c -> c.loginPage("/login")
-                .loginProcessingUrl("/login").defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true");
-        // Logout
-        logoutCustomizer = c -> c.logoutUrl("/logout")
-                .deleteCookies("JSESSIONID").logoutSuccessUrl("/");
-        // Remember me
-        rememberMeCustomizer = c -> c.tokenValiditySeconds(86400);
-        // OAUTH2
-        oauth2LoginCustomizer = c -> c.loginPage("/login");
+    @Bean("passwordEncoder")
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-        http.authorizeRequests(authorizeRequestsCustomizer)
-                .formLogin(formLoginCustomizer).logout(logoutCustomizer)
-                .rememberMe(rememberMeCustomizer)
-                .oauth2Login(oauth2LoginCustomizer);
+    @Bean("rememberMeFilter")
+    public Filter getRememberMeFilter(final AuthenticationManager authenticationManager,
+            final RememberMeServices rememberMeServices) {
+        return new RememberMeAuthenticationFilter(authenticationManager, rememberMeServices);
+    }
+
+    @Bean("rememberMeServices")
+    public RememberMeServices getRememberMeServices(@Value("${rememberme.key}") final String key,
+            final UserDetailsService userDetailsService, final PersistentTokenRepository tokenRepository) {
+        return new PersistentTokenBasedRememberMeServices(key, userDetailsService, tokenRepository);
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService getUserDetailsService(final UserRepository userRepository,
+            final PrivilegeRepository privilegeRepository) {
+        return new PersistentUserDetailsService(userRepository, privilegeRepository);
     }
 
 }

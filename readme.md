@@ -49,19 +49,6 @@ The verify phase is required, otherwise some of the reports won't be generated.
 
 The application is coded in Java, using Maven to manage the project.
 
-### Prerequisites
-
-The project has been tested on the following Java versions:
-* JDK 8
-* JDK 10
-* JDK 11
-
-All other dependencies are handled through Maven, and noted in the included POM file.
-
-### Installing
-
-The project can be installed by creating the war file and deploying it into a server.
-
 ### Running
 
 As this is a Spring Boot app it may be run with Maven or through your preferred IDE.

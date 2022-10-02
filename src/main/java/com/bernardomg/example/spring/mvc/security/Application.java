@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2020 the original author or authors.
+ * Copyright (c) 2017-2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Application executable. Runs a Spring Boot web application built from the
- * project classes.
- * 
- * @author Bernardo Martínez Garrido
+ * Application executable. Runs a Spring Boot web application built from the project classes.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @SpringBootApplication
@@ -39,7 +38,7 @@ public class Application {
 
     /**
      * Executable method.
-     * 
+     *
      * @param args
      *            application arguments
      */

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: structure/security.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: structure/remember.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: structure/sequence.yaml
+      relativeToChangelogFile: true
+  - changeSet:
+      id: initial_sequences
+      author: Bernardo
+      changes:
+      - sqlFile:
+          path: data/initial_sequences.sql
+          encoding: UTF-8
+          stripComments: true
+          relativeToChangelogFile: true

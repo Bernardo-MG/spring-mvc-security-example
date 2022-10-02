@@ -4,35 +4,36 @@
 
 <head th:include="fragments/header :: header" />
 <body>
-	<header class="header" th:include="fragments/menu :: menu" />
+   <header class="header" th:include="fragments/menu :: menu" />
 
-	<section id="main-section" class="container-fluid">
-		<header class="page-header">
-			<h1>Spring MVC Security Example</h1>
-		</header>
-		<p>Test application for Spring MVC with security</p>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Logged user data</h3>
-			</div>
-			<div class="panel-body">
-				<dl>
-					<dt>Username</dt>
-					<dd>
-						<span sec:authentication="name">Unknown</span>
-					</dd>
-					<dt>Roles</dt>
-					<dd>
-						<span sec:authentication="principal.authorities">No roles</span>
-					</dd>
-				</dl>
-			</div>
-		</div>
-	</section>
+   <section id="main-section" class="container-fluid">
+      <header class="page-header">
+         <h1>Spring MVC Security Example</h1>
+      </header>
+      <p>Test application for Spring MVC with security</p>
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h3 class="panel-title">Logged user data</h3>
+         </div>
+         <div class="panel-body">
+            <dl>
+               <dt>Username</dt>
+               <dd>
+                  <span sec:authentication="name">Unknown</span>
+               </dd>
+               <dt>Roles</dt>
+               <dd>
+                  <span sec:authentication="principal.authorities">No
+                     roles</span>
+               </dd>
+            </dl>
+         </div>
+      </div>
+   </section>
 
-	<footer>
-		<div th:include="fragments/scripts :: general" />
-	</footer>
+   <footer>
+      <div th:include="fragments/scripts :: general" />
+   </footer>
 </body>
 
 </html>

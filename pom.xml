@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
@@ -11,7 +12,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.4.0</version>
+      <version>1.5.2</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -20,7 +21,7 @@
 
    <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-mvc-security-example</artifactId>
-   <version>1.2.2</version>
+   <version>1.3.0</version>
    <packaging>war</packaging>
 
    <name>Spring MVC Security Example</name>
@@ -78,44 +79,13 @@
    <!-- ********************************************** -->
 
    <profiles>
+      <!-- ============================================== -->
+      <!-- ============ DEPLOYMENT PROFILES ============= -->
+      <!-- ============================================== -->
       <profile>
-         <!-- Profile for the Eclipse Maven plugin -->
-         <!-- Sets the POM so this plugin does not give the usual unregistered goals errors -->
-         <!-- It will be activated automatically on Eclipse if this has the m2e plugin, by detecting the version property -->
-         <id>eclipse-maven</id>
-         <activation>
-            <property>
-               <name>m2e.version</name>
-            </property>
-         </activation>
-         <build>
-            <pluginManagement>
-               <plugins>
-                  <plugin>
-                     <!-- m2e lifecycle mapping -->
-                     <!-- This is used to configure the Maven plugin for Eclipse. -->
-                     <!-- Among other things, it allows registering goals, which Eclipse would otherwise reject. -->
-                     <!-- It has no real effect on Maven. -->
-                     <groupId>org.eclipse.m2e</groupId>
-                     <artifactId>lifecycle-mapping</artifactId>
-                     <version>${plugin.lifecycle.version}</version>
-                     <configuration>
-                        <!-- Sample fix for plugin executions -->
-                        <!-- This is to be used in case a Maven plugins gives problems in Eclipse -->
-                        <!-- <lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> <versionRange>[0.5,)</versionRange> 
-                           <goals> <goal>prepare-agent</goal> </goals> </pluginExecutionFilter> <action> <ignore /> </action> </pluginExecution> </pluginExecutions> </lifecycleMappingMetadata> -->
-                        <downloadSources>true</downloadSources>
-                        <downloadJavadocs>true</downloadJavadocs>
-                     </configuration>
-                  </plugin>
-               </plugins>
-            </pluginManagement>
-         </build>
-      </profile>
-      <profile>
-         <!-- Release site deployment profile -->
+         <!-- Site deployment profile -->
          <!-- Sets the site repository to point to the releases repo -->
-         <id>deployment-release</id>
+         <id>deployment-site</id>
          <activation>
             <!-- Active by default so the repository appears in the reports -->
             <activeByDefault>true</activeByDefault>
@@ -125,31 +95,9 @@
                <id>site</id>
                <name>Project Documentation Site</name>
                <!-- The URL should be set externally -->
-               <url>${site.release.url}</url>
+               <url>${site.url}</url>
             </site>
          </distributionManagement>
-      </profile>
-      <profile>
-         <!-- Development site deployment profile -->
-         <!-- Sets the site repository to point to the development repo -->
-         <id>deployment-development</id>
-         <distributionManagement>
-            <site>
-               <id>site-development</id>
-               <name>Project Development Documentation Site</name>
-               <!-- The URL should be set externally -->
-               <url>${site.develop.url}</url>
-            </site>
-         </distributionManagement>
-      </profile>
-      <profile>
-         <!-- Deployment profile -->
-         <!-- Sets ups the environment for deployment -->
-         <id>deployment</id>
-         <properties>
-            <!-- Tests are skipped -->
-            <maven.test.skip>true</maven.test.skip>
-         </properties>
       </profile>
    </profiles>
 
@@ -184,10 +132,6 @@
 
    <properties>
       <!-- ============================================== -->
-      <!-- ================ JAVA VERSION ================ -->
-      <!-- ============================================== -->
-      <java.version>1.8</java.version>
-      <!-- ============================================== -->
       <!-- =============== MANIFEST DATA ================ -->
       <!-- ============================================== -->
       <manifest.name>com/bernardomg/example/spring/mvc/security</manifest.name>
@@ -200,48 +144,22 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <aspectj.version>1.9.6</aspectj.version>
-      <bytebuddy.version>1.10.19</bytebuddy.version>
-      <classmate.version>1.5.1</classmate.version>
-      <commons.logging.version>1.2</commons.logging.version>
+      <aspectj.version>1.9.9.1</aspectj.version>
+      <bytebuddy.version>1.12.13</bytebuddy.version>
+      <commons.collection.version>4.4</commons.collection.version>
       <glassfish.el.version>2.2</glassfish.el.version>
-      <guava.version>30.1-jre</guava.version>
-      <h2.version>1.4.200</h2.version>
-      <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
-      <hibernate.version>5.4.28.Final</hibernate.version>
-      <hikari.version>4.0.2</hikari.version>
-      <jackson.version>2.12.1</jackson.version>
-      <javaee.api.version>2.2</javaee.api.version>
-      <javassist.version>3.27.0-GA</javassist.version>
-      <junit.jupiter.version>5.7.1</junit.jupiter.version>
-      <liquibase.version>4.3.1</liquibase.version>
-      <log4j.version>2.14.0</log4j.version>
-      <mockito.version>3.7.7</mockito.version>
-      <servlet.version>4.0.1</servlet.version>
-      <slf4j.version>1.7.30</slf4j.version>
-      <snakeyaml.version>1.27</snakeyaml.version>
-      <spring.boot.version>2.2.6.RELEASE</spring.boot.version>
-      <spring.data.train.version>Neumann-SR7</spring.data.train.version>
-      <spring.security.version>5.4.5</spring.security.version>
-      <spring.version>5.3.4</spring.version>
-      <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
-      <thymeleaf.spring.security.version>3.0.4.RELEASE</thymeleaf.spring.security.version>
-      <webjars.bootstrap.version>3.3.7-1</webjars.bootstrap.version>
-      <webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
-      <webjars.fontAwesome.version>4.7.0</webjars.fontAwesome.version>
-      <webjars.html5shiv.version>3.7.3-1</webjars.html5shiv.version>
-      <webjars.jquery.version>3.5.1</webjars.jquery.version>
-      <webjars.locator.version>0.40</webjars.locator.version>
+      <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
+      <spring.boot.version>2.7.3</spring.boot.version>
+      <spring.version>5.3.23</spring.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
       <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
-      <plugin.jshint.version>1.6.0</plugin.jshint.version>
-      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
+      <plugin.spring.boot.version>2.5.3</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.0.11</site.skin.version>
+      <site.skin.version>2.2.7</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -259,34 +177,10 @@
             <scope>import</scope>
          </dependency>
          <dependency>
-            <!-- Spring Security BOM -->
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-bom</artifactId>
-            <version>${spring.security.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- Spring Data Release Train -->
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-releasetrain</artifactId>
-            <version>${spring.data.train.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- Jackson BOM -->
-            <groupId>com.fasterxml.jackson</groupId>
-            <artifactId>jackson-bom</artifactId>
-            <version>${jackson.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- JUnit BOM -->
-            <groupId>org.junit</groupId>
-            <artifactId>junit-bom</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <!-- Spring Boot BOM -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -387,7 +281,6 @@
          <!-- Spring Boot Starter: Thymeleaf -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-thymeleaf</artifactId>
-         <version>${spring.boot.version}</version>
          <exclusions>
             <exclusion>
                <groupId>org.springframework.boot</groupId>
@@ -399,25 +292,26 @@
          <!-- Spring Boot Starter: Web -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: JPA -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-data-jpa</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Security -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-security</artifactId>
-         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: log4j -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-log4j2</artifactId>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
-         <version>${spring.boot.version}</version>
          <scope>runtime</scope>
          <optional>true</optional>
       </dependency>
@@ -425,13 +319,11 @@
          <!-- Spring Boot Starter: AOP -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-aop</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: OAUTH2 -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-oauth2-client</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
@@ -455,7 +347,6 @@
          <!-- JPA API -->
          <groupId>javax.persistence</groupId>
          <artifactId>javax.persistence-api</artifactId>
-         <version>${javaee.api.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
@@ -464,13 +355,6 @@
          <!-- Hibernate Core -->
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>
-         <version>${hibernate.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Hibernate Ehcache -->
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-ehcache</artifactId>
-         <version>${hibernate.version}</version>
       </dependency>
       <dependency>
          <!-- Hibernate validator -->
@@ -482,7 +366,6 @@
          <!-- Hikari CP -->
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
-         <version>${hikari.version}</version>
          <exclusions>
             <exclusion>
                <groupId>org.slf4j</groupId>
@@ -497,7 +380,6 @@
          <!-- Liquibase -->
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
-         <version>${liquibase.version}</version>
          <exclusions>
             <exclusion>
                <groupId>ch.qos.logback</groupId>
@@ -512,7 +394,6 @@
          <!-- SnakeYAML -->
          <groupId>org.yaml</groupId>
          <artifactId>snakeyaml</artifactId>
-         <version>${snakeyaml.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->
@@ -521,7 +402,6 @@
          <!-- H2 database -->
          <groupId>com.h2database</groupId>
          <artifactId>h2</artifactId>
-         <version>${h2.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ THYMELEAF =================== -->
@@ -529,7 +409,6 @@
       <dependency>
          <groupId>org.thymeleaf.extras</groupId>
          <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-         <version>${thymeleaf.spring.security.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ SERVLET ===================== -->
@@ -538,47 +417,25 @@
          <!-- Servlet API -->
          <groupId>javax.servlet</groupId>
          <artifactId>javax.servlet-api</artifactId>
-         <version>${servlet.version}</version>
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================ WEBJARS ===================== -->
+      <!-- ================== LOMBOK ==================== -->
       <!-- ============================================== -->
       <dependency>
-         <!-- Bootstrap -->
-         <groupId>org.webjars</groupId>
-         <artifactId>bootstrap</artifactId>
-         <version>${webjars.bootstrap.version}</version>
+         <!-- Lombok -->
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <scope>provided</scope>
       </dependency>
+      <!-- ============================================== -->
+      <!-- ================== COMMONS =================== -->
+      <!-- ============================================== -->
       <dependency>
-         <!-- Bootswatch Readable -->
-         <groupId>org.webjars</groupId>
-         <artifactId>bootswatch-readable</artifactId>
-         <version>${webjars.bootswatch.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Font Awesome -->
-         <groupId>org.webjars</groupId>
-         <artifactId>font-awesome</artifactId>
-         <version>${webjars.fontAwesome.version}</version>
-      </dependency>
-      <dependency>
-         <!-- HTML5 Shiv -->
-         <groupId>org.webjars</groupId>
-         <artifactId>html5shiv</artifactId>
-         <version>${webjars.html5shiv.version}</version>
-      </dependency>
-      <dependency>
-         <!-- JQuery -->
-         <groupId>org.webjars</groupId>
-         <artifactId>jquery</artifactId>
-         <version>${webjars.jquery.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Webjars Locator -->
-         <groupId>org.webjars</groupId>
-         <artifactId>webjars-locator</artifactId>
-         <version>${webjars.locator.version}</version>
+         <!-- Commons Collections -->
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-collections4</artifactId>
+         <version>${commons.collection.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOGGING =================== -->
@@ -587,31 +444,26 @@
          <!-- Log4j core -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-core</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j Commons Logging Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-jcl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j SLF4J Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-slf4j-impl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j Web -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-web</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- SL4J API -->
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
-         <version>${slf4j.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= JACKSON ==================== -->
@@ -635,39 +487,15 @@
       <!-- ============ OTHER DEPENDENCIES ============== -->
       <!-- ============================================== -->
       <dependency>
-         <!-- Guava -->
-         <groupId>com.google.guava</groupId>
-         <artifactId>guava</artifactId>
-         <version>${guava.version}</version>
-      </dependency>
-      <dependency>
          <!-- Javax EL implementation -->
          <groupId>org.glassfish.web</groupId>
          <artifactId>el-impl</artifactId>
          <version>${glassfish.el.version}</version>
          <scope>provided</scope>
       </dependency>
-      <dependency>
-         <!-- Javassist -->
-         <groupId>org.javassist</groupId>
-         <artifactId>javassist</artifactId>
-         <version>${javassist.version}</version>
-      </dependency>
       <!-- ============================================== -->
       <!-- =========== VERSION ENFORCEMENT ============== -->
       <!-- ============================================== -->
-      <dependency>
-         <!-- FasterXML ClassMate -->
-         <groupId>com.fasterxml</groupId>
-         <artifactId>classmate</artifactId>
-         <version>${classmate.version}</version>
-      </dependency>
-      <dependency>
-         <!-- Commons Logging -->
-         <groupId>commons-logging</groupId>
-         <artifactId>commons-logging</artifactId>
-         <version>${commons.logging.version}</version>
-      </dependency>
       <dependency>
          <!-- Byte Buddy -->
          <groupId>net.bytebuddy</groupId>
@@ -700,7 +528,6 @@
          <!-- Mockito -->
          <groupId>org.mockito</groupId>
          <artifactId>mockito-core</artifactId>
-         <version>${mockito.version}</version>
          <scope>test</scope>
       </dependency>
       <dependency>
@@ -719,7 +546,6 @@
          <!-- Spring Boot Starter: Test -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
-         <version>${spring.boot.version}</version>
          <scope>test</scope>
          <exclusions>
             <exclusion>
@@ -750,18 +576,6 @@
             <filtering>true</filtering>
          </resource>
       </resources>
-      <pluginManagement>
-         <plugins>
-            <!-- Plugin versions and configurations are enforced here. -->
-            <plugin>
-               <!-- JSHint -->
-               <!-- Validates Javascript files. -->
-               <groupId>com.cj.jshintmojo</groupId>
-               <artifactId>jshint-maven-plugin</artifactId>
-               <version>${plugin.jshint.version}</version>
-            </plugin>
-         </plugins>
-      </pluginManagement>
       <plugins>
          <plugin>
             <!-- Changes -->
@@ -817,30 +631,6 @@
             <artifactId>maven-resources-plugin</artifactId>
          </plugin>
          <plugin>
-            <!-- JSHint -->
-            <!-- Validates Javascript files. -->
-            <groupId>com.cj.jshintmojo</groupId>
-            <artifactId>jshint-maven-plugin</artifactId>
-            <executions>
-               <execution>
-                  <id>jshint</id>
-                  <phase>test</phase>
-                  <goals>
-                     <goal>lint</goal>
-                  </goals>
-               </execution>
-            </executions>
-            <configuration>
-               <options>maxdepth:3,latedef,nonew,jquery</options>
-               <directories>
-                  <directory>src/main/webapp/resources/js</directory>
-               </directories>
-               <reporter>checkstyle</reporter>
-               <reportFile>target/jshint.xml</reportFile>
-               <failOnError>true</failOnError>
-            </configuration>
-         </plugin>
-         <plugin>
             <!-- Spring Boot -->
             <!-- Takes care of running Spring Boot application -->
             <groupId>org.springframework.boot</groupId>
@@ -869,7 +659,8 @@
          </plugin>
          <plugin>
             <!-- PMD -->
-            <!-- Checks that the code complies with a series of code quality rules -->
+            <!-- Checks that the code complies with a series of code quality 
+               rules -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>

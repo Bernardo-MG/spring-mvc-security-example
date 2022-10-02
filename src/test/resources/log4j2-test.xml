@@ -17,30 +17,17 @@
    </Appenders>
 
    <Loggers>
-      <Logger name="com.bernardomg.example" level="debug"
-         additivity="false">
+      <!-- Application log -->
+      <Logger name="com.bernardomg.example" level="error" additivity="false">
          <AppenderRef ref="console" />
       </Logger>
 
       <!-- Spring Framework -->
-      <Logger name="org.springframework" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-
-      <!-- Hibernate -->
-      <Logger name="org.hibernate" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-      <Logger name="org.hibernate.SQL" level="warn" additivity="false">
-         <AppenderRef ref="console" />
-      </Logger>
-      <Logger name="org.springframework.security" level="warn"
-         additivity="false">
+      <Logger name="org.springframework" level="error" additivity="false">
          <AppenderRef ref="console" />
       </Logger>
 
       <!-- Root -->
-
       <Root level="error">
          <AppenderRef ref="console" />
       </Root>

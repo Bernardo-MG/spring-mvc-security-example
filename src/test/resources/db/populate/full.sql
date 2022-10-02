@@ -27,7 +27,7 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 
-INSERT INTO USERS (id, name, password, enabled, locked, expired, CREDENTIALS_EXPIRED) VALUES
+INSERT INTO USERS (id, username, password, enabled, locked, expired, credentials_expired) VALUES
    (1, 'admin',      '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW',   true,    false,   false,   false),
    (2, 'noroles',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   false),
    (3, 'locked',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    true,    false,   false),
@@ -41,12 +41,14 @@ INSERT INTO ROLES (id, name) VALUES
 INSERT INTO PRIVILEGES (id, name) VALUES
    (1, 'CREATE_USER'),
    (2, 'READ_USER'),
-   (3, 'UPDATE_USER');
+   (3, 'UPDATE_USER'),
+   (4, 'DELETE_USER');
 
 INSERT INTO ROLE_PRIVILEGES (role_id, privilege_id) VALUES
    (1, 1),
    (1, 2),
-   (1, 3);
+   (1, 3),
+   (1, 4);
 
 INSERT INTO USER_ROLES (user_id, role_id) VALUES
    (1, 1),
