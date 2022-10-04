@@ -222,11 +222,6 @@
          <artifactId>spring-data-jpa</artifactId>
       </dependency>
       <dependency>
-         <!-- Spring JDBC -->
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-jdbc</artifactId>
-      </dependency>
-      <dependency>
          <!-- Spring OXM -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-oxm</artifactId>
@@ -324,6 +319,11 @@
          <!-- Spring Boot Starter: OAUTH2 -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-oauth2-client</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: Data JPA -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-jpa</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->

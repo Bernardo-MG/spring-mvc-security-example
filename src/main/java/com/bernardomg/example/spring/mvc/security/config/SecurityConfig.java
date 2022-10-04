@@ -47,10 +47,9 @@ import org.springframework.security.web.authentication.rememberme.RememberMeAuth
 
 import com.bernardomg.example.spring.mvc.security.auth.oauth.RegisterOAuth2UserService;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.RoleRepository;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 import com.bernardomg.example.spring.mvc.security.auth.userdetails.PersistentUserDetailsService;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
 /**
  * Authentication configuration.
@@ -83,9 +82,8 @@ public class SecurityConfig {
     }
 
     @Bean("oAuth2UserService")
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User> getOAuth2UserService(
-            final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
-            final PrivilegeRepository privilegeRepo) {
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> getOAuth2UserService(final UserRepository userRepo,
+            final RoleRepository roleRepo, final PrivilegeRepository privilegeRepo) {
         return new RegisterOAuth2UserService(userRepo, roleRepo, privilegeRepo);
     }
 

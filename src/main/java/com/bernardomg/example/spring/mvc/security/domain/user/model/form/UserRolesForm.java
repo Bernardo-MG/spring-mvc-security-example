@@ -24,6 +24,8 @@
 
 package com.bernardomg.example.spring.mvc.security.domain.user.model.form;
 
+import java.util.Collection;
+
 /**
  * Represents the form used for the editing user roles.
  *
@@ -37,7 +39,7 @@ public interface UserRolesForm {
      *
      * @return the user roles
      */
-    public Iterable<String> getRoles();
+    public Collection<String> getRoles();
 
     /**
      * Returns the username used to authenticate the user.

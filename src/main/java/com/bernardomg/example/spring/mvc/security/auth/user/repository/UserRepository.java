@@ -26,7 +26,9 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
 import java.util.Optional;
 
-import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
 
 /**
  * Repository for users.
@@ -34,7 +36,16 @@ import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<PersistentUser, Long> {
+
+    /**
+     * Returns the user details for the received email.
+     *
+     * @param email
+     *            email to search for
+     * @return the user details for the received email
+     */
+    public Optional<PersistentUser> findOneByEmail(final String email);
 
     /**
      * Returns the user details for the received username.
@@ -43,6 +54,6 @@ public interface UserRepository {
      *            username to search for
      * @return the user details for the received username
      */
-    public Optional<User> findOneByUsername(final String username);
+    public Optional<PersistentUser> findOneByUsername(final String username);
 
 }

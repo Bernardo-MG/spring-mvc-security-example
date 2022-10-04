@@ -22,38 +22,50 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.domain.user.repository;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
-import java.util.Optional;
+import java.io.Serializable;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
+import lombok.Data;
 
 /**
- * Repository for users.
+ * DTO implementation of {@code Role}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface PersistentUserRepository extends JpaRepository<PersistentUser, Long> {
+@Entity(name = "Role")
+@Table(name = "roles")
+@Data
+@TableGenerator(name = "seq_roles_id", table = "sequences", pkColumnName = "seq_name", valueColumnName = "seq_count",
+        initialValue = 10, allocationSize = 1)
+public class PersistentRole implements Serializable {
 
     /**
-     * Returns the user details for the received email.
-     *
-     * @param email
-     *            email to search for
-     * @return the user details for the received email
+     * Serialization id.
      */
-    public Optional<PersistentUser> findOneByEmail(final String email);
+    private static final long serialVersionUID = 8513041662486312372L;
 
     /**
-     * Returns the user details for the received username.
-     *
-     * @param username
-     *            username to search for
-     * @return the user details for the received username
+     * Entity id.
      */
-    public Optional<PersistentUser> findOneByUsername(final String username);
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_roles_id")
+    @Column(name = "id", nullable = false, unique = true)
+    private Long              id;
+
+    /**
+     * Authority name.
+     */
+    @Column(name = "name", nullable = false, unique = true, length = 60)
+    private String            name;
 
 }

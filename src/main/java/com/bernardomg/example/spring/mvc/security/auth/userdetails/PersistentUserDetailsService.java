@@ -36,7 +36,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentPrivilege;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 
@@ -99,9 +100,9 @@ public final class PersistentUserDetailsService implements UserDetailsService {
 
     @Override
     public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final Optional<com.bernardomg.example.spring.mvc.security.auth.user.model.User> user;
-        final Collection<? extends GrantedAuthority>                                    authorities;
-        final UserDetails                                                               details;
+        final Optional<PersistentUser>               user;
+        final Collection<? extends GrantedAuthority> authorities;
+        final UserDetails                            details;
 
         user = userRepo.findOneByUsername(username.toLowerCase());
 
@@ -140,7 +141,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
     private final Collection<GrantedAuthority> getAuthorities(final Long id) {
         return privilegeRepo.findForUser(id)
             .stream()
-            .map(Privilege::getName)
+            .map(PersistentPrivilege::getName)
             .distinct()
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
@@ -153,7 +154,7 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      *            entity to transform
      * @return equivalent user details
      */
-    private final UserDetails toUserDetails(final com.bernardomg.example.spring.mvc.security.auth.user.model.User user,
+    private final UserDetails toUserDetails(final PersistentUser user,
             final Collection<? extends GrantedAuthority> authorities) {
         final Boolean enabled;
         final Boolean accountNonExpired;

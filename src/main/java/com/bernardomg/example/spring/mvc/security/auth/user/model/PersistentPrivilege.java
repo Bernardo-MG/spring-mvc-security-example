@@ -22,42 +22,50 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.auth.user.repository;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.Serializable;
 
-import org.springframework.jdbc.core.RowMapper;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
-import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoPrivilege;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
+import lombok.Data;
 
 /**
- * SQL row mapper for privileges.
+ * Dto implementation of {@code Privilege}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public final class PrivilegeRowMapper implements RowMapper<Privilege> {
+@Entity(name = "Privilege")
+@Table(name = "privileges")
+@Data
+@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "seq_name",
+        valueColumnName = "seq_count", initialValue = 10, allocationSize = 1)
+public class PersistentPrivilege implements Serializable {
 
-    public PrivilegeRowMapper() {
-        super();
-    }
+    /**
+     * Serialization id.
+     */
+    private static final long serialVersionUID = 8513041662486312372L;
 
-    @Override
-    public final Privilege mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-        final DtoPrivilege privilege;
+    /**
+     * Entity id.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_privileges_id")
+    @Column(name = "id", nullable = false, unique = true)
+    private Long              id;
 
-        try {
-            privilege = new DtoPrivilege();
-            privilege.setId(rs.getLong("id"));
-            privilege.setName(rs.getString("name"));
-        } catch (final SQLException e) {
-            // TODO: Handle better
-            throw new RuntimeException(e);
-        }
-
-        return privilege;
-    }
+    /**
+     * Privilege name.
+     */
+    @Column(name = "name", nullable = false, unique = true, length = 60)
+    private String            name;
 
 }

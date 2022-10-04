@@ -56,7 +56,7 @@ public class DtoUser implements User {
     private Boolean expired            = false;
 
     /**
-     * Entity id.
+     * User id.
      */
     private Long    id;
 
