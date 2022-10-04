@@ -32,6 +32,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.IntegrationTest;
@@ -51,7 +52,10 @@ public class ITUserServiceCreateInvalid {
      * User service being tested.
      */
     @Autowired
-    private UserService service;
+    private UserService    service;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Default constructor.
@@ -72,7 +76,10 @@ public class ITUserServiceCreateInvalid {
         user.setUsername("admin");
         user.setPassword("password");
 
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            service.create(user);
+            userRepository.flush();
+        });
     }
 
     @Test
@@ -85,7 +92,10 @@ public class ITUserServiceCreateInvalid {
         user.setUsername(null);
         user.setPassword("password");
 
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(user));
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            service.create(user);
+            userRepository.flush();
+        });
     }
 
 }
