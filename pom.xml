@@ -222,11 +222,6 @@
          <artifactId>spring-data-jpa</artifactId>
       </dependency>
       <dependency>
-         <!-- Spring Data JDBC -->
-         <groupId>org.springframework.data</groupId>
-         <artifactId>spring-data-jdbc</artifactId>
-      </dependency>
-      <dependency>
          <!-- Spring OXM -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-oxm</artifactId>
@@ -329,11 +324,6 @@
          <!-- Spring Boot Starter: Data JPA -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-data-jpa</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Spring Boot Starter: Data JDBC -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-data-jdbc</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->

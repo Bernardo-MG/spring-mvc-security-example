@@ -27,8 +27,8 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.springframework.data.jdbc.repository.query.Modifying;
-import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -67,7 +67,8 @@ public interface RoleRepository extends CrudRepository<PersistentRole, Long> {
      *            user id
      * @return all the privileges for the user
      */
-    @Query("SELECT r.* FROM roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id")
+    @Query(value = "SELECT r.* FROM roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
+            nativeQuery = true)
     public Iterable<PersistentRole> findForUser(@Param("id") final Long id);
 
     /**
@@ -79,7 +80,7 @@ public interface RoleRepository extends CrudRepository<PersistentRole, Long> {
      *            id of the role for the user
      */
     @Modifying
-    @Query("INSERT INTO user_roles (user_id, role_id) VALUES (:userId, :roleId)")
+    @Query(value = "INSERT INTO user_roles (user_id, role_id) VALUES (:userId, :roleId)", nativeQuery = true)
     public void registerForUser(@Param("userId") final Long userId, @Param("roleId") final Long roleId);
 
 }

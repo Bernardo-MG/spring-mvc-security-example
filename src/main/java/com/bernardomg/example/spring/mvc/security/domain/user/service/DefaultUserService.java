@@ -39,7 +39,6 @@ import org.springframework.stereotype.Service;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentPrivilege;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentRole;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.Role;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.RoleRepository;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
@@ -208,7 +207,7 @@ public final class DefaultUserService implements UserService {
 
     @Override
     public final void updateRoles(final UserRolesForm userRoles) {
-        final Iterable<? extends Role> roles;
+        final Iterable<PersistentRole> roles;
         final Optional<PersistentUser> read;
         final PersistentUser           user;
 
@@ -222,7 +221,7 @@ public final class DefaultUserService implements UserService {
             userRepository.save(user);
 
             roles = roleRepository.findByNameIn(userRoles.getRoles());
-            for (final Role role : roles) {
+            for (final PersistentRole role : roles) {
                 roleRepository.registerForUser(user.getId(), role.getId());
             }
         } else {

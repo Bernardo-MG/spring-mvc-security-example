@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
 import java.util.Collection;
 
-import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -47,7 +47,8 @@ public interface PrivilegeRepository extends CrudRepository<PersistentPrivilege,
      *            user id
      * @return all the privileges for the user
      */
-    @Query("SELECT p.* FROM privileges p JOIN role_privileges rp ON p.id = rp.privilege_id JOIN roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id")
+    @Query(value = "SELECT p.* FROM privileges p JOIN role_privileges rp ON p.id = rp.privilege_id JOIN roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
+            nativeQuery = true)
     public Collection<PersistentPrivilege> findForUser(@Param("id") final Long id);
 
 }

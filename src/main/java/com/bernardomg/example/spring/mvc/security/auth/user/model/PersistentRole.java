@@ -24,8 +24,15 @@
 
 package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import lombok.Data;
 
@@ -35,19 +42,30 @@ import lombok.Data;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Entity(name = "Role")
+@Table(name = "roles")
 @Data
-@Table("ROLES")
-public class PersistentRole implements Role {
+@TableGenerator(name = "seq_roles_id", table = "sequences", pkColumnName = "seq_name", valueColumnName = "seq_count",
+        initialValue = 10, allocationSize = 1)
+public class PersistentRole implements Serializable {
 
     /**
-     * Role id.
+     * Serialization id.
+     */
+    private static final long serialVersionUID = 8513041662486312372L;
+
+    /**
+     * Entity id.
      */
     @Id
-    private Long   id;
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_roles_id")
+    @Column(name = "id", nullable = false, unique = true)
+    private Long              id;
 
     /**
      * Authority name.
      */
-    private String name;
+    @Column(name = "name", nullable = false, unique = true, length = 60)
+    private String            name;
 
 }

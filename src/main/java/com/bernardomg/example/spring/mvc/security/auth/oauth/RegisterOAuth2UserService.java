@@ -41,9 +41,9 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentPrivilege;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentRole;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.RoleRepository;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
@@ -129,7 +129,7 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
     private final Collection<GrantedAuthority> getAuthorities(final Long id) {
         return privilegeRepository.findForUser(id)
             .stream()
-            .map(Privilege::getName)
+            .map(PersistentPrivilege::getName)
             .distinct()
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
