@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.data.jdbc.repository.query.Modifying;
@@ -57,7 +58,7 @@ public interface RoleRepository extends CrudRepository<PersistentRole, Long> {
      *            names of the roles
      * @return roles names in the input
      */
-    public Iterable<PersistentRole> findByNameIn(final Iterable<String> names);
+    public Iterable<PersistentRole> findByNameIn(final Collection<String> names);
 
     /**
      * Returns all the roles for a user. This requires a join from the user up to the roles.
