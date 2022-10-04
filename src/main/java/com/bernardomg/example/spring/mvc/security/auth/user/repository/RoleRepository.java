@@ -27,9 +27,9 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentRole;
@@ -40,7 +40,7 @@ import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentRole
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface RoleRepository extends CrudRepository<PersistentRole, Long> {
+public interface RoleRepository extends JpaRepository<PersistentRole, Long> {
 
     /**
      * Returns the roles with the name received.

@@ -26,7 +26,7 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
 
@@ -36,7 +36,7 @@ import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface UserRepository extends CrudRepository<PersistentUser, Long> {
+public interface UserRepository extends JpaRepository<PersistentUser, Long> {
 
     /**
      * Returns the user details for the received email.
