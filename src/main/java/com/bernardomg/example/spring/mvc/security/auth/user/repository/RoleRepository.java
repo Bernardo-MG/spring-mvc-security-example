@@ -58,7 +58,7 @@ public interface RoleRepository extends JpaRepository<PersistentRole, Long> {
      *            names of the roles
      * @return roles names in the input
      */
-    public Iterable<PersistentRole> findByNameIn(final Collection<String> names);
+    public Collection<PersistentRole> findByNameIn(final Collection<String> names);
 
     /**
      * Returns all the roles for a user. This requires a join from the user up to the roles.
@@ -69,7 +69,7 @@ public interface RoleRepository extends JpaRepository<PersistentRole, Long> {
      */
     @Query(value = "SELECT r.* FROM roles r JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
             nativeQuery = true)
-    public Iterable<PersistentRole> findForUser(@Param("id") final Long id);
+    public Collection<PersistentRole> findForUser(@Param("id") final Long id);
 
     /**
      * Registers a role for the specified user. This will update the relationship table for user roles.

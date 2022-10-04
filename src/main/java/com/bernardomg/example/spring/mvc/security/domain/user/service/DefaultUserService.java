@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -116,22 +115,16 @@ public final class DefaultUserService implements UserService {
 
     @Override
     public final List<RoleData> getAllRoles() {
-        final Iterable<PersistentRole> data;
-
-        data = roleRepository.findAll();
-
-        return StreamSupport.stream(data.spliterator(), false)
+        return roleRepository.findAll()
+            .stream()
             .map(this::toDto)
             .collect(Collectors.toList());
     }
 
     @Override
     public final List<UserData> getAllUsers() {
-        final Iterable<PersistentUser> data;
-
-        data = userRepository.findAll();
-
-        return StreamSupport.stream(data.spliterator(), false)
+        return userRepository.findAll()
+            .stream()
             .map(this::toDto)
             .collect(Collectors.toList());
     }
@@ -140,16 +133,15 @@ public final class DefaultUserService implements UserService {
     public final Collection<RoleData> getRoles(final String username) {
         final Optional<PersistentUser> read;
         final Collection<RoleData>     roles;
-        final Iterable<PersistentRole> data;
 
         Objects.requireNonNull(username);
 
         read = userRepository.findOneByUsername(username);
 
         if (read.isPresent()) {
-            data = roleRepository.findForUser(read.get()
-                .getId());
-            roles = StreamSupport.stream(data.spliterator(), false)
+            roles = roleRepository.findForUser(read.get()
+                .getId())
+                .stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
         } else {
@@ -239,12 +231,11 @@ public final class DefaultUserService implements UserService {
     }
 
     private final RoleData toDto(final PersistentRole entity) {
-        final DtoRoleData                     role;
-        final Collection<PersistentPrivilege> privileges;
-        final Collection<PrivilegeData>       privilegesData;
+        final DtoRoleData               role;
+        final Collection<PrivilegeData> privilegesData;
 
-        privileges = privilegeRepository.findForUser(entity.getId());
-        privilegesData = StreamSupport.stream(privileges.spliterator(), false)
+        privilegesData = privilegeRepository.findForUser(entity.getId())
+            .stream()
             .map(this::toDto)
             .collect(Collectors.toList());
 
@@ -256,12 +247,11 @@ public final class DefaultUserService implements UserService {
     }
 
     private final UserData toDto(final PersistentUser entity) {
-        final DtoUserData              user;
-        final Iterable<PersistentRole> roles;
-        final Collection<RoleData>     rolesData;
+        final DtoUserData          user;
+        final Collection<RoleData> rolesData;
 
-        roles = roleRepository.findForUser(entity.getId());
-        rolesData = StreamSupport.stream(roles.spliterator(), false)
+        rolesData = roleRepository.findForUser(entity.getId())
+            .stream()
             .map(this::toDto)
             .collect(Collectors.toList());
 
