@@ -152,6 +152,8 @@ public final class PersistentUserDetailsService implements UserDetailsService {
      *
      * @param user
      *            entity to transform
+     * @param authorities
+     *            authorities for the user details
      * @return equivalent user details
      */
     private final UserDetails toUserDetails(final PersistentUser user,
