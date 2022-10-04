@@ -22,42 +22,32 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.mvc.security.auth.user.repository;
+package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-import org.springframework.jdbc.core.RowMapper;
-
-import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoPrivilege;
-import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
+import lombok.Data;
 
 /**
- * SQL row mapper for privileges.
+ * Dto implementation of {@code Privilege}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public final class PrivilegeRowMapper implements RowMapper<Privilege> {
+@Data
+@Table("PRIVILEGES")
+public final class PersistentPrivilege implements Privilege {
 
-    public PrivilegeRowMapper() {
-        super();
-    }
+    /**
+     * Privilege id.
+     */
+    @Id
+    private Long   id;
 
-    @Override
-    public final Privilege mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-        final DtoPrivilege privilege;
-
-        try {
-            privilege = new DtoPrivilege();
-            privilege.setId(rs.getLong("id"));
-            privilege.setName(rs.getString("name"));
-        } catch (final SQLException e) {
-            // TODO: Handle better
-            throw new RuntimeException(e);
-        }
-
-        return privilege;
-    }
+    /**
+     * Privilege name.
+     */
+    private String name;
 
 }

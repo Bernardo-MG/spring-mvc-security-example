@@ -24,6 +24,9 @@
 
 package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
 import lombok.Data;
 
 /**
@@ -33,7 +36,8 @@ import lombok.Data;
  *
  */
 @Data
-public class DtoUser implements User {
+@Table("USERS")
+public class PersistentUser implements User {
 
     /**
      * User expired flag.
@@ -56,8 +60,9 @@ public class DtoUser implements User {
     private Boolean expired            = false;
 
     /**
-     * User id.
+     * Entity id.
      */
+    @Id
     private Long    id;
 
     /**

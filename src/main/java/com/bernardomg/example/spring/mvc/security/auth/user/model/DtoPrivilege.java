@@ -36,7 +36,7 @@ import lombok.Data;
 public final class DtoPrivilege implements Privilege {
 
     /**
-     * Entity id.
+     * Privilege id.
      */
     private Long   id;
 

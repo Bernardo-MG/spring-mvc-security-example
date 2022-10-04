@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022 the original author or authors.
+ * Copyright (c) 2017-2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,55 +24,30 @@
 
 package com.bernardomg.example.spring.mvc.security.auth.user.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
 import lombok.Data;
 
 /**
- * Dto implementation of {@code User}.
+ * DTO implementation of {@code Role}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Data
-public class DtoUser implements User {
+@Table("ROLES")
+public class PersistentRole implements Role {
 
     /**
-     * User expired flag.
+     * Role id.
      */
-    private Boolean credentialsExpired = false;
+    @Id
+    private Long   id;
 
     /**
-     * User email.
+     * Authority name.
      */
-    private String  email;
-
-    /**
-     * User enabled flag.
-     */
-    private Boolean enabled            = true;
-
-    /**
-     * User expired flag.
-     */
-    private Boolean expired            = false;
-
-    /**
-     * User id.
-     */
-    private Long    id;
-
-    /**
-     * User locked flag.
-     */
-    private Boolean locked             = false;
-
-    /**
-     * User password.
-     */
-    private String  password;
-
-    /**
-     * User name.
-     */
-    private String  username;
+    private String name;
 
 }

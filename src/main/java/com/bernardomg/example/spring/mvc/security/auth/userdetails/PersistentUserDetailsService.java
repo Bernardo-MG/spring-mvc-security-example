@@ -99,9 +99,9 @@ public final class PersistentUserDetailsService implements UserDetailsService {
 
     @Override
     public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final Optional<com.bernardomg.example.spring.mvc.security.auth.user.model.User> user;
-        final Collection<? extends GrantedAuthority>                                    authorities;
-        final UserDetails                                                               details;
+        final Optional<? extends com.bernardomg.example.spring.mvc.security.auth.user.model.User> user;
+        final Collection<? extends GrantedAuthority>                                              authorities;
+        final UserDetails                                                                         details;
 
         user = userRepo.findOneByUsername(username.toLowerCase());
 

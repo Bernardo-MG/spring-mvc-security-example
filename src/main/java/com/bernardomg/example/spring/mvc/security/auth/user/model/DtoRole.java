@@ -36,7 +36,7 @@ import lombok.Data;
 public class DtoRole implements Role {
 
     /**
-     * Entity id.
+     * Role id.
      */
     private Long   id;
 

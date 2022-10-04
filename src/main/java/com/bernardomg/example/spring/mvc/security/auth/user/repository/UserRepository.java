@@ -26,7 +26,10 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
 import java.util.Optional;
 
-import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
+import org.springframework.data.repository.CrudRepository;
+
+import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoUser;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
 
 /**
  * Repository for users.
@@ -34,7 +37,7 @@ import com.bernardomg.example.spring.mvc.security.auth.user.model.User;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface UserRepository {
+public interface UserRepository extends CrudRepository<PersistentUser, Long> {
 
     /**
      * Returns the user details for the received username.
@@ -43,6 +46,6 @@ public interface UserRepository {
      *            username to search for
      * @return the user details for the received username
      */
-    public Optional<User> findOneByUsername(final String username);
+    public Optional<DtoUser> findOneByUsername(final String username);
 
 }
