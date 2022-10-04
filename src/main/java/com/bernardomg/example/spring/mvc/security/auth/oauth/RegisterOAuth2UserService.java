@@ -24,7 +24,6 @@
 
 package com.bernardomg.example.spring.mvc.security.auth.oauth;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -177,13 +176,13 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
                 }
                 user.setEmail(email);
 
-                role = roleRepository.findByName("USER");
-
-                if (role.isPresent()) {
-                    user.setRoles(Arrays.asList(role.get()));
-                }
-
                 userRepository.save(user);
+
+                role = roleRepository.findByName("USER");
+                if (role.isPresent()) {
+                    roleRepository.registerForUser(user.getId(), role.get()
+                        .getId());
+                }
             }
 
             authorities = getAuthorities(user.getId());

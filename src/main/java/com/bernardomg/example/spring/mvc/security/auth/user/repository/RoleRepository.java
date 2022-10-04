@@ -26,6 +26,7 @@ package com.bernardomg.example.spring.mvc.security.auth.user.repository;
 
 import java.util.Optional;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -67,5 +68,17 @@ public interface RoleRepository extends CrudRepository<PersistentRole, Long> {
      */
     @Query("SELECT r.* FROM roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id")
     public Iterable<PersistentRole> findForUser(@Param("id") final Long id);
+
+    /**
+     * Registers a role for the specified user. This will update the relationship table for user roles.
+     *
+     * @param userId
+     *            id for the user to receive the role
+     * @param roleId
+     *            id of the role for the user
+     */
+    @Modifying
+    @Query("INSERT INTO user_roles (user_id, role_id) VALUES (:userId, :roleId)")
+    public void registerForUser(@Param("userId") final Long userId, @Param("roleId") final Long roleId);
 
 }

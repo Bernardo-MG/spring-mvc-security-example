@@ -219,11 +219,12 @@ public final class DefaultUserService implements UserService {
         if (read.isPresent()) {
             user = read.get();
 
-            roles = roleRepository.findByNameIn(userRoles.getRoles());
-
-            user.setRoles(roles);
-
             userRepository.save(user);
+
+            roles = roleRepository.findByNameIn(userRoles.getRoles());
+            for (final Role role : roles) {
+                roleRepository.registerForUser(user.getId(), role.getId());
+            }
         } else {
             log.warn("User {} not found", userRoles.getUsername());
         }
