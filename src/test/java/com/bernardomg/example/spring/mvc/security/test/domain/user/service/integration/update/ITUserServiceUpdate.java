@@ -31,9 +31,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.DefaultUserForm;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.service.UserService;
 import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.IntegrationTest;
 
@@ -52,13 +52,13 @@ public class ITUserServiceUpdate {
      * User repository.
      */
     @Autowired
-    private PersistentUserRepository repository;
+    private UserRepository repository;
 
     /**
      * User service being tested.
      */
     @Autowired
-    private UserService              service;
+    private UserService    service;
 
     /**
      * Default constructor.

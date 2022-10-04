@@ -30,11 +30,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentPrivilege;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentRole;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.Role;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.RoleRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.DtoPrivilegeData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.DtoRoleData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.DtoUserData;
@@ -43,11 +51,6 @@ import com.bernardomg.example.spring.mvc.security.domain.user.model.RoleData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.UserData;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserForm;
 import com.bernardomg.example.spring.mvc.security.domain.user.model.form.UserRolesForm;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentPrivilege;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,17 +69,22 @@ public final class DefaultUserService implements UserService {
     /**
      * Password encoder.
      */
-    private final PasswordEncoder          passwordEncoder;
+    private final PasswordEncoder     passwordEncoder;
+
+    /**
+     * Privileges repository.
+     */
+    private final PrivilegeRepository privilegeRepository;
 
     /**
      * Users repository.
      */
-    private final PersistentRoleRepository roleRepository;
+    private final RoleRepository      roleRepository;
 
     /**
      * Users repository.
      */
-    private final PersistentUserRepository userRepository;
+    private final UserRepository      userRepository;
 
     @Override
     public final void create(final UserForm user) {
@@ -109,16 +117,22 @@ public final class DefaultUserService implements UserService {
 
     @Override
     public final List<RoleData> getAllRoles() {
-        return roleRepository.findAll()
-            .stream()
+        final Iterable<PersistentRole> data;
+
+        data = roleRepository.findAll();
+
+        return StreamSupport.stream(data.spliterator(), false)
             .map(this::toDto)
             .collect(Collectors.toList());
     }
 
     @Override
     public final List<UserData> getAllUsers() {
-        return userRepository.findAll()
-            .stream()
+        final Iterable<PersistentUser> data;
+
+        data = userRepository.findAll();
+
+        return StreamSupport.stream(data.spliterator(), false)
             .map(this::toDto)
             .collect(Collectors.toList());
     }
@@ -127,15 +141,16 @@ public final class DefaultUserService implements UserService {
     public final Collection<RoleData> getRoles(final String username) {
         final Optional<PersistentUser> read;
         final Collection<RoleData>     roles;
+        final Iterable<PersistentRole> data;
 
         Objects.requireNonNull(username);
 
         read = userRepository.findOneByUsername(username);
 
         if (read.isPresent()) {
-            roles = read.get()
-                .getRoles()
-                .stream()
+            data = roleRepository.findForUser(read.get()
+                .getId());
+            roles = StreamSupport.stream(data.spliterator(), false)
                 .map(this::toDto)
                 .collect(Collectors.toList());
         } else {
@@ -193,9 +208,9 @@ public final class DefaultUserService implements UserService {
 
     @Override
     public final void updateRoles(final UserRolesForm userRoles) {
-        final Collection<PersistentRole> roles;
-        final Optional<PersistentUser>   read;
-        final PersistentUser             user;
+        final Iterable<? extends Role> roles;
+        final Optional<PersistentUser> read;
+        final PersistentUser           user;
 
         Objects.requireNonNull(userRoles);
 
@@ -224,27 +239,35 @@ public final class DefaultUserService implements UserService {
     }
 
     private final RoleData toDto(final PersistentRole entity) {
-        final DtoRoleData role;
+        final DtoRoleData                     role;
+        final Collection<PersistentPrivilege> privileges;
+        final Collection<PrivilegeData>       privilegesData;
+
+        privileges = privilegeRepository.findForUser(entity.getId());
+        privilegesData = StreamSupport.stream(privileges.spliterator(), false)
+            .map(this::toDto)
+            .collect(Collectors.toList());
 
         role = new DtoRoleData();
         BeanUtils.copyProperties(entity, role);
-        role.setPrivileges(entity.getPrivileges()
-            .stream()
-            .map(this::toDto)
-            .collect(Collectors.toList()));
+        role.setPrivileges(privilegesData);
 
         return role;
     }
 
     private final UserData toDto(final PersistentUser entity) {
-        final DtoUserData user;
+        final DtoUserData              user;
+        final Iterable<PersistentRole> roles;
+        final Collection<RoleData>     rolesData;
+
+        roles = roleRepository.findForUser(entity.getId());
+        rolesData = StreamSupport.stream(roles.spliterator(), false)
+            .map(this::toDto)
+            .collect(Collectors.toList());
 
         user = new DtoUserData();
         BeanUtils.copyProperties(entity, user);
-        user.setRoles(entity.getRoles()
-            .stream()
-            .map(this::toDto)
-            .collect(Collectors.toList()));
+        user.setRoles(rolesData);
 
         return user;
     }

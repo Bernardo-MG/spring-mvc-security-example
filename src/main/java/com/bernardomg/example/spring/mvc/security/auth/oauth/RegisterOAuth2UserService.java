@@ -42,12 +42,12 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentRole;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.Privilege;
 import com.bernardomg.example.spring.mvc.security.auth.user.repository.PrivilegeRepository;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentRole;
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentRoleRepository;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.RoleRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,12 +73,12 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
     /**
      * Roles repository.
      */
-    private final PersistentRoleRepository roleRepository;
+    private final RoleRepository           roleRepository;
 
     /**
      * Users repository.
      */
-    private final PersistentUserRepository userRepository;
+    private final UserRepository           userRepository;
 
     /**
      * Constructs a service.
@@ -88,7 +88,7 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
      * @param roleRepo
      *            roles repository
      */
-    public RegisterOAuth2UserService(final PersistentUserRepository userRepo, final PersistentRoleRepository roleRepo,
+    public RegisterOAuth2UserService(final UserRepository userRepo, final RoleRepository roleRepo,
             final PrivilegeRepository privilegeRepo) {
         super();
 

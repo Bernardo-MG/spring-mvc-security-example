@@ -28,7 +28,6 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.bernardomg.example.spring.mvc.security.auth.user.model.DtoUser;
 import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
 
 /**
@@ -40,12 +39,21 @@ import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser
 public interface UserRepository extends CrudRepository<PersistentUser, Long> {
 
     /**
+     * Returns the user details for the received email.
+     *
+     * @param email
+     *            email to search for
+     * @return the user details for the received email
+     */
+    public Optional<PersistentUser> findOneByEmail(final String email);
+
+    /**
      * Returns the user details for the received username.
      *
      * @param username
      *            username to search for
      * @return the user details for the received username
      */
-    public Optional<DtoUser> findOneByUsername(final String username);
+    public Optional<PersistentUser> findOneByUsername(final String username);
 
 }

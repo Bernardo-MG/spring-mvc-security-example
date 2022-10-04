@@ -42,8 +42,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.bernardomg.example.spring.mvc.security.domain.user.model.persistence.PersistentUser;
-import com.bernardomg.example.spring.mvc.security.domain.user.repository.PersistentUserRepository;
+import com.bernardomg.example.spring.mvc.security.auth.user.model.PersistentUser;
+import com.bernardomg.example.spring.mvc.security.auth.user.repository.UserRepository;
 import com.bernardomg.example.spring.mvc.security.test.configuration.annotation.MvcIntegrationTest;
 
 /**
@@ -60,19 +60,19 @@ public class ITUserControllerCreate {
     /**
      * Mock MVC for the requests.
      */
-    private MockMvc                  mockMvc;
+    private MockMvc               mockMvc;
 
     /**
      * User repository.
      */
     @Autowired
-    private PersistentUserRepository repository;
+    private UserRepository        repository;
 
     /**
      * Web application context.
      */
     @Autowired
-    private WebApplicationContext    webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     /**
      * Default constructor.
