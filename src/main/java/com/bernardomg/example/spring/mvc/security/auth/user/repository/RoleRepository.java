@@ -67,7 +67,7 @@ public interface RoleRepository extends CrudRepository<PersistentRole, Long> {
      *            user id
      * @return all the privileges for the user
      */
-    @Query(value = "SELECT r.* FROM roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
+    @Query(value = "SELECT r.* FROM roles r JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
             nativeQuery = true)
     public Iterable<PersistentRole> findForUser(@Param("id") final Long id);
 
