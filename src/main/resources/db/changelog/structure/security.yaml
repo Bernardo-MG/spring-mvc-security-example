@@ -49,12 +49,6 @@ databaseChangeLog:
                 defaultValue: 'false'
                 constraints:
                    nullable: false
-        - createSequence:
-            sequenceName: seq_users_id
-            dataType: bigint
-            startValue: 10
-            incrementBy: 1
-            ordered: true
   - changeSet:
       id: security_roles
       author: Bernardo
@@ -89,18 +83,6 @@ databaseChangeLog:
                 constraints:
                    nullable: false
                    unique: true
-        - createSequence:
-            sequenceName: seq_roles_id
-            dataType: bigint
-            startValue: 10
-            incrementBy: 1
-            ordered: true
-        - createSequence:
-            sequenceName: seq_privileges_id
-            dataType: bigint
-            startValue: 10
-            incrementBy: 1
-            ordered: true
   - changeSet:
       id: security_roles_relationships
       author: Bernardo
