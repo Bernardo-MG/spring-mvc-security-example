@@ -86,6 +86,8 @@ public final class RegisterOAuth2UserService implements OAuth2UserService<OAuth2
      *            users repository
      * @param roleRepo
      *            roles repository
+     * @param privilegeRepo
+     *            privileges repository
      */
     public RegisterOAuth2UserService(final UserRepository userRepo, final RoleRepository roleRepo,
             final PrivilegeRepository privilegeRepo) {
