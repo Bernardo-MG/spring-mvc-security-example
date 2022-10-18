@@ -42,11 +42,11 @@ import lombok.Data;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
+@Data
 @Entity(name = "Role")
 @Table(name = "roles")
-@Data
 @TableGenerator(name = "seq_roles_id", table = "sequences", pkColumnName = "seq_name", valueColumnName = "seq_count",
-        initialValue = 10, allocationSize = 1)
+        allocationSize = 1)
 public class PersistentRole implements Serializable {
 
     /**

@@ -28,6 +28,6 @@
 -- ****************************************
 
 INSERT INTO sequences (seq_name, seq_count) VALUES
-   ('seq_users_id', 10),
-   ('seq_roles_id', 10),
-   ('seq_privileges_id', 10);
+   ('users', 10),
+   ('roles', 10),
+   ('privileges', 10);
