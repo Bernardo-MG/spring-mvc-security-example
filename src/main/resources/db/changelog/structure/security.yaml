@@ -95,14 +95,14 @@ databaseChangeLog:
                 type: bigint
                 constraints:
                    foreignKeyName: fk_role_privileges_role_id
-                   references: ROLES(id)
+                   references: roles(id)
                    nullable: false
             - column:
                 name: privilege_id
                 type: bigint
                 constraints:
                    foreignKeyName: fk_role_privileges_privilege_id
-                   references: PRIVILEGES(id)
+                   references: privileges(id)
                    nullable: false
         - createTable:
             tableName: user_roles
@@ -112,14 +112,14 @@ databaseChangeLog:
                 type: bigint
                 constraints:
                    foreignKeyName: fk_user_roles_user_id
-                   references: USERS(id)
+                   references: users(id)
                    nullable: false
             - column:
                 name: role_id
                 type: bigint
                 constraints:
                    foreignKeyName: fk_user_roles_role_id
-                   references: ROLES(id)
+                   references: roles(id)
                    nullable: false
         - addUniqueConstraint:
             constraintName: role_privileges_unique
