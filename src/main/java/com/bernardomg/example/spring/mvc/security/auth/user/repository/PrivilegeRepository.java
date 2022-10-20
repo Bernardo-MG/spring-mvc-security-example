@@ -47,7 +47,7 @@ public interface PrivilegeRepository extends JpaRepository<PersistentPrivilege, 
      *            user id
      * @return all the privileges for the user
      */
-    @Query(value = "SELECT p.* FROM privileges p JOIN role_privileges rp ON p.id = rp.privilege_id JOIN roles r ON r.id = rp.role_id JOIN USER_ROLES ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
+    @Query(value = "SELECT p.* FROM privileges p JOIN role_privileges rp ON p.id = rp.privilege_id JOIN roles r ON r.id = rp.role_id JOIN user_roles ur ON r.id = ur.role_id JOIN users u ON u.id = ur.user_id WHERE u.id = :id",
             nativeQuery = true)
     public Collection<PersistentPrivilege> findForUser(@Param("id") final Long id);
 
