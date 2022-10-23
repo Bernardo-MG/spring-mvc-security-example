@@ -45,8 +45,8 @@ import lombok.Data;
 @Data
 @Entity(name = "Privilege")
 @Table(name = "privileges")
-@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "seq_name",
-        valueColumnName = "seq_count", allocationSize = 1)
+@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
+        allocationSize = 1)
 public class PersistentPrivilege implements Serializable {
 
     /**

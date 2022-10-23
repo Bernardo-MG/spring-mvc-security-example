@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ import javax.persistence.TableGenerator;
 import lombok.Data;
 
 /**
- * DTO implementation of {@code Role}.
+ * Dto implementation of {@code Privilege}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -45,7 +45,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Role")
 @Table(name = "roles")
-@TableGenerator(name = "seq_roles_id", table = "sequences", pkColumnName = "seq_name", valueColumnName = "seq_count",
+@TableGenerator(name = "seq_roles_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
         allocationSize = 1)
 public class PersistentRole implements Serializable {
 
@@ -63,7 +63,7 @@ public class PersistentRole implements Serializable {
     private Long              id;
 
     /**
-     * Authority name.
+     * Privilege name.
      */
     @Column(name = "name", nullable = false, unique = true, length = 60)
     private String            name;
