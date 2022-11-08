@@ -72,13 +72,13 @@ public class PersistentUser implements Serializable {
      * User enabled flag.
      */
     @Column(name = "enabled", nullable = false)
-    private Boolean           enabled            = true;
+    private Boolean           enabled;
 
     /**
      * User expired flag.
      */
     @Column(name = "expired", nullable = false)
-    private Boolean           expired            = false;
+    private Boolean           expired;
 
     /**
      * Entity id.
@@ -92,7 +92,7 @@ public class PersistentUser implements Serializable {
      * User locked flag.
      */
     @Column(name = "locked", nullable = false)
-    private Boolean           locked             = false;
+    private Boolean           locked;
 
     /**
      * User password.
