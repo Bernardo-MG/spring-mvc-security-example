@@ -54,13 +54,13 @@ public class PersistentUser implements Serializable {
      * Serialization id.
      */
     @Transient
-    private static final long serialVersionUID   = 4807136960800402795L;
+    private static final long serialVersionUID = 4807136960800402795L;
 
     /**
      * User expired flag.
      */
     @Column(name = "credentials_expired", nullable = false)
-    private Boolean           credentialsExpired = false;
+    private Boolean           credentialsExpired;
 
     /**
      * User email.
@@ -93,6 +93,12 @@ public class PersistentUser implements Serializable {
      */
     @Column(name = "locked", nullable = false)
     private Boolean           locked;
+
+    /**
+     * User name.
+     */
+    @Column(name = "name", nullable = false, unique = true, length = 60)
+    private String            name;
 
     /**
      * User password.

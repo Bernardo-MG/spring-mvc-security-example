@@ -6,49 +6,62 @@ databaseChangeLog:
         - createTable:
             tableName: users
             columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                   primaryKey: true
-                   nullable: false
-            - column:
-                name: email
-                type: varchar(60)
-            - column:
-                name: username
-                type: varchar(60)
-                constraints:
-                   nullable: false
-                   unique: true
-            - column:
-                name: password
-                type: varchar(60)
-            - column:
-                name: credentials_expired
-                type: boolean
-                defaultValue: 'false'
-                constraints:
-                   nullable: false
-            - column:
-                name: enabled
-                type: boolean
-                defaultValue: 'true'
-                constraints:
-                   nullable: false
-            - column:
-                name: expired
-                type: boolean
-                defaultValue: 'false'
-                constraints:
-                   nullable: false
-            - column:
-                name: locked
-                type: boolean
-                defaultValue: 'false'
-                constraints:
-                   nullable: false
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                  defaultValue: ''
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  defaultValue: ''
+              - column:
+                  name: email
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  defaultValue: ''
+              - column:
+                  name: credentials_expired
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: true
+              - column:
+                  name: expired
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+              - column:
+                  name: locked
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
   - changeSet:
       id: security_roles
       author: Bernardo
@@ -56,33 +69,33 @@ databaseChangeLog:
         - createTable:
             tableName: roles
             columns:
-            - column:
-                name: id
-                type: bigint
-                constraints:
-                   primaryKey: true
-                   nullable: false
-            - column:
-                name: name
-                type: varchar(60)
-                constraints:
-                   nullable: false
-                   unique: true
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                    unique: true
         - createTable:
             tableName: privileges
             columns:
-            - column:
-                name: id
-                type: bigint
-                constraints:
-                   primaryKey: true
-                   nullable: false
-            - column:
-                name: name
-                type: varchar(60)
-                constraints:
-                   nullable: false
-                   unique: true
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                    unique: true
   - changeSet:
       id: security_roles_relationships
       author: Bernardo
@@ -90,42 +103,44 @@ databaseChangeLog:
         - createTable:
             tableName: role_privileges
             columns:
-            - column:
-                name: role_id
-                type: bigint
-                constraints:
-                   foreignKeyName: fk_role_privileges_role_id
-                   references: roles(id)
-                   nullable: false
-            - column:
-                name: privilege_id
-                type: bigint
-                constraints:
-                   foreignKeyName: fk_role_privileges_privilege_id
-                   references: privileges(id)
-                   nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_role_privileges_role_id
+                    references: roles(id)
+                    nullable: false
+                    deleteCascade: true
+              - column:
+                  name: privilege_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_role_privileges_privilege_id
+                    references: privileges(id)
+                    nullable: false
         - createTable:
             tableName: user_roles
             columns:
-            - column:
-                name: user_id
-                type: bigint
-                constraints:
-                   foreignKeyName: fk_user_roles_user_id
-                   references: users(id)
-                   nullable: false
-            - column:
-                name: role_id
-                type: bigint
-                constraints:
-                   foreignKeyName: fk_user_roles_role_id
-                   references: roles(id)
-                   nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_roles_user_id
+                    references: users(id)
+                    nullable: false
+                    deleteCascade: true
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_roles_role_id
+                    references: roles(id)
+                    nullable: false
         - addUniqueConstraint:
             constraintName: role_privileges_unique
             tableName: role_privileges
-            columnNames: role_id, privilege_id
+            columnNames: 'role_id, privilege_id'
         - addUniqueConstraint:
             constraintName: user_roles_unique
             tableName: user_roles
-            columnNames: user_id, role_id
+            columnNames: 'user_id, role_id'
