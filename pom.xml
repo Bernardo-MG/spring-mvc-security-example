@@ -12,7 +12,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.5.2</version>
+      <version>1.5.3</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -149,17 +149,16 @@
       <commons.collection.version>4.4</commons.collection.version>
       <glassfish.el.version>2.2</glassfish.el.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <spring.boot.version>2.7.3</spring.boot.version>
+      <spring.boot.version>2.7.4</spring.boot.version>
       <spring.version>5.3.23</spring.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
-      <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
-      <plugin.spring.boot.version>2.5.3</plugin.spring.boot.version>
+      <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.7</site.skin.version>
+      <site.skin.version>2.3.1</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -319,11 +318,6 @@
          <!-- Spring Boot Starter: OAUTH2 -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-oauth2-client</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Spring Boot Starter: Data JPA -->
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-data-jpa</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= ASPECTJ ==================== -->
