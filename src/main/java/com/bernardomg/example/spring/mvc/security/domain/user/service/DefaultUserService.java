@@ -95,6 +95,10 @@ public final class DefaultUserService implements UserService {
 
         entity.setUsername(user.getUsername());
 
+        // TODO: These values should come from the frontend
+        entity.setName(user.getUsername());
+        entity.setEmail(user.getUsername());
+
         // TODO: This flag should come from the frontend
         entity.setCredentialsExpired(false);
         entity.setEnabled(user.getEnabled());
