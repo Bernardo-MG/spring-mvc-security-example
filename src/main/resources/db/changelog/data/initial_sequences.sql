@@ -1,7 +1,7 @@
 --
 --  The MIT License (MIT)
 --
---  Copyright (c) 2017 Bernardo Martínez Garrido
+--  Copyright (c) 2022 Bernardo Martínez Garrido
 --  
 --  Permission is hereby granted, free of charge, to any person obtaining a copy
 --  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 -- This SQL script populates the initial sequences.
 -- ****************************************
 
-INSERT INTO sequences (seq_name, seq_count) VALUES
-   ('seq_users_id', 10),
-   ('seq_roles_id', 10),
-   ('seq_privileges_id', 10);
+INSERT INTO sequences (sequence, count) VALUES
+   ('users', 10),
+   ('roles', 10),
+   ('privileges', 10);

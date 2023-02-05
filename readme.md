@@ -6,6 +6,15 @@ Handles user authentication, and access restrictions.
 
 Currently it only supports authenticating through the application itself, and not through external services.
 
+As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
+
+```
+mvn spring-boot:run
+```
+
+Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
+
+
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
 
@@ -45,20 +54,6 @@ mvn verify site
 
 The verify phase is required, otherwise some of the reports won't be generated.
 
-## Usage
-
-The application is coded in Java, using Maven to manage the project.
-
-### Running
-
-As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
-
-```
-mvn spring-boot:run
-```
-
-Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
-
 ## Collaborate
 
 Any kind of help with the project will be well received, and there are two main ways to give such help:
@@ -79,11 +74,11 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 The project has been released under the [MIT License][license].
 
 [issues]: https://github.com/bernardo-mg/spring-mvc-security-example/issues
-[javadoc-develop]: http://docs.bernardomg.com/development/maven/spring-mvc-security-example/apidocs
-[javadoc-release]: http://docs.bernardomg.com/maven/spring-mvc-security-example/apidocs
+[javadoc-develop]: https://docs.bernardomg.com/development/maven/spring-mvc-security-example/apidocs
+[javadoc-release]: https://docs.bernardomg.com/maven/spring-mvc-security-example/apidocs
 [license]: http://www.opensource.org/licenses/mit-license.php
 [scm]: https://github.com/bernardo-mg/spring-mvc-security-example
-[site-develop]: http://docs.bernardomg.com/development/maven/spring-mvc-security-example
-[site-release]: http://docs.bernardomg.com/maven/spring-mvc-security-example
+[site-develop]: https://docs.bernardomg.com/development/maven/spring-mvc-security-example
+[site-release]: https://docs.bernardomg.com/maven/spring-mvc-security-example
 
 [spring-mvc]: https://spring.io

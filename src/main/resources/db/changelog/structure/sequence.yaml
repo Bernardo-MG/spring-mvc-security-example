@@ -7,12 +7,13 @@ databaseChangeLog:
             tableName: sequences
             columns:
               - column:
-                  name: seq_name
+                  name: sequence
                   type: varchar(50)
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
-                  name: seq_count
+                  name: count
                   type: integer
                   constraints:
                     nullable: false

@@ -27,13 +27,13 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 
-INSERT INTO USERS (id, username, password, enabled, locked, expired, credentials_expired) VALUES
-   (1, 'admin',      '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW',   true,    false,   false,   false),
-   (2, 'noroles',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   false),
-   (3, 'locked',     '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    true,    false,   false),
-   (4, 'expired',    '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   true,    false),
-   (5, 'disabled',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   false,   false,   false,   false),
-   (6, 'expCreds',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a',   true,    false,   false,   true);
+INSERT INTO USERS (id, name, email, username, password, enabled, locked, expired, credentials_expired) VALUES
+   (1, 'admin',    'admin@somewhere.com',    'admin',    '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW', true,  false, false, false),
+   (2, 'noroles',  'noroles@somewhere.com',  'noroles',  '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true,  false, false, false),
+   (3, 'locked',   'locked@somewhere.com',   'locked',   '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true,  true,  false, false),
+   (4, 'expired',  'expired@somewhere.com',  'expired',  '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true,  false, true,  false),
+   (5, 'disabled', 'disabled@somewhere.com', 'disabled', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', false, false, false, false),
+   (6, 'expCreds', 'expCreds@somewhere.com', 'expCreds', '$2a$04$JXVnGr9TtIqum.vvpe/qsOyjsy2hkEVBZJEAv4NV7eQJisE4xH68a', true,  false, false, true);
 
 INSERT INTO ROLES (id, name) VALUES
    (1, 'ADMIN');
