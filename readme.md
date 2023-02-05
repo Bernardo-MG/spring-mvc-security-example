@@ -6,6 +6,15 @@ Handles user authentication, and access restrictions.
 
 Currently it only supports authenticating through the application itself, and not through external services.
 
+As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
+
+```
+mvn spring-boot:run
+```
+
+Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
+
+
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
 
@@ -44,20 +53,6 @@ mvn verify site
 ```
 
 The verify phase is required, otherwise some of the reports won't be generated.
-
-## Usage
-
-The application is coded in Java, using Maven to manage the project.
-
-### Running
-
-As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
-
-```
-mvn spring-boot:run
-```
-
-Once running it will be accessible at [http://localhost:8080/](http://localhost:8080/).
 
 ## Collaborate
 
