@@ -55,7 +55,10 @@
             Updated dependencies.
          </action>
       </release>
-      <release version="1.4.0" date="2021-02-21" description="">
+      <release version="1.4.0" date="2022-02-05" description="Security example homogenization">
+            <action dev="bmg" type="update">
+                Reworked project to make all the security examples more similar.
+            </action>
       </release>
    </body>
 </document>
