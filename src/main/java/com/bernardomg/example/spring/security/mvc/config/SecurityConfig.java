@@ -27,7 +27,6 @@ package com.bernardomg.example.spring.security.mvc.config;
 import javax.servlet.Filter;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +45,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 
 import com.bernardomg.example.spring.security.mvc.security.oauth.RegisterOAuth2UserService;
+import com.bernardomg.example.spring.security.mvc.security.property.RememberMeProperties;
 import com.bernardomg.example.spring.security.mvc.security.user.repository.PrivilegeRepository;
 import com.bernardomg.example.spring.security.mvc.security.user.repository.RoleRepository;
 import com.bernardomg.example.spring.security.mvc.security.user.repository.UserRepository;
@@ -99,9 +99,9 @@ public class SecurityConfig {
     }
 
     @Bean("rememberMeServices")
-    public RememberMeServices getRememberMeServices(@Value("${rememberme.key}") final String key,
+    public RememberMeServices getRememberMeServices(final RememberMeProperties properties,
             final UserDetailsService userDetailsService, final PersistentTokenRepository tokenRepository) {
-        return new PersistentTokenBasedRememberMeServices(key, userDetailsService, tokenRepository);
+        return new PersistentTokenBasedRememberMeServices(properties.getKey(), userDetailsService, tokenRepository);
     }
 
     @Bean("userDetailsService")
