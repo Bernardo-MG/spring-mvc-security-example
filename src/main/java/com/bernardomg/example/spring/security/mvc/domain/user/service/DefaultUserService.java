@@ -27,6 +27,7 @@ package com.bernardomg.example.spring.security.mvc.domain.user.service;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -179,13 +180,19 @@ public final class DefaultUserService implements UserService {
 
     @Override
     public final void update(final UserForm user) {
-        final PersistentUser entity;
-        final String         encodedPassword;
+        final Optional<PersistentUser> read;
+        final PersistentUser           entity;
+        final String                   encodedPassword;
 
         Objects.requireNonNull(user);
 
-        entity = userRepository.findOneByUsername(user.getUsername())
-            .get();
+        read = userRepository.findOneByUsername(user.getUsername());
+
+        if (!read.isPresent()) {
+            log.warn("User {} not found", user.getUsername());
+            throw new NoSuchElementException();
+        }
+        entity = read.get();
 
         BeanUtils.copyProperties(user, entity);
 
@@ -222,6 +229,7 @@ public final class DefaultUserService implements UserService {
             }
         } else {
             log.warn("User {} not found", userRoles.getUsername());
+            // TODO: Shouldn't throw an exception like the update?
         }
     }
 
