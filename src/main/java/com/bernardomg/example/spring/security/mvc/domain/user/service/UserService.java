@@ -49,7 +49,7 @@ public interface UserService {
      * @param user
      *            user to create
      */
-    @PreAuthorize("hasAuthority('CREATE_USER')")
+    @PreAuthorize("hasAuthority('CREATE_DATA')")
     public void create(final UserForm user);
 
     /**
@@ -59,7 +59,7 @@ public interface UserService {
      *
      * @return all the roles
      */
-    @PreAuthorize("hasAuthority('READ_USER')")
+    @PreAuthorize("hasAuthority('READ_DATA')")
     public Iterable<RoleData> getAllRoles();
 
     /**
@@ -69,7 +69,7 @@ public interface UserService {
      *
      * @return all the users
      */
-    @PreAuthorize("hasAuthority('READ_USER')")
+    @PreAuthorize("hasAuthority('READ_DATA')")
     public Iterable<UserData> getAllUsers();
 
     /**
@@ -81,7 +81,7 @@ public interface UserService {
      *            username of the user to search
      * @return roles for the user
      */
-    @PreAuthorize("hasAuthority('READ_USER')")
+    @PreAuthorize("hasAuthority('READ_DATA')")
     public Collection<RoleData> getRoles(final String username);
 
     /**
@@ -93,7 +93,7 @@ public interface UserService {
      *            username of the user to search
      * @return user for the received username
      */
-    @PreAuthorize("hasAuthority('READ_USER')")
+    @PreAuthorize("hasAuthority('READ_DATA')")
     public UserData getUser(final String username);
 
     /**
@@ -102,7 +102,7 @@ public interface UserService {
      * @param user
      *            user to update
      */
-    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    @PreAuthorize("hasAuthority('UPDATE_DATA')")
     public void update(final UserForm user);
 
     /**
@@ -111,7 +111,7 @@ public interface UserService {
      * @param userRoles
      *            user and roles to update
      */
-    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    @PreAuthorize("hasAuthority('UPDATE_DATA')")
     public void updateRoles(final UserRolesForm userRoles);
 
 }
