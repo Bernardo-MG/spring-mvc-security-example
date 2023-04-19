@@ -24,11 +24,11 @@
 
 package com.bernardomg.example.spring.security.mvc.domain.user.model.form;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.bernardomg.example.spring.security.mvc.validation.group.Creation;
 import com.bernardomg.example.spring.security.mvc.validation.group.Update;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Default implementation of the user form.
