@@ -6,22 +6,23 @@
             Example</a>
 
          <div id="navbar-icons" class="col-sm d-none d-md-block">
-            <small class="navbar-text" sec:authorize="isAuthenticated()">
+            <div sec:authorize="isAuthenticated()">
                <form th:action="@{/logout}" method="POST">
-                  <label for="logout" th:text="${#authentication?.name}">username</label>
-                  <button id="logout" type="button" class="link-secondary">
-                     <i class="fa-solid fa-right-from-bracket"></i>
-                  </button>
+                  <small class="navbar-text"> <label for="logout"
+                     th:text="${#authentication?.name}">username</label>
+                  </small> <span id="logout" class="btn btn-link link-secondary"> <i
+                     class="fa-solid fa-right-from-bracket"></i>
+                  </span>
                </form>
-            </small>
+            </div>
          </div>
          <div class="collapse navbar-collapse" id="navbar-main-menu">
             <ul class="nav navbar-nav ms-auto">
-               <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="mainDropdown" data-bs-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                           <span th:remove="tag">Pages</span>
-                        </a>
+               <li class="nav-item dropdown"><a href="#"
+                  class="nav-link dropdown-toggle" id="mainDropdown"
+                  data-bs-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false"> <span th:remove="tag">Pages</span>
+               </a>
                   <ul class="dropdown-menu dropdown-menu-end"
                      aria-labelledby="mainDropdown">
                      <li><a th:href="@{/users}" class="dropdown-item"
