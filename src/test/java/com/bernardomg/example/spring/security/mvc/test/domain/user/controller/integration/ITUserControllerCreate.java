@@ -34,7 +34,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -53,7 +52,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @MvcIntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("User controller creation operations")
 public class ITUserControllerCreate {
 
@@ -95,7 +93,7 @@ public class ITUserControllerCreate {
      * Verifies that users can be created through the controller.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
         final RequestBuilder           request; // Test request
@@ -112,11 +110,11 @@ public class ITUserControllerCreate {
 
         users = repository.findAll();
 
-        Assertions.assertEquals(7, IterableUtils.size(users));
+        Assertions.assertEquals(1, IterableUtils.size(users));
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("Empty passwords are rejected")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request

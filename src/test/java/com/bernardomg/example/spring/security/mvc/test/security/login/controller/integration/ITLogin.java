@@ -51,7 +51,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @MvcIntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("Application login")
 public final class ITLogin {
 
@@ -85,10 +84,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A disabled user redirects to the login error URL")
+    @Sql({ "/db/queries/user/disabled.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_DisabledUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("disabled")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -97,10 +97,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A disabled user fails the login")
+    @Sql({ "/db/queries/user/disabled.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_DisabledUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("disabled")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -109,10 +110,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A user with expired credentials redirects to the login error URL")
+    @Sql({ "/db/queries/user/credentials_expired.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_ExpiredCredentials_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expCreds")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -121,10 +123,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A user with expired credentials fails the login")
+    @Sql({ "/db/queries/user/credentials_expired.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_ExpiredCredentials_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expCreds")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -133,10 +136,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An expired user redirects to the login error URL")
+    @Sql({ "/db/queries/user/expired.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_ExpiredUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expired")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -145,10 +149,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An expired user fails the login")
+    @Sql({ "/db/queries/user/expired.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_ExpiredUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("expired")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -157,6 +162,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An invalid password redirects to the login error URL")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_InvalidPassword_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -169,6 +175,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An invalid password fails the login")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_InvalidPassword_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -181,6 +188,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An invalid user redirects to the login error URL")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_InvalidUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -193,6 +201,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("An invalid user fails the login")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_InvalidUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
@@ -205,10 +214,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A locked user redirects to the login error URL")
+    @Sql({ "/db/queries/user/locked.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_LockedUser_ErrorRedirect() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("locked")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -217,10 +227,11 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A locked user fails the login")
+    @Sql({ "/db/queries/user/locked.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_LockedUser_Unauthenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 
-        login = formLogin().user("locked")
+        login = formLogin().user("admin")
             .password("1111");
 
         mockMvc.perform(login)
@@ -229,6 +240,7 @@ public final class ITLogin {
 
     @Test
     @DisplayName("A valid user logs in")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public final void testLogin_ValidUser_Authenticated() throws Exception {
         final FormLoginRequestBuilder login; // Login request
 

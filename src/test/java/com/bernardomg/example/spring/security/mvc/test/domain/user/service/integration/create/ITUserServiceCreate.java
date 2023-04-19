@@ -30,7 +30,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 
 import com.bernardomg.example.spring.security.mvc.domain.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.security.mvc.domain.user.service.UserService;
@@ -45,7 +44,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("User service creation operations")
 public class ITUserServiceCreate {
 
@@ -69,7 +67,7 @@ public class ITUserServiceCreate {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() {
         final DefaultUserForm          user;  // User to save
@@ -83,7 +81,7 @@ public class ITUserServiceCreate {
 
         users = repository.findAll();
 
-        Assertions.assertEquals(7, IterableUtils.size(users));
+        Assertions.assertEquals(1, IterableUtils.size(users));
     }
 
 }

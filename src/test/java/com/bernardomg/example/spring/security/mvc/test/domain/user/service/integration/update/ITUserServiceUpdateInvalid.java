@@ -44,7 +44,7 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
+@Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
 @DisplayName("User service invalid update operations")
 public class ITUserServiceUpdateInvalid {
 
@@ -62,7 +62,7 @@ public class ITUserServiceUpdateInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "UPDATE_DATA" })
+    @WithMockUser(username = "test", authorities = { "UPDATE_DATA" })
     @DisplayName("Names can't be empty")
     public final void testUpdate() {
         final DefaultUserForm user; // User to save

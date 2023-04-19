@@ -45,7 +45,7 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
+@Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
 @DisplayName("User service invalid credentials update operations")
 public class ITUserServiceUpdateInvalidAuth {
 
@@ -70,7 +70,7 @@ public class ITUserServiceUpdateInvalidAuth {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
-        user.setUsername("noroles");
+        user.setUsername("admin");
         user.setPassword("password");
         user.setEnabled(false);
 
@@ -84,7 +84,7 @@ public class ITUserServiceUpdateInvalidAuth {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
-        user.setUsername("noroles");
+        user.setUsername("admin");
         user.setPassword("password");
         user.setEnabled(false);
 

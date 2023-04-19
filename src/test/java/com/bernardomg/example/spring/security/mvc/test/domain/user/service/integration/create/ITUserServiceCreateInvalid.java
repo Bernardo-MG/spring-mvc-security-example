@@ -44,7 +44,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("User service invalid creation operations")
 public class ITUserServiceCreateInvalid {
 
@@ -67,8 +66,9 @@ public class ITUserServiceCreateInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("Usernames can't be repeated")
+    @Sql({ "/db/queries/user/single.sql" })
     public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -83,7 +83,7 @@ public class ITUserServiceCreateInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("Null usernames are rejected")
     public final void testCreate_NoName_Exception() {
         final DefaultUserForm user; // User to save
