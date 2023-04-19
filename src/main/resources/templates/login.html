@@ -6,64 +6,69 @@
 <body>
    <header class="header" th:include="fragments/menu :: menu" />
 
-   <section id="main-section" class="container-fluid">
-      <header class="page-header">
-         <h1>Login</h1>
+   <section id="main-section" class="container flex-grow-1 py-2">
+      <header>
+         <h1 class="border-bottom">Login</h1>
       </header>
-      <article class="well">
-         <p>Try one of the following users:</p>
-         <table class="table">
-            <tr>
-               <th>Username</th>
-               <th>Password</th>
-               <th>Roles</th>
-            </tr>
-            <tr>
-               <td>admin</td>
-               <td>1234</td>
-               <td>ADMIN_ROLE</td>
-            </tr>
-            <tr>
-               <td>noread</td>
-               <td>1111</td>
-               <td></td>
-            </tr>
-         </table>
-      </article>
-      <form th:action="@{/login}" method="post" class="form-horizontal">
-         <div class="alert alert-danger" role="alert" th:if="${error}">Login
-            error</div>
-         <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">Username</label>
-            <div class="col-sm-10">
-               <input type="text" class="form-control" name="username"
-                  id="username" placeholder="Username">
+      <div class="card">
+         <div class="card-body">
+            <p>Try one of the following users:</p>
+            <table class="table">
+               <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Roles</th>
+               </tr>
+               <tr>
+                  <td>admin</td>
+                  <td>1234</td>
+                  <td>ADMIN_ROLE</td>
+               </tr>
+               <tr>
+                  <td>noread</td>
+                  <td>1111</td>
+                  <td></td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div class="col-md-4 offset-md-4">
+         <div class="card">
+            <div class="card-body">
+               <form th:action="@{/login}" method="post" class="needs-validation"
+                  novalidate>
+                  <div class="mb-2">
+                     <input placeholder="Username" type="text" name="username"
+                        id="username" class="form-control">
+                  </div>
+                  <div class="mb-2">
+                     <input placeholder="Password" type="password" name="password"
+                        id="password" class="form-control">
+                  </div>
+                  <!-- Remember me check -->
+                  <div class="row mb-2">
+                     <div class="d-flex justify-content-center">
+                        <div class="form-check form-switch mb-3 mb-md-0">
+                           <input type="checkbox" class="form-check-input"
+                              name="remember-me" id="remember-me"> <label
+                              for="rememberMe" class="form-check-label">Remember me</label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Login button -->
+                  <div class="d-grid gap-2">
+                     <button type="submit" class="btn btn-primary" aria-label="Login">Login</button>
+                  </div>
+               </form>
             </div>
          </div>
-         <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">Password</label>
-            <div class="col-sm-10">
-               <input type="password" class="form-control"
-                  name="password" id="password" placeholder="Password">
+         <div class="text-center">
+            <div>Or</div>
+            <div>
+               <a class="btn btn-primary"
+                  th:href="@{/oauth2/authorization/github}">Log in with GitHub</a>
             </div>
          </div>
-         <div class="form-group">
-            <div class="checkbox col-md-offset-2">
-               <label> <input type="checkbox" name="remember-me"
-                  id="remember-me">Remember me
-               </label>
-            </div>
-         </div>
-         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-               <button type="submit" class="btn btn-primary">Sign
-                  in</button>
-            </div>
-         </div>
-      </form>
-      <div>
-         <a th:href="@{/oauth2/authorization/github}">Log in with
-            GitHub</a>
       </div>
    </section>
 

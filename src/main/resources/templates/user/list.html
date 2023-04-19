@@ -6,19 +6,19 @@
 <body>
    <header class="header" th:include="fragments/menu :: menu" />
 
-   <section id="main-section" class="container-fluid">
-      <header class="page-header">
-         <h1>Users List</h1>
+   <section id="main-section" class="container flex-grow-1 py-2">
+      <header>
+         <h1 class="border-bottom">Users List</h1>
       </header>
-      <table class="table table-striped display">
+      <table class="table table-striped">
          <thead>
             <tr>
-               <th>Username</th>
-               <th>Roles</th>
-               <th>Enabled</th>
-               <th>Locked</th>
-               <th>Expired</th>
-               <th>Edit</th>
+               <th scope="col">Username</th>
+               <th scope="col">Roles</th>
+               <th scope="col">Enabled</th>
+               <th scope="col">Locked</th>
+               <th scope="col">Expired</th>
+               <th scope="col">Edit</th>
             </tr>
          </thead>
          <tbody>

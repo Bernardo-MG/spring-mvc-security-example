@@ -1,37 +1,33 @@
 <header th:fragment="menu">
    <nav id="navbar-main"
-      class="navbar navbar-expand-md navbar-light bg-light">
+      class="navbar navbar-expand-md navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
       <div class="container-fluid">
-         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/}">Spring MVC
-               Security Example</a>
-         </div>
+         <a class="navbar-brand" th:href="@{/}">Spring MVC Security
+            Example</a>
 
-         <div class="collapse navbar-collapse" id="navbar-main-menu">
+         <div id="navbar-icons" class="col-sm d-none d-md-block">
             <small class="navbar-text" sec:authorize="isAuthenticated()">
-               <form class="form-inline" th:action="@{/logout}"
-                  method="POST">
+               <form th:action="@{/logout}" method="POST">
                   <label for="logout" th:text="${#authentication?.name}">username</label>
-                  <button id="logout" type="submit" class="btn btn-link">
+                  <button id="logout" type="button" class="link-secondary">
                      <i class="fa-solid fa-right-from-bracket"></i>
                   </button>
                </form>
             </small>
+         </div>
+         <div class="collapse navbar-collapse" id="navbar-main-menu">
             <ul class="nav navbar-nav ms-auto">
-               <li class="nav-item dropdown"><a href="#"
-                  class="nav-link dropdown-toggle" id="examplesDropdown"
-                  data-bs-toggle="dropdown" role="button"
-                  aria-haspopup="true" aria-expanded="false"><span
-                     th:remove="tag">Pages</span> <span
-                     aria-hidden="true"></span> </a>
+               <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="mainDropdown" data-bs-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                           <span th:remove="tag">Pages</span>
+                        </a>
                   <ul class="dropdown-menu dropdown-menu-end"
-                     aria-labelledby="examplesDropdown">
-                     <li><a th:href="@{/users}"
-                        class="dropdown-item" title="Users List">Users
-                           List</a></li>
-                     <li><a th:href="@{/users/create}"
-                        class="dropdown-item" title="Add User">Add
-                           User</a></li>
+                     aria-labelledby="mainDropdown">
+                     <li><a th:href="@{/users}" class="dropdown-item"
+                        title="Users List">Users List</a></li>
+                     <li><a th:href="@{/users/create}" class="dropdown-item"
+                        title="Add User">Add User</a></li>
                   </ul></li>
             </ul>
          </div>

@@ -3,37 +3,25 @@
 <html lang="en">
 
 <head th:fragment="header">
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta charset='utf-8'>
+   <title>Spring MVC Security Example</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <!-- Metadata -->
+   <meta name="description" th:content="${pageDescription}">
+   <meta name="keywords" th:content="${pageKeywords}">
+   <meta name="author" th:content="${pageAuthor}">
 
-<!-- IE Compatibility tag -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- CSS -->
+   <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous">
+   <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<title>Spring MVC Security Example</title>
-
-<!-- Metadata -->
-<meta name="description" th:content="${pageDescription}">
-<meta name="keywords" th:content="${pageKeywords}">
-<meta name="author" th:content="${pageAuthor}">
-
-<!-- CSS -->
-<link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-   crossorigin="anonymous">
-<link rel="stylesheet"
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-   integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-   crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Custom style -->
-<link rel="stylesheet" th:href="@{/static/css/style.css}">
-
-<!-- HTML5 Shiv. For IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-    <script th:src="@{/webjars/html5shiv/html5shiv.min.js}"></script>
-    <![endif]-->
 </head>

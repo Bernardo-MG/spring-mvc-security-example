@@ -6,11 +6,11 @@
 <body>
    <header class="header" th:include="fragments/menu :: menu" />
 
-   <section id="main-section" class="container-fluid">
-      <header class="page-header">
-         <h1>Edit user</h1>
+   <section id="main-section" class="container flex-grow-1 py-2">
+      <header>
+         <h1 class="border-bottom">Edit user</h1>
       </header>
-      <section id="form" class="form-well">
+      <section id="form">
          <form action="#" th:action="@{/users/roles/update}"
             th:object="${form}" th:method="put" role="form" class="form">
             <div class="col-md-12">
