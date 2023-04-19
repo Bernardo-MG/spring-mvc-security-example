@@ -8,11 +8,13 @@
          <div id="navbar-icons" class="col-sm d-none d-md-block">
             <div sec:authorize="isAuthenticated()">
                <form th:action="@{/logout}" method="POST">
+                  <button type="submit" class="btn btn-link link-secondary"
+                     aria-label="Logout">
+                     <i class="fa-solid fa-right-from-bracket"></i>
+                  </button>
                   <small class="navbar-text"> <label for="logout"
                      th:text="${#authentication?.name}">username</label>
-                  </small> <span id="logout" class="btn btn-link link-secondary"> <i
-                     class="fa-solid fa-right-from-bracket"></i>
-                  </span>
+                  </small>
                </form>
             </div>
          </div>

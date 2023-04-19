@@ -10,6 +10,7 @@
       <header>
          <h1 class="border-bottom">Login</h1>
       </header>
+      <div class=""></div>
       <div class="card">
          <div class="card-body">
             <p>Try one of the following users:</p>
@@ -32,7 +33,7 @@
             </table>
          </div>
       </div>
-      <div class="col-md-4 offset-md-4">
+      <div class="col-md-4 offset-md-4 pt-2">
          <div class="card">
             <div class="card-body">
                <form th:action="@{/login}" method="post" class="needs-validation"
@@ -62,13 +63,14 @@
                </form>
             </div>
          </div>
-         <div class="text-center">
-            <div>Or</div>
-            <div>
-               <a class="btn btn-primary"
-                  th:href="@{/oauth2/authorization/github}">Log in with GitHub</a>
-            </div>
+      </div>
+      <div class="text-center pt-2">
+         <p>Or</p>
+         <div>
+            <a class="btn btn-primary" th:href="@{/oauth2/authorization/github}">Log
+               in with GitHub</a>
          </div>
+      </div>
       </div>
    </section>
 
