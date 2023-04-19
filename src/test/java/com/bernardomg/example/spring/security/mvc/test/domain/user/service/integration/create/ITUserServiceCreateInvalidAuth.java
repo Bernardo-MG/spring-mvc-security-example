@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 
 import com.bernardomg.example.spring.security.mvc.domain.user.model.form.DefaultUserForm;
 import com.bernardomg.example.spring.security.mvc.domain.user.service.UserService;
@@ -45,7 +44,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("User service invalid credentials creation operations")
 public class ITUserServiceCreateInvalidAuth {
 

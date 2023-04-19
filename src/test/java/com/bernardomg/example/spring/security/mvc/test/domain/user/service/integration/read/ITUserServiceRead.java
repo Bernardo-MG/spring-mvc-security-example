@@ -64,9 +64,9 @@ public class ITUserServiceRead {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "test", authorities = { "READ_DATA" })
     @DisplayName("Users can be read")
-    @Sql("/db/populate/full.sql")
+    @Sql("/db/queries/security/full.sql")
     public void testGetAllUsers() {
         final Iterable<UserData> users;
 
@@ -76,7 +76,7 @@ public class ITUserServiceRead {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "test", authorities = { "READ_DATA" })
     @DisplayName("No users are returned when there are none in the DB")
     public void testGetAllUsers_Empty() {
         final Iterable<UserData> users;
@@ -87,9 +87,9 @@ public class ITUserServiceRead {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "test", authorities = { "READ_DATA" })
     @DisplayName("Users and their privileges can be read")
-    @Sql("/db/populate/full.sql")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public void testGetAllUsers_Privileges() {
         final Iterable<UserData> users;
         final UserData           user;
@@ -116,26 +116,26 @@ public class ITUserServiceRead {
         privilege = role.getPrivileges()
             .iterator()
             .next();
-        Assertions.assertEquals("CREATE_USER", privilege.getName());
+        Assertions.assertEquals("CREATE_DATA", privilege.getName());
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "test", authorities = { "READ_DATA" })
     @DisplayName("A single user with no roles can be read")
-    @Sql("/db/populate/full.sql")
+    @Sql({ "/db/queries/user/single.sql" })
     public void testGetUser_NoRoles() {
         final UserData user;
 
-        user = service.getUser("noroles");
+        user = service.getUser("admin");
 
-        Assertions.assertEquals("noroles", user.getUsername());
+        Assertions.assertEquals("admin", user.getUsername());
         Assertions.assertTrue(IterableUtils.isEmpty(user.getRoles()));
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "test", authorities = { "READ_DATA" })
     @DisplayName("A single user with roles and no privileges can be read")
-    @Sql("/db/populate/admin_roles_no_privileges.sql")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role_no_privileges.sql" })
     public void testGetUser_Roles_NoPrivileges() {
         final UserData user;
         final RoleData role;

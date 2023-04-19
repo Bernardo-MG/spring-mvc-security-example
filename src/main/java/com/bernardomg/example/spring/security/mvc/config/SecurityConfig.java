@@ -24,13 +24,12 @@
 
 package com.bernardomg.example.spring.security.mvc.config;
 
-import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,6 +50,8 @@ import com.bernardomg.example.spring.security.mvc.security.user.repository.RoleR
 import com.bernardomg.example.spring.security.mvc.security.user.repository.UserRepository;
 import com.bernardomg.example.spring.security.mvc.security.userdetails.PersistentUserDetailsService;
 
+import jakarta.servlet.Filter;
+
 /**
  * Authentication configuration.
  *
@@ -58,7 +59,7 @@ import com.bernardomg.example.spring.security.mvc.security.userdetails.Persisten
  *
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
     public SecurityConfig() {

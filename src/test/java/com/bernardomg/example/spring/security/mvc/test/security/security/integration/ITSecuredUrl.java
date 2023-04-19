@@ -76,7 +76,7 @@ public final class ITSecuredUrl {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
+    @WithMockUser(username = "test", authorities = { "ADMIN_ROLE" })
     @DisplayName("Root allows admins")
     public final void testHome_Admin() throws Exception {
         final RequestBuilder request; // Test request
@@ -85,7 +85,7 @@ public final class ITSecuredUrl {
 
         mockMvc.perform(request)
             .andExpect(status().isOk())
-            .andExpect(authenticated().withUsername("admin"));
+            .andExpect(authenticated().withUsername("test"));
     }
 
     @Test
@@ -101,7 +101,7 @@ public final class ITSecuredUrl {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN_ROLE" })
+    @WithMockUser(username = "test", authorities = { "ADMIN_ROLE" })
     @DisplayName("Login allows admins")
     public final void testLogin_Admin() throws Exception {
         final RequestBuilder request; // Test request
@@ -110,7 +110,7 @@ public final class ITSecuredUrl {
 
         mockMvc.perform(request)
             .andExpect(status().isOk())
-            .andExpect(authenticated().withUsername("admin"));
+            .andExpect(authenticated().withUsername("test"));
     }
 
     @Test

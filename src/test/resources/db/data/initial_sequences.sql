@@ -1,7 +1,7 @@
 --
 --  The MIT License (MIT)
 --
---  Copyright (c) 2017 Bernardo Martínez Garrido
+--  Copyright (c) 2022 Bernardo Martínez Garrido
 --  
 --  Permission is hereby granted, free of charge, to any person obtaining a copy
 --  of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,10 @@
 
 
 -- ****************************************
--- This SQL script populates the initial data.
+-- This SQL script populates the initial sequences.
 -- ****************************************
 
-INSERT INTO USERS (id, name, email, username, password, enabled, locked, expired, credentials_expired) VALUES
-   (1, 'admin', 'admin@somewhere.com', 'admin', '$2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW', true, false, false, false);
-
-INSERT INTO ROLES (id, name) VALUES
-   (1, 'ADMIN');
-
-INSERT INTO PRIVILEGES (id, name) VALUES
-   (1, 'CREATE_USER'),
-   (2, 'READ_USER'),
-   (3, 'UPDATE_USER');
-
-INSERT INTO USER_ROLES (user_id, role_id) VALUES
-   (1, 1);
+INSERT INTO sequences (sequence, count) VALUES
+   ('users', 10),
+   ('roles', 10),
+   ('privileges', 10);

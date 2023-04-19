@@ -44,7 +44,7 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
+@Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
 @DisplayName("User service update operations")
 public class ITUserServiceUpdate {
 
@@ -68,20 +68,20 @@ public class ITUserServiceUpdate {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
-    @DisplayName("An authenticated user can create update users")
+    @WithMockUser(username = "test", authorities = { "UPDATE_DATA" })
+    @DisplayName("An authenticated user can update users")
     public final void testUpdate() {
         final DefaultUserForm user;    // User to save
         final PersistentUser  updated; // Updated user
 
         user = new DefaultUserForm();
-        user.setUsername("noroles");
+        user.setUsername("admin");
         user.setPassword("password");
         user.setEnabled(false);
 
         service.update(user);
 
-        updated = repository.findOneByUsername("noroles")
+        updated = repository.findOneByUsername("admin")
             .get();
 
         Assertions.assertEquals(false, updated.getEnabled());

@@ -43,7 +43,7 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
+@Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
 @DisplayName("User service invalid authentication read operations")
 public class ITUserServiceReadInvalidAuth {
 

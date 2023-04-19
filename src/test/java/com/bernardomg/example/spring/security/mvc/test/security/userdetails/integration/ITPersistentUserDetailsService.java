@@ -36,7 +36,6 @@ import org.springframework.test.context.jdbc.Sql;
 import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.IntegrationTest;
 
 @IntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("Persistent user details service user reading tests")
 public class ITPersistentUserDetailsService {
 
@@ -56,6 +55,7 @@ public class ITPersistentUserDetailsService {
 
     @Test
     @DisplayName("It is possible to read a user with authorities")
+    @Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
     public final void testGetUser_Authorities() {
         final UserDetails user;
 
@@ -68,24 +68,26 @@ public class ITPersistentUserDetailsService {
 
     @Test
     @DisplayName("It is possible to read a disabled user")
+    @Sql({ "/db/queries/user/disabled.sql", "/db/queries/security/default_role.sql" })
     public final void testGetUser_Disabled() {
         final UserDetails user;
 
-        user = service.loadUserByUsername("disabled");
+        user = service.loadUserByUsername("admin");
 
-        Assertions.assertEquals("disabled", user.getUsername());
+        Assertions.assertEquals("admin", user.getUsername());
     }
 
     @Test
     @DisplayName("It is not possible to read a user with no authorities")
+    @Sql({ "/db/queries/user/single.sql" })
     public final void testGetUser_NoAuthorities() {
-        Assertions.assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("noroles"));
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("admin"));
     }
 
     @Test
     @DisplayName("Reading a not existing user throws an exception")
     public final void testGetUser_NotExisting_Exception() {
-        Assertions.assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("abc"));
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("admin"));
     }
 
 }
