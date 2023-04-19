@@ -27,8 +27,6 @@ package com.bernardomg.example.spring.security.mvc.domain.user.controller;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,6 +48,7 @@ import com.bernardomg.example.spring.security.mvc.domain.user.service.UserServic
 import com.bernardomg.example.spring.security.mvc.validation.group.Creation;
 import com.bernardomg.example.spring.security.mvc.validation.group.Update;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
 /**

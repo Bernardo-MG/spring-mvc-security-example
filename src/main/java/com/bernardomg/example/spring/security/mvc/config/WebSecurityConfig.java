@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
@@ -60,33 +60,33 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
-        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                 formLoginCustomizer;
-        final Customizer<LogoutConfigurer<HttpSecurity>>                                                    logoutCustomizer;
-        final Customizer<RememberMeConfigurer<HttpSecurity>>                                                rememberMeCustomizer;
-        final Customizer<OAuth2LoginConfigurer<HttpSecurity>>                                               oauth2LoginCustomizer;
+        final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizeRequestsCustomizer;
+        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                        formLoginCustomizer;
+        final Customizer<LogoutConfigurer<HttpSecurity>>                                                           logoutCustomizer;
+        final Customizer<RememberMeConfigurer<HttpSecurity>>                                                       rememberMeCustomizer;
+        final Customizer<OAuth2LoginConfigurer<HttpSecurity>>                                                      oauth2LoginCustomizer;
 
         // Authorization
-        authorizeRequestsCustomizer = c -> c.antMatchers("/static/**", "/login*")
-            .permitAll()
-            .anyRequest()
-            .authenticated();
+        authorizeRequestsCustomizer = getAuthorizeRequestsCustomizer();
+
         // Login form
         formLoginCustomizer = c -> c.loginPage("/login")
             .loginProcessingUrl("/login")
             .defaultSuccessUrl("/", true)
             .failureUrl("/login?error=true");
+
         // Logout
         logoutCustomizer = c -> c.logoutUrl("/logout")
             .deleteCookies("JSESSIONID")
             .logoutSuccessUrl("/");
+
         // Remember me
         // One day
         rememberMeCustomizer = c -> c.tokenValiditySeconds(24 * 60 * 60);
         // OAUTH2
         oauth2LoginCustomizer = c -> c.loginPage("/login");
 
-        http.authorizeRequests(authorizeRequestsCustomizer)
+        http.authorizeHttpRequests(authorizeRequestsCustomizer)
             .formLogin(formLoginCustomizer)
             .logout(logoutCustomizer)
             .rememberMe(rememberMeCustomizer)
@@ -95,6 +95,19 @@ public class WebSecurityConfig {
         http.userDetailsService(userDetailsService);
 
         return http.build();
+    }
+
+    /**
+     * Returns the request authorisation configuration.
+     *
+     * @return the request authorisation configuration
+     */
+    private final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry>
+            getAuthorizeRequestsCustomizer() {
+        return c -> c.requestMatchers("/static/**", "/login*")
+            .permitAll()
+            .anyRequest()
+            .authenticated();
     }
 
 }
