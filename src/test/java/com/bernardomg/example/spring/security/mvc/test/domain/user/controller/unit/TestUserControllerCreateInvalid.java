@@ -73,7 +73,7 @@ public class TestUserControllerCreateInvalid {
     }
 
     @Test
-    @DisplayName("Invalid parameters are rejected")
+    @DisplayName("Empty passwords are rejected")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request
 
