@@ -83,7 +83,7 @@ public class TestUserControllerCreateInvalid {
 
         mockMvc.perform(request)
             .andExpect(MockMvcResultMatchers.model()
-                .attributeHasFieldErrors(UserController.PARAM_USER_FORM, "password"));
+                .attributeHasFieldErrors(UserController.PARAM_DATA_FORM, "password"));
     }
 
     /**

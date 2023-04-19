@@ -69,7 +69,7 @@ public class ITUserServiceCreate {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() {
         final DefaultUserForm          user;  // User to save

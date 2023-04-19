@@ -95,7 +95,7 @@ public class ITUserControllerCreate {
      * Verifies that users can be created through the controller.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
     @DisplayName("An authenticated user can create other users")
     public final void testCreate() throws Exception {
         final RequestBuilder           request; // Test request
@@ -116,7 +116,7 @@ public class ITUserControllerCreate {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
     @DisplayName("Empty passwords are rejected")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request

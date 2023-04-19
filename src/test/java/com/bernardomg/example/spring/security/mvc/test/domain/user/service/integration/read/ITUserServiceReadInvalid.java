@@ -60,7 +60,7 @@ public class ITUserServiceReadInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "admin", authorities = { "READ_DATA" })
     @DisplayName("A single not existing user can't be read")
     public final void testGetUser_NotExisting() {
         final UserData user;

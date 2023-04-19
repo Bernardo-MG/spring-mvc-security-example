@@ -62,7 +62,7 @@ public class ITUserServiceUpdateInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    @WithMockUser(username = "admin", authorities = { "UPDATE_DATA" })
     @DisplayName("Names can't be empty")
     public final void testUpdate() {
         final DefaultUserForm user; // User to save

@@ -76,32 +76,32 @@ public class UserController {
     /**
      * Users form param.
      */
-    public static final String PARAM_USER_FORM        = "form";
+    public static final String PARAM_DATA_FORM        = "form";
 
     /**
      * Users list param.
      */
-    public static final String PARAM_USERS            = "users";
+    public static final String PARAM_DATAS            = "users";
 
     /**
      * Users creation form view.
      */
-    public static final String VIEW_USER_CREATION     = "user/create";
+    public static final String VIEW_DATA_CREATION     = "user/create";
 
     /**
      * Users edition form view.
      */
-    public static final String VIEW_USER_EDITION      = "user/edit";
+    public static final String VIEW_DATA_EDITION      = "user/edit";
 
     /**
      * Users list view.
      */
-    public static final String VIEW_USER_LIST         = "user/list";
+    public static final String VIEW_DATA_LIST         = "user/list";
 
     /**
      * Users edition form view.
      */
-    public static final String VIEW_USER_ROLE_EDITION = "user/role/edit";
+    public static final String VIEW_DATA_ROLE_EDITION = "user/role/edit";
 
     /**
      * Users service.
@@ -113,7 +113,7 @@ public class UserController {
      *
      * @return the initial user form data
      */
-    @ModelAttribute(PARAM_USER_FORM)
+    @ModelAttribute(PARAM_DATA_FORM)
     public UserForm getUserForm() {
         return new DefaultUserForm();
     }
@@ -143,7 +143,7 @@ public class UserController {
      */
     @PostMapping("/save")
     public String saveUser(final ModelMap model,
-            @ModelAttribute(PARAM_USER_FORM) @Validated(Creation.class) final DefaultUserForm form,
+            @ModelAttribute(PARAM_DATA_FORM) @Validated(Creation.class) final DefaultUserForm form,
             final BindingResult bindingResult, final HttpServletResponse response) {
         final String path;
 
@@ -151,7 +151,7 @@ public class UserController {
             // Invalid form data
 
             // Returns to the form view
-            path = VIEW_USER_CREATION;
+            path = VIEW_DATA_CREATION;
 
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -171,7 +171,7 @@ public class UserController {
      */
     @GetMapping(path = "/create")
     public String showUserCreation() {
-        return VIEW_USER_CREATION;
+        return VIEW_DATA_CREATION;
     }
 
     /**
@@ -187,15 +187,15 @@ public class UserController {
      */
     @GetMapping(path = "/edit/{username}")
     public String showUserEdition(@PathVariable("username") final String username,
-            @ModelAttribute(PARAM_USER_FORM) final DefaultUserForm form, final ModelMap model) {
+            @ModelAttribute(PARAM_DATA_FORM) final DefaultUserForm form, final ModelMap model) {
         final UserData user;
 
         user = service.getUser(username);
         BeanUtils.copyProperties(user, form);
 
-        model.put(PARAM_USER_FORM, form);
+        model.put(PARAM_DATA_FORM, form);
 
-        return VIEW_USER_EDITION;
+        return VIEW_DATA_EDITION;
     }
 
     /**
@@ -229,10 +229,10 @@ public class UserController {
 
         allRoles = service.getAllRoles();
 
-        model.put(PARAM_USER_FORM, form);
+        model.put(PARAM_DATA_FORM, form);
         model.put(PARAM_ROLES, allRoles);
 
-        return VIEW_USER_ROLE_EDITION;
+        return VIEW_DATA_ROLE_EDITION;
     }
 
     /**
@@ -244,9 +244,9 @@ public class UserController {
      */
     @GetMapping
     public String showUsersList(final ModelMap model) {
-        model.put(PARAM_USERS, service.getAllUsers());
+        model.put(PARAM_DATAS, service.getAllUsers());
 
-        return VIEW_USER_LIST;
+        return VIEW_DATA_LIST;
     }
 
     /**
@@ -264,7 +264,7 @@ public class UserController {
      */
     @PostMapping("/update")
     public String updateUser(final ModelMap model,
-            @ModelAttribute(PARAM_USER_FORM) @Validated(Update.class) final DefaultUserForm form,
+            @ModelAttribute(PARAM_DATA_FORM) @Validated(Update.class) final DefaultUserForm form,
             final BindingResult bindingResult, final HttpServletResponse response) {
         final String path;
 
@@ -272,7 +272,7 @@ public class UserController {
             // Invalid form data
 
             // Returns to the form view
-            path = VIEW_USER_EDITION;
+            path = VIEW_DATA_EDITION;
 
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -308,7 +308,7 @@ public class UserController {
             // Invalid form data
 
             // Returns to the form view
-            path = VIEW_USER_ROLE_EDITION;
+            path = VIEW_DATA_ROLE_EDITION;
 
             // Marks the response as a bad request
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

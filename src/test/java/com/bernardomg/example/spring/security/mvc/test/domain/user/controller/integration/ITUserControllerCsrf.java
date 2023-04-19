@@ -84,7 +84,7 @@ public class ITUserControllerCsrf {
      * Verifies that users can be created through the controller.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "admin", authorities = { "CREATE_DATA" })
     @DisplayName("Requests with no CSRF are rejected")
     public final void testCreate_NoCsrf() throws Exception {
         final RequestBuilder request; // Test request

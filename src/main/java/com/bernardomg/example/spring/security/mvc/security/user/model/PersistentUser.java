@@ -45,7 +45,7 @@ import lombok.Data;
 @Data
 @Entity(name = "User")
 @Table(name = "users")
-@TableGenerator(name = "seq_users_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
+@TableGenerator(name = "seq_DATAs_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
         allocationSize = 1)
 public class PersistentUser implements Serializable {
 
@@ -83,7 +83,7 @@ public class PersistentUser implements Serializable {
      * Entity id.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_users_id")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_DATAs_id")
     @Column(name = "id", nullable = false, unique = true)
     private Long              id;
 

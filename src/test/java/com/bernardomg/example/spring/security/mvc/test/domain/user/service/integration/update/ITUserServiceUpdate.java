@@ -68,7 +68,7 @@ public class ITUserServiceUpdate {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "UPDATE_USER" })
+    @WithMockUser(username = "admin", authorities = { "UPDATE_DATA" })
     @DisplayName("An authenticated user can create update users")
     public final void testUpdate() {
         final DefaultUserForm user;    // User to save
