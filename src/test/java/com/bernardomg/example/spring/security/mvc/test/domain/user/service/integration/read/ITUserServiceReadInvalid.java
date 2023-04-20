@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 
 import com.bernardomg.example.spring.security.mvc.domain.user.model.UserData;
 import com.bernardomg.example.spring.security.mvc.domain.user.service.UserService;
@@ -42,7 +41,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("User service invalid read operations")
 public class ITUserServiceReadInvalid {
 
@@ -60,7 +58,7 @@ public class ITUserServiceReadInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "READ_USER" })
+    @WithMockUser(username = "test", authorities = { "READ_DATA" })
     @DisplayName("A single not existing user can't be read")
     public final void testGetUser_NotExisting() {
         final UserData user;

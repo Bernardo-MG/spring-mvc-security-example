@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -73,7 +73,7 @@ public class TestUserControllerCreateInvalid {
     }
 
     @Test
-    @DisplayName("Invalid parameters are accepted")
+    @DisplayName("Empty passwords are rejected")
     public final void testCreate_EmptyPassword() throws Exception {
         final RequestBuilder request; // Test request
 
@@ -83,7 +83,7 @@ public class TestUserControllerCreateInvalid {
 
         mockMvc.perform(request)
             .andExpect(MockMvcResultMatchers.model()
-                .attributeHasFieldErrors(UserController.PARAM_USER_FORM, "password"));
+                .attributeHasFieldErrors(UserController.PARAM_DATA_FORM, "password"));
     }
 
     /**

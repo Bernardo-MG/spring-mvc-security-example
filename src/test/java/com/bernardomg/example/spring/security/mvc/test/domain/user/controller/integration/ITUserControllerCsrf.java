@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -48,7 +47,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @MvcIntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("Requests with CSRF on the user controller")
 public class ITUserControllerCsrf {
 
@@ -84,7 +82,7 @@ public class ITUserControllerCsrf {
      * Verifies that users can be created through the controller.
      */
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("Requests with no CSRF are rejected")
     public final void testCreate_NoCsrf() throws Exception {
         final RequestBuilder request; // Test request

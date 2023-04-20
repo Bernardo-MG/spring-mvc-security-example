@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,11 +24,11 @@
 
 package com.bernardomg.example.spring.security.mvc.domain.user.model.form;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.bernardomg.example.spring.security.mvc.validation.group.Creation;
 import com.bernardomg.example.spring.security.mvc.validation.group.Update;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Default implementation of the user form.

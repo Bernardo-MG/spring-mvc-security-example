@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,7 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
+@Sql({ "/db/queries/user/single.sql", "/db/queries/security/default_role.sql" })
 @DisplayName("User service invalid credentials update operations")
 public class ITUserServiceUpdateInvalidAuth {
 
@@ -70,7 +70,7 @@ public class ITUserServiceUpdateInvalidAuth {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
-        user.setUsername("noroles");
+        user.setUsername("admin");
         user.setPassword("password");
         user.setEnabled(false);
 
@@ -84,7 +84,7 @@ public class ITUserServiceUpdateInvalidAuth {
         final DefaultUserForm user; // User to save
 
         user = new DefaultUserForm();
-        user.setUsername("noroles");
+        user.setUsername("admin");
         user.setPassword("password");
         user.setEnabled(false);
 

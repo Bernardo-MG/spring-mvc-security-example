@@ -1,0 +1,7 @@
+{"properties": [
+  {
+    "name": "security.rememberme.key",
+    "type": "java.lang.String",
+    "description": "Remember me seed key"
+  }
+]}

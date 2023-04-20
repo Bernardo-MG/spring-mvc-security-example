@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2017-2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,6 @@ import com.bernardomg.example.spring.security.mvc.test.configuration.annotation.
  *
  */
 @IntegrationTest
-@Sql("/db/populate/full.sql")
 @DisplayName("User service invalid creation operations")
 public class ITUserServiceCreateInvalid {
 
@@ -67,8 +66,9 @@ public class ITUserServiceCreateInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("Usernames can't be repeated")
+    @Sql({ "/db/queries/user/single.sql" })
     public final void testCreate_ExistingName_Exception() {
         final DefaultUserForm user; // User to save
 
@@ -83,7 +83,7 @@ public class ITUserServiceCreateInvalid {
     }
 
     @Test
-    @WithMockUser(username = "admin", authorities = { "CREATE_USER" })
+    @WithMockUser(username = "test", authorities = { "CREATE_DATA" })
     @DisplayName("Null usernames are rejected")
     public final void testCreate_NoName_Exception() {
         final DefaultUserForm user; // User to save

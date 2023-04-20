@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022 the original author or authors.
+ * Copyright (c) 2017-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,15 +26,14 @@ package com.bernardomg.example.spring.security.mvc.security.user.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 /**
@@ -46,7 +45,7 @@ import lombok.Data;
 @Data
 @Entity(name = "User")
 @Table(name = "users")
-@TableGenerator(name = "seq_users_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
+@TableGenerator(name = "seq_DATAs_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
         allocationSize = 1)
 public class PersistentUser implements Serializable {
 
@@ -84,7 +83,7 @@ public class PersistentUser implements Serializable {
      * Entity id.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_users_id")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_DATAs_id")
     @Column(name = "id", nullable = false, unique = true)
     private Long              id;
 

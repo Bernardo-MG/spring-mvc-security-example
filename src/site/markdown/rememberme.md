@@ -21,7 +21,7 @@ This requires generating a token and cookie to identify the user. This token is 
 </bean>
 
 <bean id="rememberMeServices" class="${rememberme.services.bean}">
-   <constructor-arg value="${rememberme.key}" />
+   <constructor-arg value="${security.rememberme.key}" />
    <constructor-arg ref="jdbcTokenRepository" />
    <constructor-arg ref="userDetailsService" />
 </bean>

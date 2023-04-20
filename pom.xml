@@ -21,7 +21,7 @@
 
    <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-mvc-security-example</artifactId>
-   <version>1.4.0</version>
+   <version>1.4.1</version>
    <packaging>war</packaging>
 
    <name>Spring MVC Security Example</name>
@@ -138,13 +138,12 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <aspectj.version>1.9.9.1</aspectj.version>
-      <bytebuddy.version>1.12.13</bytebuddy.version>
       <commons.collection.version>4.4</commons.collection.version>
       <glassfish.el.version>2.2</glassfish.el.version>
-      <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <spring.boot.version>2.7.4</spring.boot.version>
-      <spring.version>5.3.23</spring.version>
+      <hibernate.validator.version>8.0.0.Final</hibernate.validator.version>
+      <micrometer.version>1.10.6</micrometer.version>
+      <spring.boot.version>3.0.5</spring.boot.version>
+      <spring.version>6.0.8</spring.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -157,7 +156,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.3.1</site.skin.version>
+      <site.skin.version>2.3.2</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -324,34 +323,19 @@
          <artifactId>spring-boot-actuator</artifactId>
       </dependency>
       <!-- ============================================== -->
-      <!-- ================= ASPECTJ ==================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- AspectJ Runtime -->
-         <groupId>org.aspectj</groupId>
-         <artifactId>aspectjrt</artifactId>
-         <version>${aspectj.version}</version>
-      </dependency>
-      <dependency>
-         <!-- AspectJ Weaver -->
-         <groupId>org.aspectj</groupId>
-         <artifactId>aspectjweaver</artifactId>
-         <version>${aspectj.version}</version>
-      </dependency>
-      <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
       <!-- ============================================== -->
       <dependency>
          <!-- JPA API -->
-         <groupId>javax.persistence</groupId>
-         <artifactId>javax.persistence-api</artifactId>
+         <groupId>jakarta.persistence</groupId>
+         <artifactId>jakarta.persistence-api</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
       <!-- ============================================== -->
       <dependency>
          <!-- Hibernate Core -->
-         <groupId>org.hibernate</groupId>
+         <groupId>org.hibernate.orm</groupId>
          <artifactId>hibernate-core</artifactId>
       </dependency>
       <dependency>
@@ -406,16 +390,7 @@
       <!-- ============================================== -->
       <dependency>
          <groupId>org.thymeleaf.extras</groupId>
-         <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ SERVLET ===================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Servlet API -->
-         <groupId>javax.servlet</groupId>
-         <artifactId>javax.servlet-api</artifactId>
-         <scope>provided</scope>
+         <artifactId>thymeleaf-extras-springsecurity6</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOMBOK ==================== -->
@@ -492,13 +467,19 @@
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
-      <!-- =========== VERSION ENFORCEMENT ============== -->
+      <!-- ========== DEPENDENCY CONVERGENCE ============ -->
       <!-- ============================================== -->
       <dependency>
-         <!-- Byte Buddy -->
-         <groupId>net.bytebuddy</groupId>
-         <artifactId>byte-buddy</artifactId>
-         <version>${bytebuddy.version}</version>
+         <!-- Micrometer Commons -->
+         <groupId>io.micrometer</groupId>
+         <artifactId>micrometer-commons</artifactId>
+         <version>${micrometer.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Micrometer Observation -->
+         <groupId>io.micrometer</groupId>
+         <artifactId>micrometer-observation</artifactId>
+         <version>${micrometer.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
