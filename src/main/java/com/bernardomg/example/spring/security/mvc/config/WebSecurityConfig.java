@@ -24,7 +24,6 @@
 
 package com.bernardomg.example.spring.security.mvc.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -48,18 +47,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    /**
-     * User details service.
-     */
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     public WebSecurityConfig() {
         super();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http, final UserDetailsService userDetailsService)
+            throws Exception {
         final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizeRequestsCustomizer;
         final Customizer<FormLoginConfigurer<HttpSecurity>>                                                        formLoginCustomizer;
         final Customizer<LogoutConfigurer<HttpSecurity>>                                                           logoutCustomizer;

@@ -64,16 +64,6 @@ import lombok.AllArgsConstructor;
 public class UserController {
 
     /**
-     * User roles form param.
-     */
-    public static final String PARAM_ROLES            = "roles";
-
-    /**
-     * Users form param.
-     */
-    public static final String PARAM_ROLES_FORM       = "formRoles";
-
-    /**
      * Users form param.
      */
     public static final String PARAM_DATA_FORM        = "form";
@@ -82,6 +72,16 @@ public class UserController {
      * Users list param.
      */
     public static final String PARAM_DATAS            = "users";
+
+    /**
+     * User roles form param.
+     */
+    public static final String PARAM_ROLES            = "roles";
+
+    /**
+     * Users form param.
+     */
+    public static final String PARAM_ROLES_FORM       = "formRoles";
 
     /**
      * Users creation form view.
