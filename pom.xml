@@ -25,7 +25,8 @@
    <packaging>war</packaging>
 
    <name>Spring MVC Security Example</name>
-   <description>An example showing how to set up secured SOAP web services in Spring</description>
+   <description>An example showing how to set up secured SOAP web services in
+      Spring</description>
    <url>https://github.com/bernardo-mg/spring-mvc-security-example</url>
    <inceptionYear>2017</inceptionYear>
 
@@ -45,34 +46,19 @@
       <connection>scm:git:https://github.com/bernardo-mg/spring-mvc-security-example.git</connection>
       <developerConnection>scm:git:https://github.com/bernardo-mg/spring-mvc-security-example.git</developerConnection>
       <tag>head</tag>
-      <url>https://www.github.com/bernardo-mg/spring-mvc-security-example</url>
+      <url>https://github.com/bernardo-mg/spring-mvc-security-example</url>
    </scm>
 
    <issueManagement>
       <system>GitHub</system>
-      <url>https://www.github.com/bernardo-mg/spring-mvc-security-example/issues</url>
+      <url>https://github.com/bernardo-mg/spring-mvc-security-example/issues</url>
    </issueManagement>
 
    <ciManagement>
-      <system>Github workflow</system>
+      <system>Github</system>
       <url>https://github.com/bernardo-mg/spring-mvc-security-example/actions</url>
       <notifiers />
    </ciManagement>
-
-   <distributionManagement>
-      <repository>
-         <uniqueVersion>false</uniqueVersion>
-         <id>releases</id>
-         <name>Releases Repository</name>
-         <url>https://api.bintray.com/maven/bernardo-mg/maven/spring-mvc-security-example</url>
-      </repository>
-      <snapshotRepository>
-         <uniqueVersion>false</uniqueVersion>
-         <id>snapshots</id>
-         <name>Snapshots Repository</name>
-         <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      </snapshotRepository>
-   </distributionManagement>
 
    <!-- ********************************************** -->
    <!-- ****************** PROFILES ****************** -->
@@ -638,8 +624,8 @@
          </plugin>
          <plugin>
             <!-- PMD -->
-            <!-- Checks that the code complies with a series of code quality 
-               rules -->
+            <!-- Checks that the code complies with a series of code quality
+            rules -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>
