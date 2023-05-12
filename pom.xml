@@ -160,7 +160,7 @@
             <scope>import</scope>
          </dependency>
          <dependency>
-            <!-- Spring Boot BOM -->
+            <!-- Spring Boot Dependencies BOM -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
             <version>${spring.boot.version}</version>
